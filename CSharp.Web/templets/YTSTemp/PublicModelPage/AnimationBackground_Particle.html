@@ -1,0 +1,22 @@
+<script type="text/javascript" src="/assets/scripts/SpecialEffects/canvas-particle.js?<%=GetStringDatePlusRandom()%>"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        CanvasParticle({
+            vx: 4,
+            vy:  4,
+            height: 1,
+            width: 1,
+            count: 230,
+            // color: "121, 162, 185",
+            color: "255, 255, 255",
+            stroke: "100, 200, 180",
+            // stroke: "0, 0, 0",
+            dist: 6000,
+            e_dist: 20000,
+            max_conn: 10,
+            containerid: "CanvasParticleID_AnimationBg"
+        });
+    });
+</script>
+<!-- 背景动画效果 -->
+<div id="CanvasParticleID_AnimationBg" class="Main_AnimationBg"></div>

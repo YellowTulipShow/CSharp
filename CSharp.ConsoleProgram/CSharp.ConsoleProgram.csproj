@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSharp.ConsoleProgram</RootNamespace>
+    <AssemblyName>CSharp.ConsoleProgram</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Print.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestFunction.cs" />
+    <Compile Include="RunTime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSharp.LibrayDataBase\CSharp.LibrayDataBase.csproj">
+      <Project>{a1c8172c-a123-426d-bae8-a2ef3e13364d}</Project>
+      <Name>CSharp.LibrayDataBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharp.LibrayFunction\CSharp.LibrayFunction.csproj">
+      <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
+      <Name>CSharp.LibrayFunction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharp.Model\CSharp.Model.csproj">
+      <Project>{f3c794a8-22bd-40ad-99b0-b7d9f695bc10}</Project>
+      <Name>CSharp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharp.SystemService\CSharp.SystemService.csproj">
+      <Project>{4365ab63-a3cd-4cc9-805e-07fc2a470163}</Project>
+      <Name>CSharp.SystemService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharp.WebPageTemp\CSharp.WebPageTemp.csproj">
+      <Project>{c19ffa43-75ab-4bc2-abbc-c8cac5dd8973}</Project>
+      <Name>CSharp.WebPageTemp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

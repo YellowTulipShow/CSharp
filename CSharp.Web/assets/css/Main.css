@@ -1,0 +1,441 @@
+ * {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+
+	font-family: '微软雅黑','Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+	line-height: inherit;
+	text-decoration: none;
+}
+a:hover {
+	color: #de101d;
+	text-decoration: none;
+}
+
+body {
+	position: relative;
+}
+
+/*文字变红色*/
+.FontColorRed {
+	font-size: inherit;
+	font-weight: inherit;
+	color: #de101d;
+	line-height: inherit;
+}
+/*文字变白色*/
+.FontColorWhite {
+	font-size: inherit;
+	font-weight: inherit;
+	color: #fff;
+	line-height: inherit;
+}
+.FontColorRed:hover {
+	text-decoration: underline;
+}
+/*盒子阴影*/
+.box_shadow {
+	-moz-box-shadow: 1px 5px 8px #888888;
+	box-shadow: 1px 5px 8px #888888;
+}
+/*字体阴影*/
+.text_shadow {
+	/*-moz-text-shadow: 1px 5px 8px #888888;
+	text-shadow: 1px 5px 8px #888888;*/
+	text-shadow:3px 4px 2px #000000;
+}
+
+/*============================================================================================*/
+/*==========*//*首页内容开始：*//*============================================================*/
+/*============================================================================================*/
+
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+/*每一个模块的公共属性*/
+.ModulePage {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+	/*position: absolute;
+	top: 0;
+	top: 100%;
+	left: 0;
+	z-index: 0;
+	display: none;
+
+	-webkit-transition: all .4s ease-in-out .1s;
+	-moz-transition: all .4s ease-in-out .1s;
+	-ms-transition: all .4s ease-in-out .1s;
+	-o-transition: all .4s ease-in-out .1s;
+	transition: all .4s ease-in-out .1s;*/
+}
+/*.mp_show {
+	top: 0;
+	display: block;
+}*/
+
+.hide {
+	display: none;
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+}
+
+/*居中盒子的代码样式*/
+.CenterBoxFather {
+	position: relative;
+	float: right;
+	right: 50%;
+}
+	.CenterBoxSon {
+		position: relative;
+		float: left;
+		left: 50%;
+	}
+
+/*透明背景的盒子*/
+.GradientBox {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+
+/*设置能可以具有运动的盒子*/
+.TransitionBox {
+	-webkit-transition: all .3s ease-in-out 0s;
+	-moz-transition: all .3s ease-in-out 0s;
+	-ms-transition: all .3s ease-in-out 0s;
+	-o-transition: all .3s ease-in-out 0s;
+	transition: all .3s ease-in-out 0s;
+}
+
+
+/*<!-- 悬浮在最顶部的“导航栏和网站名称” -->*/
+.pub_WebNavTitle {
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: 100;
+}
+	.pubWNT_bg {
+		background-color: #000;
+		filter:alpha(opacity=80);
+		-moz-opacity:0.8;
+		-khtml-opacity: 0.8;
+		opacity: 0.8;
+	}
+	.pub_Title_Show {
+		width: auto;
+		height: 100%;
+	}
+		.pt_logo {
+			width: 50px;
+			height: 100%;
+			margin: 0px 10px;
+			/*background-color: blue;*/
+		}
+			.pt_logo img {
+				width: 100%;
+				height: auto;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+		.pt_titleName {
+			width: auto;
+			height: 100%;
+			margin-right: 100px;
+		}
+			.pt_titleName span {
+				font-size: 22px;
+				font-weight: normal;
+				color: #fff;
+			}
+		.pub_Nav_Name {
+			display: none;
+		}
+		.pub_Nav_list {
+			width: auto;
+			height: 100%;
+			overflow: hidden;
+			margin-right: 100px;
+		}
+			.pub_Nav_list li {
+				width: 80px;
+				height: 100%;
+				display: inline-block;
+				text-align: center;
+			}
+				.pub_Nav_list span {
+					font-size: 22px;
+					font-weight: normal;
+					color: #ccc;
+				}
+		.pt_telephone {
+			width: auto;
+			height: 100%;
+			overflow: hidden;
+		}
+			.ptt_icon {
+				width: 29px;
+				height: 30px;
+				margin-right: 10px;
+				margin-top: 15px;
+				float: left;
+				background-image: url("../icons/icons.png");
+				background-repeat: no-repeat;
+				background-position: 0px 0px;
+			}
+			.ptt_span {
+				width: auto;
+				height: 100%;
+				display: inline-block;
+				float: left;
+			}
+				.ptt_span span {
+					font-size: 22px;
+					font-weight: normal;
+					color: #ccc;
+				}
+
+/*<!-- 固定在浏览器右边的导航栏页面 -->*/
+.pub_RightButtonList {
+	width: 50px;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100;
+}
+	.pub_rbl_Show {
+		width: 100%;
+		height: 296px;
+		/*margin-top: 200px;*/
+		filter:alpha(opacity=90);
+		-moz-opacity:0.9;
+		-khtml-opacity: 0.9;
+		opacity: 0.9;
+	}
+		.pub_rbl_list_close {
+			margin-left: 50px;
+		}
+		.pub_rbl_list {
+			width: 50px;
+			height: 250px;
+			position: relative;
+
+			border: 1px solid #333;
+			border-right: none;
+			background-color: #111;
+
+			-moz-border-radius: 10px 0 0 10px;
+			-webkit-border-radius: 10px 0 0 10px;
+			border-radius: 10px 0 0 10px;
+
+			-webkit-transition: all .3s ease-in-out 0s;
+			-moz-transition: all .3s ease-in-out 0s;
+			-ms-transition: all .3s ease-in-out 0s;
+			-o-transition: all .3s ease-in-out 0s;
+			transition: all .3s ease-in-out 0s;
+		}
+			.pub_rbl_list li {
+				width: 100%;
+				height: 50px;
+			}
+				.pub_rbl_list li i {
+					display: block;
+					width: 100%;
+					height: 100%;
+					position: relative;
+					z-index: 200;
+					background-image: url("../icons/icons.png");
+					background-repeat: no-repeat;
+					cursor: pointer;
+					-webkit-transition: all .3s ease-in-out 0s;
+					-moz-transition: all .3s ease-in-out 0s;
+					-ms-transition: all .3s ease-in-out 0s;
+					-o-transition: all .3s ease-in-out 0s;
+					transition: all .3s ease-in-out 0s;
+				}
+				.pub_rbl_list li p {
+					display: block;
+					position: absolute;
+					top: 50px;
+					right: 0px;
+					z-index: 199;
+					padding: 15px 20px;
+					width: auto;
+					height: 120px;
+					overflow: hidden;
+					color: #fff;
+					line-height: 30px;
+					border: 1px solid #333;
+					border-right: none;
+					background: #111;
+					-moz-border-radius: 10px 0 0 10px;
+					-webkit-border-radius: 10px 0 0 10px;
+					border-radius: 10px 0 0 10px;
+					filter:alpha(opacity=0);
+					-moz-opacity:0;
+					-khtml-opacity: 0;
+					opacity: 0;
+					-webkit-transition: all .4s ease-in-out .1s;
+					-moz-transition: all .4s ease-in-out .1s;
+					-ms-transition: all .4s ease-in-out .1s;
+					-o-transition: all .4s ease-in-out .1s;
+					transition: all .4s ease-in-out .1s;
+				}
+				.pub_rbl_list .pub_rbl_li_active i {
+					filter:alpha(opacity=0.4);
+					-moz-opacity:0.4;
+					-khtml-opacity: 0.4;
+					opacity: 0.4;
+				}
+				.pub_rbl_list .pub_rbl_li_active p {
+					right: 50px;
+					filter:alpha(opacity=1);
+					-moz-opacity:1;
+					-khtml-opacity: 1;
+					opacity: 1;
+					color: #fff;
+				}
+			/*上一页按钮*/
+			.prbll_upBtn {
+			}
+				.prbll_upBtn i {
+					background-position: -63px -150px;
+				}
+			/*电话按钮*/
+			.prbll_TelBtn {
+			}
+				.prbll_TelBtn i {
+					background-position: -62px -108px;
+				}
+			/*QQ按钮*/
+			.prbll_QQBtn {
+			}
+				.prbll_QQBtn i {
+					background-position: -63px -20px;
+				}
+			/*微信按钮*/
+			.prbll_WeChatBtn {
+			}
+				.prbll_WeChatBtn i {
+					background-position: -59px -66px;
+				}
+			/*下一页按钮*/
+			.prbll_downBtn {
+			}
+				.prbll_downBtn i {
+					background-position: -63px -190px;
+				}
+		.pub_ShrinkButton {
+			width: 26px;
+			height: 26px;
+			margin-top: 18px;
+			margin-left: 12px;
+			background-image: url("../icons/icons.png");
+			background-repeat: no-repeat;
+			background-position: 0px -640px;
+			cursor: pointer;
+			
+			-webkit-transition-delay: .15s;
+			-moz-transition-delay: .15s;
+			-ms-transition-delay: .15s;
+			-o-transition-delay: .15s;
+			transition-delay: .15s;
+		}
+		.pub_ShrinkButton_off {
+			background-position: -32px -640px;
+		}
+
+
+
+
+/*<!-- 首页的body盒子 -->*/
+.MainBody {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+	.MB_ShowBox {
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		/*margin-top: -747px;*/
+		/*margin-top: -1494px;*/
+	}
+
+
+
+
+/*<!-- 个人简介的页面 -->*/
+.Introduction {
+	background-color: #ccc;
+}
+	.ParticleEffectBg {
+		width: 100%;
+		height: 100%;		
+	}
+		.peb_cas {}
+
+/*<!-- 编程程序的页面 -->*/
+.Program {
+	background-color: #f12a59;
+}
+
+/*<!-- 记事本的页面 -->*/
+.Notepad {
+	background-color: #fad674;
+}
+
+/*<!-- 网盘的页面 -->*/
+.SkyDrive {
+	background-color: #000;
+}
+
+/*<!-- 游戏的页面 -->*/
+.Game {
+	background-color: #ccc;
+}
+
+/*<!-- 音乐的页面 -->*/
+.Music {
+	background-color: #49e658;
+}
+
+/*<!-- 电影的页面 -->*/
+.Film {
+	background-color: #2aa4f1;
+}

@@ -1,0 +1,71 @@
+/**
+    背景图片样式类库: 
+*/
+    .bgi-down-dazzle  { background-image: url(/assets/images/bgimg_1.jpg); }
+    .bgi-down-meteor { background-image: url(/assets/images/bgimg_2.jpg); }
+    .bgi-lol-kehuduan { background-image: url(/assets/images/bgimg_3.jpg); }
+    .bgi-wt-wgril { background-image: url(/assets/images/bgimg_4.jpg); }
+    .bgi-lol-jikesi { background-image: url(/assets/images/bgimg_5.jpg); }
+    .bgi-lol-lakesi { background-image: url(/assets/images/bgimg_6.jpg); }
+
+    .bgi-bodyvwvh {
+        background-size: 100vw 100vh;
+        background-image: url("/assets/images/bgimg_1.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+/**
+    图标样式类库: 
+*/
+
+/*File URL: /assets/icons/icons.png */
+    .Icon-QQ-just,
+    .Icon-WeChat-just,
+    .Icon-Email-just,
+    .Icon-Tel-just {
+        background-image: url("/assets/icons/icons.png");
+        background-repeat: no-repeat;
+    }
+    .Icon-QQ-just {
+        background-position: -63px -20px;
+    }
+    .Icon-WeChat-just {
+        background-position: -59px -66px;
+    }
+    .Icon-Email-just {
+        background-position: -63px -190px;
+    }
+    .Icon-Tel-just {
+        background-position: -62px -108px;
+    }
+
+/*File URL: /assets/icons/leftrightBtn.png */
+    .Icon-leftArrow,
+    .Icon-rightArrow {
+        width: 1.1rem;
+        height: 2rem;
+        background-image: url("/assets/icons/leftrightBtn.png");
+        background-repeat: no-repeat;
+        background-size: 2.2rem;
+    }
+    .Icon-leftArrow {
+        background-position: 0rem 0rem;
+    }
+    .Icon-rightArrow {
+        background-position: -1.1rem 0rem;
+    }
+
+/*File URL: /assets/images/lol/170701kaitelinPiFu/ */
+    .content2 { min-width: 1000px; height: 712px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_2.jpg) no-repeat 50% 0; position: relative; }
+    .content3 { min-width: 1000px; height: 903px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_3.jpg) no-repeat 50% 0; position: relative; }
+    .content4 { min-width: 1000px; height: 757px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_4.jpg) no-repeat 50% 0; position: relative; }
+    .content5 { min-width: 1000px; height: 954px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_5.jpg) no-repeat 50% 0; position: relative; }
+    .content6 { min-width: 1000px; height: 1049px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_6.jpg) no-repeat 50% 0; position: relative; }
+    .content7 { min-width: 1000px; height: 1142px; background: url(/assets/images/lol/170701kaitelinPiFu/bg_7.jpg) no-repeat 50% 0; position: relative; }
+    .lolketelinarray {
+        min-width: 1000px;
+        background: url(/assets/images/lol/170701kaitelinPiFu/bg_array.jpg) no-repeat 50% 0;
+        position: relative;
+    }    

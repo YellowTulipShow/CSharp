@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<urls>
+    <rewrite name="index" type="index" page="index.aspx" inherit="WeiFen.Web.UI.Page.index" templet="index.html">
+        <item path="index.aspx" pattern="index.aspx" />
+    </rewrite>
+    <rewrite name="service" type="other" page="service.aspx" inherit="WeiFen.Web.UI.Page.service" templet="service.html">
+        <item path="service.aspx" pattern="service.aspx" />
+        <item path="service/{0}.aspx" pattern="service/(\w+).aspx" querystring="page=$1" />
+    </rewrite>
+    <rewrite name="orderdetails" type="other" page="orderdetails.aspx" inherit="WeiFen.Web.UI.Page.orderdetails" templet="orderdetails.html">
+        <item path="orderdetails.aspx" pattern="orderdetails.aspx" />
+        <item path="orderdetails/{0}.aspx" pattern="orderdetails/(\w+).aspx" querystring="orderid=$1" />
+    </rewrite>
+    <rewrite name="error" type="other" page="error.aspx" inherit="WeiFen.Web.UI.Page.error" templet="error.html" />
+    <rewrite name="cart" type="other" page="cart.aspx" inherit="WeiFen.Web.UI.Page.cart" templet="cart.html">
+        <item path="cart.aspx" pattern="cart.aspx" />
+    </rewrite>
+    <rewrite name="shopping" type="other" page="shopping.aspx" inherit="WeiFen.Web.UI.Page.shopping" templet="shopping.html">
+        <item path="shopping/{0}.aspx" pattern="shopping/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="payment" type="other" page="payment.aspx" inherit="WeiFen.Web.UI.Page.payment" templet="payment.html" />
+    <rewrite name="feedback" type="other" page="feedback.aspx" inherit="WeiFen.Web.UI.Page.feedback" templet="feedback.html" />
+    <rewrite name="login" type="other" page="login.aspx" inherit="WeiFen.Web.UI.Page.login" templet="login.html" />
+    <rewrite name="oauth_login" type="other" page="oauth_login.aspx" inherit="WeiFen.Web.UI.Page.oauth_login" templet="oauth_login.html" />
+    <rewrite name="register" type="other" page="register.aspx" inherit="WeiFen.Web.UI.Page.register" templet="register.html" />
+    <rewrite name="fans_list" type="other" page="fans_list.aspx" inherit="WeiFen.Web.UI.Page.fans_list" templet="fans_list.html" />
+    <rewrite name="authorization" type="other" page="authorization.aspx" inherit="WeiFen.Web.UI.Page.authorization" templet="authorization.html" />
+    <rewrite name="userteam" type="other" page="userteam.aspx" inherit="WeiFen.Web.UI.Page.userteam" templet="userteam.html">
+        <item path="userteam/{0}.aspx" pattern="userteam/(\w+).aspx" querystring="action=$1" />
+        <item path="userteam/{0}/{1}.aspx" pattern="userteam/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2" />
+        <item path="userteam/{0}/{1}/{2}.aspx" pattern="userteam/(\w+)/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2^page=$3" />
+    </rewrite>
+    <rewrite name="usercenter" type="other" page="usercenter.aspx" inherit="WeiFen.Web.UI.Page.usercenter" templet="usercenter.html">
+        <item path="usercenter.aspx" pattern="usercenter.aspx" />
+        <item path="user/center/{0}.aspx" pattern="user/center/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="userfans" type="other" page="userfans.aspx" inherit="WeiFen.Web.UI.Page.userfans" templet="userfans.html">
+        <item path="userfans/{0}.aspx" pattern="userfans/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="helpcenter" type="list" page="helpcenter.aspx" inherit="WeiFen.Web.UI.Page.helpcenter" templet="helpcenter.html">
+        <item path="help/center.aspx" pattern="help/center.aspx" />
+    </rewrite>
+    <rewrite name="moments" type="other" page="moments.aspx" inherit="WeiFen.Web.UI.Page.moments" templet="moments.html">
+        <item path="moments.aspx" pattern="moments.aspx" />
+        <item path="moments/{0}.aspx" pattern="moments/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="mymoments" type="other" page="mymoments.aspx" inherit="WeiFen.Web.UI.Page.mymoments" templet="mymoments.html">
+        <item path="moments/{0}/{1}.aspx" pattern="moments/(\w+)/(\w+).aspx" querystring="action=$1^uid=$2" />
+    </rewrite>
+    <rewrite name="super_msg" type="other" page="super_msg.aspx" inherit="WeiFen.Web.UI.Page.super_msg" templet="super_msg.html">
+        <item path="super_msg.aspx" pattern="super_msg.aspx" />
+        <item path="super_msg/{0}.aspx" pattern="super_msg/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="qrcode_show" type="other" page="qrcode_show.aspx" inherit="WeiFen.Web.UI.Page.qrcode_show" templet="qrcode_show.html">
+        <item path="qrcode-show-{0}.aspx" pattern="qrcode-show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="userpoint" type="other" page="userpoint.aspx" inherit="WeiFen.Web.UI.Page.userpoint" templet="userpoint.html">
+        <item path="user/point/{0}.aspx" pattern="user/point/(\w+).aspx" querystring="action=$1" />
+        <item path="user/point/{0}-{1}.aspx" pattern="user/point/(\w+)-(\w+).aspx" querystring="action=$1^page=$2" />
+    </rewrite>
+    <rewrite name="useramount" type="other" page="useramount.aspx" inherit="WeiFen.Web.UI.Page.useramount" templet="useramount.html">
+        <item path="user/amount/{0}.aspx" pattern="user/amount/(\w+).aspx" querystring="action=$1" />
+        <item path="user/amount/{0}-{1}.aspx" pattern="user/amount/(\w+)-(\w+).aspx" querystring="action=$1^page=$2" />
+    </rewrite>
+    <rewrite name="userwithdraw" type="other" page="userwithdraw.aspx" inherit="WeiFen.Web.UI.Page.userwithdraw" templet="userwithdraw.html">
+        <item path="userwithdraw.aspx" pattern="userwithdraw.aspx" />
+    </rewrite>
+    <rewrite name="useraddress" type="other" page="useraddress.aspx" inherit="WeiFen.Web.UI.Page.useraddress" templet="useraddress.html">
+        <item path="user/address.aspx" pattern="user/address.aspx" />
+        <item path="user/address-{0}.aspx" pattern="user/address-(\w+).aspx" querystring="page=$1" />
+    </rewrite>
+    <rewrite name="useraddress_edit" type="other" page="useraddress_edit.aspx" inherit="WeiFen.Web.UI.Page.useraddress_edit" templet="useraddress_edit.html">
+        <item path="user/address/{0}.aspx" pattern="user/address/(\w+).aspx" querystring="action=$1" />
+        <item path="user/address/{0}-{1}.aspx" pattern="user/address/(\w+)-(\d+).aspx" querystring="action=$1^id=$2" />
+    </rewrite>
+    <rewrite name="userorder" type="other" page="userorder.aspx" inherit="WeiFen.Web.UI.Page.userorder" templet="userorder.html">
+        <item path="user/order/{0}.aspx" pattern="user/order/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="userorder_show" type="other" page="userorder_show.aspx" inherit="WeiFen.Web.UI.Page.userorder_show" templet="userorder_show.html">
+        <item path="user/order/show-{0}.aspx" pattern="user/order/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="userorderrefund" type="index" page="userorderrefund.aspx" inherit="WeiFen.Web.UI.Page.userorderrefund" templet="userorderrefund.html">
+        <item path="userorderrefund.aspx" pattern="userorderrefund.aspx" />
+        <item path="userorderrefund/{0}.aspx" pattern="userorderrefund/(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="uservipbuy" type="other" page="uservipbuy.aspx" inherit="WeiFen.Web.UI.Page.uservipbuy" templet="uservipbuy.html">
+        <item path="user/vipbuy/{0}.aspx" pattern="user/vipbuy/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="notice_list" type="list" page="notice_list.aspx" inherit="WeiFen.Web.UI.Page.usermessage" templet="notice_list.html">
+        <item path="notice/list.aspx" pattern="notice/list.aspx" />
+    </rewrite>
+    <rewrite name="notice_show" type="detail" page="notice_show.aspx" inherit="WeiFen.Web.UI.Page.usermessage_show" templet="notice_show.html">
+        <item path="notice/show-{0}.aspx" pattern="notice/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="content" type="detail" page="content.aspx" inherit="WeiFen.Web.UI.Page.article_show" templet="content.html" channel="help">
+        <item path="content/{0}.aspx" pattern="content/(\w+).aspx" querystring="page=$1" />
+    </rewrite>
+    <rewrite name="class" type="index" page="class.aspx" inherit="WeiFen.Web.UI.Page.article" templet="class.html" channel="class">
+        <item path="class.aspx" pattern="class.aspx" />
+        <item path="class/{0}.aspx" pattern="class/(\d+).aspx" querystring="category_id=$1" />
+    </rewrite>
+    <rewrite name="class_show" type="detail" page="class_show.aspx" inherit="WeiFen.Web.UI.Page.article_show" templet="class_show.html" channel="class">
+        <item path="class/show-{0}.aspx" pattern="class/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="class_buy" type="other" page="class_buy.aspx" inherit="WeiFen.Web.UI.Page.class_buy" templet="class_buy.html">
+        <item path="class_buy.aspx" pattern="class_buy.aspx" />
+        <item path="class_buy/{0}.aspx" pattern="class_buy/(\d+).aspx" querystring="category_id=$1" />
+    </rewrite>
+    <rewrite name="news_list" type="list" page="news_list.aspx" inherit="WeiFen.Web.UI.Page.news_list" templet="news_list.html" channel="news" pagesize="10">
+        <item path="news/list.aspx" pattern="news/list.aspx" />
+        <item path="news/list_{0}.aspx" pattern="news/list_(\d+).aspx" querystring="page=$1" />
+    </rewrite>
+    <rewrite name="news_show" type="detail" page="news_show.aspx" inherit="WeiFen.Web.UI.Page.news_show" templet="news_show.html" channel="news">
+        <item path="news/show-{0}.aspx" pattern="news/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="welfare" type="list" page="welfare.aspx" inherit="WeiFen.Web.UI.Page.welfare" templet="welfare.html">
+        <item path="welfare.aspx" pattern="welfare.aspx" />
+    </rewrite>
+    <rewrite name="welfare_show" type="detail" page="welfare_show.aspx" inherit="WeiFen.Web.UI.Page.welfare_show" templet="welfare_show.html">
+        <item path="welfare/show-{0}.aspx" pattern="welfare/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="goods" type="index" page="goods.aspx" inherit="WeiFen.Web.UI.Page.article" templet="goods.html" channel="goods">
+        <item path="goods.aspx" pattern="goods.aspx" />
+    </rewrite>
+    <rewrite name="goods_show" type="detail" page="goods_show.aspx" inherit="WeiFen.Web.UI.Page.article_show" templet="goods_show.html" channel="goods">
+        <item path="goods/show/{0}.aspx" pattern="goods/show/(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="coupon" type="index" page="coupon.aspx" inherit="WeiFen.Web.UI.Page.coupon" templet="coupon.html" channel="coupon">
+        <item path="coupon.aspx" pattern="coupon.aspx" />
+    </rewrite>
+    <rewrite name="coupon_show" type="detail" page="coupon_show.aspx" inherit="WeiFen.Web.UI.Page.coupon_show" templet="coupon_show.html" channel="coupon">
+        <item path="coupon/show.aspx" pattern="coupon/show.aspx" />
+        <item path="coupon/show-{0}.aspx" pattern="coupon/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="coupon_goods" type="detail" page="coupon_goods.aspx" inherit="WeiFen.Web.UI.Page.coupon_goods" templet="coupon_goods.html" channel="coupon">
+        <item path="coupon/goods/show-{0}.aspx" pattern="coupon/goods/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="flashsale" type="index" page="flashsale.aspx" inherit="WeiFen.Web.UI.Page.flashsale" templet="flashsale.html" channel="flashsale">
+        <item path="flashsale.aspx" pattern="flashsale.aspx" />
+        <item path="flashsale/{0}.aspx" pattern="flashsale/(\d+).aspx" querystring="category_id=$1" />
+    </rewrite>
+    <rewrite name="flashsale_show" type="detail" page="flashsale_show.aspx" inherit="WeiFen.Web.UI.Page.flashsale_show" templet="flashsale_show.html" channel="flashsale">
+        <item path="flashsale/show-{0}.aspx" pattern="flashsale/show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="Main" type="index" page="Main.aspx" inherit="WeiFen.Web.UI.Page.article" templet="Main.html">
+        <item path="Main.aspx" pattern="Main.aspx" />
+    </rewrite>
+    <rewrite name="Activity" type="index" page="Activity.aspx" inherit="WeiFen.Web.UI.Page.article" templet="Activity.html">
+        <item path="Activity.aspx" pattern="Activity.aspx" />
+    </rewrite>
+    <rewrite name="ChannelClass" type="index" page="ChannelClass.aspx" inherit="WeiFen.Web.UI.Page.article" templet="ChannelClass.html">
+        <item path="ChannelClass.aspx" pattern="ChannelClass.aspx" />
+    </rewrite>
+    <rewrite name="ShoppingCar" type="index" page="ShoppingCar.aspx" inherit="WeiFen.Web.UI.Page.article" templet="ShoppingCar.html">
+        <item path="ShoppingCar.aspx" pattern="ShoppingCar.aspx" />
+    </rewrite>
+    <rewrite name="SearchProduct" type="index" page="SearchProduct.aspx" inherit="WeiFen.Web.UI.Page.article" templet="SearchProduct.html">
+        <item path="SearchProduct.aspx" pattern="SearchProduct.aspx" />
+    </rewrite>
+    <rewrite name="UserConfig" type="index" page="UserConfig.aspx" inherit="WeiFen.Web.UI.Page.usercenter" templet="UserConfig.html">
+        <item path="UserConfig.aspx" pattern="UserConfig.aspx" />
+        <item path="UserConfig/{0}.aspx" pattern="UserConfig/(\w+).aspx" querystring="action=$1" />
+    </rewrite>
+    <rewrite name="GoodsShow" type="detail" page="GoodsShow.aspx" inherit="WeiFen.Web.UI.Page.article_show" templet="GoodsShow.html" channel="goods">
+        <item path="Goods-Show-{0}.aspx" pattern="Goods-Show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="GoodsList" type="detail" page="GoodsList.aspx" inherit="WeiFen.Web.UI.Page.article_list" templet="GoodsList.html" channel="goods">
+        <item path="Goods-List-{0}.aspx" pattern="Goods-List-(\d+).aspx" querystring="category_id=$1" />
+        <item path="Goods-List-{0}.aspx" pattern="Goods-List-(\w+).aspx" querystring="keywords=$1" />
+        <item path="Goods-List-{0}-{1}.aspx" pattern="Goods-List-(\w+)-(\w+).aspx" querystring="tags=$1^temp=$2" />
+        <item path="Goods-List-{0}-{1}-{2}.aspx" pattern="Goods-List-(\w+)-(\d+)-(\d+).aspx" querystring="action=$1^favorites_type=$2^temp=$3" />
+    </rewrite>
+    <rewrite name="UserAddress" type="detail" page="UserAddress.aspx" inherit="WeiFen.Web.UI.Page.useraddress" templet="UserAddress.html" channel="goods">
+        <item path="User/Address.aspx" pattern="User/Address.aspx" />
+    </rewrite>
+    <rewrite name="BecomeVIP" type="index" page="BecomeVIP.aspx" inherit="WeiFen.Web.UI.Page.BecomeVIP" templet="BecomeVIP.html">
+        <item path="BecomeVIP.aspx" pattern="BecomeVIP.aspx" />
+        <item path="BecomeVIP/{0}.aspx" pattern="BecomeVIP/(\w+).aspx" querystring="sharer=$1" />
+    </rewrite>
+    <rewrite name="BecomeVIP_NO" type="index" page="BecomeVIP_NO.aspx" inherit="WeiFen.Web.UI.Page.helpcenter" templet="BecomeVIP_NO.html">
+        <item path="BecomeVIP_NO.aspx" pattern="BecomeVIP_NO.aspx" />
+    </rewrite>
+    <rewrite name="search" type="index" page="search.aspx" inherit="WeiFen.Web.UI.Page.search" templet="search.html">
+        <item path="search.aspx" pattern="search.aspx" />
+    </rewrite>
+    <rewrite name="headline" type="index" page="headline.aspx" inherit="WeiFen.Web.UI.Page.headline" templet="headline.html">
+        <item path="headline.aspx" pattern="headline.aspx" />
+    </rewrite>
+    <rewrite name="headline_show" type="index" page="headline_show.aspx" inherit="WeiFen.Web.UI.Page.headline_show" templet="headline_show.html">
+        <item path="headline_show.aspx" pattern="headline_show.aspx" />
+        <item path="headline-show-{0}.aspx" pattern="headline-show-(\d+).aspx" querystring="id=$1" />
+    </rewrite>
+    <rewrite name="openshop" type="index" page="openshop.aspx" inherit="WeiFen.Web.UI.Page.openshop" templet="openshop.html">
+        <item path="openshop.aspx" pattern="openshop.aspx" />
+    </rewrite>
+    <rewrite name="zhengpin" type="index" page="zhengpin.aspx" inherit="WeiFen.Web.UI.Page.zhengpin" templet="zhengpin.html">
+        <item path="zhengpin.aspx" pattern="zhengpin.aspx" />
+    </rewrite>
+    <rewrite name="yumi_scanweixin" type="index" page="yumi_scanweixin.aspx" inherit="WeiFen.Web.UI.Page.yumi_scanweixin" templet="yumi_scanweixin.html">
+        <item path="yumi_scanweixin.aspx" pattern="yumi_scanweixin.aspx" />
+    </rewrite>
+    <rewrite name="recruit" type="index" page="recruit.aspx" inherit="WeiFen.Web.UI.Page.recruit" templet="recruit.html">
+        <item path="recruit.aspx" pattern="recruit.aspx" />
+    </rewrite>
+</urls>-->
+
+<UrlArray>
+    <rewrite name="index" template="index.html" page="index.aspx" inherit="CSharp.WebLD.Page.index">
+        <item path="index/{0}.aspx" pattern="index/(\w+).aspx" querystring="action=$1" />
+        <item path="index/{0}/{1}.aspx" pattern="index/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2" />
+        <item path="index/{0}/{1}/{2}.aspx" pattern="index/(\w+)/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2^page=$3" />
+    </rewrite>
+    <rewrite name="Main" template="Main.html" page="Main.aspx" inherit="CSharp.WebLD.Page.Main">
+        <item path="Main/{0}.aspx" pattern="Main/(\w+).aspx" querystring="action=$1" />
+        <item path="Main/{0}/{1}.aspx" pattern="Main/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2" />
+        <item path="Main/{0}/{1}/{2}.aspx" pattern="Main/(\w+)/(\w+)/(\w+).aspx" querystring="action=$1^lid=$2^page=$3" />
+    </rewrite>
+</UrlArray>
+
+<!--
+    说明:
+    <UrlArray> // 根节点
+    
+    <rewrite // 重定向模板对象节点
+        name="index" // 模板对象标识名称
+        template="index.html" // 模板文件名称
+        page="index.aspx" // 生成后的模板文件名称
+        inherit="CSharp.WebLD.Page.index" // 模板继承那个Page类,用于处理后台程序
+    >
+        <item // 对应模板的具体URL重写样式
+            path="Main/{0}/{1}.aspx" // 重写样子,带参数
+            pattern="Main/(\w+)/(\w+).aspx" // 暂不明
+            querystring="action=$1^lid=$2" // 参数,传给后台的时候使用什么参数名
+        />
+-->

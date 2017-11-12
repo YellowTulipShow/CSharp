@@ -1,0 +1,346 @@
+﻿@charset "utf-8";
+
+.body {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background-size: 100vw 120vh;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/*标准盒子样式*/
+.ModelBox {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+/*< ========== ( Public公共模块部分 ) Start ========== */
+/*< ========== ( Public公共模块部分 )  End  ========== */
+
+/*< ========== ( Main首页内容 ) Start ========== */
+    /*<!-- 主页首页页面盒子模型 -->*/
+    .MainHomePageBox {
+        width: 100vw !important;
+        height: 100vh !important;
+        display: block;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .MainHomePageBoxHead {
+        width: 100vw !important;
+        height: auto;
+        display: block;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /*<!-- 中部展示内容区域 -->*/
+    .Main_StageShow {
+        width: 100%;
+        height: 75%;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+        /*<!-- 显示控制 -->*/
+        .DisplayControl {
+            display: block;
+            margin: 0 .8rem;
+        }
+            .DisplayControl:hover {
+                cursor: pointer;
+                filter: alpha(opacity=70);
+                -moz-opacity: .7;
+                opacity: .7;
+            }
+
+        /*<!-- 展示盒子 -->*/
+        .DisplayBox {
+            width: 60%;
+            height: 80%;
+            border: 2px solid #fff;
+            padding: 5vh 5vw;
+
+            -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+            .DisplayBox_Show {
+                width: 100%;
+                height: 100%;
+                position: relative;
+            }
+                .DisplayBox_Show img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    /*-moz-border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    border-radius: 50%;*/
+                }
+        
+        /*<!-- 展示数组阵列 -->*/
+        .DisplayArray {
+            width: 100%;
+            height: 90%;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+            .DisplayArray > * {
+                flex: 0 0 auto;
+            }
+            .DisplayOption {
+                width: 3rem !important;
+                height: 140px;
+                position: relative;
+                border: 4px solid #fff;
+                margin: 0 20px;
+            }
+            .DisplayOptionHover {
+                border-color: #da993c;
+                -moz-box-shadow: 1px 1px 10px #f3b358;
+                box-shadow: 1px 1px 10px #f3b358;
+            }
+                .DisplayOption img {
+                    width: 90%;
+                    height: 90%;
+                    margin: 5%;
+                }
+
+    /*<!-- 底部舞台列表白色光晕 -->*/
+    .Main_List {
+        width: 100%;
+        height: 25%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+        /*舞台站点*/
+        .StagePlatform {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+            /*白色光晕*/
+            .whiteHalo {
+                width: 120%;
+                height: 140%;
+                margin: 0 -10%;
+                background: -webkit-radial-gradient(center, farthest-side, rgba(255,255,255,.8), transparent);
+                background: -o-radial-gradient(center, farthest-side, rgba(255,255,255,.8), transparent);
+                background: -moz-radial-gradient(center, farthest-side, rgba(255,255,255,.8), transparent);
+                background: radial-gradient(center, farthest-side, rgba(255,255,255,.8), transparent);
+            }
+
+    /*<!-- 背景动画效果 -->*/
+    .Main_AnimationBg {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+/*< ========== ( Main首页内容 )  End  ========== */
+
+/*< ========== ( 单页内容 ) Start ========== */
+    .SinglePageBox {
+        width: 1000px;
+        height: auto;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+
+        background-color: #10171d;
+        margin: 0 auto;
+        padding-bottom: 2rem;
+    }
+
+    .PageTitle {
+        width: 100%;
+        text-align: center;
+        margin: 40px 0;
+    }
+        .PageTitle span {
+            font-family: '\5FAE\8F6F\96C5\9ED1';
+            font-size: 50px;
+            color: #ccbe91;
+            font-weight: bold;
+            line-height: 60px;
+        }
+
+    .Questionnaire {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        background-color: #999;
+    }
+        .Questionnaire_Table {
+            width: 100%;
+            margin: 0 auto;
+        }
+            .Questionnaire_Table table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .Questionnaire_Table table tr {
+                width: 100%;
+            }
+                .Questionnaire_Table table th,
+                .Questionnaire_Table table td {
+                    padding: 10px;
+                    border: 1px solid #316c72;
+                }
+                .Questionnaire_Table table th {
+                    width: 30%;
+                    text-align: right;
+                    background-color: #c0c0c0;
+
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #000;
+                    line-height: 24px;
+                }
+                .Questionnaire_Table table td {
+                    text-align: left;
+                }
+                .Questionnaire_Table table td input,
+                .Questionnaire_Table table td select,
+                .Questionnaire_Table table td textarea {
+                    padding: 5px;
+                    border: none;
+
+                    font-size: 18px;
+                    font-weight: normal;
+                    color: #000;
+                    line-height: 24px;
+                }
+
+                .Questionnaire_Table table td input[type="text"] {
+                    width: 80%;
+                }
+                .Questionnaire_Table table td input[type="button"] {
+                    width: 20%;
+                    border: 1px dashed #000;
+                }
+                .Questionnaire_Table table td input[type="button"]:hover {
+                    background-color: #f50008;
+                    color: #fff;
+                }
+                .Questionnaire_Table table td select {
+                    width: 25%;
+                    border: 1px dashed #000;
+                    margin-right: 1%;
+                }
+                .Questionnaire_Table table td textarea {
+                    width: 100%;
+                }
+    
+    .Profile {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        background-color: #999;
+    }
+        .Profile_Table {
+            width: 100%;
+            margin: 0 auto;
+        }
+            .Profile_Table table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+            }
+            .Profile_Table table tr {
+                /*display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;*/
+            }
+                .Profile_Table table th {
+                    /*flex: 0 0 15%;*/
+                    width: 15%;
+                }
+                .Profile_Table table td {
+                    /*flex: 0 0 15%;*/
+                    width: 25%;
+                }
+
+    .Page_Article {
+        height: 2000px;
+    }
+/*< ========== ( 单页内容 )  End  ========== */
+
+
+
+/* 页面内容盒子 */
+.PageContentBox {
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+.ParentSize {
+    width: 100%;
+    height: 100%;
+}
+
+/* 文章内容盒子 */
+.ArticleContentBox {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 10px;
+}
+    .ArticleItem {
+        display: inline-block;
+        margin: 0 20px 20px 0;
+        /*margin: 10px 10px;*/
+        /*background-color: rgb(240,240,240);*/
+        /*background-color: #fffff4;*/
+        background-color: #000;
+
+        vertical-align: top;
+
+        -moz-box-shadow: 0px 0px 7px #ffffff;
+        box-shadow: 0px 0px 7px #ffffff;
+
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+    }
+    .ArticleTitle { width: 1320px; height: 200px; }
+    .ArticleBody { width: 800px; height: 2000px; }
+    .ArticleLink { width: 500px; height: 1500px; }
+
+
+

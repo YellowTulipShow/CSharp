@@ -1,0 +1,113 @@
+<link rel="stylesheet" type="text/css" href="/assets/css/DetailNavigation.css?<%=GetStringDatePlusRandom()%>"/>
+<script type="text/javascript" charset="utf-8" src="/assets/js/DetailNavigation.js?<%=GetStringDatePlusRandom()%>"></script>
+<script type="text/javascript">
+    // 当页面加载完成后执行
+    $(document).ready(function() {
+        DetailNavigation({
+            defaultOnEvent : "click",
+            eventTriggerObject : ["#DetailNavigationID","#titleName"],
+            hideClass : "display-none",
+            hideObject: [".DeNaBu_Sign"],
+            BodyPaddingHeightObj: "#DetailNav_Header"
+        });
+    });
+</script>
+
+<div class="DetailNavigation zix-max">
+    <div class="ShadyBlack opacity-7 DeNaBu_Sign"></div>
+    <div class="DetailNavigationContentFill DeNaBu_Sign zix-0"></div>
+
+    <!-- 顶部标题内容 -->
+    <div id="DetailNav_Header" class="DetailNav_Header zix-6">
+        <div class="ShadyBlack opacity-8"></div>
+        <div class="HeaderContentBox">
+            <a id="titleName" class="HeaderLogoSign text-noneSelect">YellowTulipShow</a>
+            <div class="ButtonLinkArray">
+                <!-- <div id="DetailNavigationID" class="DetailNavButton text-noneSelect">Detail Navigation</div> -->
+                <a class="DetailNavButton text-noneSelect">User Login</a>
+                <a class="DetailNavButton text-noneSelect">Sign Up</a>
+            </div>
+        </div>
+
+        <div class="SeparateSign">
+            <div class="SeparateSign_lineFine"></div>
+            <div class="SeparateSign_lineBold"></div>
+        </div>
+    </div>
+
+    <!-- 底部备注信息内容 -->
+    <div class="DetailNav_Footer DeNaBu_Sign zix-5">
+        <div class="ShadyBlack opacity-8"></div>
+        <div class="SeparateSign">
+            <div class="SeparateSign_lineBold"></div>
+            <div class="SeparateSign_lineFine"></div>
+        </div>
+
+        <!-- 尾部内容主体 -->
+        <div class="FooterContent">
+            <p class="text-noneSelect">
+                COPYRIGHT © 2017 YellowTulipShow. ALL RIGHTS RESERVED.<br/>
+                <a href='<%linkurl("index")%>'>赵瑞青YellowTulipShow</a>&nbsp;备案信息: 鲁ICP备17033026号.
+            </p>
+        </div>
+    </div>
+
+    <!-- 侧边菜单 -->
+    <div class="DetailNav_SideMenu DeNaBu_Sign zix-7">
+        <div class="SideMenu_Box">
+            <div class="SideMenu_Array">
+                <div class="SideMenu_Option">
+                    <a href='javascript:void();' class="SideMenu_Icon Icon-Tel-just"></a>
+                    <div class="SideMenu_Content">
+                        <p>
+                            <br/>
+                            <!-- 电话(Telephone): 18563920971<br/> -->
+                            电话: 18563920971<br/>
+                        </p>
+                    </div>
+                </div>
+                <div class="SideMenu_Option">
+                    <a href='javascript:void();' class="SideMenu_Icon Icon-QQ-just"></a>
+                    <div class="SideMenu_Content">
+                        <p> 
+                            <br/>
+                            <!-- QQ号(QQ Number): 1426689530<br/>
+                            昵称(NickName): YellowTulipShow<br/> -->
+                            QQ号: 1426689530<br/>
+                            昵称: YellowTulipShow<br/>
+                        </p>
+                    </div>
+                </div>
+                <div class="SideMenu_Option">
+                    <a href='javascript:void();' class="SideMenu_Icon Icon-WeChat-just"></a>
+                    <div class="SideMenu_Content">
+                        <p>
+                            <br/>
+                            <!-- 微信号(WeChat Number): zrq1426689530<br/>
+                            昵称(NickName): YellowTulipShow<br/> -->
+                            微信号: zrq1426689530<br/>
+                            昵称: YellowTulipShow<br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 中间导航菜单栏 -->
+    <div class="DetailNav_CententNav DeNaBu_Sign zix-1">
+        <%template src="PublicModelPage/EmbossedPattern.html"%>
+        <div class="NavLinkArray">
+            <a href='<%linkurl("index")%>'>首页</a>
+        </div>
+        <div class="NavLinkArray">
+            <a href='<%linkurl("Main_Arena")%>'>客户端类型主页面</a>
+            <a href='<%linkurl("PeopleProfile")%>'>个人简介</a>
+            <a href='<%linkurl("Page_Article")%>'>页面文章内容</a>
+        </div>
+        <div class="NavLinkArray">
+            <a href='<%linkurl("Main_Module")%>'>模块类型主页面</a>
+        </div>
+    </div>
+
+</div>

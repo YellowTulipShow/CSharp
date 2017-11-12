@@ -1,0 +1,281 @@
+@charset "utf-8";
+/*
+    YTSConfig.css
+    2017/10/09 创建 作者: YellowTulipShow
+    详细导航列表样式
+*/
+body {
+    padding-top: calc(1em*2 + 1.4em + 9px) !important;
+}
+.DetailNavigation {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+    .DetailNavigationContentFill {
+        width: 100vw !important;
+        height: 100vh !important;
+        display: block;
+        position: relative;
+    }
+
+    /*<!-- 顶部标题内容 -->*/
+    .DetailNav_Header {
+        width: 100%;
+        height: auto;
+        display: block;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+        .ButtonLinkArray,
+        .HeaderContentBox {
+            /*display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;*/
+            margin: .8em 2em;
+        }
+        .HeaderContentBox {
+            /*margin: .8em 2em;*/
+        }
+            /*头部LOGO标识*/
+            .HeaderLogoSign {
+                display: inline-block;
+                
+                font-weight: normal;
+                color: #fff;
+                font-size: 1.4em;
+
+                font-style: italic;
+                font-style: oblique;
+
+                text-shadow: 1px 1px 4px #fff;
+                filter: alpha(opacity=90);
+                -moz-opacity: .9;
+                opacity: .9;
+            }
+        .ButtonLinkArray {
+            position: absolute;
+            top: 0; right: 0;
+            height: auto;
+            width: auto;
+            text-align: center;
+        }
+            .ButtonLinkArray > * {
+                display: inline-block;
+            }
+            /*详细的导航按钮*/
+            .DetailNavButton {
+                border: 3px solid #da993c;
+                padding: 4px 10px;
+                margin-left: 10px;
+
+                font-size: 16px;
+                font-weight: normal;
+                color: #f3b358;
+                text-shadow: 1px 1px 4px #f3b358;
+                line-height: 20px;
+            }
+                .DetailNavButton:active,
+                .DetailNavButton:hover {
+                    cursor: pointer;
+                    font-weight: 500;
+                    color: #f4c27a;
+                    text-shadow: 1px 1px 4px #fff;
+                    border-color: #a8690e;
+                }
+    
+    .DeNaBu_Sign {}
+
+    /*<!-- 底部备注信息内容 -->*/
+    .DetailNav_Footer {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+        .FooterContent {
+            width: 100%;
+            margin: 14px 0;
+            margin-top: 10px;
+            text-align: center;
+        }
+            .FooterContent p,
+            .FooterContent a {
+                font-size: 14px;
+                font-weight: normal;
+                color: #bfc0b0;
+                line-height: 24px;
+            }
+            .FooterContent a {
+                display: inline;
+            }
+
+        .SeparateSign {
+            width: 100%;
+            margin: 3px 0;
+        }
+            .SeparateSign_lineBold {
+                width: 80%;
+                height: 3px;
+                margin: 2px auto;
+                background-color: #ce9c5d;
+            }
+            .SeparateSign_lineFine {
+                width: 90%;
+                height: 1px;
+                margin: 2px auto;
+                background-color: #674623;
+            }
+
+    /*<!-- 侧边菜单 -->*/
+    .DetailNav_SideMenu {
+        width: auto;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+        .SideMenu_Box {
+            width: auto;
+            height: auto;
+            background-color: #222;
+
+            /*border: 1px solid #fff;*/
+            border-right-width: 0px;
+
+            -moz-border-radius: 10px 0 0 10px;
+            -webkit-border-radius: 10px 0 0 10px;
+            border-radius: 10px 0 0 10px;
+
+            -moz-box-shadow: 0px 0px 2px #111;
+            box-shadow: 0px 0px 2px #111;
+        }
+            .SideMenu_Box a {
+                display: block;
+            }
+            .SideMenu_Array {
+                width: auto;
+                height: auto;
+
+                position: relative;
+                counter-reset: SideMenuOptionCount;
+            }
+                .SideMenu_Option {
+                    margin: 10px 0;
+                    display: block;
+                    position: static;
+                    counter-increment: SideMenuOptionCount;
+                }
+                    .SideMenu_Option > img {}
+                    .SideMenu_Icon {
+                        width: 55px;
+                        height: 50px;
+                        cursor: pointer;
+                        position: relative;
+                        z-index: 2;
+                    }
+                        .SideMenu_Icon:hover {
+                            filter: alpha(opacity=70);
+                            -moz-opacity: .7;
+                            opacity: .7;
+                        }
+                    .SideMenu_Content {
+                        display: block;
+                        height: 100%;
+                        max-height: 100%;
+
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        z-index: 1;
+
+                        padding: 10px;
+                        background-color: #222;
+
+                        border-right-width: 0px;
+                        -moz-border-radius: 10px 0 0 10px;
+                        -webkit-border-radius: 10px 0 0 10px;
+                        border-radius: 10px 0 0 10px;
+
+                        -webkit-transition: all .3s ease-in-out 0s;
+                        -moz-transition: all .3s ease-in-out 0s;
+                        -ms-transition: all .3s ease-in-out 0s;
+                        -o-transition: all .3s ease-in-out 0s;
+                        transition: all .3s ease-in-out 0s;
+
+                        filter: alpha(opacity=0);
+                        -moz-opacity: 0;
+                        opacity: 0;
+                    }
+                        .SideMenu_Content > p {
+                            display: block;
+                            font-size: 16px;
+                            color: #fff;
+                            line-height: 26px;
+                            white-space: nowrap;
+                        }
+                        .SideMenu_Content > p:before {
+                            content: "Item " counter(SideMenuOptionCount);
+                        }
+                    .SideMenu_Icon:hover + .SideMenu_Content {
+                        right: 50px;
+
+                        filter: alpha(opacity=100);
+                        -moz-opacity: 1;
+                        opacity: 1;
+                    }
+    
+    /*<!-- 中间导航菜单栏 -->*/
+    .DetailNav_CententNav {
+        width: 94%;
+        height: 70%;
+        position: absolute;
+        top: 13%;
+        left: 3%;
+        /*background-color: red;*/
+
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: center;
+    }
+        .NavLinkArray {
+            margin: 0 auto;
+        }
+            .NavLinkArray a,
+            .NavLinkBlock {
+                display: block;
+                margin-left: .6rem;
+
+                font-size: .33rem;
+                font-weight: normal;
+                color: #fff;
+                line-height: .53rem;
+            }
+
+    /*浮雕 图片大小*/
+    .EmbossedPattern > img {
+        width: 200px;
+    }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<!-- ================================================================================================== -->
+	<!-- 定义配置引用的文件 -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/Main.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/SideNavigationBar.css">
+
+	<meta http-equiv="Expires" CONTENT="0"> 
+	<meta http-equiv="Cache-Control" CONTENT="no-cache"> 
+	<meta http-equiv="Pragma" CONTENT="no-cache">
+
+	<script type="text/javascript" src="/assets/scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/assets/js/ZRQWindow.js"></script>
+	<script type="text/javascript" src="/assets/js/Main.js"></script>
+	<script type="text/javascript" src="/assets/js/PagePub.js"></script>
+	<script type="text/javascript" src="/assets/js/ModulePage.js"></script>
+
+	<script type="text/javascript" src="/assets/js/SideNavigationBar.js">/*侧边的导航栏*/</script>
+	<script type="text/javascript">
+		// 引用首页Main.js的“构造函数”
+		var indexPage=new Main();
+		// 当页面加载完成后执行
+		$(document).ready(function() {
+			indexPage.MainReady();
+			$(window).resize(function() {
+				indexPage.MainResize();
+			});
+		});
+	</script>
+</head>
+<!-- ================================================================================================== -->
+<body>
+<!-- ================================================================================================== -->
+<!-- HTML开始： -->
+<!-- http://www.minev.net/ -->
+
+<!-- 悬浮在最顶部的“导航栏和网站名称” -->
+<div class="pub_WebNavTitle">
+	<div class="pubWNT_bg GradientBox"></div>
+	<div class="pub_Title_Show CenterBoxFather">
+		<div class="pt_logo CenterBoxSon">
+			<img src="/assets/images/5huizhang.png"/>
+		</div>
+		<div class="pt_titleName CenterBoxSon">
+			<a href='<%linkurl("index")%>'>
+				<span>YellowTulipShow</span>
+			</a>
+		</div>
+		<div class="pub_Nav_list CenterBoxSon">
+			<!-- <li><a href="javascirpt:void();"><span>栏目</span></a></li> -->
+		</div>
+		<div class="pt_telephone CenterBoxSon">
+			<div class="ptt_icon"></div>
+			<div class="ptt_span"><span>18563920971</span></div>
+		</div>
+	</div>
+</div>
+
+<!-- 固定在浏览器右边的导航栏页面 -->
+<div class="pub_RightButtonList">
+	<div class="pub_rbl_Show">
+		<div class="pub_rbl_list">
+			<li class="prbll_upBtn">
+				<i></i>
+			</li>
+			<li class="prbll_TelBtn">
+				<i></i>
+				<p>电话:<br/>18563920971</p>
+			</li>
+			<li class="prbll_QQBtn">
+				<i></i>
+				<p>QQ:<br/>1426689530</p>
+			</li>
+			<li class="prbll_WeChatBtn">
+				<i></i>
+				<p>微信:<br/>zrq1426689530</p>
+			</li>
+			<li class="prbll_downBtn">
+				<i></i>
+			</li>
+		</div>
+		<div class="pub_ShrinkButton"></div>
+	</div>
+</div>
+
+<!-- 首页的body盒子 -->
+<div class="MainBody">
+	<!-- 显示内容的框盒子 -->
+	<div class="MB_ShowBox">
+		<!-- 个人简介的页面 -->
+		<div class="ModulePage Introduction">
+			<div class="pub_Nav_Name"><span>简介</span></div>
+			<div class="ParticleEffectBg">
+				<canvas class="peb_cas"></canvas>
+			</div>
+		</div>
+
+		<!-- 程序的页面 -->
+		<div class="ModulePage Program">
+			<div class="pub_Nav_Name"><span>程序</span></div>
+		</div>
+
+		<!-- 记事本的页面 -->
+		<div class="ModulePage Notepad">
+			<div class="pub_Nav_Name"><span>记事本</span></div>
+		</div>
+
+		<!-- 网盘的页面 -->
+		<div class="ModulePage SkyDrive">
+			<div class="pub_Nav_Name"><span>网盘</span></div>
+		</div>
+
+		<!-- 游戏的页面 -->
+		<div class="ModulePage Game">
+			<div class="pub_Nav_Name"><span>游戏</span></div>
+		</div>
+
+		<!-- 音乐的页面 -->
+		<div class="ModulePage Music">
+			<div class="pub_Nav_Name"><span>音乐</span></div>
+		</div>
+
+		<!-- 电影的页面 -->
+		<div class="ModulePage Film">
+			<div class="pub_Nav_Name"><span>电影</span></div>
+		</div>
+	</div>
+</div>
+
+
+<!-- HTML结束 -->
+<!-- ================================================================================================== -->
+</body>
+</html>
