@@ -62,19 +62,6 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="Expression"></param>
         /// <returns></returns>
-        public static bool IsNumeric(object expression) {
-            if (expression != null)
-                return IsNumeric(expression.ToString());
-
-            return false;
-
-        }
-
-        /// <summary>
-        /// 判断对象是否为Int32类型的数字
-        /// </summary>
-        /// <param name="Expression"></param>
-        /// <returns></returns>
         public static bool IsNumeric(string expression) {
             if (expression != null) {
                 string str = expression;
@@ -1306,66 +1293,27 @@ namespace CSharp.LibrayFunction
         }
         #endregion
 
-        #region 克隆 "引用" 对象
         /// <summary>
-        /// 克隆 任意对象 (但克隆DataGridView 需调用CloneDataGridView()方法)
+        /// 判断对象是否可以转成int型
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public object CloneObject(object o) {
-            Type t = o.GetType();
-            PropertyInfo[] properties = t.GetProperties();
-            Object p = t.InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, o, null);
-            foreach (PropertyInfo pi in properties) {
-                if (pi.CanWrite) {
-                    object value = pi.GetValue(o, null);
-                    pi.SetValue(p, value, null);
-                }
+        public static bool IsNumber(object o) {
+            int tmpInt;
+            if (o == null) {
+                return false;
             }
-            return p;
+            if (o.ToString().Trim().Length == 0) {
+                return false;
+            }
+            if (!int.TryParse(o.ToString(), out tmpInt)) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
-        /// <summary>
-        /// 克隆DataGridView对象
-        /// </summary>
-        /// <param name="dgv"></param>
-        /// <returns></returns>
-        public static DataGridView CloneDataGridView(DataGridView dgv) {
-            try {
-                DataGridView ResultDGV = new DataGridView();
-                ResultDGV.ColumnHeadersDefaultCellStyle = dgv.ColumnHeadersDefaultCellStyle.Clone();
-                DataGridViewCellStyle dtgvdcs = dgv.RowsDefaultCellStyle.Clone();
-                dtgvdcs.BackColor = dgv.DefaultCellStyle.BackColor;
-                dtgvdcs.ForeColor = dgv.DefaultCellStyle.ForeColor;
-                dtgvdcs.Font = dgv.DefaultCellStyle.Font;
-                ResultDGV.RowsDefaultCellStyle = dtgvdcs;
-                ResultDGV.AlternatingRowsDefaultCellStyle = dgv.AlternatingRowsDefaultCellStyle.Clone();
-                for (int i = 0; i < dgv.Columns.Count; i++) {
-                    DataGridViewColumn DTGVC = dgv.Columns[i].Clone() as DataGridViewColumn;
-                    DTGVC.DisplayIndex = dgv.Columns[i].DisplayIndex;
-                    if (DTGVC.CellType == null) {
-                        DTGVC.CellTemplate = new DataGridViewTextBoxCell();
-                        ResultDGV.Columns.Add(DTGVC);
-                    } else {
-                        ResultDGV.Columns.Add(DTGVC);
-                    }
-                }
-                foreach (DataGridViewRow var in dgv.Rows) {
-                    DataGridViewRow Dtgvr = var.Clone() as DataGridViewRow;
-                    Dtgvr.DefaultCellStyle = var.DefaultCellStyle.Clone();
-                    for (int i = 0; i < var.Cells.Count; i++) {
-                        Dtgvr.Cells[i].Value = var.Cells[i].Value;
-                    }
-                    if (var.Index % 2 == 0)
-                        Dtgvr.DefaultCellStyle.BackColor = ResultDGV.RowsDefaultCellStyle.BackColor;
-                    ResultDGV.Rows.Add(Dtgvr);
-                }
-                return ResultDGV;
-            } finally {
-            }
-            return null;
-        }
+        #region 检查字符串
         #endregion
-
     }
 }

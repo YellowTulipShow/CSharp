@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace CSharp.LibrayFunction
 {
@@ -12,13 +13,10 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 "Object" 对象公共属性 及其值
         /// </summary>
-        public static Dictionary<string, string> GetObjectAttribute(Object obj)
-        {
-            Dictionary<string, string> dicArray = new Dictionary<string, string>();
-            Type type = obj.GetType();
-            PropertyInfo[] pis = type.GetProperties();
-            foreach (PropertyInfo pi in pis)
-            {
+        public static Dictionary<String, String> GetObjectAttribute(Object obj) {
+            Dictionary<String, String> dicArray = new Dictionary<String, String>();
+            PropertyInfo[] pis = obj.GetType().GetProperties();
+            foreach (PropertyInfo pi in pis) {
                 dicArray.Add(pi.Name, pi.GetValue(obj, null).ToString());
             }
             return dicArray;
@@ -27,13 +25,10 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 "Object" 对象公共字段 及其值
         /// </summary>
-        public static Dictionary<string, string> GetObjectField(Object obj)
-        {
-            Dictionary<string, string> dicArray = new Dictionary<string, string>();
-            Type type = obj.GetType();
-            FieldInfo[] fis = type.GetFields();
-            foreach (FieldInfo fi in fis)
-            {
+        public static Dictionary<String, String> GetObjectField(Object obj) {
+            Dictionary<String, String> dicArray = new Dictionary<String, String>();
+            FieldInfo[] fis = obj.GetType().GetFields();
+            foreach (FieldInfo fi in fis) {
                 dicArray.Add(fi.Name, fi.GetValue(obj).ToString());
             }
             return dicArray;
@@ -42,18 +37,18 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 "Object" 对象公共属性 名称列表
         /// </summary>
-        public static string[] GetObjectAttributeNames(Object obj) {
-            List<string> names = new List<string>();
-            foreach (KeyValuePair<string,string> item in GetObjectAttribute(obj)) {
+        public static String[] GetObjectAttributeNames(Object obj) {
+            List<String> names = new List<String>();
+            foreach (KeyValuePair<String, String> item in GetObjectAttribute(obj)) {
                 names.Add(item.Key);
             }
             return names.ToArray();
         }
 
         /// <summary>
-        /// 克隆 对象 公共属性属性值
+        /// 克隆 对象 公共属性属性值 (但克隆DataGridView 需调用CloneDataGridView()方法)
         /// </summary>
-        public static T CloneObjectAttribute<T>(T obj) {
+        public static T CloneObjectAttribute<T>(T obj) where T : class {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
             T model = (T)type.InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, obj, null);
@@ -64,6 +59,46 @@ namespace CSharp.LibrayFunction
                 }
             }
             return model;
+        }
+
+        /// <summary>
+        /// 克隆DataGridView对象
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <returns></returns>
+        public static DataGridView CloneDataGridView(DataGridView dgv) {
+            try {
+                DataGridView ResultDGV = new DataGridView();
+                ResultDGV.ColumnHeadersDefaultCellStyle = dgv.ColumnHeadersDefaultCellStyle.Clone();
+                DataGridViewCellStyle dtgvdcs = dgv.RowsDefaultCellStyle.Clone();
+                dtgvdcs.BackColor = dgv.DefaultCellStyle.BackColor;
+                dtgvdcs.ForeColor = dgv.DefaultCellStyle.ForeColor;
+                dtgvdcs.Font = dgv.DefaultCellStyle.Font;
+                ResultDGV.RowsDefaultCellStyle = dtgvdcs;
+                ResultDGV.AlternatingRowsDefaultCellStyle = dgv.AlternatingRowsDefaultCellStyle.Clone();
+                for (int i = 0; i < dgv.Columns.Count; i++) {
+                    DataGridViewColumn DTGVC = dgv.Columns[i].Clone() as DataGridViewColumn;
+                    DTGVC.DisplayIndex = dgv.Columns[i].DisplayIndex;
+                    if (DTGVC.CellType == null) {
+                        DTGVC.CellTemplate = new DataGridViewTextBoxCell();
+                        ResultDGV.Columns.Add(DTGVC);
+                    } else {
+                        ResultDGV.Columns.Add(DTGVC);
+                    }
+                }
+                foreach (DataGridViewRow var in dgv.Rows) {
+                    DataGridViewRow Dtgvr = var.Clone() as DataGridViewRow;
+                    Dtgvr.DefaultCellStyle = var.DefaultCellStyle.Clone();
+                    for (int i = 0; i < var.Cells.Count; i++) {
+                        Dtgvr.Cells[i].Value = var.Cells[i].Value;
+                    }
+                    if (var.Index % 2 == 0)
+                        Dtgvr.DefaultCellStyle.BackColor = ResultDGV.RowsDefaultCellStyle.BackColor;
+                    ResultDGV.Rows.Add(Dtgvr);
+                }
+                return ResultDGV;
+            } finally {
+            }
         }
     }
 }

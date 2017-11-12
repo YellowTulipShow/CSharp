@@ -14,15 +14,8 @@ namespace CSharp.ConsoleProgram
             Console.WriteLine(obj);
         }
 
-        public static bool IsRepeatExecute() {
-            WriteLine("如需重复执行, 请输入 按键 0 ! 否则退出!");
-            string v = Console.ReadLine();
-            WriteLine("====== 下一次执行内容: ======\n");
-            return (v == "0") ? true : false;
-        }
-
-        public static void EndProgram() {
-            Console.ReadLine();
+        public static String GetReadContent() {
+            return Console.ReadLine();
         }
     }
 }

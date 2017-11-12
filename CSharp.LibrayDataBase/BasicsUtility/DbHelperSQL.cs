@@ -767,8 +767,7 @@ namespace CSharp.LibrayDataBase.BasicsUtility
                         }
                         trans.Commit();
                         return count;
-                    } catch (Exception e) {
-
+                    } catch (Exception ex) {
                         trans.Rollback();
                         throw;
                     }

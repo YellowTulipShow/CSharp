@@ -27,20 +27,20 @@ namespace CSharp.Model.Table
         /// 自增ID
         /// </summary>
         public int id { set { _id = value; } get { return _id; } }
-        private int _id;
+        private int _id = 0;
 
 
         /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
-        private DateTime _timeAdd;
+        private DateTime _timeAdd = DateTime.Now;
 
 
         /// <summary>
         /// 备注
         /// </summary>
         public string Remark { get { return _remark; } set { _remark = value; } }
-        private string _remark;
+        private string _remark = String.Empty;
     }
 }
