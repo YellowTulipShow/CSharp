@@ -3,9 +3,9 @@ using System;
 
 namespace CSharp.ConsoleProgram
 {
-    public class Program
+    internal class Program
     {
-        public static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             TestMethod tFunRunTime = new TestMethod();
             tFunRunTime.AddEventHandlers(new TestMethod.EventHandler[] { TestExecute });
