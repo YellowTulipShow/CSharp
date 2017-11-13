@@ -39,7 +39,7 @@ namespace CSharp.LibrayDataBase
         /// 获得数据模型
         /// </summary>
         protected M DataModel {
-            get { return ReflexHelper.CloneObjectAttribute<M>(normativeAttributeModel); }
+            get { return ReflexHelper.CloneAllAttribute<M>(normativeAttributeModel); }
         }
 
         /// <summary>

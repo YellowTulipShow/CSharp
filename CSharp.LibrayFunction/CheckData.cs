@@ -30,5 +30,60 @@ namespace CSharp.LibrayFunction
         public static bool IsDataTableEmpty(DataTable dt) {
             return dt.Rows.Count <= 0 || IsObjectNull(dt) ? true : false;
         }
+
+        /// <summary>
+        /// 判断对象是否可以转成int型
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static bool IsNumber(object o) {
+            int tmpInt;
+            if (o == null) {
+                return false;
+            }
+            if (o.ToString().Trim().Length == 0) {
+                return false;
+            }
+            if (!int.TryParse(o.ToString(), out tmpInt)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        /// <summary>
+        /// 是否为Double类型
+        /// </summary>
+        /// <param name="expression">表达内容</param>
+        /// <returns></returns>
+        public static bool IsDouble(object expression) {
+            if (expression != null)
+                return Regex.IsMatch(expression.ToString(), @"^([0-9])[0-9]*(\.\w*)?$");
+
+            return false;
+        }
+        /// <summary>
+        /// 检测是否符合email格式
+        /// </summary>
+        /// <param name="strEmail">要判断的email字符串</param>
+        /// <returns>判断结果</returns>
+        public static bool IsValidEmail(string strEmail) {
+            return Regex.IsMatch(strEmail, @"^[\w\.]+([-]\w+)*@[A-Za-z0-9-_]+[\.][A-Za-z0-9-_]");
+        }
+        /// <summary>
+        /// 检测是否符合email格式
+        /// </summary>
+        /// <param name="strEmail">要判断的email字符串</param>
+        /// <returns>判断结果</returns>
+        public static bool IsValidDoEmail(string strEmail) {
+            return Regex.IsMatch(strEmail, @"^@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+        }
+        /// <summary>
+        /// 检测是否是正确的Url
+        /// </summary>
+        /// <param name="strUrl">要验证的Url</param>
+        /// <returns>判断结果</returns>
+        public static bool IsURL(string strUrl) {
+            return Regex.IsMatch(strUrl, @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
+        }
     }
 }
