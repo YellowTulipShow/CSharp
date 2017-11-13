@@ -14,8 +14,8 @@ namespace CSharp.SystemService
     /// </summary>
     public static class SystemLog
     {
-        private const string CONST_LOG_FOLER_PATH = "SystemLog";
-        private const string CONST_NEW_LINE_SYMBOL = "\r\n";
+        private const String CONST_LOG_FOLER_PATH = "SystemLog";
+        private const String CONST_NEW_LINE_SYMBOL = "\r\n";
 
         #region Model Data 模型数据信息
         /// <summary>
@@ -47,14 +47,14 @@ namespace CSharp.SystemService
             /// <summary>
             /// 写入日志位置
             /// </summary>
-            public string Position { get { return position; } set { position = value; } }
-            private string position = String.Empty;
+            public String Position { get { return position; } set { position = value; } }
+            private String position = String.Empty;
 
             /// <summary>
             /// 详情消息
             /// </summary>
-            public string Message { get { return message; } set { message = value; } }
-            private string message = String.Empty;
+            public String Message { get { return message; } set { message = value; } }
+            private String message = String.Empty;
 
             /// <summary>
             /// 添加时间 (默认添加当前时间)
@@ -66,9 +66,9 @@ namespace CSharp.SystemService
         /// <summary>
         /// 模型 转 字典
         /// </summary>
-        private static Dictionary<string, string> ModelToDictionary(LogModel lgModel)
+        private static Dictionary<String, String> ModelToDictionary(LogModel lgModel)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            Dictionary<String, String> dic = new Dictionary<String, String>();
             dic.Add("Type", lgModel.Type.ToString());
             dic.Add("Position", lgModel.Position.ToString());
             dic.Add("Message", lgModel.Message.ToString());
@@ -81,14 +81,14 @@ namespace CSharp.SystemService
         /// <summary>
         /// 创建日志文件才写入
         /// </summary>
-        private static string InitContentInfo()
+        private static String InitContentInfo()
         {
             LogModel logModel = new LogModel();
-            string n_time = MemberInfoGetting.Name(() => logModel.AddTime);
-            string n_type = MemberInfoGetting.Name(() => logModel.Type);
-            string n_postion = MemberInfoGetting.Name(() => logModel.Position);
-            string n_msg = MemberInfoGetting.Name(() => logModel.Message);
-
+            String n_time = ReflexHelper.Name(() => logModel.AddTime);
+            String n_type = ReflexHelper.Name(() => logModel.Type);
+            String n_postion = ReflexHelper.Name(() => logModel.Position);
+            String n_msg = ReflexHelper.Name(() => logModel.Message);
+            
             StringBuilder cont = new StringBuilder();
             cont.Append(String.Format("#Software: YellowTulipShow System {0}", CONST_NEW_LINE_SYMBOL));
             cont.Append(String.Format("#Version: 1.0 {0}", CONST_NEW_LINE_SYMBOL));
@@ -100,7 +100,7 @@ namespace CSharp.SystemService
         /// <summary>
         /// 设置内容格式
         /// </summary>
-        private static string SetContentFormat(LogModel lgModel)
+        private static String SetContentFormat(LogModel lgModel)
         {
             StringBuilder reStr = new StringBuilder();
             reStr.Append(FourSpace(lgModel.AddTime.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND)));
@@ -110,7 +110,7 @@ namespace CSharp.SystemService
             return String.Format("{0}{1}", reStr.ToString().Trim(), CONST_NEW_LINE_SYMBOL);
 
         }
-        private static string FourSpace(string value)
+        private static String FourSpace(String value)
         {
             int yu = value.Length % 4;
             StringBuilder space = new StringBuilder();
@@ -128,9 +128,9 @@ namespace CSharp.SystemService
         /// </summary>
         /// <param name="lgModel">日志的数据模型</param>
         /// <returns>写入的文件绝对路径</returns>
-        public static string Write(LogModel lgModel)
+        public static String Write(LogModel lgModel)
         {
-            string path = GetLogFilePath(lgModel.Type, DateTime.Now);
+            String path = GetLogFilePath(lgModel.Type, DateTime.Now);
             StringBuilder content = new StringBuilder();
             if (!File.Exists(path))
             {
@@ -146,7 +146,7 @@ namespace CSharp.SystemService
         /// <param name="position">出错地点</param>
         /// <param name="message">详情消息</param>
         /// <returns>写入的文件绝对路径</returns>
-        public static string Write(string position, string message)
+        public static String Write(String position, String message)
         {
             LogModel lgModel = new LogModel();
             lgModel.Type = SystemLog.LogTypeEnum.Error;
@@ -162,7 +162,7 @@ namespace CSharp.SystemService
         /// <param name="position">出错地点</param>
         /// <param name="message">详情消息</param>
         /// <returns>写入的文件绝对路径</returns>
-        public static string Write(SystemLog.LogTypeEnum type, string position, string message)
+        public static String Write(SystemLog.LogTypeEnum type, String position, String message)
         {
             LogModel lgModel = new LogModel();
             lgModel.Type = type;
@@ -177,18 +177,18 @@ namespace CSharp.SystemService
         /// <summary>
         /// 获取日志文件路径 以指定时间计算
         /// </summary>
-        private static string GetLogFilePath(LogTypeEnum typeEnum, DateTime datime)
+        private static String GetLogFilePath(LogTypeEnum typeEnum, DateTime datime)
         {
-            string folderPath = String.Empty;
-            string filePath = GeneratingPath(typeEnum, datime, out folderPath);
+            String folderPath = String.Empty;
+            String filePath = GeneratingPath(typeEnum, datime, out folderPath);
             InspectFolderPath(folderPath);
-            string path = PathHelper.ConvertToAbsolutePath(filePath);
+            String path = PathHelper.ConvertToAbsolutePath(filePath);
             return path;
         }
         /// <summary>
         /// 生成文件路径
         /// </summary>
-        private static string GeneratingPath(LogTypeEnum typeEnum, DateTime datime, out string folderPath)
+        private static String GeneratingPath(LogTypeEnum typeEnum, DateTime datime, out String folderPath)
         {
             StringBuilder FolderPath = new StringBuilder();
             FolderPath.Append(String.Format("/{0}/{1}Year-{2}Month", CONST_LOG_FOLER_PATH, datime.Year, datime.Month));
@@ -200,10 +200,10 @@ namespace CSharp.SystemService
         /// <summary>
         /// 检查文件夹是否存在
         /// </summary>
-        private static void InspectFolderPath(string folderpath)
+        private static void InspectFolderPath(String folderpath)
         {
             // 检测是否存在文件夹,以避免后面使用出现不可知错误
-            string absolutelyFolderpath = PathHelper.ConvertToAbsolutePath(folderpath);
+            String absolutelyFolderpath = PathHelper.ConvertToAbsolutePath(folderpath);
             if (!Directory.Exists(absolutelyFolderpath))
             {
                 Directory.CreateDirectory(absolutelyFolderpath);

@@ -15,7 +15,7 @@ namespace CSharp.Model
         /// 深度克隆一个数据模型对象
         /// </summary>
         public AbsBasicsDataModel CloneModelData() {
-            return ReflexHelper.CloneObjectAttribute<AbsBasicsDataModel>(this);
+            return ReflexHelper.CloneAllAttribute<AbsBasicsDataModel>(this);
         }
     }
 }

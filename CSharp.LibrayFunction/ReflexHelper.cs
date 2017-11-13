@@ -1,19 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace CSharp.LibrayFunction
 {
     /// <summary>
-    /// 反射帮助操作类
+    /// 反射操作帮助类
     /// </summary>
     public static class ReflexHelper
     {
         /// <summary>
+        /// 获取指定 "内容" 名称 用法: ***.Name(() => new ModelClass().ID)
+        /// </summary>
+        public static String Name<T>(Expression<Func<T>> memberExpression) {
+            MemberExpression expressionBody = (MemberExpression)memberExpression.Body;
+            return expressionBody.Member.Name;
+        }
+
+        /// <summary>
+        /// 获得 "Object" 对象公共属性 名称列表
+        /// </summary>
+        public static String[] AttributeNames(Object obj) {
+            List<String> names = new List<String>();
+            Dictionary<String, String> attrKeyValues = AttributeKeyValues(obj);
+            foreach (KeyValuePair<String, String> item in attrKeyValues) {
+                names.Add(item.Key);
+            }
+            return names.ToArray();
+        }
+
+        /// <summary>
         /// 获得 "Object" 对象公共属性 及其值
         /// </summary>
-        public static Dictionary<String, String> GetObjectAttribute(Object obj) {
+        public static Dictionary<String, String> AttributeKeyValues(Object obj) {
             Dictionary<String, String> dicArray = new Dictionary<String, String>();
             PropertyInfo[] pis = obj.GetType().GetProperties();
             foreach (PropertyInfo pi in pis) {
@@ -25,7 +46,7 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 "Object" 对象公共字段 及其值
         /// </summary>
-        public static Dictionary<String, String> GetObjectField(Object obj) {
+        public static Dictionary<String, String> FieldKeyValues(Object obj) {
             Dictionary<String, String> dicArray = new Dictionary<String, String>();
             FieldInfo[] fis = obj.GetType().GetFields();
             foreach (FieldInfo fi in fis) {
@@ -35,20 +56,9 @@ namespace CSharp.LibrayFunction
         }
 
         /// <summary>
-        /// 获得 "Object" 对象公共属性 名称列表
-        /// </summary>
-        public static String[] GetObjectAttributeNames(Object obj) {
-            List<String> names = new List<String>();
-            foreach (KeyValuePair<String, String> item in GetObjectAttribute(obj)) {
-                names.Add(item.Key);
-            }
-            return names.ToArray();
-        }
-
-        /// <summary>
         /// 克隆 对象 公共属性属性值 (但克隆DataGridView 需调用CloneDataGridView()方法)
         /// </summary>
-        public static T CloneObjectAttribute<T>(T obj) where T : class {
+        public static T CloneAllAttribute<T>(T obj) where T : class {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
             T model = (T)type.InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, obj, null);

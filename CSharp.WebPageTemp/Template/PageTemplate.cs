@@ -153,7 +153,7 @@ namespace CSharp.WebPageTemp.Template
                     {
                         constStr.Append("\r\n\tconst string channel = \"" + channelName + "\";");
                     }
-                    if (pageSize != string.Empty && Utils.StrToInt(pageSize, 0) > 0)
+                    if (pageSize != string.Empty && ConvertTool.StrToInt(pageSize, 0) > 0)
                     {
                         constStr.Append("\r\n\tconst int pagesize = " + pageSize + ";");
                     }

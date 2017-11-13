@@ -47,7 +47,7 @@ namespace CSharp.WebPageTemp.Page
         /// <returns>结果</returns>
         public string GetStringDatePlusRandom()
         {
-            return ConvertTool.ToString(DateTime.Now.Year, DateTime.Now.Second, new Random().Next(DateTime.Now.Millisecond));
+            return ConvertTool.CombinationContent(DateTime.Now.Year, DateTime.Now.Second, new Random().Next(DateTime.Now.Millisecond));
         }
         #endregion
     }

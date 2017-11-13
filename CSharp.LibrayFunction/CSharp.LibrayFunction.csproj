@@ -58,7 +58,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LFConsts.cs" />
-    <Compile Include="MemberInfoGetting.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="PagingHelper.cs" />
