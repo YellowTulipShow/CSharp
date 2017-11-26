@@ -46,6 +46,8 @@ namespace CSharp.LibrayDataBase
         string SQLStringModelAdd(M model);
 
         string SQLStringModelUpdate(int id, M Model);
+
+        string SQLStringModelDelete(int id);
         #endregion
     }
 }

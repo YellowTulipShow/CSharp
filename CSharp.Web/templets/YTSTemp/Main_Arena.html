@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <%template src="configFolder/_headConfigInfo.html"%>
+    <link rel="stylesheet" type="text/css" href="/assets/css/YTSMainPage.css?<%=GetStringDatePlusRandom()%>">
     <script type="text/javascript">
         $(document).ready(function() {});
     </script>
@@ -16,61 +17,41 @@
             <%template src="PublicModelPage/AnimationBackground_Particle.html"%>
         </div>
         
-        <!-- <div class="MainHomePageBox zix-1"> -->
-        <div class="PageContentBox zix-1 ParentSize">
-            <!-- 中部展示内容区域 -->
-            <div class="Main_StageShow zix-2">
-                <a id="DisplayLeftControl" class="DisplayControl Icon-leftArrow"></a>
-
-                <!-- 展示盒子 -->
-                <div class="DisplayBox">
-                    <div class="ShadyWhite opacity-4"></div>
-                    <!-- <script type="text/javascript" charset="utf-8" src="/assets/js/MainSelectDisplayOption.js?<%=GetStringDatePlusRandom()%>"></script> -->
+        <!-- 首页区域选择入口: -->
+        <div class="MainRegionSelectEntrance fixed bottom-left-0 zix-1">
+            <div class="MainRegionSelectEntrance_SideButton absolute bottom-left-0 zix-2">
+                <div class="bg_gradient_box absolute bottom-left-0 zix-f1">
+                    <img class="flipx" src="/assets/images/hover_left.png"/>
                 </div>
-
-                <a id="DisplayRightControl" class="DisplayControl Icon-rightArrow"></a>
+                <div class="topbox"></div>
+                <div class="button iconfont icon-arrow-right"></div>
             </div>
-
-            <!-- 底部舞台列表白色光晕 -->
-            <div class="Main_List zix-1">
-                <!-- 舞台站点 -->
-                <div class="StagePlatform">
-                    <!-- 白色光晕 -->
-                    <div class="whiteHalo"></div>
-                </div>
-
-                <!-- <script type="text/javascript" charset="utf-8" src="/assets/js/AdaptiveHeightOfBoxBasedOnWidth.js?<%=GetStringDatePlusRandom()%>"></script> -->
-                <!-- 展示数组阵列 -->
-                <div class="DisplayArray">
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/banner1.jpg"/> -->
+            <div class="MainRegionSelectEntrance_Content absolute bottom-left-0 zix-1">
+                <div class="SelectArray text-noneSelect">
+                    <div class="Option">
+                        <div class="topbox"></div>
+                        <div class="Icon_SignIMG">
+                            <img class="border-radius-50" src="/assets/images/TopHead.jpg"/>
+                        </div>
+                        <div class="txtShow_Link">
+                            <a href="javascript:void();">站长简介</a>
+                        </div>
                     </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/bgimg_2.jpg"/> -->
-                    </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/bgimg_3.jpg"/> -->
-                    </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/bgimg_4.jpg"/> -->
-                    </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/bgimg_5.jpg"/> -->
-                    </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/5huizhang.png"/> -->
-                    </div>
-                    <div class="DisplayOption">
-                        <div class="ShadyWhite opacity-4"></div>
-                        <!-- <img src="/assets/images/bgimg_6.jpg"/> -->
+                    <div class="Option">
+                        <div class="topbox"></div>
+                        <div class="Icon_SignIMG icon iconfont icon-setting"></div>
+                        <div class="txtShow_Link">
+                            <a href="javascript:void();">系统设置</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="MainRegionSelectEntrance_SideButton absolute bottom-right-0 zix-2">
+                <div class="bg_gradient_box absolute bottom-left-0 zix-f1">
+                    <img src="/assets/images/hover_left.png"/>
+                </div>
+                <div class="topbox"></div>
+                <div class="button iconfont icon-arrow-left"></div>
             </div>
         </div>
     </div>

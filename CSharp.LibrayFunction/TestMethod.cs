@@ -34,7 +34,6 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 执行事件处理程序
         /// </summary>
-        /// <returns></returns>
         public void ExecuteEventHandler() {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); // 开始

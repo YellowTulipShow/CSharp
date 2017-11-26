@@ -4,9 +4,9 @@
     display: block;
     overflow: hidden;
     position: relative;
-    background-size: 100vw 120vh;
+    /*background-size: 100vw 120vh;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;*/
 }
 
 /*标准盒子样式*/

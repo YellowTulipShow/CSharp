@@ -7,6 +7,9 @@
 body {
     padding-top: calc(1em*2 + 1.4em + 9px) !important;
 }
+body > * {
+    min-height: calc(100% - 1em*2 + 1.4em + 9px);
+}
 .DetailNavigation {
     width: 100%;
     height: auto;
@@ -277,5 +280,5 @@ body {
 
     /*浮雕 图片大小*/
     .EmbossedPattern > img {
-        width: 200px;
+        width: 6em;
     }
