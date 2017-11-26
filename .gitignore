@@ -8,6 +8,7 @@
 */App.config
 
 # User-specific files
+/aspx/*
 SqlBackup/*
 *.suo
 *.user

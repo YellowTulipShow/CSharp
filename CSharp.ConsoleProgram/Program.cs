@@ -8,16 +8,14 @@ namespace CSharp.ConsoleProgram
         internal static void Main(string[] args)
         {
             TestMethod tFunRunTime = new TestMethod();
-            tFunRunTime.AddEventHandlers(new TestMethod.EventHandler[] { TestExecute });
+            tFunRunTime.AddEventHandlers(new TestMethod.EventHandler[] {
+                new TestFunction().Init
+            });
 
             ShowExecuteTime(tFunRunTime);
             while (IsRepeatExecute()) {
                 ShowExecuteTime(tFunRunTime);
             }
-        }
-
-        private static void TestExecute() {
-            new TestFunction().Init();
         }
 
         private static bool IsRepeatExecute() {

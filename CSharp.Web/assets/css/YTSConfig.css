@@ -15,7 +15,6 @@
     -webkit-tap-highlight-color: transparent;
     font-family: "微软雅黑",Arial,Helvetica,STHeiTi,sans-serif;
     white-space: initial;
-
 }   /* Global Settings ~~~ */
     html { -webkit-text-size-adjust: none; overflow-y: scroll; }
     a { text-decoration: none; }

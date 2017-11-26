@@ -337,6 +337,15 @@ namespace CSharp.LibrayDataBase
         }
 
         /// <summary>
+        /// 获得 删除ID记录模型 SQL字符串
+        /// </summary>
+        /// <param name="id">记录ID</param>
+        /// <returns></returns>
+        public string SQLStringModelDelete(int id) {
+            return String.Format("delete from {0} where id = '{1}'", TableName, id.ToString());
+        }
+
+        /// <summary>
         /// 获得更新数据SQL字符串
         /// </summary>
         /// <param name="id">更新条件数据ID号</param>
@@ -370,5 +379,7 @@ namespace CSharp.LibrayDataBase
             return strSql.ToString();
         }
         #endregion
+
+
     }
 }
