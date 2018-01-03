@@ -47,6 +47,10 @@
     <Compile Include="TestFunction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSharp.ApplicationData\CSharp.ApplicationData.csproj">
+      <Project>{be14b230-d20b-49fc-aaf2-584d20a8d53d}</Project>
+      <Name>CSharp.ApplicationData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CSharp.LibrayDataBase\CSharp.LibrayDataBase.csproj">
       <Project>{a1c8172c-a123-426d-bae8-a2ef3e13364d}</Project>
       <Name>CSharp.LibrayDataBase</Name>
@@ -54,10 +58,6 @@
     <ProjectReference Include="..\CSharp.LibrayFunction\CSharp.LibrayFunction.csproj">
       <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
       <Name>CSharp.LibrayFunction</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CSharp.Model\CSharp.Model.csproj">
-      <Project>{f3c794a8-22bd-40ad-99b0-b7d9f695bc10}</Project>
-      <Name>CSharp.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\CSharp.SystemService\CSharp.SystemService.csproj">
       <Project>{4365ab63-a3cd-4cc9-805e-07fc2a470163}</Project>

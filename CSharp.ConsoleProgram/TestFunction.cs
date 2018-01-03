@@ -1,14 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Collections;
+using System.Reflection;
 using System.Collections.Generic;
-using CSharp.LibrayDataBase;
+
 using CSharp.LibrayFunction;
-using CSharp.SystemService;
-using CSharp.Model;
+using CSharp.LibrayDataBase;
+using CSharp.ApplicationData;
 
 namespace CSharp.ConsoleProgram
 {
@@ -17,103 +13,49 @@ namespace CSharp.ConsoleProgram
         public TestFunction() { }
 
         public void Init() {
-            TestJsonHelperJson();
+            TestSQLServerBasicDALDefaultModel();
         }
 
-        #region Test SystemConfig
-        private void TestSystemConfig() {
-        }
-        #endregion
+        #region Test SQLServerBasicDAL
+        private void TestSQLServerBasicDALGetColumnsDictionary() {
+            BLLArticles bll = new BLLArticles();
+            Dictionary<PropertyInfo, ColumnAttribute> dic = bll.TableDAL.AnalysisPropertyColumns();
 
-        #region Test JsonHelper Json
-        private void TestJsonHelperJson() {
-            //CSharp.Model.Table.Articles artBasic = new CSharp.Model.Table.Articles();
-            //artBasic.id = 12;
-            //artBasic.Remark = "sdfj";
-            //artBasic.TimeAdd = DateTime.Now;
-            //string str = JsonHelper.SerializeObject(artBasic);
-            //Print.WriteLine(str);
-            //artBasic.Remark = artBasic.TimeAdd.ToString(LFKeys.TABLE_DATETIME_FORMAT_SECOND);
-            //str = JsonHelper.SerializeObject(artBasic);
-            //Print.WriteLine(str);
-
-            //string desStr = "{\"id\":12,\"add_time\":\"2017-10-06T16:24:42.9742994+08:00\",\"remark\":\"2017-10-06 16:24:42\"}";
-            //CSharp.Model.Table.Articles deserArt = JsonHelper.DeserializeToObject<CSharp.Model.Table.Articles>(desStr);
-            //Print.WriteLine(deserArt.Remark);
-
-            ////匿名对象解析
-            //var tempEntity = new { ID = 0, Name = string.Empty };
-            //string json5 = JsonHelper.SerializeObject(tempEntity);
-            ////json5 : {"ID":0,"Name":""}
-            //Print.WriteLine(json5);
-            //tempEntity = JsonHelper.DeserializeAnonymousType("{\"ID\":\"112\",\"Name\":\"石子儿\"}", tempEntity);
-            //Print.WriteLine(tempEntity.ID + ":" + tempEntity.Name);
-
-            //Model.Table.Users[] UserModels = new Model.Table.Users[] {
-            //    new Model.Table.Users() {
-            //        id = 2, Remark = "chejig"
-            //    },
-            //    new Model.Table.Users() {
-            //        id = 3, Remark = "fegwe"
-            //    },
-            //    new Model.Table.Users() {
-            //        id = 76, Remark = "杰克"
-            //    },
-            //    new Model.Table.Users() {
-            //        id = 32, Remark = "看看"
-            //    },
-            //    new Model.Table.Users() {
-            //        id = 65, Remark = "WeChatNumber"
-            //    }
-            //};
-            //String jsonStr = JsonHelper.SerializeObject(UserModels);
-            //Print.WriteLine(jsonStr);
-
-            String resuStr = "[{\"id\":\"2\",\"TimeAdd\":\"2017-11-12T21:12:25.2525443+08:00\",\"Remark\":\"chejig\"}]";
-            Print.WriteLine(resuStr);
-            Model.Table.Users[] modelArr = JsonHelper.DeserializeToObject<Model.Table.Users[]>(resuStr);
-            foreach (Model.Table.Users item in modelArr) {
-                Print.WriteLine(String.Format("idValue: {0}", item.id));
+            Print.WriteLine("=== 解析开始 GetColumnsDictionary(): ===");
+            foreach (KeyValuePair<PropertyInfo, ColumnAttribute> item in dic) {
+                Print.WriteLine("");
+                Print.WriteLine(String.Format("PropertyInfo Name: {0}", item.Key.Name));
+                Print.WriteLine(String.Format("Column TypeId: {0}", item.Value.TypeId));
+                Print.WriteLine(String.Format("Column Name: {0}", item.Value.Name));
+                Print.WriteLine(String.Format("Column DbType: {0}", item.Value.DbType));
+                Print.WriteLine(String.Format("Column IsCanBeNull: {0}", item.Value.IsCanBeNull));
+                Print.WriteLine(String.Format("Column IsDbGenerated: {0}", item.Value.IsDbGenerated));
+                Print.WriteLine(String.Format("Column IsPrimaryKey: {0}", item.Value.IsPrimaryKey));
+                Print.WriteLine("");
             }
+            Print.WriteLine("=== GetColumnsDictionary() 解析结束! ===");
+        }
+        private void TestSQLServerBasicDALDefaultModel() {
+            BLLArticles bll = new BLLArticles();
+            ModelArticles model = bll.TableDAL.DefaultModel();
+            Print.WriteLine(model.ToString());
         }
         #endregion
 
-        #region Test BasicsDataModel
-        private void TestBasicsDataModel() {
-            //CSharp.Model.Table.Articles artBasic = new CSharp.Model.Table.Articles();
-            //artBasic.id = 12;
-            //artBasic.Remark = "sdfj";
-            //artBasic.TimeAdd = DateTime.Now;
-            //Print.WriteLine(JsonHelper.SerializeObject(artBasic));
+        #region Test Attribute
+        private void TestAttribute() {
+            //Type m_type = typeof(CSharp.LibrayDataBase.Model.Articles);
+            //PropertyInfo[] pros = m_type.GetProperties();
+            //foreach (PropertyInfo item in pros) {
+            //    ExplainAttribute[] expattr = ReflexHelper.FindAttributes<ExplainAttribute>(item);
+            //    Print.WriteLine(String.Format("{0} have ExplainAttribute: {1}", item.Name, expattr[0].Text));
+            //}
 
-            //CSharp.Model.Table.Articles clart_1 = (CSharp.Model.Table.Articles)artBasic.CloneModelData();
-            //clart_1.id = 58;
-            //clart_1.Remark = "clone poryjisdf";
-            //Print.WriteLine(JsonHelper.SerializeObject(artBasic));
-            //Print.WriteLine(JsonHelper.SerializeObject(clart_1));
+            ModelArticles ar = new ModelArticles();
 
-        }
-        #endregion
+            Type tm = typeof(ModelArticles);
 
-        #region Test SystemLog
-        private void SystemLogTest() {
-            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
-            string filepath = String.Empty;
-
-            SystemLog.LogModel log = new SystemLog.LogModel();
-            log.Type = SystemLog.LogTypeEnum.Daily;
-            log.Position = "CSharp.LibrayFLog.LogModel";
-            log.Message = "第一条日志记录圣诞节覅数据量发简历圣诞节覅俩就是第六房间阿里斯顿减肥路上!";
-            filepath = SystemLog.Write(log);
-
-            log.Type = SystemLog.LogTypeEnum.Error;
-            log.Position = "CSharp.ConsoleProgram.TestFunction.Init()";
-            log.Message = "测试SystemLog类错误日志是否正常!";
-            filepath = SystemLog.Write(log);
-
-            stopwatch.Stop();
-            Print.WriteLine(String.Format("运行时间:{0}   写入日志路径:{1}", stopwatch.Elapsed.TotalSeconds, filepath));
+            Print.WriteLine(tm.IsDefined(typeof(TableAttribute), false));
         }
         #endregion
     }

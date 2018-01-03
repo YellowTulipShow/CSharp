@@ -177,10 +177,6 @@
       <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
       <Name>CSharp.LibrayFunction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CSharp.Model\CSharp.Model.csproj">
-      <Project>{f3c794a8-22bd-40ad-99b0-b7d9f695bc10}</Project>
-      <Name>CSharp.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CSharp.SystemService\CSharp.SystemService.csproj">
       <Project>{4365ab63-a3cd-4cc9-805e-07fc2a470163}</Project>
       <Name>CSharp.SystemService</Name>

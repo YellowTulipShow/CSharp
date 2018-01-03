@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace CSharp.LibrayDataBase.BasicsUtility
+namespace CSharp.LibrayDataBase.Utils
 {
     public enum EffentNextType
     {

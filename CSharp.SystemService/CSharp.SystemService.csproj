@@ -41,16 +41,13 @@
   <ItemGroup>
     <Compile Include="GlobalSystemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemConfigModel.cs" />
     <Compile Include="SystemLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharp.LibrayFunction\CSharp.LibrayFunction.csproj">
       <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
       <Name>CSharp.LibrayFunction</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CSharp.Model\CSharp.Model.csproj">
-      <Project>{f3c794a8-22bd-40ad-99b0-b7d9f695bc10}</Project>
-      <Name>CSharp.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

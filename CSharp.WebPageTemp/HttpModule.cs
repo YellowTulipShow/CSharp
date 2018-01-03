@@ -43,7 +43,6 @@ namespace CSharp.WebPageTemp
                 // 生成模板
                 Template.PageTemplate.GetTemplate(urlReModel);
             }
-
         }
         #endregion
 

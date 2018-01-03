@@ -34,41 +34,41 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicsBLL.cs">
+    <Compile Include="AbsBasicsAttribute.cs" />
+    <Compile Include="AbsTableDAL.cs" />
+    <Compile Include="TableBLLSQLServer.cs" />
+    <Compile Include="CaseAttributes_Column.cs" />
+    <Compile Include="CaseAttributes_SonTable.cs" />
+    <Compile Include="CaseAttributes_Table.cs" />
+    <Compile Include="TableDALSQLServer.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="BasicsDAL.cs">
+    <Compile Include="AbsTableBLL.cs" />
+    <Compile Include="AbsModel_Remark.cs" />
+    <Compile Include="AbsModel_ID.cs" />
+    <Compile Include="AbsModel_TimeAdd.cs" />
+    <Compile Include="ICreateSQL.cs" />
+    <Compile Include="Utils\CommandInfo.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="BLL\Articles_BLL.cs">
+    <Compile Include="IPropertyColumn.cs" />
+    <Compile Include="Utils\DbHelperSQL.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="DAL\Articles_DAL.cs">
-      <SubType>
-      </SubType>
-    </Compile>
-    <Compile Include="BasicsUtility\CommandInfo.cs">
-      <SubType>
-      </SubType>
-    </Compile>
-    <Compile Include="ITableBasicFunction.cs">
-      <SubType>
-      </SubType>
-    </Compile>
-    <Compile Include="BasicsUtility\DbHelperSQL.cs">
-      <SubType>
-      </SubType>
-    </Compile>
+    <Compile Include="AbsModel_Null.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,12 +76,7 @@
       <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
       <Name>CSharp.LibrayFunction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CSharp.Model\CSharp.Model.csproj">
-      <Project>{f3c794a8-22bd-40ad-99b0-b7d9f695bc10}</Project>
-      <Name>CSharp.Model</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

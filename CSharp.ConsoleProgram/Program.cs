@@ -19,10 +19,10 @@ namespace CSharp.ConsoleProgram
         }
 
         private static bool IsRepeatExecute() {
-            Print.WriteLine("如需重复执行, 请输入 按键 0 ! 否则退出!");
+            Print.WriteLine("如需重复执行, 请输入 按键 0 or + ! 否则退出!");
             string v = Print.GetReadContent();
             Print.WriteLine("====== 下一次执行内容: ======\n");
-            return (v == "0") ? true : false;
+            return (v == "0" || v == "+") ? true : false;
         }
 
         private static void ShowExecuteTime(TestMethod tFunRunTime) {

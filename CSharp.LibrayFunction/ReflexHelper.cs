@@ -20,45 +20,39 @@ namespace CSharp.LibrayFunction
         }
 
         /// <summary>
-        /// 获得 "Object" 对象公共属性 名称列表
+        /// 查找指定的 Attribute '特性' 内容列表 默认不查找继承链
         /// </summary>
-        public static String[] AttributeNames(Object obj) {
-            List<String> names = new List<String>();
-            Dictionary<String, String> attrKeyValues = AttributeKeyValues(obj);
-            foreach (KeyValuePair<String, String> item in attrKeyValues) {
-                names.Add(item.Key);
+        /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
+        /// <param name="memberInfo">元数据</param>
+        /// <returns></returns>
+        public static A[] FindAttributes<A>(MemberInfo memberInfo) where A : System.Attribute {
+            object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
+            List<A> rl = new List<A>();
+            foreach (object item in attrs) {
+                try { rl.Add((A)item); } catch (Exception) { }
             }
-            return names.ToArray();
+            return rl.ToArray();
         }
-
         /// <summary>
-        /// 获得 "Object" 对象公共属性 及其值
+        /// 查找指定的 Attribute '特性' 内容对象 默认不查找继承链
         /// </summary>
-        public static Dictionary<String, String> AttributeKeyValues(Object obj) {
-            Dictionary<String, String> dicArray = new Dictionary<String, String>();
-            PropertyInfo[] pis = obj.GetType().GetProperties();
-            foreach (PropertyInfo pi in pis) {
-                dicArray.Add(pi.Name, pi.GetValue(obj, null).ToString());
+        /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
+        /// <param name="memberInfo">元数据</param>
+        /// <returns></returns>
+        public static A FindAttributesOnly<A>(MemberInfo memberInfo) where A : System.Attribute {
+            object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
+            try {
+                return (A)attrs[0];
+            } catch (Exception) {
+                return null;
             }
-            return dicArray;
         }
 
-        /// <summary>
-        /// 获得 "Object" 对象公共字段 及其值
-        /// </summary>
-        public static Dictionary<String, String> FieldKeyValues(Object obj) {
-            Dictionary<String, String> dicArray = new Dictionary<String, String>();
-            FieldInfo[] fis = obj.GetType().GetFields();
-            foreach (FieldInfo fi in fis) {
-                dicArray.Add(fi.Name, fi.GetValue(obj).ToString());
-            }
-            return dicArray;
-        }
-
+        #region === Clone Data ===
         /// <summary>
         /// 克隆 对象 公共属性属性值 (但克隆DataGridView 需调用CloneDataGridView()方法)
         /// </summary>
-        public static T CloneAllAttribute<T>(T obj) where T : class {
+        public static T CloneProperties<T>(T obj) where T : class {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
             T model = (T)type.InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, obj, null);
@@ -70,7 +64,6 @@ namespace CSharp.LibrayFunction
             }
             return model;
         }
-
         /// <summary>
         /// 克隆DataGridView对象
         /// </summary>
@@ -110,5 +103,6 @@ namespace CSharp.LibrayFunction
             } finally {
             }
         }
+        #endregion
     }
 }

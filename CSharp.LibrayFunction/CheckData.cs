@@ -24,13 +24,41 @@ namespace CSharp.LibrayFunction
         public static bool IsStringNull(String str) {
             return String.Equals(str, String.Empty) || String.Equals(str, "") || IsObjectNull(str) || str.Length <= 0;
         }
-        /// <summary>
-        /// DataTable 对象 是否为空表 无值
-        /// </summary>
-        public static bool IsDataTableEmpty(DataTable dt) {
-            return dt.Rows.Count <= 0 || IsObjectNull(dt) ? true : false;
-        }
 
+        #region  === Is Size Empty ===
+        /// <summary>
+        /// DataTable 数据表 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(DataTable dt) {
+            return IsObjectNull(dt) || dt.Rows.Count <= 0 ? true : false;
+        }
+        /// <summary>
+        /// DataSet 数据集 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(DataSet ds) {
+            return IsObjectNull(ds) || ds.Tables.Count <= 0 ? true : false;
+        }
+        /// <summary>
+        /// object[] 数组 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(object[] objarr) {
+            return IsObjectNull(objarr) || objarr.Length <= 0 ? true : false;
+        }
+        /// <summary>
+        /// List 泛型列表 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(List<object> objlist) {
+            return IsObjectNull(objlist) || objlist.Count <= 0 ? true : false;
+        }
+        /// <summary>
+        /// Dictionary 泛型键值对集合 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty<K, V>(Dictionary<K, V> dicary) {
+            return IsObjectNull(dicary) || dicary.Count <= 0 ? true : false;
+        }
+        #endregion
+
+        #region === Is Data Type ===
         /// <summary>
         /// 判断对象是否可以转成int型
         /// </summary>
@@ -85,5 +113,6 @@ namespace CSharp.LibrayFunction
         public static bool IsURL(string strUrl) {
             return Regex.IsMatch(strUrl, @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
         }
+        #endregion
     }
 }

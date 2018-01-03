@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSharp.Model
+namespace CSharp.SystemService
 {
     /// <summary>
     /// 系统配置数据模型

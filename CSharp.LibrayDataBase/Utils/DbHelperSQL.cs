@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Generic;
 
-namespace CSharp.LibrayDataBase.BasicsUtility
+namespace CSharp.LibrayDataBase.Utils
 {
     public abstract class DbHelperSQL
     {

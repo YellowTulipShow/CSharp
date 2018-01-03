@@ -1,8 +1,8 @@
-﻿using CSharp.LibrayFunction;
-using System;
+﻿using System;
 
-namespace CSharp.Model
+namespace CSharp.LibrayFunction
 {
+
     /// <summary>
     /// 基础数据模型
     /// </summary>
@@ -15,7 +15,14 @@ namespace CSharp.Model
         /// 深度克隆一个数据模型对象
         /// </summary>
         public AbsBasicsDataModel CloneModelData() {
-            return ReflexHelper.CloneAllAttribute<AbsBasicsDataModel>(this);
+            return ReflexHelper.CloneProperties(this);
+        }
+
+        /// <summary>
+        /// 输出为 JSON 格式字符串数据
+        /// </summary>
+        public override string ToString() {
+            return JsonHelper.SerializeObject(this);
         }
     }
 }
