@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.LibrayFunction", "CS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.WebPageTemp", "CSharp.WebPageTemp\CSharp.WebPageTemp.csproj", "{C19FFA43-75AB-4BC2-ABBC-C8CAC5DD8973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.ConsoleProgram", "CSharp.ConsoleProgram\CSharp.ConsoleProgram.csproj", "{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.SystemService", "CSharp.SystemService\CSharp.SystemService.csproj", "{4365AB63-A3CD-4CC9-805E-07FC2A470163}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.ApplicationData", "CSharp.ApplicationData\CSharp.ApplicationData.csproj", "{BE14B230-D20B-49FC-AAF2-584D20A8D53D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.ConsoleProgram", "Test.ConsoleProgram\Test.ConsoleProgram.csproj", "{91B75C09-6224-44BF-93BF-BDC0D9DD756A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,6 @@ Global
 		{C19FFA43-75AB-4BC2-ABBC-C8CAC5DD8973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C19FFA43-75AB-4BC2-ABBC-C8CAC5DD8973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C19FFA43-75AB-4BC2-ABBC-C8CAC5DD8973}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4365AB63-A3CD-4CC9-805E-07FC2A470163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4365AB63-A3CD-4CC9-805E-07FC2A470163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4365AB63-A3CD-4CC9-805E-07FC2A470163}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{BE14B230-D20B-49FC-AAF2-584D20A8D53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE14B230-D20B-49FC-AAF2-584D20A8D53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE14B230-D20B-49FC-AAF2-584D20A8D53D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B75C09-6224-44BF-93BF-BDC0D9DD756A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B75C09-6224-44BF-93BF-BDC0D9DD756A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B75C09-6224-44BF-93BF-BDC0D9DD756A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B75C09-6224-44BF-93BF-BDC0D9DD756A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

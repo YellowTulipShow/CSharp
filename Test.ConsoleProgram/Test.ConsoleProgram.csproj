@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CD303BC6-59BE-485C-B9AF-BBD4D9938B53}</ProjectGuid>
+    <ProjectGuid>{91B75C09-6224-44BF-93BF-BDC0D9DD756A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CSharp.ConsoleProgram</RootNamespace>
-    <AssemblyName>CSharp.ConsoleProgram</AssemblyName>
+    <RootNamespace>Test.ConsoleProgram</RootNamespace>
+    <AssemblyName>Test.ConsoleProgram</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Test.ConsoleProgram.MainProram</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,10 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Print.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ITestCase.cs" />
+    <Compile Include="ITestCaseSonClass\AbsTableDAL.cs" />
+    <Compile Include="ITestCaseSonClass\Attribute.cs" />
+    <Compile Include="MainProram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestFunction.cs" />
+    <Compile Include="DelegateTimeTest.cs" />
+    <Compile Include="TestCaseLibray.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharp.ApplicationData\CSharp.ApplicationData.csproj">
@@ -63,13 +69,6 @@
       <Project>{4365ab63-a3cd-4cc9-805e-07fc2a470163}</Project>
       <Name>CSharp.SystemService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CSharp.WebPageTemp\CSharp.WebPageTemp.csproj">
-      <Project>{c19ffa43-75ab-4bc2-abbc-c8cac5dd8973}</Project>
-      <Name>CSharp.WebPageTemp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

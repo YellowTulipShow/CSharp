@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CSharp.LibrayFunction
+namespace Test.ConsoleProgram
 {
     /// <summary>
     /// 测试 方法
     /// </summary>
-    public class TestMethod
+    public class DelegateTimeTest
     {
         /// <summary>
         /// 运行事件的时间间隔
