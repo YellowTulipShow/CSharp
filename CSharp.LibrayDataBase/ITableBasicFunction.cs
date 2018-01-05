@@ -12,41 +12,27 @@ namespace CSharp.LibrayDataBase
     public interface ITableBasicFunction<M> where M : AbsModel_Null
     {
         #region ====== Tools Function ======
-        bool Exists(int id);
+        int GetRecordCount(string strWhere);
         #endregion
 
         #region ====== SQL Language Execute ======
-        int GetCount(string strWhere);
+        bool Insert(M model, out int IDentity);
 
-        int Add(M model);
-
-        bool Delete(int id);
+        bool Delete(M model);
 
         bool Update(M model);
-
-        bool UpdateField(int id, string strValue);
-
-        bool Transaction(string[] strlist);
         #endregion
 
         #region ====== SQL Select Data ======
-        M GetModel(int id);
+        M GetModel(int IDentity);
 
         M DataRowToModel(DataRow row);
 
-        DataSet GetList(int Top, string strWhere, string filedOrder);
+        M[] GetModelList(DataTable dt);
 
-        DataSet GetList(int pageSize, int pageIndex, string strWhere, string filedOrder, out int recordCount);
+        DataTable GetList(int top, string strWhere, Dictionary<string, bool> fieldOrders);
 
-        List<M> GetModelList(DataTable dt);
-        #endregion
-
-        #region ====== SQL String Get ======
-        string SQLStringModelAdd(M model);
-
-        string SQLStringModelUpdate(int id, M Model);
-
-        string SQLStringModelDelete(int id);
+        DataTable GetList(int pageCount, int pageIndex, out int recordCount, string strWhere, Dictionary<string, bool> fieldOrders);
         #endregion
     }
 }

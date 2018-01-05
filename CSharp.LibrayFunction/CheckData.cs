@@ -22,10 +22,19 @@ namespace CSharp.LibrayFunction
         /// String 对象 是否为空 无值
         /// </summary>
         public static bool IsStringNull(String str) {
-            return String.Equals(str, String.Empty) || String.Equals(str, "") || IsObjectNull(str) || str.Length <= 0;
+            if (IsObjectNull(str))
+                return true;
+            str = str.Trim();
+            return String.Equals(str, String.Empty) || String.Equals(str, "") || str.Length <= 0;
         }
 
         #region  === Is Size Empty ===
+        /// <summary>
+        /// DataSet 数据集 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(DataSet ds) {
+            return IsObjectNull(ds) || ds.Tables.Count <= 0 ? true : false;
+        }
         /// <summary>
         /// DataTable 数据表 大小 为 '空'
         /// </summary>
@@ -33,10 +42,10 @@ namespace CSharp.LibrayFunction
             return IsObjectNull(dt) || dt.Rows.Count <= 0 ? true : false;
         }
         /// <summary>
-        /// DataSet 数据集 大小 为 '空'
+        /// DataRow 数据行 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(DataSet ds) {
-            return IsObjectNull(ds) || ds.Tables.Count <= 0 ? true : false;
+        public static bool IsSizeEmpty(DataRow row) {
+            return IsObjectNull(row) || row.Table.Rows.Count <= 0 ? true : false;
         }
         /// <summary>
         /// object[] 数组 大小 为 '空'
@@ -47,8 +56,8 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// List 泛型列表 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(List<object> objlist) {
-            return IsObjectNull(objlist) || objlist.Count <= 0 ? true : false;
+        public static bool IsSizeEmpty<T>(List<T> Tlist) {
+            return IsObjectNull(Tlist) || Tlist.Count <= 0 ? true : false;
         }
         /// <summary>
         /// Dictionary 泛型键值对集合 大小 为 '空'

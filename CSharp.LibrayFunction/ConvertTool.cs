@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace CSharp.LibrayFunction
 {
@@ -15,7 +13,7 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// "垃圾"集合字符串堆 (组合所有参数ToString()方法组合)
         /// </summary>
-        public static String CombinationContent(params object[] objs) {
+        public static string CombinationContent(params object[] objs) {
             StringBuilder returnString = new StringBuilder();
             foreach (object obj in objs) {
                 returnString.Append(obj.ToString());
@@ -23,22 +21,39 @@ namespace CSharp.LibrayFunction
             return returnString.ToString();
         }
 
-
+        #region === List Array String Convert ===
         /// <summary>
         /// 数组列表转字符串
         /// </summary>
         /// <param name="arrayList">需要合并的字符串数组</param>
         /// <param name="Symbol">用于间隔内容的间隔符号</param>
         /// <returns></returns>
-        public static String ArrayToString(String[] arrayList, Char Symbol) {
-            StringBuilder strs = new StringBuilder();
-            for (int i = 0; i < arrayList.Length; i++) {
-                if (i != 0) {
-                    strs.Append(Symbol);
+        public static string IListToString(IList list, object symbolSign) {
+            try {
+                if (CheckData.IsObjectNull(list) || CheckData.IsObjectNull(symbolSign)) {
+                    return string.Empty;
                 }
-                strs.Append(arrayList[i]);
+                StringBuilder strs = new StringBuilder();
+                int firstSign = 0;
+                bool isHavefirstValue = false;
+                for (int i = firstSign; i < list.Count; i++) {
+                    if (CheckData.IsObjectNull(list[i]) || CheckData.IsStringNull(list[i].ToString())) {
+                        if (!isHavefirstValue) {
+                            firstSign = i + 1;
+                        }
+                        continue;
+                    }
+                    if (i > firstSign) {
+                        strs.Append(symbolSign);
+                    } else {
+                        isHavefirstValue = true;
+                    }
+                    strs.Append(list[i].ToString());
+                }
+                return strs.ToString();
+            } catch (Exception) {
+                return string.Empty;
             }
-            return strs.ToString();
         }
         /// <summary>
         /// 字符串转数组列表
@@ -46,14 +61,15 @@ namespace CSharp.LibrayFunction
         /// <param name="strValue">要转化的字符串</param>
         /// <param name="Symbol">用于分隔的间隔符号</param>
         /// <returns></returns>
-        public static String[] StringToArray(String strValue, Char Symbol) {
+        public static string[] stringToArray(String strValue, Char Symbol) {
             if (CheckData.IsStringNull(strValue))
-                return new List<String>().ToArray();
-            String[] strarr = strValue.Split(Symbol);
+                return new string[] { };
+            string[] strarr = strValue.Split(Symbol);
             return strarr;
         }
+        #endregion
 
-
+        #region === Data Type Convert ===
         /// <summary>
         /// 将对象转换为Int32类型
         /// </summary>
@@ -97,7 +113,7 @@ namespace CSharp.LibrayFunction
             return defValue;
         }
         /// <summary>
-        /// String型转换为decimal型
+        /// string型转换为decimal型
         /// </summary>
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
@@ -129,7 +145,7 @@ namespace CSharp.LibrayFunction
             return defValue;
         }
         /// <summary>
-        /// String型转换为float型
+        /// string型转换为float型
         /// </summary>
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
@@ -149,13 +165,41 @@ namespace CSharp.LibrayFunction
 
 
         /// <summary>
-        /// 获得 time.Year time.Month time.Day 00:00:00 点时间
+        /// object型转换为bool型
+        /// </summary>
+        /// <param name="expression">要转换的字符串</param>
+        /// <param name="defValue">缺省值</param>
+        /// <returns>转换后的bool类型结果</returns>
+        public static bool ObjToBool(object expression, bool defValue) {
+            if (expression != null)
+                return StrToBool(expression.ToString(), defValue);
+            return defValue;
+        }
+        /// <summary>
+        /// string型转换为bool型
+        /// </summary>
+        /// <param name="strValue">要转换的字符串</param>
+        /// <param name="defValue">缺省值</param>
+        /// <returns>转换后的bool类型结果</returns>
+        public static bool StrToBool(String strValue, bool defValue) {
+            if (strValue != null) {
+                if (String.Compare(strValue, "true", true) == 0)
+                    return true;
+                else if (String.Compare(strValue, "false", true) == 0)
+                    return false;
+            }
+            return defValue;
+        }
+
+
+        /// <summary>
+        /// 获得 time.Year-time.Month-time.Day 00:00:00 点时间
         /// </summary>
         public static DateTime GetTimeZero(DateTime time) {
             return new DateTime(time.Year, time.Month, time.Day, 0, 0, 0);
         }
         /// <summary>
-        /// 获得 time.Year time.Month time.Day 23:59:59 点时间
+        /// 获得 time.Year-time.Month-time.Day 23:59:59 点时间
         /// </summary>
         public static DateTime GetTimeTwoFour(DateTime time) {
             return new DateTime(time.Year, time.Month, time.Day, 23, 59, 59);
@@ -200,33 +244,6 @@ namespace CSharp.LibrayFunction
             }
             return defValue;
         }
-
-
-        /// <summary>
-        /// object型转换为bool型
-        /// </summary>
-        /// <param name="expression">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的bool类型结果</returns>
-        public static bool ObjToBool(object expression, bool defValue) {
-            if (expression != null)
-                return StrToBool(expression.ToString(), defValue);
-            return defValue;
-        }
-        /// <summary>
-        /// String型转换为bool型
-        /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的bool类型结果</returns>
-        public static bool StrToBool(String strValue, bool defValue) {
-            if (strValue != null) {
-                if (String.Compare(strValue, "true", true) == 0)
-                    return true;
-                else if (String.Compare(strValue, "false", true) == 0)
-                    return false;
-            }
-            return defValue;
-        }
+        #endregion
     }
 }

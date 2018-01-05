@@ -13,7 +13,7 @@ namespace CSharp.LibrayDataBase
         /// 添加时间
         /// </summary>
         [Explain("添加时间")]
-        [ColumnAttribute]
+        [Column]
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
         private DateTime _timeAdd = DateTime.Now;
     }

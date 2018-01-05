@@ -46,19 +46,21 @@
   <ItemGroup>
     <Compile Include="AbsBasicsAttribute.cs" />
     <Compile Include="AbsTableDAL.cs" />
-    <Compile Include="TableBLLSQLServer.cs" />
-    <Compile Include="CaseAttributes_Column.cs" />
-    <Compile Include="CaseAttributes_SonTable.cs" />
-    <Compile Include="CaseAttributes_Table.cs" />
-    <Compile Include="TableDALSQLServer.cs">
+    <Compile Include="ITableBasicFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Son_BLL_DAL\BLLSQLServer.cs" />
+    <Compile Include="Son_Attribute\ColumnAttribute.cs" />
+    <Compile Include="Son_Attribute\TableAttribute.cs" />
+    <Compile Include="Son_BLL_DAL\DALSQLServer.cs">
       <SubType>
       </SubType>
     </Compile>
     <Compile Include="AbsTableBLL.cs" />
-    <Compile Include="AbsModel_Remark.cs" />
-    <Compile Include="AbsModel_ID.cs" />
-    <Compile Include="AbsModel_TimeAdd.cs" />
-    <Compile Include="ICreateSQL.cs" />
+    <Compile Include="Son_Model\AbsModel_Remark.cs" />
+    <Compile Include="Son_Model\AbsModel_ID.cs" />
+    <Compile Include="Son_Model\AbsModel_TimeAdd.cs" />
+    <Compile Include="IBasicsSQL.cs" />
     <Compile Include="Utils\CommandInfo.cs">
       <SubType>
       </SubType>

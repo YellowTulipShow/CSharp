@@ -1,8 +1,5 @@
 ﻿using System;
 
-using CSharp.LibrayFunction;
-using Test.ConsoleProgram.ITestCaseSonClass;
-
 namespace Test.ConsoleProgram
 {
     public class TestCaseLibray
@@ -11,9 +8,10 @@ namespace Test.ConsoleProgram
 
         public ITestCase[] GetTestCase() {
             return new ITestCase[] {
-                new AbsTableDAL_AnalysisPropertyColumns(),
-                new AbsTableDAL_DefaultModel(),
-                new TestAttribute()
+                new ITestCaseSonClass.AbsTableDAL_AnalysisPropertyColumns(),
+                new ITestCaseSonClass.AbsTableDAL_DefaultModel(),
+                new ITestCaseSonClass.TestAttribute(),
+                new ITestCaseSonClass.AbsTableDAL_ICreateSQL()
             };
         }
     }

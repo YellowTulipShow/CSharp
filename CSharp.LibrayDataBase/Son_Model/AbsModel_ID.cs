@@ -13,7 +13,7 @@ namespace CSharp.LibrayDataBase
         /// 自增ID
         /// </summary>
         [Explain("自增ID")]
-        [ColumnAttribute(IsPrimaryKey = true, IsDbGenerated = true)]
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int id { get { return _id; } set { _id = value; } }
         private int _id = 0;
     }

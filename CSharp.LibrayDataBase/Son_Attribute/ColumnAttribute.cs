@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Data.SqlTypes;
 
 namespace CSharp.LibrayDataBase
 {
     /// <summary>
-    /// 列类型  同一程序不能多个解释。无法继承此类。
+    /// 数据表列特性  同一程序不能多个解释。无法继承此类。
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class ColumnAttribute : AbsBasicsAttribute
+    public class ColumnAttribute : AbsBasicsAttribute
     {
+        public ColumnAttribute() {
+            
+        }
+
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        public string DbType { get { return _dbType; } set { _dbType = value; } }
-        private string _dbType = String.Empty;
+        //public string DbType { get { return _dbType; } set { _dbType = value; } }
+        //private string _dbType = String.Empty;
 
 
         /// <summary>
