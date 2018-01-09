@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace CSharp.LibrayFunction
 {
@@ -25,8 +26,8 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 数组列表转字符串
         /// </summary>
-        /// <param name="arrayList">需要合并的字符串数组</param>
-        /// <param name="Symbol">用于间隔内容的间隔符号</param>
+        /// <param name="list">需要合并的字符串数组</param>
+        /// <param name="symbolSign">用于间隔内容的间隔符号</param>
         /// <returns></returns>
         public static string IListToString(IList list, object symbolSign) {
             try {
@@ -56,13 +57,43 @@ namespace CSharp.LibrayFunction
             }
         }
         /// <summary>
+        /// 泛型键值对的'键'组合生成字符串
+        /// </summary>
+        /// <typeparam name="TKey">键</typeparam>
+        /// <typeparam name="TValue">值</typeparam>
+        /// <param name="dictionary">数据源泛型集合</param>
+        /// <param name="symbolSign">用于间隔内容的间隔符号</param>
+        /// <returns></returns>
+        public static string IDictionaryTKeyToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, object symbolSign) {
+            List<TKey> vals = new List<TKey>();
+            foreach (KeyValuePair<TKey, TValue> item in dictionary) {
+                vals.Add(item.Key);
+            }
+            return IListToString(vals, symbolSign);
+        }
+        /// <summary>
+        /// 泛型键值对的'值'组合生成字符串
+        /// </summary>
+        /// <typeparam name="TKey">键</typeparam>
+        /// <typeparam name="TValue">值</typeparam>
+        /// <param name="dictionary">数据源泛型集合</param>
+        /// <param name="symbolSign">用于间隔内容的间隔符号</param>
+        /// <returns></returns>
+        public static string IDictionaryTValueToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, object symbolSign) {
+            List<TValue> vals = new List<TValue>();
+            foreach (KeyValuePair<TKey, TValue> item in dictionary) {
+                vals.Add(item.Value);
+            }
+            return IListToString(vals, symbolSign);
+        }
+        /// <summary>
         /// 字符串转数组列表
         /// </summary>
         /// <param name="strValue">要转化的字符串</param>
         /// <param name="Symbol">用于分隔的间隔符号</param>
         /// <returns></returns>
         public static string[] stringToArray(String strValue, Char Symbol) {
-            if (CheckData.IsStringNull(strValue))
+            if (CheckData.IsStringNull(strValue.Trim()))
                 return new string[] { };
             string[] strarr = strValue.Split(Symbol);
             return strarr;
@@ -204,6 +235,7 @@ namespace CSharp.LibrayFunction
         public static DateTime GetTimeTwoFour(DateTime time) {
             return new DateTime(time.Year, time.Month, time.Day, 23, 59, 59);
         }
+
         /// <summary>
         /// 将对象转换为日期时间类型
         /// </summary>
@@ -236,7 +268,7 @@ namespace CSharp.LibrayFunction
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的int类型结果</returns>
         public static DateTime StrToDateTime(String str, DateTime defValue) {
-            if (!CheckData.IsStringNull(str)) {
+            if (!CheckData.IsStringNull(str.Trim())) {
                 DateTime dateTime;
                 if (DateTime.TryParse(str, out dateTime)) {
                     return dateTime;

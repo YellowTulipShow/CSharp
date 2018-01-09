@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 文章金额
         /// </summary>
         [Explain("文章金额")]
-        [Column]
+        [Column("money")]
         public decimal Money { get { return _money; } set { _money = value; } }
         private decimal _money = 0M;
 

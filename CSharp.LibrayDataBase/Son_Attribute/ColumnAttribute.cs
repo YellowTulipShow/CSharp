@@ -9,15 +9,15 @@ namespace CSharp.LibrayDataBase
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ColumnAttribute : AbsBasicsAttribute
     {
-        public ColumnAttribute() {
-            
+        public ColumnAttribute(string dbDataType) {
+            this._dbType = dbDataType;
         }
 
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        //public string DbType { get { return _dbType; } set { _dbType = value; } }
-        //private string _dbType = String.Empty;
+        public string DbType { get { return _dbType; } }
+        private string _dbType = String.Empty;
 
 
         /// <summary>
@@ -33,6 +33,22 @@ namespace CSharp.LibrayDataBase
             }
         }
         private bool _isPrimaryKey = false;
+
+
+        /// <summary>
+        /// 获取或设置是否为标识列。
+        /// </summary>
+        public bool IsIDentity {
+            get { return _isIDentity; }
+            set {
+                _isIDentity = value;
+                if (_isIDentity) {
+                    IsCanBeNull = !_isIDentity;
+                    IsDbGenerated = _isIDentity;
+                }
+            }
+        }
+        private bool _isIDentity = false;
 
 
         /// <summary>

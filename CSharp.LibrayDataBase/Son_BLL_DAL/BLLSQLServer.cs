@@ -9,5 +9,9 @@ namespace CSharp.LibrayDataBase
     public class BLLSQLServer<M> : AbsTableBLL<DALSQLServer<M>, M> where M : AbsModel_Null
     {
         public BLLSQLServer(DALSQLServer<M> dal) : base(dal) { }
+
+        public static bool Transaction(string[] sqllist) {
+            return DALSQLServer<M>.Transaction(sqllist);
+        }
     }
 }

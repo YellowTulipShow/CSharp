@@ -22,6 +22,7 @@ namespace CSharp.SystemService
             public static GlobalSystemService sysConfig = new GlobalSystemService();
         }
         #endregion
+        
         private GlobalSystemService() {
             // 获得配置信息
             _configModel = CreateSystemConfigModel();

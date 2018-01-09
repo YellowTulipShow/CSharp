@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AbsBasicsAttribute.cs" />
     <Compile Include="AbsTableDAL.cs" />
+    <Compile Include="IAutoTable.cs" />
     <Compile Include="ITableBasicFunction.cs">
       <SubType>Code</SubType>
     </Compile>

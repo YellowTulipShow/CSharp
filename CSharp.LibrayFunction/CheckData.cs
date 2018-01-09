@@ -19,13 +19,10 @@ namespace CSharp.LibrayFunction
             return (Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value));
         }
         /// <summary>
-        /// String 对象 是否为空 无值
+        /// String 对象 是否为空 无值 如有需要请将参数.Trim()
         /// </summary>
         public static bool IsStringNull(String str) {
-            if (IsObjectNull(str))
-                return true;
-            str = str.Trim();
-            return String.Equals(str, String.Empty) || String.Equals(str, "") || str.Length <= 0;
+            return IsObjectNull(str) || String.Equals(str, String.Empty) || String.Equals(str, "") || str.Length <= 0;
         }
 
         #region  === Is Size Empty ===

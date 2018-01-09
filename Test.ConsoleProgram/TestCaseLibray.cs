@@ -8,10 +8,12 @@ namespace Test.ConsoleProgram
 
         public ITestCase[] GetTestCase() {
             return new ITestCase[] {
-                new ITestCaseSonClass.AbsTableDAL_AnalysisPropertyColumns(),
-                new ITestCaseSonClass.AbsTableDAL_DefaultModel(),
-                new ITestCaseSonClass.TestAttribute(),
-                new ITestCaseSonClass.AbsTableDAL_ICreateSQL()
+                //new ITestCaseSonClass.TestAbsBasicsDataModel(),
+                //new ITestCaseSonClass.AbsTableDAL_AnalysisPropertyColumns(),
+                //new ITestCaseSonClass.AbsTableDAL_DefaultModel(),
+                new ITestCaseSonClass.AbsTableDAL_ICreateSQL(),
+                //new ITestCaseSonClass.DALSQLServer_IAutoTable(),
+                new ITestCaseSonClass.AbsTableDAL_ITableBasicFunction(),
             };
         }
     }

@@ -36,8 +36,7 @@ namespace Test.ConsoleProgram
         }
 
         private static bool IsRepeatExecute() {
-            Console.WriteLine("");
-            Console.WriteLine("请输入命令: Q(退出) R(重复执行)");
+            Console.WriteLine("\n请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
             ConsoleKeyInfo keyinfo = Console.ReadKey(false);
             Console.WriteLine("");
             switch (keyinfo.Key) {
@@ -45,6 +44,9 @@ namespace Test.ConsoleProgram
                     return false;
                 case ConsoleKey.R:
                     return true;
+                case ConsoleKey.C:
+                    Console.Clear();
+                    return IsRepeatExecute();
                 default:
                     return IsRepeatExecute();
             }
