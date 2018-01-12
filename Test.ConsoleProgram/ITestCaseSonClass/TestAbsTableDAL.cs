@@ -113,10 +113,10 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         public void TestMethod() {
             DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
 
-            Console.WriteLine("执行清除数据表");
-            DALSQLServer<ModelArticles>.Transaction(new string[] {
-                dal.SQLCreateTable(),
-            });
+            //Console.WriteLine("执行清除数据表");
+            //DALSQLServer<ModelArticles>.Transaction(new string[] {
+            //    dal.SQLCreateTable(),
+            //});
 
             //Console.WriteLine("循环添加大量测试数据");
             //for (int i = 0; i < 100000; i++) {
@@ -130,19 +130,19 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             //}
             //Console.WriteLine("结束了!");
 
-            //Console.WriteLine("循环添加大量测试数据");
-            //List<string> sqls = new List<string>();
-            //for (int i = 0; i < 1000000; i++) {
-            //    sqls.Add(dal.SQLInsert(new ModelArticles() {
-            //        id = i,
-            //        Money = i * 2.5M,
-            //        Remark = string.Format("测试数据: {0} 条", i + 1),
-            //        TimeAdd = DateTime.Now
-            //    }));
-            //}
-            //Console.WriteLine(string.Format("生成完成sqls: 个数: {0}", sqls.Count));
-            ////Console.WriteLine(DALSQLServer<ModelArticles>.Transaction(sqls.ToArray()));
-            //Console.WriteLine("结束了!");
+            Console.WriteLine("循环添加大量测试数据");
+            List<string> sqls = new List<string>();
+            for (int i = 0; i < 500000; i++) {
+                sqls.Add(dal.SQLInsert(new ModelArticles() {
+                    id = i,
+                    Money = i * 2.5M,
+                    Remark = string.Format("测试数据: {0} 条", i + 1),
+                    TimeAdd = DateTime.Now
+                }));
+            }
+            Console.WriteLine(string.Format("生成完成sqls: 个数: {0}", sqls.Count));
+            //Console.WriteLine(DALSQLServer<ModelArticles>.Transaction(sqls.ToArray()));
+            Console.WriteLine("结束了!");
 
             //ModelArticles model = new ModelArticles() {
             //    id = 5555,
@@ -171,11 +171,11 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             //Console.Write("更新id为4的数据");
             //Console.WriteLine(dal.Update(model));
 
-            Console.WriteLine("查询所有数据:");
-            DataTable dt = dal.GetList(0, string.Empty, null);
-            foreach (ModelArticles item in dal.GetModelList(dt)) {
-                Console.WriteLine(item.ToString());
-            }
+            //Console.WriteLine("查询所有数据:");
+            //DataTable dt = dal.GetList(0, string.Empty, null);
+            //foreach (ModelArticles item in dal.GetModelList(dt)) {
+            //    Console.WriteLine(item.ToString());
+            //}
         }
     }
 }

@@ -21,7 +21,15 @@ namespace CSharp.LibrayDataBase
         /// 构造函数
         /// </summary>
         public AbsTableDAL() {
+            EXECreateTable();
             SetALLTypeColumns();
+        }
+
+        /// <summary>
+        /// 执行创建数据表
+        /// </summary>
+        private void EXECreateTable() {
+            DbHelperSQL.GetSingle(SQLCreateTable());
         }
 
         /// <summary>
@@ -129,10 +137,11 @@ namespace CSharp.LibrayDataBase
 
             foreach (ColumnModel item in this.CanGetSetColumns()) {
                 object value = item.Property.GetValue(model, null);
+                value = item.ColAttr.DbType.PrintSaveValue(value);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 fieldArr.Add(item.Property.Name);
-                valueArr.Add(string.Format("'{0}'", value.ToString()));
+                valueArr.Add(string.Format("'{0}'", value));
             }
 
             if ((fieldArr.Count != valueArr.Count) && CheckData.IsSizeEmpty(fieldArr)) {
@@ -158,6 +167,7 @@ namespace CSharp.LibrayDataBase
             List<string> setArr = new List<string>();
             foreach (ColumnModel item in this.CanGetSetColumns()) {
                 object value = item.Property.GetValue(model, null);
+                value = item.ColAttr.DbType.PrintSaveValue(value);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 setArr.Add(string.Format("{0} = '{1}'", item.Property.Name, value.ToString()));

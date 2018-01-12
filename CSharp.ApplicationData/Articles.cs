@@ -7,7 +7,7 @@ namespace CSharp.ApplicationData
     /// <summary>
     /// 数据模型类: 文章
     /// </summary>
-    [Explain("文章表")]
+    [Explain("文章")]
     [Table]
     public class ModelArticles : AbsModel_ID
     {
@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 文章金额
         /// </summary>
         [Explain("文章金额")]
-        [Column("money")]
+        [Column(ColumnAttribute.FieldTypeStruct.Money)]
         public decimal Money { get { return _money; } set { _money = value; } }
         private decimal _money = 0M;
 

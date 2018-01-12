@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlTypes;
+using CSharp.LibrayFunction;
 
 namespace CSharp.LibrayDataBase
 {
@@ -9,15 +10,70 @@ namespace CSharp.LibrayDataBase
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ColumnAttribute : AbsBasicsAttribute
     {
-        public ColumnAttribute(string dbDataType) {
-            this._dbType = dbDataType;
+        public enum FieldTypeStruct
+        {
+            Int = 2,
+            Money = 4,
         }
+        public ColumnAttribute(FieldTypeStruct dbDataType) {
+            this._dbType = AnalysisTypeStruct(dbDataType);
+        }
+        private AbsFieldType AnalysisTypeStruct(FieldTypeStruct dbDataType) {
+            switch (dbDataType) {
+                case FieldTypeStruct.Int: return new Int();
+                case FieldTypeStruct.Money: return new Money();
+                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
+            }
+        }
+
+        public enum FieldTypeDefault
+        {
+            Datetime = 3,
+        }
+        public enum DefalutValues
+        {
+            DateTimeNow = 1,
+            SqlMinDateTime = 2,
+            SqlMaxDateTime = 3,
+        }
+        public ColumnAttribute(FieldTypeDefault dbDataType, DefalutValues defalutEnum) {
+            this._dbType = AnalysisTypeDefalut(dbDataType, AnalysisDefalutValue(defalutEnum));
+        }
+        private object AnalysisDefalutValue(DefalutValues defalutEnum) {
+            switch (defalutEnum) {
+                case DefalutValues.DateTimeNow: return DateTime.Now.ToString();
+                case DefalutValues.SqlMinDateTime: return SqlDateTime.MinValue.Value.ToString();
+                case DefalutValues.SqlMaxDateTime: return SqlDateTime.MaxValue.Value.ToString();
+                default: return string.Empty;
+            }
+        }
+        private AbsFieldType AnalysisTypeDefalut(FieldTypeDefault dbDataType, object defalutValue) {
+            switch (dbDataType) {
+                case FieldTypeDefault.Datetime: return new Datetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
+                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
+            }
+        }
+
+        public enum FieldTypeCharCount
+        {
+            Nvarchar = 1,
+        }
+        public ColumnAttribute(FieldTypeCharCount dbDataType, ushort charCount) {
+            this._dbType = AnalysisTypeCharCount(dbDataType, charCount);
+        }
+        private AbsFieldType AnalysisTypeCharCount(FieldTypeCharCount dbDataType, ushort charCount) {
+            switch (dbDataType) {
+                case FieldTypeCharCount.Nvarchar: return new Nvarchar(charCount);
+                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
+            }
+        }
+
 
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        public string DbType { get { return _dbType; } }
-        private string _dbType = String.Empty;
+        public AbsFieldType DbType { get { return _dbType; } }
+        private AbsFieldType _dbType = null;
 
 
         /// <summary>

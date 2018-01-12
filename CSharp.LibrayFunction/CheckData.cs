@@ -18,6 +18,7 @@ namespace CSharp.LibrayFunction
         public static bool IsObjectNull(object obj) {
             return (Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value));
         }
+
         /// <summary>
         /// String 对象 是否为空 无值 如有需要请将参数.Trim()
         /// </summary>

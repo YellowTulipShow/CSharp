@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 
 namespace CSharp.LibrayFunction
 {
@@ -240,41 +241,32 @@ namespace CSharp.LibrayFunction
         /// 将对象转换为日期时间类型
         /// </summary>
         /// <param name="obj">要转换的对象</param>
-        /// <returns>转换后的int类型结果</returns>
-        public static DateTime ObjectToDateTime(object obj) {
-            return StrToDateTime(obj.ToString());
-        }
-        /// <summary>
-        /// 将对象转换为日期时间类型
-        /// </summary>
-        /// <param name="obj">要转换的对象</param>
         /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
-        public static DateTime ObjectToDateTime(object obj, DateTime defValue) {
-            return StrToDateTime(obj.ToString(), defValue);
+        /// <returns></returns>
+        public static DateTime ObjToDateTime(object obj, DateTime defValue) {
+            if (CheckData.IsObjectNull(obj))
+                return defValue;
+            string objStr = obj.ToString();
+            if (CheckData.IsStringNull(objStr))
+                return defValue;
+            DateTime time;
+            return DateTime.TryParse(objStr, out time) ? time : defValue;
         }
+
         /// <summary>
         /// 将对象转换为日期时间类型
         /// </summary>
-        /// <param name="str">要转换的字符串</param>
-        /// <returns>转换后的int类型结果</returns>
-        public static DateTime StrToDateTime(String str) {
-            return StrToDateTime(str, DateTime.Now);
-        }
-        /// <summary>
-        /// 将对象转换为日期时间类型
-        /// </summary>
-        /// <param name="str">要转换的字符串</param>
+        /// <param name="obj">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
-        public static DateTime StrToDateTime(String str, DateTime defValue) {
-            if (!CheckData.IsStringNull(str.Trim())) {
-                DateTime dateTime;
-                if (DateTime.TryParse(str, out dateTime)) {
-                    return dateTime;
-                }
-            }
-            return defValue;
+        /// <returns></returns>
+        public static SqlDateTime ObjToSqlDateTime(object obj, SqlDateTime defValue) {
+            DateTime defTime = defValue.Value;
+            DateTime resuTime = ObjToDateTime(obj, defTime);
+            if (resuTime < SqlDateTime.MinValue.Value)
+                return SqlDateTime.MinValue;
+            else if (SqlDateTime.MaxValue.Value < resuTime)
+                return SqlDateTime.MaxValue;
+            return new SqlDateTime(resuTime);
         }
         #endregion
     }

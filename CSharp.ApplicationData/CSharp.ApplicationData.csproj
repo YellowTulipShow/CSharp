@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Articles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Personnel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharp.LibrayDataBase\CSharp.LibrayDataBase.csproj">
