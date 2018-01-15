@@ -3,6 +3,7 @@ using System.Text;
 using System.Data;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using CSharp.LibrayFunction;
 using CSharp.LibrayDataBase.Utils;
 
@@ -15,14 +16,14 @@ namespace CSharp.LibrayDataBase
         IPropertyColumn, IAutoTable, IBasicsSQL<M>, ITableBasicFunction<M>
         where M : AbsModel_Null
     {
-        private ColumnModel[] alltypeColums = null;
+        private ColumnInfo[] alltypeColums = null;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public AbsTableDAL() {
-            EXECreateTable();
             SetALLTypeColumns();
+            EXECreateTable();
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 获得所有 类型 列
         /// </summary>
-        public ColumnModel[] GetALLTypeColumns() {
+        public ColumnInfo[] GetALLTypeColumns() {
             if (CheckData.IsSizeEmpty(alltypeColums))
                 SetALLTypeColumns();
             return alltypeColums;
@@ -60,25 +61,25 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 接口: IPropertyColumn 解析-属性-列
         /// </summary>
-        public ColumnModel[] AnalysisPropertyColumns() {
+        public ColumnInfo[] AnalysisPropertyColumns() {
             Type modelT = typeof(M);
             if (!modelT.IsDefined(typeof(TableAttribute), false)) {
-                return new ColumnModel[] { };
+                return new ColumnInfo[] { };
             }
 
-            List<ColumnModel> colms = new List<ColumnModel>();
+            List<ColumnInfo> colms = new List<ColumnInfo>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo pro in protertys) {
                 ColumnAttribute columnAttr = ReflexHelper.FindAttributesOnly<ColumnAttribute>(pro);
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
-                colms.Add(new ColumnModel() {
+                colms.Add(new ColumnInfo() {
                     Name = pro.Name,
                     Property = pro,
-                    ColAttr = columnAttr
+                    Attribute = columnAttr
                 });
             }
-            colms.Sort(ColumnModel.Sort);
+            colms.Sort(ColumnInfo.Sort);
             return colms.ToArray();
         }
 
@@ -86,10 +87,10 @@ namespace CSharp.LibrayDataBase
         /// 获取主键列
         /// </summary>
         /// <returns>若无,返回null</returns>
-        public PropertyInfo PrimaryKeyColumn() {
-            foreach (ColumnModel item in GetALLTypeColumns()) {
-                if (item.ColAttr.IsPrimaryKey)
-                    return item.Property;
+        public ColumnInfo PrimaryKeyColumn() {
+            foreach (ColumnInfo item in GetALLTypeColumns()) {
+                if (item.Attribute.IsPrimaryKey)
+                    return item;
             }
             return null;
         }
@@ -98,10 +99,10 @@ namespace CSharp.LibrayDataBase
         /// 获取主键并且是ID标识列
         /// </summary>
         /// <returns>若无,返回null</returns>
-        public PropertyInfo IDentityColumn() {
-            foreach (ColumnModel item in GetALLTypeColumns()) {
-                if (item.ColAttr.IsPrimaryKey && item.ColAttr.IsIDentity)
-                    return item.Property;
+        public ColumnInfo IDentityColumn() {
+            foreach (ColumnInfo item in GetALLTypeColumns()) {
+                if (item.Attribute.IsPrimaryKey && item.Attribute.IsIDentity)
+                    return item;
             }
             return null;
         }
@@ -109,13 +110,8 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 获取能执行插入语句的列
         /// </summary>
-        public ColumnModel[] CanGetSetColumns() {
-            List<ColumnModel> colms = new List<ColumnModel>();
-            foreach (ColumnModel item in GetALLTypeColumns()) {
-                if (!item.ColAttr.IsDbGenerated)
-                    colms.Add(item);
-            }
-            return colms.ToArray();
+        public ColumnInfo[] CanGetSetColumns() {
+            return GetALLTypeColumns().Where(colinfo => !colinfo.Attribute.IsDbGenerated).ToArray();
         }
         #endregion
 
@@ -135,9 +131,32 @@ namespace CSharp.LibrayDataBase
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
 
-            foreach (ColumnModel item in this.CanGetSetColumns()) {
+            foreach (ColumnInfo item in this.CanGetSetColumns()) {
                 object value = item.Property.GetValue(model, null);
-                value = item.ColAttr.DbType.PrintSaveValue(value);
+                value = item.Attribute.DbType.PrintSaveValue(value);
+                if (CheckData.IsObjectNull(value))
+                    continue;
+                fieldArr.Add(item.Property.Name);
+                valueArr.Add(string.Format("'{0}'", value));
+            }
+
+            if ((fieldArr.Count != valueArr.Count) && CheckData.IsSizeEmpty(fieldArr)) {
+                return string.Empty;
+            }
+
+            string fieldStr = ConvertTool.IListToString(fieldArr, ',');
+            string valueStr = ConvertTool.IListToString(valueArr, ',');
+            return string.Format("insert into {0}({1}) values({2})", model.GetTableName(), fieldStr, valueStr);
+        }
+        /// <summary>
+        /// 产生 插入 SQL
+        /// </summary>
+        public string SQLInsert_2(M model) {
+            List<string> fieldArr = new List<string>();
+            List<string> valueArr = new List<string>();
+
+            foreach (ColumnInfo item in this.CanGetSetColumns()) {
+                object value = item.Property.GetValue(model, null);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 fieldArr.Add(item.Property.Name);
@@ -165,9 +184,9 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public virtual string SQLUpdate(M model) {
             List<string> setArr = new List<string>();
-            foreach (ColumnModel item in this.CanGetSetColumns()) {
+            foreach (ColumnInfo item in this.CanGetSetColumns()) {
                 object value = item.Property.GetValue(model, null);
-                value = item.ColAttr.DbType.PrintSaveValue(value);
+                value = item.Attribute.DbType.PrintSaveValue(value);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 setArr.Add(string.Format("{0} = '{1}'", item.Property.Name, value.ToString()));
@@ -181,23 +200,24 @@ namespace CSharp.LibrayDataBase
         }
 
         /// <summary>
-        /// 产生 标记SQL条件
+        /// 创建 标识准确记录的 SQL where 条件部分字符串
         /// </summary>
         /// <param name="model">数据来源</param>
         public virtual string CreateSignSQLWhere(M model) {
-            PropertyInfo property = null;
-            property = !CheckData.IsObjectNull(property) ? property : PrimaryKeyColumn();
-            property = !CheckData.IsObjectNull(property) ? property : IDentityColumn();
-            if (CheckData.IsObjectNull(property)) {
+            ColumnInfo colmodel = null;
+            colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : PrimaryKeyColumn();
+            colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : IDentityColumn();
+            if (CheckData.IsObjectNull(colmodel)) {
                 throw new CreateSQLNotHaveWhereException();
             }
-            object nowVal = property.GetValue(model, null);
+            object nowVal = colmodel.Property.GetValue(model, null);
+            nowVal = colmodel.Attribute.DbType.PrintSaveValue(nowVal);
             if (CheckData.IsObjectNull(nowVal) ||
-                nowVal.ToString() == property.GetValue(DefaultModel(), null).ToString() ||
+                nowVal.ToString() == colmodel.Property.GetValue(DefaultModel(), null).ToString() ||
                 CheckData.IsStringNull(nowVal.ToString().Trim())) {
                 throw new CreateSQLNotHaveWhereException();
             }
-            string where = string.Format("{0} = '{1}'", property.Name, nowVal.ToString());
+            string where = string.Format("{0} = '{1}'", colmodel.Property.Name, nowVal.ToString());
             return where;
         }
         /// <summary>
@@ -243,9 +263,12 @@ namespace CSharp.LibrayDataBase
         }
 
         public virtual M GetModel(int IDentity) {
+            ColumnInfo colmodel = IDentityColumn();
+            if (CheckData.IsObjectNull(colmodel))
+                return null;
             string sql = string.Format("select top 1 * from {0} where {1} = {2}",
                 DefaultModel().GetTableName(),
-                IDentityColumn().Name,
+                colmodel.Property.Name,
                 IDentity);
             DataSet ds = DbHelperSQL.Query(sql);
             return CheckReturnModel(ds);
@@ -255,7 +278,7 @@ namespace CSharp.LibrayDataBase
             if (CheckData.IsSizeEmpty(row))
                 return null;
             M model = DefaultModel();
-            foreach (ColumnModel item in GetALLTypeColumns()) {
+            foreach (ColumnInfo item in GetALLTypeColumns()) {
                 object value = row[item.Property.Name];
                 if (!CheckData.IsObjectNull(item.Property) && !CheckData.IsObjectNull(value)) {
                     item.Property.SetValue(model, value, null);

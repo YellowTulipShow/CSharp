@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 文章金额
         /// </summary>
         [Explain("文章金额")]
-        [Column(ColumnAttribute.FieldTypeStruct.Money)]
+        [Column(MSSFieldTypeStruct.Money)]
         public decimal Money { get { return _money; } set { _money = value; } }
         private decimal _money = 0M;
 
@@ -41,6 +41,7 @@ namespace CSharp.ApplicationData
     /// </summary>
     public class BLLArticles : BLLSQLServer<ModelArticles>
     {
-        public BLLArticles() : base(new DALSQLServer<ModelArticles>()) { }
+        public BLLArticles() : base(new DALSQLServer<ModelArticles>()) {
+        }
     }
 }

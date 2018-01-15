@@ -1,72 +1,108 @@
 ﻿using System;
 using System.Data.SqlTypes;
 using CSharp.LibrayFunction;
+using CSharp.LibrayDataBase.MSSDataType;
 
 namespace CSharp.LibrayDataBase
 {
+    /// <summary>
+    /// Microsoft SQL Server 数据库字段类型: 值类型
+    /// </summary>
+    public enum MSSFieldTypeStruct
+    {
+        /// <summary>
+        /// 数值整形
+        /// </summary>
+        Int = 1,
+        /// <summary>
+        /// 金额字段 搭配C#程序的数据类型是 decimal
+        /// </summary>
+        Money = 4,
+    }
+
+    /// <summary>
+    /// Microsoft SQL Server 数据库字段类型: 限定字符长度
+    /// </summary>
+    public enum MSSFieldTypeCharCount
+    {
+        ///// <summary>
+        ///// 固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000)
+        ///// </summary>
+        //Char = 5,
+        ///// <summary>
+        ///// 固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)
+        ///// </summary>
+        //NChar = 6,
+        ///// <summary>
+        ///// 可变长度，存储ANSI字符，根据数据长度自动变化。(1-8000，MAX Yes size: 2^31-1byte 4GB)
+        ///// </summary>
+        //VarChar = 7,
+        /// <summary>
+        /// 可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)
+        /// </summary>
+        NVarChar = 2,
+    }
+
+    /// <summary>
+    /// Microsoft SQL Server 数据库字段类型: 不为空, 需要默认值
+    /// </summary>
+    public enum MSSFieldTypeDefault
+    {
+        Datetime = 3,
+    }
+
+    /// Microsoft SQL Server 默认值
+    public enum MSSDefalutValues
+    {
+        DateTimeNow = 1,
+        SqlMinDateTime = 2,
+        SqlMaxDateTime = 3,
+    }
+
     /// <summary>
     /// 数据表列特性  同一程序不能多个解释。无法继承此类。
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ColumnAttribute : AbsBasicsAttribute
     {
-        public enum FieldTypeStruct
-        {
-            Int = 2,
-            Money = 4,
-        }
-        public ColumnAttribute(FieldTypeStruct dbDataType) {
+        #region === Constructor Init DataType ===
+        public ColumnAttribute(MSSFieldTypeStruct dbDataType) {
             this._dbType = AnalysisTypeStruct(dbDataType);
         }
-        private AbsFieldType AnalysisTypeStruct(FieldTypeStruct dbDataType) {
-            switch (dbDataType) {
-                case FieldTypeStruct.Int: return new Int();
-                case FieldTypeStruct.Money: return new Money();
-                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
-            }
-        }
-
-        public enum FieldTypeDefault
-        {
-            Datetime = 3,
-        }
-        public enum DefalutValues
-        {
-            DateTimeNow = 1,
-            SqlMinDateTime = 2,
-            SqlMaxDateTime = 3,
-        }
-        public ColumnAttribute(FieldTypeDefault dbDataType, DefalutValues defalutEnum) {
+        public ColumnAttribute(MSSFieldTypeDefault dbDataType, MSSDefalutValues defalutEnum) {
             this._dbType = AnalysisTypeDefalut(dbDataType, AnalysisDefalutValue(defalutEnum));
         }
-        private object AnalysisDefalutValue(DefalutValues defalutEnum) {
+        public ColumnAttribute(MSSFieldTypeCharCount dbDataType, ushort charCount) {
+            this._dbType = AnalysisTypeCharCount(dbDataType, charCount);
+        }
+        private AbsFieldType AnalysisTypeStruct(MSSFieldTypeStruct dbDataType) {
+            switch (dbDataType) {
+                case MSSFieldTypeStruct.Int: return new MSSInt();
+                case MSSFieldTypeStruct.Money: return new MSSMoney();
+                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+            }
+        }
+        private AbsFieldType AnalysisTypeCharCount(MSSFieldTypeCharCount dbDataType, ushort charCount) {
+            switch (dbDataType) {
+                case MSSFieldTypeCharCount.NVarChar: return new MSSNvarchar(charCount);
+                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+            }
+        }
+        private AbsFieldType AnalysisTypeDefalut(MSSFieldTypeDefault dbDataType, object defalutValue) {
+            switch (dbDataType) {
+                case MSSFieldTypeDefault.Datetime: return new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
+                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+            }
+        }
+        private object AnalysisDefalutValue(MSSDefalutValues defalutEnum) {
             switch (defalutEnum) {
-                case DefalutValues.DateTimeNow: return DateTime.Now.ToString();
-                case DefalutValues.SqlMinDateTime: return SqlDateTime.MinValue.Value.ToString();
-                case DefalutValues.SqlMaxDateTime: return SqlDateTime.MaxValue.Value.ToString();
+                case MSSDefalutValues.DateTimeNow: return DateTime.Now.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
+                case MSSDefalutValues.SqlMinDateTime: return SqlDateTime.MinValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
+                case MSSDefalutValues.SqlMaxDateTime: return SqlDateTime.MaxValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
                 default: return string.Empty;
             }
         }
-        private AbsFieldType AnalysisTypeDefalut(FieldTypeDefault dbDataType, object defalutValue) {
-            switch (dbDataType) {
-                case FieldTypeDefault.Datetime: return new Datetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
-                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
-            }
-        }
-
-        public enum FieldTypeCharCount
-        {
-            Nvarchar = 1,
-        }
-        public ColumnAttribute(FieldTypeCharCount dbDataType, ushort charCount) {
-            this._dbType = AnalysisTypeCharCount(dbDataType, charCount);
-        }
-        private AbsFieldType AnalysisTypeCharCount(FieldTypeCharCount dbDataType, ushort charCount) {
-            switch (dbDataType) {
-                case FieldTypeCharCount.Nvarchar: return new Nvarchar(charCount);
-                default: return new Nvarchar(Nvarchar.MAXCHARSIGN);
-            }
-        }
+        #endregion
 
 
         /// <summary>

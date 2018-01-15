@@ -64,7 +64,9 @@
     <Compile Include="ITestCaseSonClass\TestAbsTableDAL.cs" />
     <Compile Include="ITestCaseSonClass\TestAttribute.cs" />
     <Compile Include="ITestCaseSonClass\TestDateTime.cs" />
+    <Compile Include="ITestCaseSonClass\TestLambda.cs" />
     <Compile Include="ITestCaseSonClass\TestObject.cs" />
+    <Compile Include="ITestCaseSonClass\TestReflex.cs" />
     <Compile Include="MainProram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DelegateTimeTest.cs" />

@@ -10,13 +10,13 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public interface IPropertyColumn
     {
-        ColumnModel[] AnalysisPropertyColumns();
+        ColumnInfo[] AnalysisPropertyColumns();
     }
 
     /// <summary>
     /// 列信息模型
     /// </summary>
-    public class ColumnModel : AbsBasicsDataModel
+    public class ColumnInfo : AbsBasicsDataModel
     {
         /// <summary>
         /// 列名称
@@ -33,25 +33,25 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 数据列特性
         /// </summary>
-        public ColumnAttribute ColAttr { get { return _colAttr; } set { _colAttr = value; } }
-        private ColumnAttribute _colAttr = null;
+        public ColumnAttribute Attribute { get { return _attribute; } set { _attribute = value; } }
+        private ColumnAttribute _attribute = null;
 
         /// <summary>
         /// 排序比较 实现委托: Comparison<T> 值含义: 小于0:(x 小于 y)。0:(x 等于 y)。大于0:(x 大于 y)。
         /// </summary>
-        public static int Sort(ColumnModel x, ColumnModel y) {
+        public static int Sort(ColumnInfo x, ColumnInfo y) {
             // 主键
-            if (x.ColAttr.IsPrimaryKey != y.ColAttr.IsPrimaryKey)
-                return y.ColAttr.IsPrimaryKey ? 1 : -1;
+            if (x.Attribute.IsPrimaryKey != y.Attribute.IsPrimaryKey)
+                return y.Attribute.IsPrimaryKey ? 1 : -1;
             // 标识列
-            if (x.ColAttr.IsIDentity != y.ColAttr.IsIDentity)
-                return y.ColAttr.IsIDentity ? 1 : -1;
+            if (x.Attribute.IsIDentity != y.Attribute.IsIDentity)
+                return y.Attribute.IsIDentity ? 1 : -1;
             // 自动生成的值
-            if (x.ColAttr.IsDbGenerated != y.ColAttr.IsDbGenerated)
-                return y.ColAttr.IsDbGenerated ? 1 : -1;
+            if (x.Attribute.IsDbGenerated != y.Attribute.IsDbGenerated)
+                return y.Attribute.IsDbGenerated ? 1 : -1;
             // 允许为空的值
-            if (x.ColAttr.IsCanBeNull != y.ColAttr.IsCanBeNull)
-                return y.ColAttr.IsCanBeNull ? 1 : -1;
+            if (x.Attribute.IsCanBeNull != y.Attribute.IsCanBeNull)
+                return y.Attribute.IsCanBeNull ? 1 : -1;
             return 0;
         }
     }

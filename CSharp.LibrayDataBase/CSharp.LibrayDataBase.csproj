@@ -63,10 +63,10 @@
     <Compile Include="Son_Model\AbsModel_ID.cs" />
     <Compile Include="Son_Model\AbsModel_TimeAdd.cs" />
     <Compile Include="IBasicsSQL.cs" />
-    <Compile Include="Son_Type\Money.cs" />
-    <Compile Include="Son_Type\Int.cs" />
-    <Compile Include="Son_Type\Datetime.cs" />
-    <Compile Include="Son_Type\Nvarchar.cs" />
+    <Compile Include="Son_Type\MSSMoney.cs" />
+    <Compile Include="Son_Type\MSSInt.cs" />
+    <Compile Include="Son_Type\MSSDatetime.cs" />
+    <Compile Include="Son_Type\MSSNvarchar.cs" />
     <Compile Include="Utils\CommandInfo.cs">
       <SubType>
       </SubType>

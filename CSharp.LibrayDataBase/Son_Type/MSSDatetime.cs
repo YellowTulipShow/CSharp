@@ -2,9 +2,12 @@
 using System.Data.SqlTypes;
 using CSharp.LibrayFunction;
 
-namespace CSharp.LibrayDataBase
+namespace CSharp.LibrayDataBase.MSSDataType
 {
-    public class Datetime : AbsFieldTypeDefault
+    /// <summary>
+    /// Microsoft SQL Server 字段 datetime 类型
+    /// </summary>
+    public class MSSDatetime : AbsFieldTypeDefault
     {
         /// <summary>
         /// 默认值 属性器
@@ -19,7 +22,7 @@ namespace CSharp.LibrayDataBase
         /// 实例化时间数据类型
         /// </summary>
         /// <param name="defvalue">默认提供一个时间, 出错时使用</param>
-        public Datetime(SqlDateTime defvalue)
+        public MSSDatetime(SqlDateTime defvalue)
             : base(defvalue) {
             DefalutValue = defvalue;
         }

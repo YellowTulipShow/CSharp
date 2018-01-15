@@ -57,13 +57,13 @@ namespace CSharp.LibrayDataBase
         }
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnModel item in GetALLTypeColumns()) {
-                string value = string.Format("{0} {1}", item.Property.Name, item.ColAttr.DbType.FieldTypeName());
-                if (item.ColAttr.IsPrimaryKey)
+            foreach (ColumnInfo item in GetALLTypeColumns()) {
+                string value = string.Format("{0} {1}", item.Property.Name, item.Attribute.DbType.FieldTypeName());
+                if (item.Attribute.IsPrimaryKey)
                     value += @" primary key";
-                if (!item.ColAttr.IsCanBeNull)
+                if (!item.Attribute.IsCanBeNull)
                     value += @" not null";
-                if (item.ColAttr.IsIDentity)
+                if (item.Attribute.IsIDentity)
                     value += @" identity (1,1)";
                 resuDic[item.Property.Name] = value;
             }

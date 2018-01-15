@@ -14,7 +14,7 @@ namespace CSharp.ApplicationData
         /// 昵称
         /// </summary>
         [Explain("昵称")]
-        [Column(ColumnAttribute.FieldTypeCharCount.Nvarchar, 100)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 100)]
         public string NickName { get { return _nickName; } set { _nickName = value; } }
         private string _nickName = string.Empty;
 
@@ -22,7 +22,7 @@ namespace CSharp.ApplicationData
         /// 真实姓名
         /// </summary>
         [Explain("真实姓名")]
-        [Column(ColumnAttribute.FieldTypeCharCount.Nvarchar, 50)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 50)]
         public string RealName { get { return _realName; } set { _realName = value; } }
         private string _realName = string.Empty;
 
@@ -30,7 +30,7 @@ namespace CSharp.ApplicationData
         /// 密码
         /// </summary>
         [Explain("密码")]
-        [Column(ColumnAttribute.FieldTypeCharCount.Nvarchar, 200)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 200)]
         public string Password { get { return _password; } set { _password = value; } }
         private string _password = string.Empty;
     }

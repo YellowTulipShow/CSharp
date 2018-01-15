@@ -1,9 +1,12 @@
 ﻿using System;
 using CSharp.LibrayFunction;
 
-namespace CSharp.LibrayDataBase
+namespace CSharp.LibrayDataBase.MSSDataType
 {
-    public class Money : AbsFieldType
+    /// <summary>
+    /// Microsoft SQL Server 字段 money 类型
+    /// </summary>
+    public class MSSMoney : AbsFieldType
     {
         public override string FieldTypeName() {
             return @"money";

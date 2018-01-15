@@ -21,7 +21,7 @@ namespace CSharp.LibrayDataBase
         }
 
         #region === IPropertyColumn ===
-        public ColumnModel[] AnalysisPropertyColumns() {
+        public ColumnInfo[] AnalysisPropertyColumns() {
             return TableDAL.AnalysisPropertyColumns();
         }
         #endregion
