@@ -16,8 +16,8 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         public void TestMethod() {
-            BLLArticles bll = new BLLArticles();
-            ColumnInfo[] dic = bll.AnalysisPropertyColumns();
+            DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
+            ColumnInfo[] dic = dal.AnalysisPropertyColumns();
 
             foreach (ColumnInfo item in dic) {
                 Console.WriteLine(String.Format("PropertyInfo Name: {0}", item.Property.Name));
@@ -51,13 +51,19 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         public void TestMethod() {
-            BLLArticles bll = new BLLArticles();
-            ModelArticles model = new ModelArticles() {
-                Money = 287.88M,
-                VipDiscountRate = 80,
-                TimeAdd = DateTime.Now,
-                Remark = @"测试数据,备注"
+            //BLLArticles bll = new BLLArticles();
+            //ModelArticles model = new ModelArticles() {
+            //    Money = 287.88M,
+            //    VipDiscountRate = 80,
+            //    TimeAdd = DateTime.Now,
+            //    Remark = @"测试数据,备注"
+            //};
+            DALSQLServer<ModelGroup> bll = new DALSQLServer<ModelGroup>();
+            ModelGroup model = new ModelGroup() {
+                GroupType = (int)ModelGroup.GroupTypeEnum.SystemGroup,
+                Name = @"测试组别",
             };
+
             Console.WriteLine("原始数据:");
             Console.WriteLine(model.ToString());
             Console.WriteLine(string.Empty);
@@ -166,16 +172,16 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         private void Test_GetModelList() {
-            DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
+            DALSQLServer<ModelGroup> dal = new DALSQLServer<ModelGroup>();
             Console.WriteLine("查询所有数据:");
             DataTable dt = dal.GetList(0, string.Empty, null);
-            foreach (ModelArticles item in dal.GetModelList(dt)) {
+            foreach (ModelGroup item in dal.GetModelList(dt)) {
                 Console.WriteLine(item.ToString());
             }
         }
 
         public void TestMethod() {
-            Test_InsertSpeed();
+            Test_GetModelList();
         }
 
         private void Test_InsertSpeed() {

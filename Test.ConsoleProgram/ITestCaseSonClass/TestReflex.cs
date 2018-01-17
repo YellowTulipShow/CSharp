@@ -12,7 +12,6 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         public void TestMethod() {
-
             ModelArticles model = new ModelArticles();
             List<string> list = new List<string>();
             for (int i = 0; i < 5; i++) {

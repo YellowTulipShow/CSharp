@@ -30,11 +30,7 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public abstract class AbsFieldTypeCharCount : AbsFieldType
     {
-        /// <summary>
-        /// 表示使用 MAX 字符标识
-        /// </summary>
-        public const ushort MAXCHARSIGN = ushort.MaxValue;
-        protected ushort charCount = MAXCHARSIGN;
+        protected ushort charCount = 0;
 
         public AbsFieldTypeCharCount(ushort charCount)
             : base() {
@@ -42,21 +38,9 @@ namespace CSharp.LibrayDataBase
         }
 
         private void SetCharCount(ushort charCount) {
-            if (charCount == MAXCHARSIGN) {
-                this.charCount = MAXCHARSIGN;
-                return;
-            }
             ushort min = MinCharCount;
             ushort max = MaxCharCount;
-            if (charCount < min) {
-                this.charCount = min;
-                return;
-            } else if (charCount > max) {
-                this.charCount = max;
-                return;
-            } else {
-                this.charCount = charCount;
-            }
+            this.charCount = (charCount < min) ? min : (charCount > max) ? max : charCount;
         }
 
         /// <summary>
@@ -79,10 +63,10 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 是否字符超出限制
         /// </summary>
-        protected bool IsCharExceedsLimit(object programValue) {
+        protected virtual bool IsCharExceedsLimit(object programValue) {
             if (CheckData.IsObjectNull(programValue))
                 return false;
-            if (charCount == MAXCHARSIGN)
+            if (CheckData.IsStringNull(programValue.ToString()))
                 return false;
             if (MinCharCount <= programValue.ToString().Length && programValue.ToString().Length <= MaxCharCount)
                 return false;
@@ -96,6 +80,28 @@ namespace CSharp.LibrayDataBase
             return programValue.ToString().Substring(0, charCount);
         }
     }
+
+    /// <summary>
+    /// 抽象-数据库 字段类型 字符数量限制(可包含最多)
+    /// </summary>
+    public abstract class AbsFieldTypeCharMAX : AbsFieldTypeCharCount
+    {
+        /// <summary>
+        /// 表示使用 MAX 字符标识
+        /// </summary>
+        public const ushort MAXCHARSIGN = ushort.MaxValue;
+
+        public AbsFieldTypeCharMAX(ushort charCount) : base(charCount) { }
+
+        /// <summary>
+        /// 是否字符超出限制
+        /// </summary>
+        protected override bool IsCharExceedsLimit(object programValue) {
+            return charCount == MAXCHARSIGN ? false : base.IsCharExceedsLimit(programValue);
+        }
+    }
+
+
 
     /// <summary>
     /// 抽象-数据库 字段类型 默认值

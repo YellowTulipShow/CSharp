@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Linq;
 
 namespace CSharp.LibrayFunction
 {
@@ -29,12 +30,10 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="list">需要合并的字符串数组</param>
         /// <param name="symbolSign">用于间隔内容的间隔符号</param>
-        /// <returns></returns>
-        public static string IListToString(IList list, object symbolSign) {
+        public static string IListToString(IList list, IConvertible symbolSign) {
             try {
-                if (CheckData.IsObjectNull(list) || CheckData.IsObjectNull(symbolSign)) {
+                if (CheckData.IsObjectNull(list) || CheckData.IsObjectNull(symbolSign))
                     return string.Empty;
-                }
                 StringBuilder strs = new StringBuilder();
                 int firstSign = 0;
                 bool isHavefirstValue = false;
@@ -46,7 +45,7 @@ namespace CSharp.LibrayFunction
                         continue;
                     }
                     if (i > firstSign) {
-                        strs.Append(symbolSign);
+                        strs.Append(symbolSign.ToString());
                     } else {
                         isHavefirstValue = true;
                     }
@@ -57,6 +56,73 @@ namespace CSharp.LibrayFunction
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// 字符串转字符串数组
+        /// </summary>
+        /// <param name="strValue">要转化的字符串</param>
+        /// <param name="Symbol">用于分隔的间隔符号</param>
+        public static string[] StringToIList(string strValue, IConvertible symbolSign) {
+            try {
+                if (CheckData.IsStringNull(strValue) || CheckData.IsObjectNull(symbolSign))
+                    throw new Exception();
+                string[] strarr = strValue.Split(symbolSign.ToString().ToCharArray());
+                return strarr;
+            } catch (Exception) {
+                return new string[] { };
+            }
+        }
+
+        /// <summary>
+        /// 委托: 实现转换算法
+        /// </summary>
+        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
+        /// <param name="sourceitem">数据来源</param>
+        public delegate RT StringConvertDelegate<RT>(string sourceitem) where RT : IConvertible;
+        /// <summary>
+        /// 字符串转泛型数组
+        /// </summary>
+        /// <param name="strValue">要转化的字符串</param>
+        /// <param name="Symbol">用于分隔的间隔符号</param>
+        public static RT[] StringToIList<RT>(string strValue, IConvertible symbolSign, StringConvertDelegate<RT> toRTMethod) where RT : IConvertible {
+            try {
+                string[] strarr = StringToIList(strValue, symbolSign);
+                return ListConvertType(strarr, s => {
+                    return toRTMethod(s);
+                });
+            } catch (Exception) {
+                return new RT[] { };
+            }
+        }
+        /// <summary>
+        /// 委托: 实现转换算法
+        /// </summary>
+        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
+        /// <typeparam name="ST">数据源数组-数据类型</typeparam>
+        /// <param name="sourceitem">数据来源</param>
+        public delegate RT ConvertTypeDelegate<RT, ST>(ST sourceitem) where RT : IConvertible where ST : IConvertible;
+        /// <summary>
+        /// 数组列表之间的类型数据转换
+        /// </summary>
+        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
+        /// <typeparam name="ST">数据源数组-数据类型</typeparam>
+        /// <param name="sourceList">数据源数组</param>
+        /// <param name="convertMethod">用户实现转换算法</param>
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod)
+            where RT : IConvertible
+            where ST : IConvertible {
+            List<RT> list = new List<RT>();
+            foreach (ST item in sourceList) {
+                if (CheckData.IsObjectNull(item))
+                    continue;
+                RT value = convertMethod(item);
+                if (CheckData.IsObjectNull(value))
+                    continue;
+                list.Add(value);
+            }
+            return list.ToArray();
+        }
+
         /// <summary>
         /// 泛型键值对的'键'组合生成字符串
         /// </summary>
@@ -65,7 +131,7 @@ namespace CSharp.LibrayFunction
         /// <param name="dictionary">数据源泛型集合</param>
         /// <param name="symbolSign">用于间隔内容的间隔符号</param>
         /// <returns></returns>
-        public static string IDictionaryTKeyToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, object symbolSign) {
+        public static string IDictionaryTKeyToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, IConvertible symbolSign) {
             List<TKey> vals = new List<TKey>();
             foreach (KeyValuePair<TKey, TValue> item in dictionary) {
                 vals.Add(item.Key);
@@ -80,24 +146,12 @@ namespace CSharp.LibrayFunction
         /// <param name="dictionary">数据源泛型集合</param>
         /// <param name="symbolSign">用于间隔内容的间隔符号</param>
         /// <returns></returns>
-        public static string IDictionaryTValueToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, object symbolSign) {
+        public static string IDictionaryTValueToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, IConvertible symbolSign) {
             List<TValue> vals = new List<TValue>();
             foreach (KeyValuePair<TKey, TValue> item in dictionary) {
                 vals.Add(item.Value);
             }
             return IListToString(vals, symbolSign);
-        }
-        /// <summary>
-        /// 字符串转数组列表
-        /// </summary>
-        /// <param name="strValue">要转化的字符串</param>
-        /// <param name="Symbol">用于分隔的间隔符号</param>
-        /// <returns></returns>
-        public static string[] stringToArray(String strValue, Char Symbol) {
-            if (CheckData.IsStringNull(strValue.Trim()))
-                return new string[] { };
-            string[] strarr = strValue.Split(Symbol);
-            return strarr;
         }
         #endregion
 
@@ -109,9 +163,8 @@ namespace CSharp.LibrayFunction
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的int类型结果</returns>
         public static int ObjToInt(object expression, int defValue) {
-            if (expression != null)
+            if (!CheckData.IsObjectNull(expression))
                 return StrToInt(expression.ToString(), defValue);
-
             return defValue;
         }
         /// <summary>
@@ -267,6 +320,20 @@ namespace CSharp.LibrayFunction
             else if (SqlDateTime.MaxValue.Value < resuTime)
                 return SqlDateTime.MaxValue;
             return new SqlDateTime(resuTime);
+        }
+
+
+        /// <summary>
+        /// 获取枚举类型所有Int值
+        /// </summary>
+        /// <typeparam name="E">枚举类型</typeparam>
+        public static int[] EnumToInts<E>() {
+            try {
+                Array arr = Enum.GetValues(typeof(E));
+                return arr.Cast<int>().ToArray();
+            } catch (Exception) {
+                return new int[] { };
+            }
         }
         #endregion
     }

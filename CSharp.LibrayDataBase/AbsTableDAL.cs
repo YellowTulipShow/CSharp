@@ -70,11 +70,14 @@ namespace CSharp.LibrayDataBase
             List<ColumnInfo> colms = new List<ColumnInfo>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo pro in protertys) {
-                ColumnAttribute columnAttr = ReflexHelper.FindAttributesOnly<ColumnAttribute>(pro);
+                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
+                ExplainAttribute explainAttr = ReflexHelper.FindAttributeOnly<ExplainAttribute>(pro);
+                if (CheckData.IsObjectNull(explainAttr))
+                    explainAttr = new ExplainAttribute("未知元素");
                 colms.Add(new ColumnInfo() {
-                    Name = pro.Name,
+                    Explain = explainAttr,
                     Property = pro,
                     Attribute = columnAttr
                 });

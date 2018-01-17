@@ -19,10 +19,10 @@ namespace CSharp.LibrayDataBase
     public class ColumnInfo : AbsBasicsDataModel
     {
         /// <summary>
-        /// 列名称
+        /// 解释翻译信息
         /// </summary>
-        public string Name { get { return _name; } set { _name = value; } }
-        private string _name = String.Empty;
+        public ExplainAttribute Explain { get { return _explain; } set { _explain = value; } }
+        private ExplainAttribute _explain = null;
 
         /// <summary>
         /// 属性信息
@@ -37,7 +37,7 @@ namespace CSharp.LibrayDataBase
         private ColumnAttribute _attribute = null;
 
         /// <summary>
-        /// 排序比较 实现委托: Comparison<T> 值含义: 小于0:(x 小于 y)。0:(x 等于 y)。大于0:(x 大于 y)。
+        /// 排序比较 实现委托: Comparison泛型 值含义: 小于0:(x 小于 y)。0:(x 等于 y)。大于0:(x 大于 y)。
         /// </summary>
         public static int Sort(ColumnInfo x, ColumnInfo y) {
             // 主键

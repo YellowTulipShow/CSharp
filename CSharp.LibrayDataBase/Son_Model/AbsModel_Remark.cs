@@ -12,7 +12,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 备注
         /// </summary>
-        [Explain("备注")]
+        [Explain(@"备注")]
         [Column(MSSFieldTypeCharCount.NVarChar, 500)]
         public string Remark { get { return _remark; } set { _remark = value; } }
         private string _remark = String.Empty;

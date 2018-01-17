@@ -3,11 +3,11 @@
 namespace CSharp.LibrayDataBase.MSSDataType
 {
     /// <summary>
-    /// Microsoft SQL Server 字段 nvarchar 类型
+    /// Microsoft SQL Server 字段 nchar 类型
     /// </summary>
-    public class MSSNVarChar : AbsFieldTypeCharMAX
+    public class MSSNChar : AbsFieldTypeCharCount
     {
-        public MSSNVarChar(ushort charCount) : base(charCount) { }
+        public MSSNChar(ushort charCount) : base(charCount) { }
 
         public override ushort MinCharCount {
             get { return 1; }
@@ -18,7 +18,7 @@ namespace CSharp.LibrayDataBase.MSSDataType
         }
 
         public override string FieldTypeName() {
-            return string.Format("nvarchar({0})", (charCount == MAXCHARSIGN) ? @"MAX" : charCount.ToString());
+            return string.Format("nchar({0})", charCount);
         }
     }
 }

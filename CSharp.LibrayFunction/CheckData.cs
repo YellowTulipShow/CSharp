@@ -31,37 +31,37 @@ namespace CSharp.LibrayFunction
         /// DataSet 数据集 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty(DataSet ds) {
-            return IsObjectNull(ds) || ds.Tables.Count <= 0 ? true : false;
+            return IsObjectNull(ds) || ds.Tables.Count <= 0;
         }
         /// <summary>
         /// DataTable 数据表 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty(DataTable dt) {
-            return IsObjectNull(dt) || dt.Rows.Count <= 0 ? true : false;
+            return IsObjectNull(dt) || dt.Rows.Count <= 0;
         }
         /// <summary>
         /// DataRow 数据行 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty(DataRow row) {
-            return IsObjectNull(row) || row.Table.Rows.Count <= 0 ? true : false;
+            return IsObjectNull(row) || row.Table.Rows.Count <= 0;
         }
         /// <summary>
         /// object[] 数组 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty(object[] objarr) {
-            return IsObjectNull(objarr) || objarr.Length <= 0 ? true : false;
+            return IsObjectNull(objarr) || objarr.Length <= 0;
         }
         /// <summary>
         /// List 泛型列表 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty<T>(List<T> Tlist) {
-            return IsObjectNull(Tlist) || Tlist.Count <= 0 ? true : false;
+            return IsObjectNull(Tlist) || Tlist.Count <= 0;
         }
         /// <summary>
         /// Dictionary 泛型键值对集合 大小 为 '空'
         /// </summary>
         public static bool IsSizeEmpty<K, V>(Dictionary<K, V> dicary) {
-            return IsObjectNull(dicary) || dicary.Count <= 0 ? true : false;
+            return IsObjectNull(dicary) || dicary.Count <= 0;
         }
         #endregion
 

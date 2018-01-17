@@ -76,6 +76,17 @@
     /*.text-noneSelect { -moz-user-select: none; -moz-user-select: -moz-none; -moz-user-select: -moz-all; -webkit-user-select: none; }*/
     .text-noneSelect { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
+    .text-hide {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+
+        filter: alpha(opacity=0) !important;
+        -moz-opacity: 0 !important;
+        opacity: 0 !important;
+    }
+
 /* font word ~~~ */
     /*显示字体的地方让其多余字体隐藏起来*/
     .font-hide span,

@@ -63,7 +63,10 @@
     <Compile Include="ITestCaseSonClass\TestAbsBasicsDataModel.cs" />
     <Compile Include="ITestCaseSonClass\TestAbsTableDAL.cs" />
     <Compile Include="ITestCaseSonClass\TestAttribute.cs" />
+    <Compile Include="ITestCaseSonClass\TestConvertTool.cs" />
     <Compile Include="ITestCaseSonClass\TestDateTime.cs" />
+    <Compile Include="ITestCaseSonClass\TestEnum.cs" />
+    <Compile Include="ITestCaseSonClass\TestExplain.cs" />
     <Compile Include="ITestCaseSonClass\TestLambda.cs" />
     <Compile Include="ITestCaseSonClass\TestObject.cs" />
     <Compile Include="ITestCaseSonClass\TestReflex.cs" />

@@ -13,8 +13,11 @@ namespace Test.ConsoleProgram
                 //new ITestCaseSonClass.AbsTableDAL_ITableBasicFunction(),
                 //new ITestCaseSonClass.TestObject(),
                 //new ITestCaseSonClass.TestDateTime(),
-                new ITestCaseSonClass.TestReflex(),
-                new ITestCaseSonClass.TestLambda(),
+                //new ITestCaseSonClass.TestReflex(),
+                //new ITestCaseSonClass.TestLambda(),
+                //new ITestCaseSonClass.TestEnum(),
+                //new ITestCaseSonClass.TestConvertTool(),
+                new ITestCaseSonClass.TestExplain(),
             };
         }
     }

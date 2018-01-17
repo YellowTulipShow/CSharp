@@ -12,7 +12,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 自增ID
         /// </summary>
-        [Explain("自增ID")]
+        [Explain(@"自增ID")]
         [Column(MSSFieldTypeStruct.Int, IsPrimaryKey = true, IsIDentity = true)]
         public int id { get { return _id; } set { _id = value; } }
         private int _id = 0;

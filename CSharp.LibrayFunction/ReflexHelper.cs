@@ -27,6 +27,8 @@ namespace CSharp.LibrayFunction
         /// <returns></returns>
         public static A[] FindAttributes<A>(MemberInfo memberInfo) where A : System.Attribute {
             object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
+            if (CheckData.IsSizeEmpty(attrs))
+                return new A[] { };
             List<A> rl = new List<A>();
             foreach (object item in attrs) {
                 try { rl.Add((A)item); } catch (Exception) { }
@@ -39,10 +41,10 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
         /// <returns></returns>
-        public static A FindAttributesOnly<A>(MemberInfo memberInfo) where A : System.Attribute {
+        public static A FindAttributeOnly<A>(MemberInfo memberInfo) where A : System.Attribute {
             object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
             try {
-                return (A)attrs[0];
+                return CheckData.IsSizeEmpty(attrs) ? null : (A)attrs[0];
             } catch (Exception) {
                 return null;
             }

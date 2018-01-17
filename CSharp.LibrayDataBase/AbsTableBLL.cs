@@ -2,6 +2,7 @@
 using System.Data;
 using System.Reflection;
 using System.Collections.Generic;
+using CSharp.LibrayFunction;
 
 namespace CSharp.LibrayDataBase
 {
@@ -11,7 +12,7 @@ namespace CSharp.LibrayDataBase
     /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">Model数据映射模型</typeparam>
     public abstract class AbsTableBLL<D, M> :
-        IPropertyColumn, IBasicsSQL<M>, ITableBasicFunction<M>
+        IBasicsSQL<M>, ITableBasicFunction<M>, IDefaultRecord<M>
         where D : AbsTableDAL<M>
         where M : AbsModel_Null
     {
@@ -19,12 +20,6 @@ namespace CSharp.LibrayDataBase
         public AbsTableBLL(D dal) {
             this.TableDAL = dal;
         }
-
-        #region === IPropertyColumn ===
-        public ColumnInfo[] AnalysisPropertyColumns() {
-            return TableDAL.AnalysisPropertyColumns();
-        }
-        #endregion
 
 
         #region === IBasicsSQL<M> ===
@@ -72,12 +67,39 @@ namespace CSharp.LibrayDataBase
         }
 
         public DataTable GetList(int top, string strWhere, Dictionary<string, bool> fieldOrders) {
-            return TableDAL.GetList(top, strWhere, fieldOrders);
+            DataTable dt = TableDAL.GetList(top, strWhere, fieldOrders);
+            if (CheckData.IsSizeEmpty(dt))
+                KeepDataNotBlank();
+            return dt;
         }
 
         public DataTable GetList(int pageCount, int pageIndex, out int recordCount, string strWhere, Dictionary<string, bool> fieldOrders) {
-            return TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
+            DataTable dt = TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
+            if (CheckData.IsSizeEmpty(dt))
+                KeepDataNotBlank();
+            return dt;
         }
         #endregion
+
+        /// <summary>
+        /// 保持数据不空白
+        /// </summary>
+        private void KeepDataNotBlank() {
+            M model = DefaultDataModels();
+            if (CheckData.IsObjectNull(model))
+                return;
+            int count = GetRecordCount(string.Empty);
+            if (count <= 0) {
+                int id = 0;
+                Insert(model, out id);
+            }
+        }
+
+        /// <summary>
+        /// 默认数据模型
+        /// </summary>
+        public virtual M DefaultDataModels() {
+            return null;
+        }
     }
 }

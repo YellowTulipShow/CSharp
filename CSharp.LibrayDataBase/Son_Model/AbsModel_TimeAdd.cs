@@ -12,7 +12,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 添加时间
         /// </summary>
-        [Explain("添加时间")]
+        [Explain(@"添加时间")]
         [Column(MSSFieldTypeDefault.Datetime, MSSDefalutValues.DateTimeNow)]
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
         private DateTime _timeAdd = DateTime.Now;

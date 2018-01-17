@@ -25,18 +25,18 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public enum MSSFieldTypeCharCount
     {
-        ///// <summary>
-        ///// 固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000)
-        ///// </summary>
-        //Char = 5,
-        ///// <summary>
-        ///// 固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)
-        ///// </summary>
-        //NChar = 6,
-        ///// <summary>
-        ///// 可变长度，存储ANSI字符，根据数据长度自动变化。(1-8000，MAX Yes size: 2^31-1byte 4GB)
-        ///// </summary>
-        //VarChar = 7,
+        /// <summary>
+        /// 固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000, 不存中文)
+        /// </summary>
+        Char = 5,
+        /// <summary>
+        /// 固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)
+        /// </summary>
+        NChar = 6,
+        /// <summary>
+        /// 可变长度，存储ANSI字符，根 据数据长度自动变化。(1-8000，不存中文 MAX Yes size: 2^31-1byte 4GB)
+        /// </summary>
+        VarChar = 7,
         /// <summary>
         /// 可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)
         /// </summary>
@@ -51,11 +51,22 @@ namespace CSharp.LibrayDataBase
         Datetime = 3,
     }
 
+    /// <summary>
     /// Microsoft SQL Server 默认值
+    /// </summary>
     public enum MSSDefalutValues
     {
+        /// <summary>
+        /// 当前时间
+        /// </summary>
         DateTimeNow = 1,
+        /// <summary>
+        /// Microsoft SQL Server 最小值时间
+        /// </summary>
         SqlMinDateTime = 2,
+        /// <summary>
+        /// Microsoft SQL Server 最大值时间
+        /// </summary>
         SqlMaxDateTime = 3,
     }
 
@@ -66,34 +77,66 @@ namespace CSharp.LibrayDataBase
     public class ColumnAttribute : AbsBasicsAttribute
     {
         #region === Constructor Init DataType ===
+        /// <summary>
+        /// 初始化信息 数据类型为一种: 值类型
+        /// </summary>
+        /// <param name="dbDataType">枚举: 数据库值类型</param>
         public ColumnAttribute(MSSFieldTypeStruct dbDataType) {
             this._dbType = AnalysisTypeStruct(dbDataType);
         }
+        /// <summary>
+        /// 初始化信息 数据类型为一种: 默认值特殊类型
+        /// </summary>
+        /// <param name="dbDataType">枚举: 数据库值类型</param>
+        /// <param name="defalutEnum">枚举: 数据库默认值</param>
         public ColumnAttribute(MSSFieldTypeDefault dbDataType, MSSDefalutValues defalutEnum) {
             this._dbType = AnalysisTypeDefalut(dbDataType, AnalysisDefalutValue(defalutEnum));
         }
+        /// <summary>
+        /// 初始化信息 数据类型为一种: 字符类型 需指定字符长度
+        /// </summary>
+        /// <param name="dbDataType">枚举: 数据库值类型</param>
+        /// <param name="charCount">正整数: 字符长度</param>
         public ColumnAttribute(MSSFieldTypeCharCount dbDataType, ushort charCount) {
             this._dbType = AnalysisTypeCharCount(dbDataType, charCount);
         }
+
+        /// <summary>
+        /// 解析枚举数据库-值类型
+        /// </summary>
         private AbsFieldType AnalysisTypeStruct(MSSFieldTypeStruct dbDataType) {
             switch (dbDataType) {
                 case MSSFieldTypeStruct.Int: return new MSSInt();
                 case MSSFieldTypeStruct.Money: return new MSSMoney();
-                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
             }
         }
+        /// <summary>
+        /// 解析枚举数据库-字符类型
+        /// </summary>
         private AbsFieldType AnalysisTypeCharCount(MSSFieldTypeCharCount dbDataType, ushort charCount) {
             switch (dbDataType) {
-                case MSSFieldTypeCharCount.NVarChar: return new MSSNvarchar(charCount);
-                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+                case MSSFieldTypeCharCount.Char: return new MSSChar(charCount);
+                case MSSFieldTypeCharCount.NChar: return new MSSNChar(charCount);
+                case MSSFieldTypeCharCount.VarChar: return new MSSVarChar(charCount);
+                case MSSFieldTypeCharCount.NVarChar: return new MSSNVarChar(charCount);
+                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
             }
         }
+        /// <summary>
+        /// 解析枚举数据库-默认值特殊类型
+        /// </summary>
         private AbsFieldType AnalysisTypeDefalut(MSSFieldTypeDefault dbDataType, object defalutValue) {
             switch (dbDataType) {
-                case MSSFieldTypeDefault.Datetime: return new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
-                default: return new MSSNvarchar(MSSNvarchar.MAXCHARSIGN);
+                case MSSFieldTypeDefault.Datetime:
+                    return new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
+                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
             }
         }
+
+        /// <summary>
+        /// 解析枚举数据库-默认值
+        /// </summary>
         private object AnalysisDefalutValue(MSSDefalutValues defalutEnum) {
             switch (defalutEnum) {
                 case MSSDefalutValues.DateTimeNow: return DateTime.Now.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
