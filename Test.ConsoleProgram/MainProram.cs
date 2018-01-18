@@ -14,31 +14,30 @@ namespace Test.ConsoleProgram
             } while (IsRepeatExecute());
         }
         internal static void ExecuteCaseText() {
-            ITestCase[] tcs = new TestCaseLibray().GetTestCase();
+            ITestCase[] tcs = new TestCaseLibray().GetTestCase(true);
 
             if (CheckData.IsSizeEmpty(tcs)) {
                 Console.WriteLine(@"没有可以测试执行的实例~~~");
             }
 
             foreach (ITestCase iTC in tcs) {
-                Console.WriteLine("");
-                Console.WriteLine("===测试开始: {0} ===", iTC.TestNameSign());
+                Console.WriteLine(string.Empty);
+                Console.WriteLine(@"===测试开始: {0} ===", iTC.TestNameSign());
 
                 DelegateTimeTest dtt = new DelegateTimeTest();
-                dtt.AddEventHandlers(new DelegateTimeTest.EventHandler[] {
-                    iTC.TestMethod
-                });
+                dtt.SetEventHandlers(iTC.TestMethod);
                 dtt.ExecuteEventHandler();
 
-                Console.WriteLine("============================ 运行时间: {0}", dtt.GetRunTimeTotalSeconds());
-                Console.WriteLine("");
+                Console.WriteLine(@"============================ 运行时间: {0}", dtt.GetRunTimeTotalSeconds());
+                Console.WriteLine(string.Empty);
             }
         }
 
         private static bool IsRepeatExecute() {
-            Console.WriteLine("\n请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine(@"请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
             ConsoleKeyInfo keyinfo = Console.ReadKey(false);
-            Console.WriteLine("");
+            Console.WriteLine(string.Empty);
             switch (keyinfo.Key) {
                 case ConsoleKey.Q:
                     return false;

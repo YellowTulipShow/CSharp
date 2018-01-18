@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
@@ -6,19 +8,35 @@ namespace Test.ConsoleProgram
     {
         public TestCaseLibray() { }
 
-        public ITestCase[] GetTestCase() {
-            return new ITestCase[] {
-                //new ITestCaseSonClass.AbsTableDAL_ICreateSQL(),
-                //new ITestCaseSonClass.DALSQLServer_IAutoTable(),
-                //new ITestCaseSonClass.AbsTableDAL_ITableBasicFunction(),
-                //new ITestCaseSonClass.TestObject(),
-                //new ITestCaseSonClass.TestDateTime(),
-                //new ITestCaseSonClass.TestReflex(),
-                //new ITestCaseSonClass.TestLambda(),
-                //new ITestCaseSonClass.TestEnum(),
+        /// <summary>
+        /// 在这里面手动设置要测试的实例
+        /// </summary>
+        private AbsTestCase[] InitTestCaseSource() {
+            return new AbsTestCase[] {
+                //new ITestCaseSonClass.TestDALSQLServer(),
+                new ITestCaseSonClass.TestCheckData(),
                 //new ITestCaseSonClass.TestConvertTool(),
-                new ITestCaseSonClass.TestExplain(),
             };
+        }
+
+        /// <summary>
+        /// 自动获取测试实例-(不用更改)
+        /// </summary>
+        public ITestCase[] GetTestCase(bool isGetITestCase) {
+            AbsTestCase[] initCases = InitTestCaseSource();
+            if (!isGetITestCase)
+                return initCases;
+
+            List<ITestCase> list = new List<ITestCase>();
+            foreach (AbsTestCase item in initCases) {
+                if (CheckData.IsObjectNull(item))
+                    continue;
+                list.Add(item);
+                ITestCase[] sonCase = item.SonTestCase();
+                if (!CheckData.IsSizeEmpty(sonCase))
+                    list.AddRange(sonCase);
+            }
+            return list.ToArray();
         }
     }
 }

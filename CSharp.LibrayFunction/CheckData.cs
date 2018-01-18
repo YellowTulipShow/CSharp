@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace CSharp.LibrayFunction
@@ -15,53 +13,41 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// Object 对象 是否为空 无值
         /// </summary>
-        public static bool IsObjectNull(object obj) {
+        public static bool IsObjectNull(this object obj) {
             return (Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value));
         }
 
         /// <summary>
         /// String 对象 是否为空 无值 如有需要请将参数.Trim()
         /// </summary>
-        public static bool IsStringNull(String str) {
+        public static bool IsStringNull(this String str) {
             return IsObjectNull(str) || String.Equals(str, String.Empty) || String.Equals(str, "") || str.Length <= 0;
         }
 
         #region  === Is Size Empty ===
         /// <summary>
-        /// DataSet 数据集 大小 为 '空'
+        /// 判断是否: ICollection 数据集合 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(DataSet ds) {
+        public static bool IsSizeEmpty(this ICollection icoll) {
+            return IsObjectNull(icoll) || icoll.Count <= 0;
+        }
+        /// <summary>
+        /// 判断是否: DataSet 数据集 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(this DataSet ds) {
             return IsObjectNull(ds) || ds.Tables.Count <= 0;
         }
         /// <summary>
-        /// DataTable 数据表 大小 为 '空'
+        /// 判断是否: DataTable 数据表 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(DataTable dt) {
+        public static bool IsSizeEmpty(this DataTable dt) {
             return IsObjectNull(dt) || dt.Rows.Count <= 0;
         }
         /// <summary>
-        /// DataRow 数据行 大小 为 '空'
+        /// 判断是否: DataRow 数据行 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(DataRow row) {
+        public static bool IsSizeEmpty(this DataRow row) {
             return IsObjectNull(row) || row.Table.Rows.Count <= 0;
-        }
-        /// <summary>
-        /// object[] 数组 大小 为 '空'
-        /// </summary>
-        public static bool IsSizeEmpty(object[] objarr) {
-            return IsObjectNull(objarr) || objarr.Length <= 0;
-        }
-        /// <summary>
-        /// List 泛型列表 大小 为 '空'
-        /// </summary>
-        public static bool IsSizeEmpty<T>(List<T> Tlist) {
-            return IsObjectNull(Tlist) || Tlist.Count <= 0;
-        }
-        /// <summary>
-        /// Dictionary 泛型键值对集合 大小 为 '空'
-        /// </summary>
-        public static bool IsSizeEmpty<K, V>(Dictionary<K, V> dicary) {
-            return IsObjectNull(dicary) || dicary.Count <= 0;
         }
         #endregion
 
@@ -101,7 +87,7 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="strEmail">要判断的email字符串</param>
         /// <returns>判断结果</returns>
-        public static bool IsValidEmail(string strEmail) {
+        public static bool IsValidEmail(String strEmail) {
             return Regex.IsMatch(strEmail, @"^[\w\.]+([-]\w+)*@[A-Za-z0-9-_]+[\.][A-Za-z0-9-_]");
         }
         /// <summary>
@@ -109,7 +95,7 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="strEmail">要判断的email字符串</param>
         /// <returns>判断结果</returns>
-        public static bool IsValidDoEmail(string strEmail) {
+        public static bool IsValidDoEmail(String strEmail) {
             return Regex.IsMatch(strEmail, @"^@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
         /// <summary>
@@ -117,7 +103,7 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="strUrl">要验证的Url</param>
         /// <returns>判断结果</returns>
-        public static bool IsURL(string strUrl) {
+        public static bool IsURL(String strUrl) {
             return Regex.IsMatch(strUrl, @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
         }
         #endregion

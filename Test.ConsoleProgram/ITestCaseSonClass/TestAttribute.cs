@@ -5,13 +5,13 @@ using CSharp.LibrayDataBase;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
 {
-    public class TestAttribute : ITestCase
+    public class TestAttribute : AbsTestCase
     {
-        public string TestNameSign() {
+        public override string TestNameSign() {
             return @"测试学习'特性'";
         }
 
-        public void TestMethod() {
+        public override void TestMethod() {
             ModelArticles ar = new ModelArticles();
 
             Type tm = typeof(ModelArticles);

@@ -4,13 +4,13 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
 {
-    public class TestEnum : ITestCase
+    public class TestEnum : AbsTestCase
     {
-        public string TestNameSign() {
+        public override string TestNameSign() {
             return @"测试枚举类型";
         }
 
-        public void TestMethod() {
+        public override void TestMethod() {
             foreach (int item in ConvertTool.EnumToInts<MSSFieldTypeCharCount>()) {
                 Console.WriteLine(item);
             }

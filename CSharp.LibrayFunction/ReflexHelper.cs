@@ -25,15 +25,9 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
         /// <returns></returns>
-        public static A[] FindAttributes<A>(MemberInfo memberInfo) where A : System.Attribute {
+        public static A[] FindAttributes<A>(this MemberInfo memberInfo) where A : System.Attribute {
             object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
-            if (CheckData.IsSizeEmpty(attrs))
-                return new A[] { };
-            List<A> rl = new List<A>();
-            foreach (object item in attrs) {
-                try { rl.Add((A)item); } catch (Exception) { }
-            }
-            return rl.ToArray();
+            return ConvertTool.ListConvertType(attrs, o => o as A);
         }
         /// <summary>
         /// 查找指定的 Attribute '特性' 内容对象 默认不查找继承链
@@ -41,13 +35,9 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
         /// <returns></returns>
-        public static A FindAttributeOnly<A>(MemberInfo memberInfo) where A : System.Attribute {
-            object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
-            try {
-                return CheckData.IsSizeEmpty(attrs) ? null : (A)attrs[0];
-            } catch (Exception) {
-                return null;
-            }
+        public static A FindAttributeOnly<A>(this MemberInfo memberInfo) where A : System.Attribute {
+            A[] attrs = memberInfo.FindAttributes<A>();
+            return CheckData.IsSizeEmpty(attrs) ? null : attrs[0];
         }
 
         #region === Clone Data ===

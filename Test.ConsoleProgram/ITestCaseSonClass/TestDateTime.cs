@@ -4,21 +4,13 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
 {
-    public class TestDateTime : ITestCase
+    public class TestDateTime : AbsTestCase
     {
-        public string TestNameSign() {
+        public override string TestNameSign() {
             return @"测试 DateTime 的用法";
         }
 
-        public void TestMethod() {
-            //string[] times = new string[] {
-            //    @"2017-18-85 51:52:51.222",
-            //    @"2017-11-14 14:52:52"
-            //};
-            //foreach (string item in times) {
-            //    PrintTestTimeString(item);
-            //}
-
+        public override void TestMethod() {
             Console.WriteLine("SqlTypes SqlDateTime.MinValue");
             Console.WriteLine(SqlDateTime.MinValue.Value.ToString());
             Console.WriteLine("SqlTypes SqlDateTime.MaxValue");

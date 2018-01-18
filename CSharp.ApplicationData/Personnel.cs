@@ -1,6 +1,7 @@
 ﻿using System;
 using CSharp.LibrayFunction;
 using CSharp.LibrayDataBase;
+using System.Security.Cryptography;
 
 namespace CSharp.ApplicationData
 {
@@ -74,6 +75,7 @@ namespace CSharp.ApplicationData
     /// </summary>
     public class BLLUser : BLLSQLServer<ModelUser> {
         public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
+
         public override ModelUser DefaultDataModels() {
             return new ModelUser() {
                 Email = @"1426689530@qq.com",

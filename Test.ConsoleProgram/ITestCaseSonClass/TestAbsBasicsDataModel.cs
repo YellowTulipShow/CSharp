@@ -4,13 +4,13 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
 {
-    public class TestAbsBasicsDataModel : ITestCase
+    public class TestAbsBasicsDataModel : AbsTestCase
     {
-        public string TestNameSign() {
+        public override string TestNameSign() {
             return @"测试 CSharp.LibrayFunction 中的基础数据模型 AbsBasicsDataModel";
         }
 
-        public void TestMethod() {
+        public override void TestMethod() {
             Console.WriteLine("测试 CloneModelData 克隆方法");
             AbsBasicsDataModel baseModel = new ModelArticles();
             Console.WriteLine("源 模型: ");

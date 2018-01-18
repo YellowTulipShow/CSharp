@@ -70,20 +70,25 @@ namespace CSharp.LibrayDataBase
             List<ColumnInfo> colms = new List<ColumnInfo>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo pro in protertys) {
-                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
+                //ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
+                ColumnAttribute columnAttr = pro.FindAttributeOnly<ColumnAttribute>();
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
-                ExplainAttribute explainAttr = ReflexHelper.FindAttributeOnly<ExplainAttribute>(pro);
-                if (CheckData.IsObjectNull(explainAttr))
-                    explainAttr = new ExplainAttribute("未知元素");
                 colms.Add(new ColumnInfo() {
-                    Explain = explainAttr,
                     Property = pro,
-                    Attribute = columnAttr
+                    Attribute = columnAttr,
+                    Explain = GetExplainAttribute(pro),
                 });
             }
             colms.Sort(ColumnInfo.Sort);
             return colms.ToArray();
+        }
+
+        private ExplainAttribute GetExplainAttribute(PropertyInfo propterty) {
+            ExplainAttribute explainAttr = propterty.FindAttributeOnly<ExplainAttribute>();
+            if (CheckData.IsObjectNull(explainAttr))
+                explainAttr = new ExplainAttribute("未知元素");
+            return explainAttr;
         }
 
         /// <summary>
@@ -218,7 +223,7 @@ namespace CSharp.LibrayDataBase
             if (CheckData.IsObjectNull(nowVal) ||
                 nowVal.ToString() == colmodel.Property.GetValue(DefaultModel(), null).ToString() ||
                 CheckData.IsStringNull(nowVal.ToString().Trim())) {
-                throw new CreateSQLNotHaveWhereException();
+                    throw new CreateSQLNotHaveWhereException();
             }
             string where = string.Format("{0} = '{1}'", colmodel.Property.Name, nowVal.ToString());
             return where;

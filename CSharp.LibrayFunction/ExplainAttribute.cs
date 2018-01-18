@@ -35,7 +35,7 @@ namespace CSharp.LibrayFunction
                     return new ExplainAttribute(string.Empty);
 
                 // 获取唯一的解释信息
-                ExplainAttribute explain = ReflexHelper.FindAttributeOnly<ExplainAttribute>(memberinfo);
+                ExplainAttribute explain = memberinfo.FindAttributeOnly<ExplainAttribute>();
                 return !CheckData.IsObjectNull(explain) ? explain :
                     new ExplainAttribute(string.Empty);
             } catch (Exception) {

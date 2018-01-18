@@ -4,13 +4,13 @@ using CSharp.ApplicationData;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
 {
-    public class TestObject : ITestCase
+    public class TestObject : AbsTestCase
     {
-        public string TestNameSign() {
+        public override string TestNameSign() {
             return @"测试Object对象";
         }
 
-        public void TestMethod() {
+        public override void TestMethod() {
             object o = null;
             Console.WriteLine("输出 执行: Console.WriteLine(o);");
             Console.WriteLine("结果: {0}", o);
@@ -53,6 +53,11 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             B.id = 999;
             test_Equals(A, B);
             test_ReferenceEquals(A, B);
+
+            object a = 9;
+            if (a is int) {
+
+            }
         }
 
         private void test_Equals(object A, object B) {

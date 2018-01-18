@@ -94,13 +94,14 @@ namespace CSharp.LibrayFunction
                 return new RT[] { };
             }
         }
+
         /// <summary>
         /// 委托: 实现转换算法
         /// </summary>
         /// <typeparam name="RT">结果返回值-数据类型</typeparam>
         /// <typeparam name="ST">数据源数组-数据类型</typeparam>
         /// <param name="sourceitem">数据来源</param>
-        public delegate RT ConvertTypeDelegate<RT, ST>(ST sourceitem) where RT : IConvertible where ST : IConvertible;
+        public delegate RT ConvertTypeDelegate<RT, ST>(ST sourceitem);
         /// <summary>
         /// 数组列表之间的类型数据转换
         /// </summary>
@@ -108,9 +109,9 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="ST">数据源数组-数据类型</typeparam>
         /// <param name="sourceList">数据源数组</param>
         /// <param name="convertMethod">用户实现转换算法</param>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod)
-            where RT : IConvertible
-            where ST : IConvertible {
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
+            if (CheckData.IsSizeEmpty(sourceList))
+                return new RT[] { };
             List<RT> list = new List<RT>();
             foreach (ST item in sourceList) {
                 if (CheckData.IsObjectNull(item))

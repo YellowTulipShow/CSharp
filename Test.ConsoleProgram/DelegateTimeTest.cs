@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
@@ -12,12 +13,12 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 运行事件的时间间隔
         /// </summary>
-        private TimeSpan runtimeSpan = new TimeSpan();
+        private TimeSpan runtimeSpan = new TimeSpan(0);
 
         /// <summary>
         /// 执行事件列表
         /// </summary>
-        private List<EventHandler> eventList = new List<EventHandler>();
+        private EventHandler eventMethod = null;
 
         /// <summary>
         /// 定义无返回 无参数方法格式
@@ -27,8 +28,8 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 添加执行事件
         /// </summary>
-        public void AddEventHandlers(EventHandler[] eventArr) {
-            this.eventList.AddRange(eventArr);
+        public void SetEventHandlers(EventHandler eventArr) {
+            this.eventMethod = eventArr;
         }
 
         /// <summary>
@@ -38,9 +39,8 @@ namespace Test.ConsoleProgram
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); // 开始
 
-            // 执行所有事件方法
-            foreach (EventHandler eventM in this.eventList) {
-                eventM();
+            if (!CheckData.IsObjectNull(this.eventMethod)) {
+                this.eventMethod();
             }
 
             stopwatch.Stop(); // 结束
