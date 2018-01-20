@@ -56,13 +56,12 @@ namespace CSharp.LibrayFunction
                 return string.Empty;
             }
         }
-
         /// <summary>
         /// 字符串转字符串数组
         /// </summary>
         /// <param name="strValue">要转化的字符串</param>
         /// <param name="Symbol">用于分隔的间隔符号</param>
-        public static string[] StringToIList(string strValue, IConvertible symbolSign) {
+        public static string[] ToArrayList(this string strValue, IConvertible symbolSign) {
             try {
                 if (CheckData.IsStringNull(strValue) || CheckData.IsObjectNull(symbolSign))
                     throw new Exception();
@@ -70,28 +69,6 @@ namespace CSharp.LibrayFunction
                 return strarr;
             } catch (Exception) {
                 return new string[] { };
-            }
-        }
-
-        /// <summary>
-        /// 委托: 实现转换算法
-        /// </summary>
-        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
-        /// <param name="sourceitem">数据来源</param>
-        public delegate RT StringConvertDelegate<RT>(string sourceitem) where RT : IConvertible;
-        /// <summary>
-        /// 字符串转泛型数组
-        /// </summary>
-        /// <param name="strValue">要转化的字符串</param>
-        /// <param name="Symbol">用于分隔的间隔符号</param>
-        public static RT[] StringToIList<RT>(string strValue, IConvertible symbolSign, StringConvertDelegate<RT> toRTMethod) where RT : IConvertible {
-            try {
-                string[] strarr = StringToIList(strValue, symbolSign);
-                return ListConvertType(strarr, s => {
-                    return toRTMethod(s);
-                });
-            } catch (Exception) {
-                return new RT[] { };
             }
         }
 
@@ -109,7 +86,7 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="ST">数据源数组-数据类型</typeparam>
         /// <param name="sourceList">数据源数组</param>
         /// <param name="convertMethod">用户实现转换算法</param>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
+        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
             if (CheckData.IsSizeEmpty(sourceList))
                 return new RT[] { };
             List<RT> list = new List<RT>();

@@ -13,7 +13,7 @@ namespace Test.ConsoleProgram
                 ExecuteCaseText();
             } while (IsRepeatExecute());
         }
-        internal static void ExecuteCaseText() {
+        private static void ExecuteCaseText() {
             ITestCase[] tcs = new TestCaseLibray().GetTestCase(true);
 
             if (CheckData.IsSizeEmpty(tcs)) {

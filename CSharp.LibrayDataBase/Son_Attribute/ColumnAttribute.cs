@@ -13,7 +13,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 数值整形
         /// </summary>
-        Int = 1,
+        Int = 0,
         /// <summary>
         /// 金额字段 搭配C#程序的数据类型是 decimal
         /// </summary>
@@ -40,7 +40,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)
         /// </summary>
-        NVarChar = 2,
+        NVarChar = 0,
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public enum MSSFieldTypeDefault
     {
-        Datetime = 3,
+        Datetime = 0,
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 当前时间
         /// </summary>
-        DateTimeNow = 1,
+        DateTimeNow = 0,
         /// <summary>
         /// Microsoft SQL Server 最小值时间
         /// </summary>

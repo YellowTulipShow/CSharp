@@ -44,8 +44,9 @@ namespace CSharp.LibrayDataBase
         /// 获得所有 类型 列
         /// </summary>
         public ColumnInfo[] GetALLTypeColumns() {
-            if (CheckData.IsSizeEmpty(alltypeColums))
+            if (CheckData.IsSizeEmpty(alltypeColums)) {
                 SetALLTypeColumns();
+            }
             return alltypeColums;
         }
 
@@ -56,6 +57,38 @@ namespace CSharp.LibrayDataBase
             return System.Activator.CreateInstance<M>();
         }
 
+        /// <summary>
+        /// 获取属性的值
+        /// </summary>
+        private object GetProtertyValue(ColumnInfo colinfo, M sourceModel) {
+            object value = colinfo.Property.GetValue(sourceModel, null);
+            value = colinfo.Attribute.DbType.PrintSaveValue(value);
+            return value;
+        }
+        /// <summary>
+        /// 设置属性的值
+        /// </summary>
+        private void SetPropertyValue(ColumnInfo colinfo, M targetModel, object value) {
+            if (!CheckData.IsObjectNull(value) && colinfo.Property.CanWrite) {
+                colinfo.Property.SetValue(targetModel, value, null);
+            }
+        }
+
+        /// <summary>
+        /// 获得'数据表列'特性信息
+        /// </summary>
+        private ColumnAttribute GetColumnAttribute(PropertyInfo propterty) {
+            return ReflexHelper.FindAttributeOnly<ColumnAttribute>(propterty);
+        }
+        /// <summary>
+        /// 获得解释特性信息
+        /// </summary>
+        private ExplainAttribute GetExplainAttribute(PropertyInfo propterty) {
+            ExplainAttribute explainAttr = propterty.FindAttributeOnly<ExplainAttribute>();
+            if (CheckData.IsObjectNull(explainAttr))
+                explainAttr = new ExplainAttribute("未知元素");
+            return explainAttr;
+        }
 
         #region === IPropertyColumn ===
         /// <summary>
@@ -70,8 +103,7 @@ namespace CSharp.LibrayDataBase
             List<ColumnInfo> colms = new List<ColumnInfo>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo pro in protertys) {
-                //ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
-                ColumnAttribute columnAttr = pro.FindAttributeOnly<ColumnAttribute>();
+                ColumnAttribute columnAttr = GetColumnAttribute(pro);
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
                 colms.Add(new ColumnInfo() {
@@ -82,13 +114,6 @@ namespace CSharp.LibrayDataBase
             }
             colms.Sort(ColumnInfo.Sort);
             return colms.ToArray();
-        }
-
-        private ExplainAttribute GetExplainAttribute(PropertyInfo propterty) {
-            ExplainAttribute explainAttr = propterty.FindAttributeOnly<ExplainAttribute>();
-            if (CheckData.IsObjectNull(explainAttr))
-                explainAttr = new ExplainAttribute("未知元素");
-            return explainAttr;
         }
 
         /// <summary>
@@ -140,31 +165,7 @@ namespace CSharp.LibrayDataBase
             List<string> valueArr = new List<string>();
 
             foreach (ColumnInfo item in this.CanGetSetColumns()) {
-                object value = item.Property.GetValue(model, null);
-                value = item.Attribute.DbType.PrintSaveValue(value);
-                if (CheckData.IsObjectNull(value))
-                    continue;
-                fieldArr.Add(item.Property.Name);
-                valueArr.Add(string.Format("'{0}'", value));
-            }
-
-            if ((fieldArr.Count != valueArr.Count) && CheckData.IsSizeEmpty(fieldArr)) {
-                return string.Empty;
-            }
-
-            string fieldStr = ConvertTool.IListToString(fieldArr, ',');
-            string valueStr = ConvertTool.IListToString(valueArr, ',');
-            return string.Format("insert into {0}({1}) values({2})", model.GetTableName(), fieldStr, valueStr);
-        }
-        /// <summary>
-        /// 产生 插入 SQL
-        /// </summary>
-        public string SQLInsert_2(M model) {
-            List<string> fieldArr = new List<string>();
-            List<string> valueArr = new List<string>();
-
-            foreach (ColumnInfo item in this.CanGetSetColumns()) {
-                object value = item.Property.GetValue(model, null);
+                object value = GetProtertyValue(item, model);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 fieldArr.Add(item.Property.Name);
@@ -193,8 +194,7 @@ namespace CSharp.LibrayDataBase
         public virtual string SQLUpdate(M model) {
             List<string> setArr = new List<string>();
             foreach (ColumnInfo item in this.CanGetSetColumns()) {
-                object value = item.Property.GetValue(model, null);
-                value = item.Attribute.DbType.PrintSaveValue(value);
+                object value = GetProtertyValue(item, model);
                 if (CheckData.IsObjectNull(value))
                     continue;
                 setArr.Add(string.Format("{0} = '{1}'", item.Property.Name, value.ToString()));
@@ -218,12 +218,10 @@ namespace CSharp.LibrayDataBase
             if (CheckData.IsObjectNull(colmodel)) {
                 throw new CreateSQLNotHaveWhereException();
             }
-            object nowVal = colmodel.Property.GetValue(model, null);
-            nowVal = colmodel.Attribute.DbType.PrintSaveValue(nowVal);
-            if (CheckData.IsObjectNull(nowVal) ||
-                nowVal.ToString() == colmodel.Property.GetValue(DefaultModel(), null).ToString() ||
-                CheckData.IsStringNull(nowVal.ToString().Trim())) {
-                    throw new CreateSQLNotHaveWhereException();
+            object nowVal = GetProtertyValue(colmodel, model);
+            object defVal = GetProtertyValue(colmodel, DefaultModel());
+            if (nowVal.IsObjectNull() || nowVal.Equals(defVal) || nowVal.ToString().Trim().IsStringNull()) {
+                throw new CreateSQLNotHaveWhereException();
             }
             string where = string.Format("{0} = '{1}'", colmodel.Property.Name, nowVal.ToString());
             return where;
@@ -287,10 +285,11 @@ namespace CSharp.LibrayDataBase
                 return null;
             M model = DefaultModel();
             foreach (ColumnInfo item in GetALLTypeColumns()) {
-                object value = row[item.Property.Name];
-                if (!CheckData.IsObjectNull(item.Property) && !CheckData.IsObjectNull(value)) {
-                    item.Property.SetValue(model, value, null);
+                if (CheckData.IsObjectNull(item)) {
+                    continue;
                 }
+                object value = row[item.Property.Name];
+                SetPropertyValue(item, model, value);
             }
             return model;
         }

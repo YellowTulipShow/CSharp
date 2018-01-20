@@ -13,9 +13,8 @@ namespace Test.ConsoleProgram
         /// </summary>
         private AbsTestCase[] InitTestCaseSource() {
             return new AbsTestCase[] {
-                //new ITestCaseSonClass.TestDALSQLServer(),
-                new ITestCaseSonClass.TestCheckData(),
-                //new ITestCaseSonClass.TestConvertTool(),
+                //new ITestCaseSonClass.TestEnumExplain(),
+                new ITestCaseSonClass.TestDALSQLServer(),
             };
         }
 

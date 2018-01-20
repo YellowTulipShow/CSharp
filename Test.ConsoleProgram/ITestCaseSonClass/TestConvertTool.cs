@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.ITestCaseSonClass
@@ -39,7 +36,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                int[] array = ConvertTool.StringToIList<int>(str, ',', s => ConvertTool.ObjToInt(s, 0));
+                int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0));
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -51,7 +48,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                string[] array = ConvertTool.StringToIList<string>(str, ',', s => s);
+                string[] array = str.ToArrayList(',').ListConvertType(s => s);
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -63,7 +60,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                float[] array = ConvertTool.StringToIList<float>(str, ',', s => ConvertTool.ObjToFloat(s, 0));
+                float[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToFloat(s, 0));
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -75,7 +72,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                decimal[] array = ConvertTool.StringToIList<decimal>(str, ',', s => ConvertTool.ObjToDecimal(s, 0));
+                decimal[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToDecimal(s, 0));
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -86,10 +83,12 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             }
             public void TestMethod() {
             string str = @"true,false,flsea,0,1,sliw,trus";
+
             Console.WriteLine("SourceData: \n {0}", str);
-            bool[] array_1 = ConvertTool.StringToIList<bool>(str, ',', s => ConvertTool.ObjToBool(s, true));
+            bool[] array_1 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, true));
             Console.WriteLine("Default: true Result: \n {0}", JsonHelper.SerializeObject(array_1));
-            bool[] array_2 = ConvertTool.StringToIList<bool>(str, ',', s => ConvertTool.ObjToBool(s, false));
+
+            bool[] array_2 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, false));
             Console.WriteLine("Default: false Result: \n {0}", JsonHelper.SerializeObject(array_2));
             }
         }

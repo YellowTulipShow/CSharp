@@ -47,7 +47,7 @@ namespace CSharp.LibrayFunction
         public static T CloneProperties<T>(T obj) where T : class {
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
-            T model = (T)type.InvokeMember("", System.Reflection.BindingFlags.CreateInstance, null, obj, null);
+            T model = (T)type.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, obj, null);
             foreach (PropertyInfo pi in properties) {
                 if (pi.CanWrite) {
                     object value = pi.GetValue(obj, null);
@@ -61,7 +61,7 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="dgv"></param>
         /// <returns></returns>
-        public static DataGridView CloneDataGridView(DataGridView dgv) {
+        public static DataGridView CloneDataGridView(this DataGridView dgv) {
             try {
                 DataGridView ResultDGV = new DataGridView();
                 ResultDGV.ColumnHeadersDefaultCellStyle = dgv.ColumnHeadersDefaultCellStyle.Clone();
