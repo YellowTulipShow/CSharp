@@ -68,15 +68,19 @@ namespace CSharp.LibrayDataBase
 
         public DataTable GetList(int top, string strWhere, Dictionary<string, bool> fieldOrders) {
             DataTable dt = TableDAL.GetList(top, strWhere, fieldOrders);
-            if (CheckData.IsSizeEmpty(dt))
+            if (CheckData.IsSizeEmpty(dt)) {
                 KeepDataNotBlank();
+                dt = TableDAL.GetList(top, strWhere, fieldOrders);
+            }
             return dt;
         }
 
         public DataTable GetList(int pageCount, int pageIndex, out int recordCount, string strWhere, Dictionary<string, bool> fieldOrders) {
             DataTable dt = TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
-            if (CheckData.IsSizeEmpty(dt))
+            if (CheckData.IsSizeEmpty(dt)) {
                 KeepDataNotBlank();
+                dt = TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
+            }
             return dt;
         }
         #endregion

@@ -242,7 +242,7 @@ namespace CSharp.LibrayDataBase
         public virtual int GetRecordCount(string strWhere) {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select count(*) as H from " + DefaultModel().GetTableName());
-            if (CheckData.IsStringNull(strWhere.Trim())) {
+            if (!CheckData.IsStringNull(strWhere.Trim())) {
                 strSql.Append(" where " + strWhere);
             }
             return ConvertTool.ObjToInt(DbHelperSQL.GetSingle(strSql.ToString()), 0);

@@ -22,10 +22,10 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 //new Test_CDefaultModel(),
                 //new Test_CICreateSQL(),
                 //new Test_CIAutoTable(),
-                //new Test_CGetModelList(),
+                new Test_CGetModelList(),
                 //new Test_CInsertMethod_out_parmeter(),
                 //new Test_CInsertSpeed(),
-                new Test_ColumnInfoSort(),
+                //new Test_ColumnInfoSort(),
             };
         }
 
@@ -128,9 +128,9 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 return @"查询所有数据";
             }
             public void TestMethod() {
-                DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
+                BLLUser dal = new BLLUser();
                 DataTable dt = dal.GetList(0, string.Empty, null);
-                foreach (ModelArticles item in dal.GetModelList(dt)) {
+                foreach (ModelUser item in dal.GetModelList(dt)) {
                     Console.WriteLine(item.ToString());
                 }
             }
