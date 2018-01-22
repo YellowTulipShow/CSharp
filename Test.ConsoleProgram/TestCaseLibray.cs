@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram
             return new AbsTestCase[] {
                 //new ITestCaseSonClass.TestEnumExplain(),
                 new ITestCaseSonClass.TestDALSQLServer(),
+                new ITestCaseSonClass.TestListSortMethod(),
             };
         }
 

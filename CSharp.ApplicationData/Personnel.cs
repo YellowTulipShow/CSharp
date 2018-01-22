@@ -24,7 +24,7 @@ namespace CSharp.ApplicationData
         /// 真实姓名
         /// </summary>
         [Explain(@"真实姓名")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 30)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 30, SortIndex = 10)]
         public string RealName { get { return _realName; } set { _realName = value; } }
         private string _realName = string.Empty;
 
@@ -32,7 +32,7 @@ namespace CSharp.ApplicationData
         /// 昵称
         /// </summary>
         [Explain(@"昵称")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 50)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 50, SortIndex = 11)]
         public string NickName { get { return _nickName; } set { _nickName = value; } }
         private string _nickName = string.Empty;
 
@@ -40,7 +40,7 @@ namespace CSharp.ApplicationData
         /// 密码
         /// </summary>
         [Explain(@"密码")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 36)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 36, SortIndex = 12)]
         public string Password { get { return _password; } set { _password = value; } }
         private string _password = string.Empty;
 
@@ -48,7 +48,7 @@ namespace CSharp.ApplicationData
         /// 邮箱
         /// </summary>
         [Explain(@"邮箱")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 300)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 300, SortIndex = 13)]
         public string Email { get { return _email; } set { _email = value; } }
         private string _email = string.Empty;
 
@@ -56,7 +56,7 @@ namespace CSharp.ApplicationData
         /// 电话座机
         /// </summary>
         [Explain(@"电话座机")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 12)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 12, SortIndex = 14)]
         public string TelePhone { get { return _telePhone; } set { _telePhone = value; } }
         private string _telePhone = string.Empty;
 
@@ -64,7 +64,7 @@ namespace CSharp.ApplicationData
         /// 移动电话手机
         /// </summary>
         [Explain(@"移动电话手机")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 11)]
+        [Column(MSSFieldTypeCharCount.NVarChar, 11, SortIndex = 15)]
         public string MobilePhone { get { return _mobilePhone; } set { _mobilePhone = value; } }
         private string _mobilePhone = string.Empty;
         #endregion

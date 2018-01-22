@@ -112,7 +112,7 @@ namespace CSharp.LibrayDataBase
                     Explain = GetExplainAttribute(pro),
                 });
             }
-            colms.Sort(ColumnInfo.Sort);
+            colms.Sort(ColumnInfo.ColumnInfoSort);
             return colms.ToArray();
         }
 

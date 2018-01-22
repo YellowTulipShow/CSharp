@@ -22,10 +22,10 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 //new Test_CDefaultModel(),
                 //new Test_CICreateSQL(),
                 //new Test_CIAutoTable(),
-                new Test_CGetModelList(),
+                //new Test_CGetModelList(),
                 //new Test_CInsertMethod_out_parmeter(),
                 //new Test_CInsertSpeed(),
-                //new Test_ColumnInfoSort(),
+                new Test_ColumnInfoSort(),
             };
         }
 

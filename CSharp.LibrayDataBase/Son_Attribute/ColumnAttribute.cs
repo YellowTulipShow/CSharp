@@ -164,6 +164,7 @@ namespace CSharp.LibrayDataBase
                 _isPrimaryKey = value;
                 if (_isPrimaryKey) {
                     IsCanBeNull = !_isPrimaryKey;
+                    SortIndex = ushort.MinValue;
                 }
             }
         }
@@ -206,5 +207,12 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public bool IsCanBeNull { get { return _iscanBeNull; } set { _iscanBeNull = value; } }
         private bool _iscanBeNull = true;
+
+
+        /// <summary>
+        /// 获取或设置排序序列等级 数值越小越靠前。默认值=999
+        /// </summary>
+        public ushort SortIndex { get { return _sortIndex; } set { _sortIndex = value; } }
+        private ushort _sortIndex = 999;
     }
 }

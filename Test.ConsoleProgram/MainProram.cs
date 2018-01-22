@@ -9,6 +9,7 @@ namespace Test.ConsoleProgram
     internal class MainProram
     {
         internal static void Main(string[] args) {
+            Console.OutputEncoding = Encoding.UTF8;
             do {
                 ExecuteCaseText();
             } while (IsRepeatExecute());
