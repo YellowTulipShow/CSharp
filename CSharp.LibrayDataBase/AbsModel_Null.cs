@@ -7,7 +7,7 @@ namespace CSharp.LibrayDataBase
     /// 表-基础-模型
     /// </summary>
     [Serializable]
-    public abstract class AbsModel_Null : AbsBasicsDataModel
+    public abstract class AbsModel_Null : AbsBasicsDataModel, ITableName
     {
         public AbsModel_Null() { }
 

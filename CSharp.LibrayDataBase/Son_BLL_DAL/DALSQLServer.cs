@@ -50,10 +50,10 @@ namespace CSharp.LibrayDataBase
             return sql;
         }
         public override string SQLClearTable() {
-            return string.Format("truncate table {0}", DefaultModel().GetTableName());
+            return string.Format("truncate table {0}", GetTableName());
         }
         public override string SQLKillTable() {
-            return string.Format("drop table {0}", DefaultModel().GetTableName());
+            return string.Format("drop table {0}", GetTableName());
         }
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
@@ -89,11 +89,11 @@ namespace CSharp.LibrayDataBase
             return string.Format("not exists({0})", where);
         }
         private string SQLSelectTable() {
-            return string.Format("select top 1 object_id from sys.tables where name = '{0}'", DefaultModel().GetTableName());
+            return string.Format("select top 1 object_id from sys.tables where name = '{0}'", GetTableName());
         }
         private string SQLCreateTable(Dictionary<string, string> columns) {
             string columnFormats = ConvertTool.IDictionaryTValueToString(columns, ',');
-            return string.Format("Create Table {0} ({1})", DefaultModel().GetTableName(), columnFormats);
+            return string.Format("Create Table {0} ({1})", GetTableName(), columnFormats);
         }
         private string SQLAlterColumns(Dictionary<string, string> columns) {
             List<string> ifExists = new List<string>();
@@ -107,7 +107,7 @@ namespace CSharp.LibrayDataBase
             return string.Format("select * from sys.columns where name = '{0}' and object_id = ({1})", columnName, SQLSelectTable());
         }
         private string SQLAlterAddColumn(string columnFormat) {
-            return string.Format("ALTER TABLE {0} ADD {1}", DefaultModel().GetTableName(), columnFormat);
+            return string.Format("ALTER TABLE {0} ADD {1}", GetTableName(), columnFormat);
         }
         #endregion
     }

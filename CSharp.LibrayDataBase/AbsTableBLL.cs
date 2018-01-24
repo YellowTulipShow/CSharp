@@ -89,7 +89,7 @@ namespace CSharp.LibrayDataBase
         /// 保持数据不空白
         /// </summary>
         private void KeepDataNotBlank() {
-            M model = DefaultDataModels();
+            M model = DefaultDataModel();
             if (CheckData.IsObjectNull(model))
                 return;
             int count = GetRecordCount(string.Empty);
@@ -102,7 +102,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 默认数据模型
         /// </summary>
-        public virtual M DefaultDataModels() {
+        public virtual M DefaultDataModel() {
             return null;
         }
     }

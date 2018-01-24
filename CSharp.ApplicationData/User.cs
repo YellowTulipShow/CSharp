@@ -21,14 +21,6 @@ namespace CSharp.ApplicationData
 
         #region === Model ===
         /// <summary>
-        /// 真实姓名
-        /// </summary>
-        [Explain(@"真实姓名")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 30, SortIndex = 10)]
-        public string RealName { get { return _realName; } set { _realName = value; } }
-        private string _realName = string.Empty;
-
-        /// <summary>
         /// 昵称
         /// </summary>
         [Explain(@"昵称")]
@@ -67,6 +59,53 @@ namespace CSharp.ApplicationData
         [Column(MSSFieldTypeCharCount.NVarChar, 11, SortIndex = 15)]
         public string MobilePhone { get { return _mobilePhone; } set { _mobilePhone = value; } }
         private string _mobilePhone = string.Empty;
+
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        [Explain(@"真实姓名")]
+        [Column(MSSFieldTypeCharCount.NVarChar, 30, SortIndex = 10)]
+        public string RealName { get { return _realName; } set { _realName = value; } }
+        private string _realName = string.Empty;
+
+
+
+        /// <summary>
+        /// 性别值
+        /// </summary>
+        [Explain(@"性别值")]
+        public enum SexEnum
+        {
+            /// <summary>
+            /// 保密
+            /// </summary>
+            [Explain(@"保密")]
+            Secrecy = 0,
+            /// <summary>
+            /// 男
+            /// </summary>
+            [Explain(@"男")]
+            Male = 1,
+            /// <summary>
+            /// 女
+            /// </summary>
+            [Explain(@"女")]
+            Female = 2,
+        }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Explain(@"性别")]
+        [Column(MSSFieldTypeStruct.Int)]
+        public int Sex {
+            get { return _sex; }
+            set {
+                if (Enum.IsDefined(typeof(SexEnum), value)) {
+                    _sex = value;
+                }
+            }
+        }
+        private int _sex = SexEnum.Secrecy.GetIntValue();
         #endregion
     }
 
@@ -76,7 +115,7 @@ namespace CSharp.ApplicationData
     public class BLLUser : BLLSQLServer<ModelUser> {
         public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
 
-        public override ModelUser DefaultDataModels() {
+        public override ModelUser DefaultDataModel() {
             return new ModelUser() {
                 Email = @"1426689530@qq.com",
                 MobilePhone = @"18563920971",
@@ -88,61 +127,5 @@ namespace CSharp.ApplicationData
                 TimeAdd = DateTime.Now,
             };
         }
-    }
-
-    /// <summary>
-    /// 数据模型类: 组别
-    /// </summary>
-    [Explain(@"组别")]
-    [Table]
-    public class ModelGroup : AbsModel_ID
-    {
-        public ModelGroup() { }
-
-        public override string GetTableName() {
-            return @"dt_Group";
-        }
-
-        #region === Model ===
-        /// <summary>
-        /// 组别名称
-        /// </summary>
-        [Explain(@"组别名称")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 30)]
-        public string Name { get { return _name; } set { _name = value; } }
-        private string _name = string.Empty;
-
-        /// <summary>
-        /// 组别类型枚举
-        /// </summary>
-        [Explain(@"组别类型")]
-        public enum GroupTypeEnum
-        {
-            /// <summary>
-            /// 用户组类型
-            /// </summary>
-            [Explain(@"用户组")]
-            UserGroup = 0,
-            /// <summary>
-            /// 系统组类型(最高权限组)
-            /// </summary>
-            [Explain(@"系统组(最高权限组)")]
-            SystemGroup = 1
-        }
-        /// <summary>
-        /// 组别类型-(使用枚举 enum GroupTypeEnum 赋值)
-        /// </summary>
-        [Explain(@"组别类型")]
-        [Column(MSSFieldTypeStruct.Int)]
-        public int GroupType {
-            get { return _groupType; }
-            set {
-                if (Enum.IsDefined(typeof(GroupTypeEnum), value)) {
-                    _groupType = value;
-                }
-            }
-        }
-        private int _groupType = GroupTypeEnum.UserGroup.GetIntValue();
-        #endregion
     }
 }

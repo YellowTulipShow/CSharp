@@ -3,13 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.ConsoleProgram
 {
+    //[TestClass]
     internal class MainProram
     {
+        //[TestMethod]
         internal static void Main(string[] args) {
             Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine(Console.CursorSize);
             do {
                 ExecuteCaseText();
             } while (IsRepeatExecute());

@@ -52,6 +52,7 @@
     <Compile Include="ITableBasicFunction.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ITableName.cs" />
     <Compile Include="Son_BLL_DAL\BLLSQLServer.cs" />
     <Compile Include="Son_Attribute\ColumnAttribute.cs" />
     <Compile Include="Son_Attribute\TableAttribute.cs" />

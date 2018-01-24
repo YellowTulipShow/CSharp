@@ -13,15 +13,17 @@ namespace CSharp.LibrayDataBase
     /// 数据表-访问类
     /// </summary>
     public abstract class AbsTableDAL<M> :
-        IPropertyColumn, IAutoTable, IBasicsSQL<M>, ITableBasicFunction<M>
+        ITableName, IPropertyColumn, IAutoTable, IBasicsSQL<M>, ITableBasicFunction<M>
         where M : AbsModel_Null
     {
+        private readonly string tableName;
         private ColumnInfo[] alltypeColums = null;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public AbsTableDAL() {
+            this.tableName = DefaultModel().GetTableName();
             SetALLTypeColumns();
             EXECreateTable();
         }
@@ -58,6 +60,13 @@ namespace CSharp.LibrayDataBase
         }
 
         /// <summary>
+        /// 获得当前表 全名 名称
+        /// </summary>
+        public string GetTableName() {
+            return this.tableName;
+        }
+
+        /// <summary>
         /// 获取属性的值
         /// </summary>
         private object GetProtertyValue(ColumnInfo colinfo, M sourceModel) {
@@ -89,6 +98,7 @@ namespace CSharp.LibrayDataBase
                 explainAttr = new ExplainAttribute("未知元素");
             return explainAttr;
         }
+
 
         #region === IPropertyColumn ===
         /// <summary>
@@ -241,7 +251,7 @@ namespace CSharp.LibrayDataBase
         #region === ITableBasicFunction<M> ===
         public virtual int GetRecordCount(string strWhere) {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(*) as H from " + DefaultModel().GetTableName());
+            strSql.Append("select count(*) as H from " + GetTableName());
             if (!CheckData.IsStringNull(strWhere.Trim())) {
                 strSql.Append(" where " + strWhere);
             }
@@ -273,7 +283,7 @@ namespace CSharp.LibrayDataBase
             if (CheckData.IsObjectNull(colmodel))
                 return null;
             string sql = string.Format("select top 1 * from {0} where {1} = {2}",
-                DefaultModel().GetTableName(),
+                GetTableName(),
                 colmodel.Property.Name,
                 IDentity);
             DataSet ds = DbHelperSQL.Query(sql);
@@ -323,7 +333,7 @@ namespace CSharp.LibrayDataBase
 
         internal string SQLALLSelectWhere(int top, string strWhere, string orderBy) {
             string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
-            string sql = string.Format(@"select {0} from {1}", column, DefaultModel().GetTableName());
+            string sql = string.Format(@"select {0} from {1}", column, GetTableName());
             if (!CheckData.IsStringNull(strWhere.Trim()))
                 sql += string.Format(@" where {0}", strWhere);
             if (!CheckData.IsStringNull(orderBy.Trim()))
