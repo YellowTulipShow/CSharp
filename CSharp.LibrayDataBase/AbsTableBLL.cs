@@ -66,7 +66,7 @@ namespace CSharp.LibrayDataBase
             return TableDAL.GetModelList(dt);
         }
 
-        public DataTable GetList(int top, string strWhere, Dictionary<string, bool> fieldOrders) {
+        public DataTable GetList(int top = 0, string strWhere = "", Dictionary<string, bool> fieldOrders = null) {
             DataTable dt = TableDAL.GetList(top, strWhere, fieldOrders);
             if (CheckData.IsSizeEmpty(dt)) {
                 KeepDataNotBlank();

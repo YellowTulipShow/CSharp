@@ -5,6 +5,7 @@ using CSharp.LibrayDataBase.MSSDataType;
 
 namespace CSharp.LibrayDataBase
 {
+    #region === DataBase Field Type Enum ===
     /// <summary>
     /// Microsoft SQL Server 数据库字段类型: 值类型
     /// </summary>
@@ -69,6 +70,24 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         SqlMaxDateTime = 3,
     }
+    #endregion
+
+    #region === CSharp Program Data Type Enum ===
+    /// <summary>
+    /// CSharp 程序数据类型
+    /// </summary>
+    public enum CsDTEnum
+    {
+        /// <summary>
+        /// 值类型(int,float,double,char...), 常规类型(string)
+        /// </summary>
+        Struct,
+        /// <summary>
+        /// 枚举类型
+        /// </summary>
+        Enum,
+    }
+    #endregion
 
     /// <summary>
     /// 数据表列特性  同一程序不能多个解释。无法继承此类。
@@ -151,8 +170,40 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        public AbsFieldType DbType { get { return _dbType; } }
+        public AbsFieldType DbType {
+            get {
+                return !_dbType.IsObjectNull() ? _dbType :
+                    new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
+            }
+        }
         private AbsFieldType _dbType = null;
+
+
+        /// <summary>
+        /// 设置字段CSharp数据类型-枚举指定。
+        /// </summary>
+        public CsDTEnum CsTypeEnumSign {
+            get { return _csTypeEnumSign; }
+            set {
+                _csTypeEnumSign = value;
+                switch (_csTypeEnumSign) {
+                    case CsDTEnum.Struct: _csType = new MCSDataType.MCSStruct(); break;
+                    case CsDTEnum.Enum: _csType = new MCSDataType.MCSEnum(); break;
+                    default: CsTypeEnumSign = CsDTEnum.Struct; break;
+                }
+            }
+        }
+        private CsDTEnum _csTypeEnumSign = CsDTEnum.Struct;
+        /// <summary>
+        /// 获取字段CSharp数据类型
+        /// </summary>
+        public AbsCsType CsType {
+            get {
+                return !_csType.IsObjectNull() ? _csType :
+                    new MCSDataType.MCSStruct();
+            }
+        }
+        private AbsCsType _csType = null;
 
 
         /// <summary>

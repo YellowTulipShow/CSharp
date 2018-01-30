@@ -314,7 +314,7 @@ namespace CSharp.LibrayDataBase
             return list.ToArray();
         }
 
-        public virtual DataTable GetList(int top, string strWhere, Dictionary<string, bool> fieldOrders) {
+        public virtual DataTable GetList(int top = 0, string strWhere = "", Dictionary<string, bool> fieldOrders = null) {
             string orderbyStr = AnalysisDictionaryOrderByInfos(fieldOrders);
             string selectStr = SQLALLSelectWhere(top, strWhere, orderbyStr);
             DataSet ds = DbHelperSQL.Query(selectStr);

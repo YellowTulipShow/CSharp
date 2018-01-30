@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsBasicsAttribute.cs" />
+    <Compile Include="AbsCsType.cs" />
     <Compile Include="AbsFieldType.cs" />
     <Compile Include="AbsTableDAL.cs" />
     <Compile Include="IAutoTable.cs" />
@@ -61,17 +62,19 @@
       </SubType>
     </Compile>
     <Compile Include="AbsTableBLL.cs" />
+    <Compile Include="Son_MCSDataType\MCSEnum.cs" />
+    <Compile Include="Son_MCSDataType\MCSStruct.cs" />
     <Compile Include="Son_Model\AbsModel_Remark.cs" />
     <Compile Include="Son_Model\AbsModel_ID.cs" />
     <Compile Include="Son_Model\AbsModel_TimeAdd.cs" />
     <Compile Include="IBasicsSQL.cs" />
-    <Compile Include="Son_Type\MSSMoney.cs" />
-    <Compile Include="Son_Type\MSSInt.cs" />
-    <Compile Include="Son_Type\MSSDatetime.cs" />
-    <Compile Include="Son_Type\MSSChar.cs" />
-    <Compile Include="Son_Type\MSSNChar.cs" />
-    <Compile Include="Son_Type\MSSVarChar.cs" />
-    <Compile Include="Son_Type\MSSNvarchar.cs" />
+    <Compile Include="Son_MSSDataType\MSSMoney.cs" />
+    <Compile Include="Son_MSSDataType\MSSInt.cs" />
+    <Compile Include="Son_MSSDataType\MSSDatetime.cs" />
+    <Compile Include="Son_MSSDataType\MSSChar.cs" />
+    <Compile Include="Son_MSSDataType\MSSNChar.cs" />
+    <Compile Include="Son_MSSDataType\MSSVarChar.cs" />
+    <Compile Include="Son_MSSDataType\MSSNvarchar.cs" />
     <Compile Include="Utils\CommandInfo.cs">
       <SubType>
       </SubType>
@@ -90,6 +93,7 @@
       <Name>CSharp.LibrayFunction</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITestCase.cs" />
+    <Compile Include="ITestCaseSonClass\Test_Generic_Type.cs" />
     <Compile Include="ITestCaseSonClass\TestCheckData.cs" />
     <Compile Include="ITestCaseSonClass\TestAbsBasicsDataModel.cs" />
     <Compile Include="ITestCaseSonClass\TestAbsTableDAL.cs" />

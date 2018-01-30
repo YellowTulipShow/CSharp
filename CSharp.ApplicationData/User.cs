@@ -2,6 +2,7 @@
 using CSharp.LibrayFunction;
 using CSharp.LibrayDataBase;
 using System.Security.Cryptography;
+using CSharp.LibrayDataBase.MCSDataType;
 
 namespace CSharp.ApplicationData
 {
@@ -96,7 +97,7 @@ namespace CSharp.ApplicationData
         /// 性别
         /// </summary>
         [Explain(@"性别")]
-        [Column(MSSFieldTypeStruct.Int)]
+        [Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
         public int Sex {
             get { return _sex; }
             set {
