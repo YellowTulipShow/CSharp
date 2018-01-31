@@ -9,7 +9,7 @@ namespace CSharp.LibrayDataBase.MSSDataType
     public class MSSInt : AbsFieldType
     {
         public override string FieldTypeName() {
-            return @"int";
+            return @"int default(0)";
         }
 
         public override string PrintSaveValue(object programValue) {
