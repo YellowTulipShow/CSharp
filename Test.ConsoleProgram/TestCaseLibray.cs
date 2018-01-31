@@ -13,7 +13,7 @@ namespace Test.ConsoleProgram
         /// </summary>
         private AbsTestCase[] InitTestCaseSource() {
             return new AbsTestCase[] {
-                new ITestCaseSonClass.Test_Generic_Type(),
+                //new ITestCaseSonClass.*****(),
             };
         }
 

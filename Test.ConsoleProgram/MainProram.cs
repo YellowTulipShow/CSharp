@@ -13,7 +13,6 @@ namespace Test.ConsoleProgram
         //[TestMethod]
         internal static void Main(string[] args) {
             Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine(Console.CursorSize);
             do {
                 ExecuteCaseText();
             } while (IsRepeatExecute());
@@ -22,7 +21,7 @@ namespace Test.ConsoleProgram
             ITestCase[] tcs = new TestCaseLibray().GetTestCase(true);
 
             if (CheckData.IsSizeEmpty(tcs)) {
-                Console.WriteLine(@"没有可以测试执行的实例~~~");
+                Console.WriteLine(@"(→_→) => 没有设置好的需要测试的实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
             }
 
             foreach (ITestCase iTC in tcs) {

@@ -87,15 +87,45 @@ namespace CSharp.LibrayFunction
         /// <param name="sourceList">数据源数组</param>
         /// <param name="convertMethod">用户实现转换算法</param>
         public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
+            return ListConvertType(sourceList, convertMethod, false, default(RT));
+        }
+        /// <summary>
+        /// 数组列表之间的类型数据转换
+        /// </summary>
+        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
+        /// <typeparam name="ST">数据源数组-数据类型</typeparam>
+        /// <param name="sourceList">数据源数组</param>
+        /// <param name="convertMethod">用户实现转换算法</param>
+        /// <param name="errorValue">需要排除的错误值</param>
+        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue = default(RT)) {
+            return ListConvertType(sourceList, convertMethod, true, errorValue);
+        }
+        /// <summary>
+        /// 数组列表之间的类型数据转换
+        /// </summary>
+        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
+        /// <typeparam name="ST">数据源数组-数据类型</typeparam>
+        /// <param name="sourceList">数据源数组</param>
+        /// <param name="convertMethod">用户实现转换算法</param>
+        /// <param name="isClearErrorValue">是否清除指定的错误值</param>
+        /// <param name="errorValue">需要排除的错误值</param>
+        private static RT[] ListConvertType<RT, ST>(this ST[] sourceList,
+            ConvertTypeDelegate<RT, ST> convertMethod,
+            bool isClearErrorValue, RT errorValue) {
+
             if (CheckData.IsSizeEmpty(sourceList))
                 return new RT[] { };
             List<RT> list = new List<RT>();
+            isClearErrorValue = isClearErrorValue && !CheckData.IsObjectNull(errorValue);
             foreach (ST item in sourceList) {
                 if (CheckData.IsObjectNull(item))
                     continue;
                 RT value = convertMethod(item);
-                if (CheckData.IsObjectNull(value))
+                if (CheckData.IsObjectNull(value)) {
                     continue;
+                } else if (isClearErrorValue && errorValue.Equals(value)) {
+                    continue;
+                }
                 list.Add(value);
             }
             return list.ToArray();

@@ -16,7 +16,9 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         public override ITestCase[] SonTestCase() {
             return new ITestCase[] {
                 new StringToInt(),
+                new StringToInt_ErrorValue(),
                 new StringToString(),
+                new StringToString_ErrorValue(),
                 new StringToFloat(),
                 new StringToDecimal(),
                 new StringToBoolean(),
@@ -24,7 +26,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         private static string Srource() {
-            return @",15,8,3,r,2,ssss,55,5,4,34M,35,";
+            return ",15,8,3,-1,,,r,2,0,ssss,55,5,4,34M,350,0,";
         }
 
         #region Son Test Case
@@ -40,6 +42,19 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
+        private class StringToInt_ErrorValue : ITestCase
+        {
+            public string TestNameSign() {
+                return @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
+            }
+            public void TestMethod() {
+                string str = Srource();
+                Console.WriteLine("SourceData: \n {0}", str);
+                int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
+                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+            }
+        }
+
         private class StringToString : ITestCase
         {
             public string TestNameSign() {
@@ -52,6 +67,19 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
+        private class StringToString_ErrorValue : ITestCase
+        {
+            public string TestNameSign() {
+                return @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
+            }
+            public void TestMethod() {
+                string str = Srource();
+                Console.WriteLine("SourceData: \n {0}", str);
+                string[] array = str.ToArrayList(',').ListConvertType(s => s, "0");
+                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+            }
+        }
+
         private class StringToFloat : ITestCase
         {
             public string TestNameSign() {
@@ -60,7 +88,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                float[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToFloat(s, 0));
+                float[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToFloat(s, 0f));
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -72,7 +100,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             public void TestMethod() {
                 string str = Srource();
                 Console.WriteLine("SourceData: \n {0}", str);
-                decimal[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToDecimal(s, 0));
+                decimal[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToDecimal(s, 0m));
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
