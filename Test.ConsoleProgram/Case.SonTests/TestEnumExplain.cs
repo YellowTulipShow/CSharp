@@ -2,9 +2,9 @@
 using CSharp.LibrayDataBase;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestEnumExplain : AbsTestCase
+    public class TestEnumExplain : AbsCase
     {
         public override string TestNameSign() {
             return @"测试枚举类型 的自定义扩展";
@@ -35,15 +35,15 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             Value = 7
         }
 
-        public override ITestCase[] SonTestCase() {
-            return new ITestCase[] {
+        public override ICase[] SonTestCase() {
+            return new ICase[] {
                 new Test_GetName(),
                 new Test_GetIntValue(),
                 new Test_GetExplain(),
             };
         }
 
-        private class Test_GetName : ITestCase
+        private class Test_GetName : ICase
         {
             public string TestNameSign() {
                 return @"获得枚举名称";
@@ -55,7 +55,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(LEKEY.Value.GetName());
             }
         }
-        private class Test_GetIntValue : ITestCase
+        private class Test_GetIntValue : ICase
         {
             public string TestNameSign() {
                 return @"获得枚举 int 值";
@@ -67,7 +67,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(LEKEY.Value.GetIntValue());
             }
         }
-        private class Test_GetExplain : ITestCase
+        private class Test_GetExplain : ICase
         {
             public string TestNameSign() {
                 return @"获得枚举 解释内容";

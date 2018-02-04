@@ -7,26 +7,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.ConsoleProgram
 {
-    //[TestClass]
     internal class MainProram
     {
-        //[TestMethod]
         internal static void Main(string[] args) {
             Console.OutputEncoding = Encoding.UTF8;
             do {
                 ExecuteCaseText();
             } while (IsRepeatExecute());
         }
-        private static void ExecuteCaseText() {
-            ITestCase[] tcs = new TestCaseLibray().GetTestCase(true);
 
-            if (CheckData.IsSizeEmpty(tcs)) {
-                Console.WriteLine(@"(→_→) => 没有设置好的需要测试的实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
+        private static void ExecuteCaseText() {
+            ICase[] ics = new CaseLibray().GetTestCase(true);
+
+            if (CheckData.IsSizeEmpty(ics)) {
+                Console.WriteLine(@"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
             }
 
-            foreach (ITestCase iTC in tcs) {
+            foreach (ICase iTC in ics) {
                 Console.WriteLine(string.Empty);
-                Console.WriteLine(@"===测试开始: {0} ===", iTC.TestNameSign());
+                Console.WriteLine(@"===实例开始: {0} ===", iTC.TestNameSign());
 
                 DelegateTimeTest dtt = new DelegateTimeTest();
                 dtt.SetEventHandlers(iTC.TestMethod);

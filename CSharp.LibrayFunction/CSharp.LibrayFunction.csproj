@@ -57,6 +57,7 @@
     <Compile Include="EnumExtension.cs" />
     <Compile Include="ExplainAttribute.cs" />
     <Compile Include="FileHelper.cs" />
+    <Compile Include="HttpUrl.cs" />
     <Compile Include="JsonHelper.cs">
       <SubType>Code</SubType>
     </Compile>

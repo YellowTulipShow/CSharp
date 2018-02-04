@@ -8,7 +8,7 @@ namespace Test.ConsoleProgram
     /// <summary>
     /// 接口-测试-实例
     /// </summary>
-    public interface ITestCase
+    public interface ICase
     {
         string TestNameSign();
         void TestMethod();
@@ -17,12 +17,12 @@ namespace Test.ConsoleProgram
     /// <summary>
     /// 抽象类-测试-实例-可定制子属性类-称为 "大测试类"
     /// </summary>
-    public abstract class AbsTestCase : ITestCase
+    public abstract class AbsCase : ICase
     {
         public abstract string TestNameSign();
         public abstract void TestMethod();
-        public virtual ITestCase[] SonTestCase() {
-            return new ITestCase[] { };
+        public virtual ICase[] SonTestCase() {
+            return new ICase[] { };
         }
     }
 }

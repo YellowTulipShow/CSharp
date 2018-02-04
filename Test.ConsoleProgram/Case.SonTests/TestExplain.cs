@@ -2,9 +2,9 @@
 using System.Linq.Expressions;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestExplain : AbsTestCase
+    public class TestExplain : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 解析特性";

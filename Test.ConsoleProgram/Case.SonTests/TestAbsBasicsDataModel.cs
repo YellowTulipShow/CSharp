@@ -2,9 +2,9 @@
 using CSharp.ApplicationData;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestAbsBasicsDataModel : AbsTestCase
+    public class TestAbsBasicsDataModel : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 CSharp.LibrayFunction 中的基础数据模型 AbsBasicsDataModel";

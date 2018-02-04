@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestListSortMethod : AbsTestCase
+    public class TestListSortMethod : AbsCase
     {
         public override string TestNameSign() {
             return @"测试学习: List<T>.Sort() 方法的学习运用";

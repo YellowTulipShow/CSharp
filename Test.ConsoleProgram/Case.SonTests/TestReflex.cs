@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using CSharp.LibrayFunction;
 using CSharp.ApplicationData;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestReflex : AbsTestCase
+    public class TestReflex : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 反射";

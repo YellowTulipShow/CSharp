@@ -97,7 +97,7 @@ namespace CSharp.LibrayFunction
         /// <param name="sourceList">数据源数组</param>
         /// <param name="convertMethod">用户实现转换算法</param>
         /// <param name="errorValue">需要排除的错误值</param>
-        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue = default(RT)) {
+        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue);
         }
         /// <summary>
@@ -111,7 +111,7 @@ namespace CSharp.LibrayFunction
         /// <param name="errorValue">需要排除的错误值</param>
         private static RT[] ListConvertType<RT, ST>(this ST[] sourceList,
             ConvertTypeDelegate<RT, ST> convertMethod,
-            bool isClearErrorValue, RT errorValue) {
+            bool isClearErrorValue, RT errorValue = default(RT)) {
 
             if (CheckData.IsSizeEmpty(sourceList))
                 return new RT[] { };

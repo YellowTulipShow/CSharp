@@ -1,13 +1,12 @@
 ﻿using System;
+using CSharp.LibrayFunction;
 
-using CSharp.ApplicationData;
-
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.Learn
 {
-    public class TestObject : AbsTestCase
+    public class Learn_Object : AbsCase
     {
         public override string TestNameSign() {
-            return @"测试Object对象";
+            return @"试验测试Object对象";
         }
 
         public override void TestMethod() {
@@ -36,13 +35,12 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             object oRefEquals_B = 3;
             test_ReferenceEquals(oRefEquals_A, oRefEquals_B);
 
-            ModelArticles A = new ModelArticles() {
+            Model A = new Model() {
                 id = 1,
                 Money = 100,
-                Remark = "Test A",
-                VipDiscountRate = 80
+                Remark = "Test A"
             };
-            ModelArticles B = (ModelArticles)A.CloneModelData();
+            Model B = (Model)A.CloneModelData();
 
             test_Equals(A, B);
             test_ReferenceEquals(A, B);
@@ -69,6 +67,37 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             Console.WriteLine("测试 Object.ReferenceEquals()");
             Console.WriteLine("oRefEquals A:{0} B:{1}", A, B);
             Console.WriteLine("结果: {0}", object.Equals(A, B));
+        }
+
+        private class Model : AbsBasicsDataModel
+        {
+            /// <summary>
+            /// 自增ID
+            /// </summary>
+            [Explain(@"自增ID")]
+            public int id { get { return _id; } set { _id = value; } }
+            private int _id = 0;
+
+            /// <summary>
+            /// 备注
+            /// </summary>
+            [Explain(@"备注")]
+            public string Remark { get { return _remark; } set { _remark = value; } }
+            private string _remark = String.Empty;
+
+            /// <summary>
+            /// 添加时间
+            /// </summary>
+            [Explain(@"添加时间")]
+            public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
+            private DateTime _timeAdd = DateTime.Now;
+
+            /// <summary>
+            /// 金额
+            /// </summary>
+            [Explain(@"金额")]
+            public decimal Money { get { return _money; } set { _money = value; } }
+            private decimal _money = 0M;
         }
     }
 }

@@ -7,17 +7,17 @@ using CSharp.LibrayDataBase;
 using CSharp.LibrayDataBase.Utils;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestDALSQLServer : AbsTestCase {
+    public class TestDALSQLServer : AbsCase {
         public override string TestNameSign() {
             return @"测试 DALSQLServer类";
         }
         public override void TestMethod() {
         }
 
-        public override ITestCase[] SonTestCase() {
-            return new ITestCase[] {
+        public override ICase[] SonTestCase() {
+            return new ICase[] {
                 //new Test_CAnalysisPropertyColumns(),
                 //new Test_CDefaultModel(),
                 new Test_CICreateSQL(),
@@ -30,7 +30,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         #region Son Test Case
-        private class Test_CAnalysisPropertyColumns : ITestCase
+        private class Test_CAnalysisPropertyColumns : ICase
         {
             public string TestNameSign() {
                 return @"实现解析属性的'行'特性";
@@ -48,7 +48,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 }
             }
         }
-        private class Test_CDefaultModel : ITestCase
+        private class Test_CDefaultModel : ICase
         {
             public string TestNameSign() {
                 return @"获得系统自动生成默认的实例";
@@ -58,7 +58,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(dal.DefaultModel().ToString());
             }
         }
-        private class Test_CICreateSQL : ITestCase
+        private class Test_CICreateSQL : ICase
         {
             public string TestNameSign() {
                 return @"基础SQL语句";
@@ -101,7 +101,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(bll.SQLUpdate(model));
             }
         }
-        private class Test_CIAutoTable : ITestCase
+        private class Test_CIAutoTable : ICase
         {
             public string TestNameSign() {
                 return @"IAutoTable 自动化表 SQL字符串";
@@ -122,7 +122,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(dal.SQLKillTable());
             }
         }
-        private class Test_CGetModelList : ITestCase
+        private class Test_CGetModelList : ICase
         {
             public string TestNameSign() {
                 return @"查询所有数据";
@@ -135,7 +135,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 }
             }
         }
-        private class Test_CInsertMethod_out_parmeter : ITestCase
+        private class Test_CInsertMethod_out_parmeter : ICase
         {
             public string TestNameSign() {
                 return @"执行-基础的数据操作方法";
@@ -170,7 +170,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine(dal.Update(model));
             }
         }
-        private class Test_CInsertSpeed : ITestCase
+        private class Test_CInsertSpeed : ICase
         {
             public string TestNameSign() {
                 return @"执行添加大量测试数据-测试速度";
@@ -192,7 +192,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("结束了!");
             }
         }
-        private class Test_ColumnInfoSort : ITestCase
+        private class Test_ColumnInfoSort : ICase
         {
             public string TestNameSign() {
                 return @"列信息的排序问题";

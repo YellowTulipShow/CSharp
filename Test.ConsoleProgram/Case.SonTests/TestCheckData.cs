@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestCheckData : AbsTestCase
+    public class TestCheckData : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 检查 数据类 CheckData";
@@ -13,8 +13,8 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         public override void TestMethod() {
         }
 
-        public override ITestCase[] SonTestCase() {
-            return new ITestCase[] {
+        public override ICase[] SonTestCase() {
+            return new ICase[] {
                 new TestIsObjectNull(),
                 new TestIsStringNull(),
                 new TestIsSizeEmpty(),
@@ -22,7 +22,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         #region Son Test Case
-        private class TestIsObjectNull : ITestCase
+        private class TestIsObjectNull : ICase
         {
             public string TestNameSign() {
                 return @"测试 IsObjectNull";
@@ -34,7 +34,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("obj new 后 : {0}", obj.IsObjectNull());
             }
         }
-        private class TestIsStringNull : ITestCase
+        private class TestIsStringNull : ICase
         {
             public string TestNameSign() {
                 return @"测试 IsObjectNull";
@@ -46,7 +46,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("str new 后 : {0}", str.IsStringNull());
             }
         }
-        private class TestIsSizeEmpty : ITestCase
+        private class TestIsSizeEmpty : ICase
         {
             public string TestNameSign() {
                 return @"测试 '集合' 的数量";

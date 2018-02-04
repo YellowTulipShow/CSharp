@@ -2,9 +2,9 @@
 using System.Data.SqlTypes;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestDateTime : AbsTestCase
+    public class TestDateTime : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 DateTime 的用法";

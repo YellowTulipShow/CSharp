@@ -4,9 +4,9 @@ using System.Linq;
 using CSharp.ApplicationData;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestLambda : AbsTestCase
+    public class TestLambda : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 Lambda 表达式 查询的速度";

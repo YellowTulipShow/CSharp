@@ -60,24 +60,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITestCase.cs" />
-    <Compile Include="ITestCaseSonClass\Test_Generic_Type.cs" />
-    <Compile Include="ITestCaseSonClass\TestCheckData.cs" />
-    <Compile Include="ITestCaseSonClass\TestAbsBasicsDataModel.cs" />
-    <Compile Include="ITestCaseSonClass\TestAbsTableDAL.cs" />
-    <Compile Include="ITestCaseSonClass\TestAttribute.cs" />
-    <Compile Include="ITestCaseSonClass\TestConvertTool.cs" />
-    <Compile Include="ITestCaseSonClass\TestDateTime.cs" />
-    <Compile Include="ITestCaseSonClass\TestEnumExplain.cs" />
-    <Compile Include="ITestCaseSonClass\TestExplain.cs" />
-    <Compile Include="ITestCaseSonClass\TestLambda.cs" />
-    <Compile Include="ITestCaseSonClass\TestListSortMethod.cs" />
-    <Compile Include="ITestCaseSonClass\TestObject.cs" />
-    <Compile Include="ITestCaseSonClass\TestReflex.cs" />
+    <Compile Include="Case.Learn\Learn_Object.cs" />
+    <Compile Include="Case.Learn\Learn_RegularExpression.cs" />
+    <Compile Include="ICase.cs" />
+    <Compile Include="Case.SonTests\Test_Generic_Type.cs" />
+    <Compile Include="Case.SonTests\TestCheckData.cs" />
+    <Compile Include="Case.SonTests\TestAbsBasicsDataModel.cs" />
+    <Compile Include="Case.SonTests\TestAbsTableDAL.cs" />
+    <Compile Include="Case.SonTests\TestAttribute.cs" />
+    <Compile Include="Case.SonTests\TestConvertTool.cs" />
+    <Compile Include="Case.SonTests\TestDateTime.cs" />
+    <Compile Include="Case.SonTests\TestEnumExplain.cs" />
+    <Compile Include="Case.SonTests\TestExplain.cs" />
+    <Compile Include="Case.SonTests\TestLambda.cs" />
+    <Compile Include="Case.SonTests\TestListSortMethod.cs" />
+    <Compile Include="Case.SonTests\TestReflex.cs" />
     <Compile Include="MainProram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DelegateTimeTest.cs" />
-    <Compile Include="TestCaseLibray.cs" />
+    <Compile Include="CaseLibray.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharp.ApplicationData\CSharp.ApplicationData.csproj">
@@ -122,6 +123,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

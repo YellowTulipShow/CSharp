@@ -2,9 +2,9 @@
 using CSharp.ApplicationData;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Generic_Type : AbsTestCase
+    public class Test_Generic_Type : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 泛型";

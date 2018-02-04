@@ -3,9 +3,9 @@
 using CSharp.ApplicationData;
 using CSharp.LibrayDataBase;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestAttribute : AbsTestCase
+    public class TestAttribute : AbsCase
     {
         public override string TestNameSign() {
             return @"测试学习'特性'";

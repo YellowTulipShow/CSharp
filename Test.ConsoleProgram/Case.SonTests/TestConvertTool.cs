@@ -1,9 +1,9 @@
 ﻿using System;
 using CSharp.LibrayFunction;
 
-namespace Test.ConsoleProgram.ITestCaseSonClass
+namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestConvertTool : AbsTestCase
+    public class TestConvertTool : AbsCase
     {
         public override string TestNameSign() {
             return @"测试 转化工具";
@@ -13,8 +13,8 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             Console.WriteLine(@"ConvertTool 的类型转化工具");
         }
 
-        public override ITestCase[] SonTestCase() {
-            return new ITestCase[] {
+        public override ICase[] SonTestCase() {
+            return new ICase[] {
                 new StringToInt(),
                 new StringToInt_ErrorValue(),
                 new StringToString(),
@@ -30,7 +30,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
         }
 
         #region Son Test Case
-        private class StringToInt : ITestCase
+        private class StringToInt : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 Int";
@@ -42,7 +42,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
-        private class StringToInt_ErrorValue : ITestCase
+        private class StringToInt_ErrorValue : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
@@ -55,7 +55,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             }
         }
 
-        private class StringToString : ITestCase
+        private class StringToString : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 String";
@@ -67,7 +67,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
-        private class StringToString_ErrorValue : ITestCase
+        private class StringToString_ErrorValue : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
@@ -80,7 +80,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
             }
         }
 
-        private class StringToFloat : ITestCase
+        private class StringToFloat : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 Int";
@@ -92,7 +92,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
-        private class StringToDecimal : ITestCase
+        private class StringToDecimal : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 Decimal";
@@ -104,7 +104,7 @@ namespace Test.ConsoleProgram.ITestCaseSonClass
                 Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
-        private class StringToBoolean : ITestCase
+        private class StringToBoolean : ICase
         {
             public string TestNameSign() {
                 return @"测试 String 转 Boolean";
