@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Case.Learn\Learm_Dictionary.cs" />
     <Compile Include="Case.Learn\Learn_Object.cs" />
     <Compile Include="Case.Learn\Learn_RegularExpression.cs" />
     <Compile Include="ICase.cs" />

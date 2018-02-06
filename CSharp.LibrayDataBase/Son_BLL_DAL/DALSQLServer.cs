@@ -92,7 +92,8 @@ namespace CSharp.LibrayDataBase
             return string.Format("select top 1 object_id from sys.tables where name = '{0}'", GetTableName());
         }
         private string SQLCreateTable(Dictionary<string, string> columns) {
-            string columnFormats = ConvertTool.IDictionaryTValueToString(columns, ',');
+            string[] tvalues = ConvertTool.ListConvertType(columns, d => d.Value);
+            string columnFormats = ConvertTool.IListToString(tvalues, ',');
             return string.Format("Create Table {0} ({1})", GetTableName(), columnFormats);
         }
         private string SQLAlterColumns(Dictionary<string, string> columns) {

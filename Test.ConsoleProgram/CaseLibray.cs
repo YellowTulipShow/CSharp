@@ -14,7 +14,7 @@ namespace Test.ConsoleProgram
         private AbsCase[] InitTestCaseSource() {
             return new AbsCase[] {
                 //new Case.SonTests.*****(),
-                new Case.Learn.Learn_Object(),
+                new Case.SonTests.TestConvertTool(),
             };
         }
 
