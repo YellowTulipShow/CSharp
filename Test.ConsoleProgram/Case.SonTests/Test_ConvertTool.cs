@@ -6,17 +6,17 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestConvertTool : AbsCase
+    public class Test_ConvertTool : AbsCase
     {
-        public override string TestNameSign() {
+        public override string NameSign() {
             return @"测试 转化工具";
         }
 
-        public override void TestMethod() {
-            Console.WriteLine(@"ConvertTool 的类型转化工具");
+        public override void Method() {
+            Print.WriteLine(@"ConvertTool 的类型转化工具");
         }
 
-        public override ICase[] SonTestCase() {
+        public override ICase[] SonCaseArray() {
             return new ICase[] {
                 new StringToInt(),
                 new StringToInt_ErrorValue(),
@@ -36,111 +36,111 @@ namespace Test.ConsoleProgram.Case.SonTests
         }
         private class StringToInt : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 Int";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0));
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
         private class StringToInt_ErrorValue : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
 
         private class StringToString : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 String";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 string[] array = str.ToArrayList(',').ListConvertType(s => s);
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
         private class StringToString_ErrorValue : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 string[] array = str.ToArrayList(',').ListConvertType(s => s, "0");
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
 
         private class StringToFloat : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 Float 故意的排除值错误值: '0f'";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 float[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
         private class StringToDecimal : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 Decimal 故意的排除值错误值: '0m'";
             }
-            public void TestMethod() {
+            public void Method() {
                 string str = Srource();
-                Console.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: \n {0}", str);
                 decimal[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
-                Console.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
+                Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
         private class StringToBoolean : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 String 转 Boolean";
             }
-            public void TestMethod() {
+            public void Method() {
             string str = @"true,false,flsea,0,1,sliw,trus";
 
-            Console.WriteLine("SourceData: \n {0}", str);
+            Print.WriteLine("SourceData: \n {0}", str);
             bool[] array_1 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, true));
-            Console.WriteLine("Default: true Result: \n {0}", JsonHelper.SerializeObject(array_1));
+            Print.WriteLine("Default: true Result: \n {0}", JsonHelper.SerializeObject(array_1));
 
             bool[] array_2 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, false));
-            Console.WriteLine("Default: false Result: \n {0}", JsonHelper.SerializeObject(array_2));
+            Print.WriteLine("Default: false Result: \n {0}", JsonHelper.SerializeObject(array_2));
             }
         }
         private class DataTableToString : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 DataTable 转 String";
             }
 
-            public void TestMethod() {
+            public void Method() {
                 DataTable dt = DataTableSource(new Dictionary<string, string>() {
                     { "捐赠人姓名", "name:sjifwjelifjwief" },
                     { "捐赠人电话", "telephone:2349873941" },
                     { "发件地址-省", "省将自己死的法恩发觉我:" },
                     { "发件地址_市", "dafwefa" },
                 });
-                Console.WriteLine(@"转换 DataTable 的 捐赠人电话前面加上 ***: ");
+                Print.WriteLine(@"转换 DataTable 的 捐赠人电话前面加上 ***: ");
                 string[] tels = ConvertTool.ListConvertType(dt, r => string.Format(@"***{0}", r["捐赠人电话"]));
                 foreach (string k in tels) {
-                    Console.WriteLine("tels Array: {0}", k);
+                    Print.WriteLine("tels Array: {0}", k);
                 }
             }
             private DataTable DataTableSource(Dictionary<string, string> dic) {
@@ -171,19 +171,19 @@ namespace Test.ConsoleProgram.Case.SonTests
         }
         private class DictionaryToString : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"测试 Dictionary 转 String";
             }
 
-            public void TestMethod() {
+            public void Method() {
                 Dictionary<string, int> dic = new Dictionary<string, int>() {
                     { "key1", 343 },
                     { "key2_ss", 41243 },
                 };
-                Console.WriteLine(@"转换 Dictionary<string, int> 的 Key 键值前面加上 ***: ");
+                Print.WriteLine(@"转换 Dictionary<string, int> 的 Key 键值前面加上 ***: ");
                 string[] keys = ConvertTool.ListConvertType(dic, d => string.Format(@"***{0}", d.Key));
                 foreach (string k in keys) {
-                    Console.WriteLine("Key Array: {0}", k);
+                    Print.WriteLine("Key Array: {0}", k);
                 }
             }
         }

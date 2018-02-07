@@ -9,14 +9,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestDALSQLServer : AbsCase {
-        public override string TestNameSign() {
+    public class Test_DALSQLServer : AbsCase {
+        public override string NameSign() {
             return @"测试 DALSQLServer类";
         }
-        public override void TestMethod() {
+        public override void Method() {
         }
 
-        public override ICase[] SonTestCase() {
+        public override ICase[] SonCaseArray() {
             return new ICase[] {
                 //new Test_CAnalysisPropertyColumns(),
                 //new Test_CDefaultModel(),
@@ -32,38 +32,38 @@ namespace Test.ConsoleProgram.Case.SonTests
         #region Son Test Case
         private class Test_CAnalysisPropertyColumns : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"实现解析属性的'行'特性";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 ColumnInfo[] dic = dal.AnalysisPropertyColumns();
                 foreach (ColumnInfo item in dic) {
-                    Console.WriteLine(String.Format("PropertyInfo Name: {0}", item.Property.Name));
-                    Console.WriteLine(String.Format("Column TypeId: {0}", item.Attribute.TypeId));
-                    Console.WriteLine(String.Format("Column IsIDentity: {0}", item.Attribute.IsIDentity));
-                    Console.WriteLine(String.Format("Column IsCanBeNull: {0}", item.Attribute.IsCanBeNull));
-                    Console.WriteLine(String.Format("Column IsDbGenerated: {0}", item.Attribute.IsDbGenerated));
-                    Console.WriteLine(String.Format("Column IsPrimaryKey: {0}", item.Attribute.IsPrimaryKey));
+                    Print.WriteLine(String.Format("PropertyInfo Name: {0}", item.Property.Name));
+                    Print.WriteLine(String.Format("Column TypeId: {0}", item.Attribute.TypeId));
+                    Print.WriteLine(String.Format("Column IsIDentity: {0}", item.Attribute.IsIDentity));
+                    Print.WriteLine(String.Format("Column IsCanBeNull: {0}", item.Attribute.IsCanBeNull));
+                    Print.WriteLine(String.Format("Column IsDbGenerated: {0}", item.Attribute.IsDbGenerated));
+                    Print.WriteLine(String.Format("Column IsPrimaryKey: {0}", item.Attribute.IsPrimaryKey));
                 }
             }
         }
         private class Test_CDefaultModel : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"获得系统自动生成默认的实例";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
-                Console.WriteLine(dal.DefaultModel().ToString());
+                Print.WriteLine(dal.DefaultModel().ToString());
             }
         }
         private class Test_CICreateSQL : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"基础SQL语句";
             }
-            public void TestMethod() {
+            public void Method() {
                 //DALSQLServer<ModelArticles> bll = new DALSQLServer<ModelArticles>();
                 //ModelArticles model = new ModelArticles() {
                 //    Money = 287.88M,
@@ -84,63 +84,63 @@ namespace Test.ConsoleProgram.Case.SonTests
                     TimeAdd = DateTime.Now,
                 };
 
-                Console.WriteLine("原始数据:");
-                Console.WriteLine(model.ToString());
-                Console.WriteLine(string.Empty);
+                Print.WriteLine("原始数据:");
+                Print.WriteLine(model.ToString());
+                Print.WriteLine(string.Empty);
 
-                Console.Write("Insert 语句:");
-                Console.WriteLine(bll.SQLInsert(model));
-                Console.WriteLine(string.Empty);
+                Print.Write("Insert 语句:");
+                Print.WriteLine(bll.SQLInsert(model));
+                Print.WriteLine(string.Empty);
 
                 model.id = 8;
-                Console.Write("Delete 语句:");
-                Console.WriteLine(bll.SQLDelete(model));
-                Console.WriteLine(string.Empty);
+                Print.Write("Delete 语句:");
+                Print.WriteLine(bll.SQLDelete(model));
+                Print.WriteLine(string.Empty);
 
-                Console.Write("Update 语句:");
-                Console.WriteLine(bll.SQLUpdate(model));
+                Print.Write("Update 语句:");
+                Print.WriteLine(bll.SQLUpdate(model));
             }
         }
         private class Test_CIAutoTable : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"IAutoTable 自动化表 SQL字符串";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelUser> dal = new DALSQLServer<ModelUser>();
 
-                Console.WriteLine("创建 数据表 SQL:");
+                Print.WriteLine("创建 数据表 SQL:");
                 string createsql = dal.SQLCreateTable();
-                Console.WriteLine(createsql);
-                Console.WriteLine(string.Empty);
+                Print.WriteLine(createsql);
+                Print.WriteLine(string.Empty);
 
-                Console.WriteLine("清空 数据表 SQL:");
-                Console.WriteLine(dal.SQLClearTable());
-                Console.WriteLine(string.Empty);
+                Print.WriteLine("清空 数据表 SQL:");
+                Print.WriteLine(dal.SQLClearTable());
+                Print.WriteLine(string.Empty);
 
-                Console.WriteLine("'清除' 数据表 SQL:");
-                Console.WriteLine(dal.SQLKillTable());
+                Print.WriteLine("'清除' 数据表 SQL:");
+                Print.WriteLine(dal.SQLKillTable());
             }
         }
         private class Test_CGetModelList : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"查询所有数据";
             }
-            public void TestMethod() {
+            public void Method() {
                 BLLUser dal = new BLLUser();
                 DataTable dt = dal.GetList(0, string.Empty, null);
                 foreach (ModelUser item in dal.GetModelList(dt)) {
-                    Console.WriteLine(item.ToString());
+                    Print.WriteLine(item.ToString());
                 }
             }
         }
         private class Test_CInsertMethod_out_parmeter : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"执行-基础的数据操作方法";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 ModelArticles model = new ModelArticles() {
                     id = 5555,
@@ -150,35 +150,35 @@ namespace Test.ConsoleProgram.Case.SonTests
                     VipDiscountRate = 95
                 };
                 int sign = 0;
-                Console.WriteLine(dal.Insert(model, out sign));
+                Print.WriteLine(dal.Insert(model, out sign));
                 model.id = sign;
-                Console.WriteLine(string.Format("最终的模型数据: {0}", model.ToString()));
-                Console.WriteLine(string.Empty);
+                Print.WriteLine(string.Format("最终的模型数据: {0}", model.ToString()));
+                Print.WriteLine(string.Empty);
 
                 model.id = model.id - 3;
-                Console.Write("删掉刚添加的id小3的数据");
-                Console.WriteLine(dal.Delete(model));
+                Print.Write("删掉刚添加的id小3的数据");
+                Print.WriteLine(dal.Delete(model));
                 model.id = 8;
-                Console.Write("删掉id为8的数据");
-                Console.WriteLine(dal.Delete(model));
+                Print.Write("删掉id为8的数据");
+                Print.WriteLine(dal.Delete(model));
                 model.id = 10;
-                Console.Write("删掉id为10的数据");
-                Console.WriteLine(dal.Delete(model));
+                Print.Write("删掉id为10的数据");
+                Print.WriteLine(dal.Delete(model));
 
                 model.id = 4;
-                Console.Write("更新id为4的数据");
-                Console.WriteLine(dal.Update(model));
+                Print.Write("更新id为4的数据");
+                Print.WriteLine(dal.Update(model));
             }
         }
         private class Test_CInsertSpeed : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"执行添加大量测试数据-测试速度";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 double count = System.Math.Pow(10, 5);
-                Console.WriteLine(@"执行循环次数: {0}", count);
+                Print.WriteLine(@"执行循环次数: {0}", count);
                 List<string> sqls = new List<string>();
                 for (int i = 0; i < count; i++) {
                     sqls.Add(dal.SQLInsert(new ModelArticles() {
@@ -188,20 +188,20 @@ namespace Test.ConsoleProgram.Case.SonTests
                         TimeAdd = DateTime.Now
                     }));
                 }
-                Console.WriteLine(string.Format("生成完成sqls: 个数: {0}", sqls.Count));
-                Console.WriteLine("结束了!");
+                Print.WriteLine(string.Format("生成完成sqls: 个数: {0}", sqls.Count));
+                Print.WriteLine("结束了!");
             }
         }
         private class Test_ColumnInfoSort : ICase
         {
-            public string TestNameSign() {
+            public string NameSign() {
                 return @"列信息的排序问题";
             }
-            public void TestMethod() {
+            public void Method() {
                 DALSQLServer<ModelUser> dal = new DALSQLServer<ModelUser>();
                 ColumnInfo[] ciAttr = dal.AnalysisPropertyColumns();
                 for (int i = 0; i < ciAttr.Length; i++) {
-                    Console.WriteLine("排序: {0} 列名: {1} 解释: {2} ", i, ciAttr[i].Property.Name, ciAttr[i].Explain.Text);
+                    Print.WriteLine("排序: {0} 列名: {1} 解释: {2} ", i, ciAttr[i].Property.Name, ciAttr[i].Explain.Text);
                 }
             }
         }

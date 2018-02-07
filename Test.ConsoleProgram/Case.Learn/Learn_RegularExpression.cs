@@ -5,11 +5,11 @@ namespace Test.ConsoleProgram.Case.Learn
 {
     public class Learn_RegularExpression : ICase
     {
-        public string TestNameSign() {
+        public string NameSign() {
             return @"Learn: RegularExpression";
         }
 
-        public void TestMethod() {
+        public void Method() {
         }
     }
 }

@@ -6,18 +6,18 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestLambda : AbsCase
+    public class Test_Lambda : AbsCase
     {
-        public override string TestNameSign() {
+        public override string NameSign() {
             return @"测试 Lambda 表达式 查询的速度";
         }
 
-        public override void TestMethod() {
+        public override void Method() {
             ModelArticles[] ml = SourceList();
-            Console.WriteLine(string.Format("数据源个数:{0}", ml.Length));
+            Print.WriteLine(string.Format("数据源个数:{0}", ml.Length));
 
-            Console.WriteLine(string.Format("YesLambda 个数:{0}", YesLambda(ml).Length));
-            Console.WriteLine(string.Format("NoLambda 个数:{0}", NoLambda(ml).Length));
+            Print.WriteLine(string.Format("YesLambda 个数:{0}", YesLambda(ml).Length));
+            Print.WriteLine(string.Format("NoLambda 个数:{0}", NoLambda(ml).Length));
         }
 
         private ModelArticles[] SourceList() {

@@ -10,8 +10,8 @@ namespace Test.ConsoleProgram
     /// </summary>
     public interface ICase
     {
-        string TestNameSign();
-        void TestMethod();
+        string NameSign();
+        void Method();
     }
 
     /// <summary>
@@ -19,9 +19,9 @@ namespace Test.ConsoleProgram
     /// </summary>
     public abstract class AbsCase : ICase
     {
-        public abstract string TestNameSign();
-        public abstract void TestMethod();
-        public virtual ICase[] SonTestCase() {
+        public abstract string NameSign();
+        public abstract void Method();
+        public virtual ICase[] SonCaseArray() {
             return new ICase[] { };
         }
     }

@@ -5,18 +5,18 @@ using CSharp.LibrayDataBase;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestAttribute : AbsCase
+    public class Test_Attribute : AbsCase
     {
-        public override string TestNameSign() {
+        public override string NameSign() {
             return @"测试学习'特性'";
         }
 
-        public override void TestMethod() {
+        public override void Method() {
             ModelArticles ar = new ModelArticles();
 
             Type tm = typeof(ModelArticles);
 
-            Console.WriteLine(tm.IsDefined(typeof(TableAttribute), false));
+            Print.WriteLine(tm.IsDefined(typeof(TableAttribute), false));
         }
     }
 }

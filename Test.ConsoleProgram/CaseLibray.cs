@@ -13,8 +13,7 @@ namespace Test.ConsoleProgram
         /// </summary>
         public AbsCase[] InitCaseSource() {
             return new AbsCase[] {
-                //new Case.SonTests.*****(),
-                new Case.SonTests.TestConvertTool(),
+                // new Case.SonTests.*****(),
             };
         }
     }

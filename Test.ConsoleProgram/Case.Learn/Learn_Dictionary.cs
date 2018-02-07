@@ -7,11 +7,11 @@ namespace Test.ConsoleProgram.Case.Learn
 {
     public class Learn_Dictionary:AbsCase
     {
-        public override string TestNameSign() {
+        public override string NameSign() {
             return @"学习 Dictionary<K,V> 用法";
         }
 
-        public override void TestMethod() {
+        public override void Method() {
             // 初始化:
             Dictionary<string, int> dic = new Dictionary<string, int>() {
                 { "key1", 343 },
@@ -20,8 +20,8 @@ namespace Test.ConsoleProgram.Case.Learn
 
             // 遍历:
             foreach (KeyValuePair<string, int> item in dic) {
-                Console.WriteLine(@"Key: {0}", item.Key);
-                Console.WriteLine(@"Value: {0}", item.Value);
+                Print.WriteLine(@"Key: {0}", item.Key);
+                Print.WriteLine(@"Value: {0}", item.Value);
             }
         }
     }

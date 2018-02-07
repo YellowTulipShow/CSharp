@@ -4,31 +4,31 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class TestExplain : AbsCase
+    public class Test_Explain : AbsCase
     {
-        public override string TestNameSign() {
+        public override string NameSign() {
             return @"测试 解析特性";
         }
 
-        public override void TestMethod() {
-            //Console.WriteLine(@"测试 Model.Name");
-            //Console.WriteLine(new Model().Name.GetExplain().Text);
+        public override void Method() {
+            //Print.WriteLine(@"测试 Model.Name");
+            //Print.WriteLine(new Model().Name.GetExplain().Text);
 
-            //Console.WriteLine(@"测试 Model.Sex");
-            //Console.WriteLine(new Model().Sex.GetExplain().Text);
+            //Print.WriteLine(@"测试 Model.Sex");
+            //Print.WriteLine(new Model().Sex.GetExplain().Text);
 
-            //Console.WriteLine(@"测试 LEKEY.Key");
-            //Console.WriteLine(LEKEY.Key.GetExplain().Text);
-            //Console.WriteLine(@"测试 LEKEY.Value");
-            //Console.WriteLine(LEKEY.Value.GetExplain().Text);
+            //Print.WriteLine(@"测试 LEKEY.Key");
+            //Print.WriteLine(LEKEY.Key.GetExplain().Text);
+            //Print.WriteLine(@"测试 LEKEY.Value");
+            //Print.WriteLine(LEKEY.Value.GetExplain().Text);
 
 
             string url = @"yellowtulipshow.site";
-            Console.WriteLine("Url: {0}", url);
-            Console.WriteLine(CheckData.IsURL(url));
+            Print.WriteLine("Url: {0}", url);
+            Print.WriteLine(CheckData.IsURL(url));
 
             //string name = Name(() => LEKEY.Key);
-            //Console.WriteLine(name);
+            //Print.WriteLine(name);
         }
 
         public static String Name<T>(Expression<Func<T>> memberExpression) {
