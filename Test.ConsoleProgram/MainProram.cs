@@ -17,23 +17,41 @@ namespace Test.ConsoleProgram
         }
 
         private static void ExecuteCaseText() {
-            ICase[] ics = new CaseLibray().GetTestCase(true);
+            ICase[] iCaseArray = AnalyticAbsCases(new CaseLibray().InitCaseSource(), true);
 
-            if (CheckData.IsSizeEmpty(ics)) {
+            if (CheckData.IsSizeEmpty(iCaseArray)) {
                 Console.WriteLine(@"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
             }
 
-            foreach (ICase iTC in ics) {
+            foreach (ICase caseitem in iCaseArray) {
                 Console.WriteLine(string.Empty);
-                Console.WriteLine(@"===实例开始: {0} ===", iTC.TestNameSign());
+                Console.WriteLine(@"===实例开始: {0} ===", caseitem.TestNameSign());
 
                 DelegateTimeTest dtt = new DelegateTimeTest();
-                dtt.SetEventHandlers(iTC.TestMethod);
+                dtt.SetEventHandlers(caseitem.TestMethod);
                 dtt.ExecuteEventHandler();
 
                 Console.WriteLine(@"============================ 运行时间: {0}", dtt.GetRunTimeTotalSeconds());
                 Console.WriteLine(string.Empty);
             }
+        }
+
+        private static ICase[] AnalyticAbsCases(AbsCase[] absCases, bool isGetSonICase) {
+            if (!isGetSonICase) {
+                return absCases;
+            }
+            List<ICase> list = new List<ICase>();
+            foreach (AbsCase item in absCases) {
+                if (CheckData.IsObjectNull(item)) {
+                    continue;
+                }
+                list.Add(item);
+                ICase[] sonCase = item.SonTestCase();
+                if (!CheckData.IsSizeEmpty(sonCase)) {
+                    list.AddRange(sonCase);
+                }
+            }
+            return list.ToArray();
         }
 
         private static bool IsRepeatExecute() {

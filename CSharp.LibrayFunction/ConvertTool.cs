@@ -72,7 +72,9 @@ namespace CSharp.LibrayFunction
                 return new string[] { };
             }
         }
+        #endregion
 
+        #region === Type Convert ===
         /// <summary>
         /// 委托: 实现转换算法
         /// </summary>
@@ -146,7 +148,6 @@ namespace CSharp.LibrayFunction
         public static RT[] ListConvertType<RT, STKey, STValue>(this Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
-
         #endregion
 
         #region === Data Type Convert ===

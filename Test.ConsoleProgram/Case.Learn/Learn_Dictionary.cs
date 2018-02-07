@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
-    public class Learm_Dictionary:AbsCase
+    public class Learn_Dictionary:AbsCase
     {
         public override string TestNameSign() {
             return @"学习 Dictionary<K,V> 用法";
