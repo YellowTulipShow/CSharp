@@ -7,5 +7,8 @@ namespace CSharp.LibrayDataBase.MCSDataType
 {
     public class MCSEnum : AbsCsType
     {
+        public override object ToModelValue(ColumnInfo colinfo, object value) {
+            return value;
+        }
     }
 }

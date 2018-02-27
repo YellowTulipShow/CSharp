@@ -79,6 +79,7 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         private void SetPropertyValue(ColumnInfo colinfo, M targetModel, object value) {
             if (!CheckData.IsObjectNull(value) && colinfo.Property.CanWrite) {
+                value = colinfo.Attribute.CsType.ToModelValue(colinfo, value);
                 colinfo.Property.SetValue(targetModel, value, null);
             }
         }

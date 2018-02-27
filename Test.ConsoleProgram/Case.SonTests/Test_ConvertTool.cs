@@ -42,7 +42,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0));
+                int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0));
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -54,7 +54,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                int[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
+                int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -67,7 +67,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                string[] array = str.ToArrayList(',').ListConvertType(s => s);
+                string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s);
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -79,7 +79,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                string[] array = str.ToArrayList(',').ListConvertType(s => s, "0");
+                string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s, "0");
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -92,7 +92,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                float[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
+                float[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -104,7 +104,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
-                decimal[] array = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
+                decimal[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
                 Print.WriteLine("Result: \n {0}", JsonHelper.SerializeObject(array));
             }
         }
@@ -114,14 +114,14 @@ namespace Test.ConsoleProgram.Case.SonTests
                 return @"测试 String 转 Boolean";
             }
             public void Method() {
-            string str = @"true,false,flsea,0,1,sliw,trus";
+                string str = @"true,false,flsea,0,1,sliw,trus";
 
-            Print.WriteLine("SourceData: \n {0}", str);
-            bool[] array_1 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, true));
-            Print.WriteLine("Default: true Result: \n {0}", JsonHelper.SerializeObject(array_1));
+                Print.WriteLine("SourceData: \n {0}", str);
+                bool[] array_1 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, true));
+                Print.WriteLine("Default: true Result: \n {0}", JsonHelper.SerializeObject(array_1));
 
-            bool[] array_2 = str.ToArrayList(',').ListConvertType(s => ConvertTool.ObjToBool(s, false));
-            Print.WriteLine("Default: false Result: \n {0}", JsonHelper.SerializeObject(array_2));
+                bool[] array_2 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, false));
+                Print.WriteLine("Default: false Result: \n {0}", JsonHelper.SerializeObject(array_2));
             }
         }
         private class DataTableToString : ICase

@@ -115,37 +115,37 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
             return ListConvertType(sourceList, convertMethod, false);
         }
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(this ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
         /// <summary>
         /// DataTable表 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT>(this DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod) {
+        public static RT[] ListConvertType<RT>(DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod) {
             return ListConvertType(sourceList.Rows, convertMethod, false);
         }
         /// <summary>
         /// DataTable表 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT>(this DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT>(DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod, RT errorValue) {
             return ListConvertType(sourceList.Rows, convertMethod, true, errorValue: errorValue);
         }
         /// <summary>
         /// Dictionary字典序列 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT, STKey, STValue>(this Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod) {
+        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod) {
             return ListConvertType(sourceList, convertMethod, false);
         }
         /// <summary>
         /// Dictionary字典序列 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT, STKey, STValue>(this Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
         #endregion
