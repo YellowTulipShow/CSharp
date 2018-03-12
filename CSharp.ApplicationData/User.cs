@@ -93,20 +93,30 @@ namespace CSharp.ApplicationData
             [Explain(@"女")]
             Female = 2,
         }
+
+        ///// <summary>
+        ///// 性别
+        ///// </summary>
+        //[Explain(@"性别")]
+        //[Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
+        //public int Sex {
+        //    get { return _sex; }
+        //    set {
+        //        if (Enum.IsDefined(typeof(SexEnum), value)) {
+        //            _sex = value;
+        //        }
+        //    }
+        //}
+        //private int _sex = SexEnum.Secrecy.GetIntValue();
+
+
         /// <summary>
         /// 性别
         /// </summary>
         [Explain(@"性别")]
-        [Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
-        public int Sex {
-            get { return _sex; }
-            set {
-                if (Enum.IsDefined(typeof(SexEnum), value)) {
-                    _sex = value;
-                }
-            }
-        }
-        private int _sex = SexEnum.Secrecy.GetIntValue();
+        [Column(MSSFieldTypeStruct.Int)]
+        public SexEnum Sex { get { return _sex; } set { _sex = value; } }
+        private SexEnum _sex = SexEnum.Secrecy;
         #endregion
     }
 

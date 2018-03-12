@@ -19,7 +19,12 @@ namespace Test.ConsoleProgram
         private static string IndentationCharString() {
             StringBuilder str = new StringBuilder();
             for (int i = 0; i < IndentationCharCount; i++) {
-                str.Append(@"    ");
+                if (i == IndentationCharCount - 1) {
+                    str.Append(@"│   ");
+                } else {
+                    str.Append(@"    ");
+                }
+                //str.AppendFormat(@"{0}   ", i >= IndentationCharCount - 2 ? '│' : ' ');
             }
             return str.ToString();
         }

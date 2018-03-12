@@ -76,13 +76,6 @@ namespace CSharp.LibrayFunction
 
         #region === Type Convert ===
         /// <summary>
-        /// 委托: 实现转换算法
-        /// </summary>
-        /// <typeparam name="RT">结果返回值-数据类型</typeparam>
-        /// <typeparam name="ST">数据源数组-数据类型</typeparam>
-        /// <param name="sourceitem">数据来源</param>
-        public delegate RT ConvertTypeDelegate<RT, ST>(ST sourceitem);
-        /// <summary>
         /// 数组列表之间的类型数据转换
         /// </summary>
         /// <typeparam name="RT">结果返回值-数据类型</typeparam>
@@ -92,7 +85,7 @@ namespace CSharp.LibrayFunction
         /// <param name="convertMethod">用户实现转换算法</param>
         /// <param name="isClearErrorValue">是否清除指定的错误值</param>
         /// <param name="errorValue">需要排除的错误值</param>
-        private static RT[] ListConvertType<RT, SLT, SIT>(SLT sourceslist, ConvertTypeDelegate<RT, SIT> convertMethod,
+        private static RT[] ListConvertType<RT, SLT, SIT>(SLT sourceslist, Converter<SIT, RT> convertMethod,
             bool isClearErrorValue, RT errorValue = default(RT)) where SLT : IEnumerable {
             if (CheckData.IsObjectNull(sourceslist))
                 return new RT[] { };
@@ -115,37 +108,37 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod) {
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, Converter<ST, RT> convertMethod) {
             return ListConvertType(sourceList, convertMethod, false);
         }
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, ConvertTypeDelegate<RT, ST> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, Converter<ST, RT> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
         /// <summary>
         /// DataTable表 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT>(DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod) {
+        public static RT[] ListConvertType<RT>(DataTable sourceList, Converter<DataRow, RT> convertMethod) {
             return ListConvertType(sourceList.Rows, convertMethod, false);
         }
         /// <summary>
         /// DataTable表 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT>(DataTable sourceList, ConvertTypeDelegate<RT, DataRow> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT>(DataTable sourceList, Converter<DataRow, RT> convertMethod, RT errorValue) {
             return ListConvertType(sourceList.Rows, convertMethod, true, errorValue: errorValue);
         }
         /// <summary>
         /// Dictionary字典序列 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod) {
+        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, Converter<KeyValuePair<STKey, STValue>, RT> convertMethod) {
             return ListConvertType(sourceList, convertMethod, false);
         }
         /// <summary>
         /// Dictionary字典序列 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, ConvertTypeDelegate<RT, KeyValuePair<STKey, STValue>> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT, STKey, STValue>(Dictionary<STKey, STValue> sourceList, Converter<KeyValuePair<STKey, STValue>, RT> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
         #endregion
@@ -329,6 +322,15 @@ namespace CSharp.LibrayFunction
             } catch (Exception) {
                 return new int[] { };
             }
+        }
+
+        /// <summary>
+        /// 转换为 Json 格式的字符串
+        /// </summary>
+        /// <param name="obj">数据源</param>
+        /// <returns>Json 字符串</returns>
+        public static string ToJson(this object obj) {
+            return JsonHelper.SerializeObject(obj);
         }
         #endregion
     }

@@ -11,9 +11,11 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 在这里面手动设置要测试的实例
         /// </summary>
-        public AbsCase[] InitCaseSource() {
-            return new AbsCase[] {
+        public CaseModel[] InitCaseSource() {
+            return new CaseModel[] {
                 // new Case.SonTests.*****(),
+                new Test_AbsCase(),
+                new Test_AbsCase(),
             };
         }
     }

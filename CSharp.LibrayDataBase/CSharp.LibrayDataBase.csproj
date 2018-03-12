@@ -47,6 +47,7 @@
     <Compile Include="AbsBasicsAttribute.cs" />
     <Compile Include="AbsCsType.cs" />
     <Compile Include="AbsFieldType.cs" />
+    <Compile Include="ItemModel.cs" />
     <Compile Include="AbsTableDAL.cs" />
     <Compile Include="IAutoTable.cs" />
     <Compile Include="IDefaultRecord.cs" />
@@ -54,9 +55,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITableName.cs" />
+    <Compile Include="ModelParser.cs" />
     <Compile Include="Son_BLL_DAL\BLLSQLServer.cs" />
-    <Compile Include="Son_Attribute\ColumnAttribute.cs" />
-    <Compile Include="Son_Attribute\TableAttribute.cs" />
+    <Compile Include="ColumnAttribute.cs" />
+    <Compile Include="TableAttribute.cs" />
     <Compile Include="Son_BLL_DAL\DALSQLServer.cs">
       <SubType>
       </SubType>

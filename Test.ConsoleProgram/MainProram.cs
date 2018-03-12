@@ -36,41 +36,44 @@ namespace Test.ConsoleProgram
         }
 
         private static void ExecuteCaseText() {
-            AbsCase[] absCaseArray = new CaseLibray().InitCaseSource();
+            CaseModel[] absCaseArray = new CaseLibray().InitCaseSource();
             if (CheckData.IsSizeEmpty(absCaseArray)) {
                 Console.WriteLine(@"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
                 return;
             }
-            foreach (AbsCase caseitem in absCaseArray) {
-                Print.WriteLine();
+            foreach (CaseModel caseitem in absCaseArray) {
                 AnalyticAbsCases(caseitem);
             }
         }
 
-        private static void AnalyticAbsCases(AbsCase absCase) {
+        private static void AnalyticAbsCases(CaseModel absCase) {
             StatisticsRunTime(absCase);
+            if (CheckData.IsSizeEmpty(absCase.SonCases)) {
+                return;
+            }
             Print.IndentationCharCount++;
-            foreach (ICase item in absCase.SonCaseArray()) {
-                StatisticsRunTime(item);
+            foreach (CaseModel item in absCase.SonCases) {
+                AnalyticAbsCases(item);
             }
             Print.IndentationCharCount--;
         }
 
-        private static void StatisticsRunTime(ICase caseitem) {
-            Print.WriteLine(@"===实例开始: {0} ===", caseitem.NameSign());
+        private static void StatisticsRunTime(CaseModel caseitem) {
+
+            Print.IndentationCharCount++;
+            Print.WriteLine(@"┌ {0}", caseitem.NameSign);
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); // 开始
 
-            Print.IndentationCharCount++;
             // 执行实例的主体方法内容
-            caseitem.Method();
+            caseitem.ExeEvent();
             Print.IndentationCharCount--;
 
             stopwatch.Stop(); // 结束
             TimeSpan runtimeSpan = stopwatch.Elapsed;
 
-            Print.WriteLine(@"============================ 运行时间: {0}", runtimeSpan.TotalSeconds);
+            Print.WriteLine(@"└ 运行时间: {0}", runtimeSpan.TotalSeconds);
             Print.WriteLine();
         }
     }

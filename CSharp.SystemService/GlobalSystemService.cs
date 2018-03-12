@@ -10,7 +10,7 @@ namespace CSharp.SystemService
     /// </summary>
     public class GlobalSystemService
     {
-        #region ====== Singleton Model Core: ======
+        #region ====== Single Model Core: ======
         /// <summary>
         /// 获得 实例 对象
         /// </summary>

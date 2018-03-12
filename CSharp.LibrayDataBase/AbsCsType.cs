@@ -12,6 +12,6 @@ namespace CSharp.LibrayDataBase
     {
         public AbsCsType() { }
 
-        public abstract object ToModelValue(ColumnInfo colinfo, object value);
+        public abstract object ToModelValue(ColumnItemModel colinfo, object value);
     }
 }

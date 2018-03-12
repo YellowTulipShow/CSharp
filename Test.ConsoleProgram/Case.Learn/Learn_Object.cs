@@ -54,7 +54,6 @@ namespace Test.ConsoleProgram.Case.Learn
 
             object a = 9;
             if (a is int) {
-
             }
         }
 

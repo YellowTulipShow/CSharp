@@ -30,7 +30,7 @@ namespace CSharp.LibrayDataBase
 
         M[] GetModelList(DataTable dt);
 
-        DataTable GetList(int top = 0, string strWhere = "", Dictionary<string, bool> fieldOrders = null);
+        DataTable GetList(int top = 0, string strWhere = @"", Dictionary<string, bool> fieldOrders = null);
 
         DataTable GetList(int pageCount, int pageIndex, out int recordCount, string strWhere, Dictionary<string, bool> fieldOrders);
         #endregion

@@ -8,15 +8,34 @@ namespace CSharp.LibrayDataBase
     /// <summary>
     /// 解析-模型属性值为表列
     /// </summary>
-    public interface IPropertyColumn
+    public static class Analysis
     {
-        ColumnInfo[] AnalysisPropertyColumns();
+        public static ColumnItemModel[] PropertyColumns<M>() where M: AbsModel_Null {
+            Type modelT = typeof(M);
+            if (!modelT.IsDefined(typeof(TableAttribute), false)) {
+                return new ColumnItemModel[] { };
+            }
+            List<ColumnItemModel> colms = new List<ColumnItemModel>();
+            PropertyInfo[] protertys = modelT.GetProperties();
+            foreach (PropertyInfo pro in protertys) {
+                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
+                if (CheckData.IsObjectNull(columnAttr))
+                    continue;
+                colms.Add(new ColumnItemModel() {
+                    Property = pro,
+                    Attribute = columnAttr,
+                    Explain = ExplainAttribute.Extract(pro),
+                });
+            }
+            colms.Sort(ColumnItemModel.ColumnInfoSort);
+            return colms.ToArray();
+        }
     }
 
     /// <summary>
     /// 列信息模型
     /// </summary>
-    public class ColumnInfo : AbsBasicsDataModel
+    public class ColumnItemModel : AbsBasicsDataModel
     {
         /// <summary>
         /// 解释翻译信息
@@ -25,21 +44,21 @@ namespace CSharp.LibrayDataBase
         private ExplainAttribute _explain = null;
 
         /// <summary>
-        /// 属性信息
-        /// </summary>
-        public PropertyInfo Property { get { return _property; } set { _property = value; } }
-        private PropertyInfo _property = null;
-
-        /// <summary>
         /// 数据列特性
         /// </summary>
         public ColumnAttribute Attribute { get { return _attribute; } set { _attribute = value; } }
         private ColumnAttribute _attribute = null;
 
         /// <summary>
+        /// 属性信息
+        /// </summary>
+        public PropertyInfo Property { get { return _property; } set { _property = value; } }
+        private PropertyInfo _property = null;
+
+        /// <summary>
         /// 排序比较 实现委托: Comparison泛型
         /// </summary>
-        public static int ColumnInfoSort(ColumnInfo x, ColumnInfo y) {
+        public static int ColumnInfoSort(ColumnItemModel x, ColumnItemModel y) {
             // 主键
             if (x.Attribute.IsPrimaryKey != y.Attribute.IsPrimaryKey) {
                 return y.Attribute.IsPrimaryKey ? 1 : -1;

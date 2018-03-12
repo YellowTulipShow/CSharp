@@ -1,28 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
-    /// <summary>
-    /// 接口-测试-实例
-    /// </summary>
-    public interface ICase
-    {
-        string NameSign();
-        void Method();
-    }
+    ///// <summary>
+    ///// 接口-测试-实例
+    ///// </summary>
+    //public interface ICase
+    //{
+    //    string NameSign();
+    //    void Method();
+    //}
 
-    /// <summary>
-    /// 抽象类-测试-实例-可定制子属性类-称为 "大测试类"
-    /// </summary>
-    public abstract class AbsCase : ICase
+    ///// <summary>
+    ///// 抽象类-测试-实例-可定制子属性类-称为 "大测试类"
+    ///// </summary>
+    //public abstract class AbsCase
+    //{
+    //    public abstract string NameSign();
+    //    public abstract void Method();
+    //    public virtual AbsCase[] SonCaseArray() {
+    //        return new AbsCase[] { };
+    //    }
+    //}
+
+    public class CaseModel : AbsBasicsDataModel
     {
-        public abstract string NameSign();
-        public abstract void Method();
-        public virtual ICase[] SonCaseArray() {
-            return new ICase[] { };
-        }
+        public CaseModel() { }
+        public string NameSign = string.Empty;
+        public delegate void Method();
+        public Method ExeEvent = null;
+        public CaseModel[] SonCases = new CaseModel[] { };
     }
 }

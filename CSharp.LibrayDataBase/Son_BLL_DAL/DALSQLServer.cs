@@ -57,7 +57,7 @@ namespace CSharp.LibrayDataBase
         }
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnInfo item in GetALLTypeColumns()) {
+            foreach (ColumnItemModel item in base.modelParser.ColumnInfoArray) {
                 string datafieldName = item.Property.Name;
                 string datatypeName = item.Attribute.DbType.FieldTypeName();
                 string value = string.Format("{0} {1}", datafieldName, datatypeName);
