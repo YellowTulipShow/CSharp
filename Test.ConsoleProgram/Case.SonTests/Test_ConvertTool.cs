@@ -6,19 +6,21 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_ConvertTool : AbsCase
+    public class Test_ConvertTool : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 转化工具";
+        public Test_ConvertTool() {
+            base.NameSign = @"测试 转化工具";
+            base.ExeEvent = Method;
+            base.SonCases = SonCaseArray();
         }
 
-        public override void Method() {
+        public void Method() {
             Print.WriteLine(@"ConvertTool 的类型转化工具");
         }
 
-        public override ICase[] SonCaseArray() {
+        public CaseModel[] SonCaseArray() {
             //List<ICase> 
-            return new ICase[] {
+            return new CaseModel[] {
                 new StringToInt(),
                 new StringToInt_ErrorValue(),
                 new StringToString(),
@@ -36,11 +38,13 @@ namespace Test.ConsoleProgram.Case.SonTests
         private static string Srource() {
             return ",15,8,3,-1,,,r,2,0,ssss,55,5,4,34M,350,0,";
         }
-        private class StringToInt : ICase
+        public class StringToInt : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 Int";
+            public StringToInt() {
+                base.NameSign = @"测试 String 转 Int";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -48,11 +52,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("Result: \n {0}", array.ToJson());
             }
         }
-        private class StringToInt_ErrorValue : ICase
+        public class StringToInt_ErrorValue : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
+            public StringToInt_ErrorValue() {
+                base.NameSign = @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -61,11 +67,13 @@ namespace Test.ConsoleProgram.Case.SonTests
             }
         }
 
-        private class StringToString : ICase
+        public class StringToString : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 String";
+            public StringToString() {
+                base.NameSign = @"测试 String 转 String";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -73,11 +81,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("Result: \n {0}", array.ToJson());
             }
         }
-        private class StringToString_ErrorValue : ICase
+        public class StringToString_ErrorValue : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
+            public StringToString_ErrorValue() {
+                base.NameSign = @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -86,11 +96,13 @@ namespace Test.ConsoleProgram.Case.SonTests
             }
         }
 
-        private class StringToFloat : ICase
+        public class StringToFloat : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 Float 故意的排除值错误值: '0f'";
+            public StringToFloat() {
+                base.NameSign = @"测试 String 转 Float 故意的排除值错误值: '0f'";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -98,11 +110,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("Result: \n {0}", array.ToJson());
             }
         }
-        private class StringToDecimal : ICase
+        public class StringToDecimal : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 Decimal 故意的排除值错误值: '0m'";
+            public StringToDecimal() {
+                base.NameSign = @"测试 String 转 Decimal 故意的排除值错误值: '0m'";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: \n {0}", str);
@@ -110,11 +124,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("Result: \n {0}", array.ToJson());
             }
         }
-        private class StringToBoolean : ICase
+        public class StringToBoolean : CaseModel
         {
-            public string NameSign() {
-                return @"测试 String 转 Boolean";
+            public StringToBoolean() {
+                base.NameSign = @"测试 String 转 Boolean";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = @"true,false,flsea,0,1,sliw,trus";
 
@@ -126,10 +142,11 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("Default: false Result: \n {0}", array_2.ToJson());
             }
         }
-        private class DataTableToString : ICase
+        public class DataTableToString : CaseModel
         {
-            public string NameSign() {
-                return @"测试 DataTable 转 String";
+            public DataTableToString() {
+                base.NameSign = @"测试 DataTable 转 String";
+                base.ExeEvent = Method;
             }
 
             public void Method() {
@@ -171,10 +188,11 @@ namespace Test.ConsoleProgram.Case.SonTests
                 return newdt;
             }
         }
-        private class DictionaryToString : ICase
+        public class DictionaryToString : CaseModel
         {
-            public string NameSign() {
-                return @"测试 Dictionary 转 String";
+            public DictionaryToString() {
+                base.NameSign = @"测试 Dictionary 转 String";
+                base.ExeEvent = Method;
             }
 
             public void Method() {

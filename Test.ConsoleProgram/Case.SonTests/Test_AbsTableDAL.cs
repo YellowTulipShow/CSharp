@@ -9,15 +9,12 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_DALSQLServer : AbsCase {
-        public override string NameSign() {
-            return @"测试 DALSQLServer类";
-        }
-        public override void Method() {
-        }
-
-        public override ICase[] SonCaseArray() {
-            return new ICase[] {
+    public class Test_DALSQLServer : CaseModel
+    {
+        public Test_DALSQLServer() {
+            base.NameSign = @"测试 DALSQLServer类";
+            base.ExeEvent = Method;
+            base.SonCases = new CaseModel[] {
                 //new Test_CAnalysisPropertyColumns(),
                 //new Test_CDefaultModel(),
                 new Test_CICreateSQL(),
@@ -29,40 +26,49 @@ namespace Test.ConsoleProgram.Case.SonTests
             };
         }
 
+        public void Method() {
+        }
+
         #region Son Test Case
-        private class Test_CAnalysisPropertyColumns : ICase
+        public class Test_CAnalysisPropertyColumns : CaseModel
         {
-            public string NameSign() {
-                return @"实现解析属性的'行'特性";
+            public Test_CAnalysisPropertyColumns() {
+                base.NameSign = @"实现解析属性的'行'特性";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
-                DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
-                ColumnInfo[] dic = dal.AnalysisPropertyColumns();
-                foreach (ColumnInfo item in dic) {
-                    Print.WriteLine(String.Format("PropertyInfo Name: {0}", item.Property.Name));
-                    Print.WriteLine(String.Format("Column TypeId: {0}", item.Attribute.TypeId));
-                    Print.WriteLine(String.Format("Column IsIDentity: {0}", item.Attribute.IsIDentity));
-                    Print.WriteLine(String.Format("Column IsCanBeNull: {0}", item.Attribute.IsCanBeNull));
-                    Print.WriteLine(String.Format("Column IsDbGenerated: {0}", item.Attribute.IsDbGenerated));
-                    Print.WriteLine(String.Format("Column IsPrimaryKey: {0}", item.Attribute.IsPrimaryKey));
-                }
+                //DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
+                //ColumnInfo[] dic = dal.AnalysisPropertyColumns();
+                //foreach (ColumnInfo item in dic) {
+                //    Print.WriteLine(String.Format("PropertyInfo Name: {0}", item.Property.Name));
+                //    Print.WriteLine(String.Format("Column TypeId: {0}", item.Attribute.TypeId));
+                //    Print.WriteLine(String.Format("Column IsIDentity: {0}", item.Attribute.IsIDentity));
+                //    Print.WriteLine(String.Format("Column IsCanBeNull: {0}", item.Attribute.IsCanBeNull));
+                //    Print.WriteLine(String.Format("Column IsDbGenerated: {0}", item.Attribute.IsDbGenerated));
+                //    Print.WriteLine(String.Format("Column IsPrimaryKey: {0}", item.Attribute.IsPrimaryKey));
+                //}
             }
         }
-        private class Test_CDefaultModel : ICase
+        public class Test_CDefaultModel : CaseModel
         {
-            public string NameSign() {
-                return @"获得系统自动生成默认的实例";
+            public Test_CDefaultModel() {
+                base.NameSign = @"获得系统自动生成默认的实例";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 Print.WriteLine(dal.DefaultModel().ToString());
             }
         }
-        private class Test_CICreateSQL : ICase
+        public class Test_CICreateSQL : CaseModel
         {
-            public string NameSign() {
-                return @"基础SQL语句";
+            public Test_CICreateSQL() {
+                base.NameSign = @"基础SQL语句";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 //DALSQLServer<ModelArticles> bll = new DALSQLServer<ModelArticles>();
                 //ModelArticles model = new ModelArticles() {
@@ -101,11 +107,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine(bll.SQLUpdate(model));
             }
         }
-        private class Test_CIAutoTable : ICase
+        public class Test_CIAutoTable : CaseModel
         {
-            public string NameSign() {
-                return @"IAutoTable 自动化表 SQL字符串";
+            public Test_CIAutoTable() {
+                base.NameSign = @"IAutoTable 自动化表 SQL字符串";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 DALSQLServer<ModelUser> dal = new DALSQLServer<ModelUser>();
 
@@ -122,11 +130,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine(dal.SQLKillTable());
             }
         }
-        private class Test_CGetModelList : ICase
+        public class Test_CGetModelList : CaseModel
         {
-            public string NameSign() {
-                return @"查询所有数据";
+            public Test_CGetModelList() {
+                base.NameSign = @"查询所有数据";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 BLLUser dal = new BLLUser();
                 DataTable dt = dal.GetList(0, string.Empty, null);
@@ -135,11 +145,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 }
             }
         }
-        private class Test_CInsertMethod_out_parmeter : ICase
+        public class Test_CInsertMethod_out_parmeter : CaseModel
         {
-            public string NameSign() {
-                return @"执行-基础的数据操作方法";
+            public Test_CInsertMethod_out_parmeter() {
+                base.NameSign = @"执行-基础的数据操作方法";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 ModelArticles model = new ModelArticles() {
@@ -170,11 +182,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine(dal.Update(model));
             }
         }
-        private class Test_CInsertSpeed : ICase
+        public class Test_CInsertSpeed : CaseModel
         {
-            public string NameSign() {
-                return @"执行添加大量测试数据-测试速度";
+            public Test_CInsertSpeed() {
+                base.NameSign = @"执行添加大量测试数据-测试速度";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 DALSQLServer<ModelArticles> dal = new DALSQLServer<ModelArticles>();
                 double count = System.Math.Pow(10, 5);
@@ -192,11 +206,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("结束了!");
             }
         }
-        private class Test_ColumnInfoSort : ICase
+        public class Test_ColumnInfoSort : CaseModel
         {
-            public string NameSign() {
-                return @"列信息的排序问题";
+            public Test_ColumnInfoSort() {
+                base.NameSign = @"列信息的排序问题";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 DALSQLServer<ModelUser> dal = new DALSQLServer<ModelUser>();
                 ColumnInfo[] ciAttr = dal.AnalysisPropertyColumns();

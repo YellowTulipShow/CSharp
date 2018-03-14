@@ -4,17 +4,18 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_CheckData : AbsCase
+    public class Test_CheckData : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 检查 数据类 CheckData";
+        public Test_CheckData() {
+            base.NameSign = @"测试 检查 数据类 CheckData";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
         }
 
-        public override ICase[] SonCaseArray() {
-            return new ICase[] {
+        public CaseModel[] SonCaseArray() {
+            return new CaseModel[] {
                 new TestIsObjectNull(),
                 new TestIsStringNull(),
                 new TestIsSizeEmpty(),
@@ -22,11 +23,13 @@ namespace Test.ConsoleProgram.Case.SonTests
         }
 
         #region Son Test Case
-        private class TestIsObjectNull : ICase
+        public class TestIsObjectNull : CaseModel
         {
-            public string NameSign() {
-                return @"测试 IsObjectNull";
+            public TestIsObjectNull() {
+                base.NameSign = @"测试 IsObjectNull";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 object obj = null;
                 Print.WriteLine("obj 为 null : {0}", obj.IsObjectNull());
@@ -34,11 +37,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("obj new 后 : {0}", obj.IsObjectNull());
             }
         }
-        private class TestIsStringNull : ICase
+        public class TestIsStringNull : CaseModel
         {
-            public string NameSign() {
-                return @"测试 IsObjectNull";
+            public TestIsStringNull() {
+                base.NameSign = @"测试 IsObjectNull";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 string str = null;
                 Print.WriteLine("str 为 null : {0}", str.IsStringNull());
@@ -46,11 +51,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine("str new 后 : {0}", str.IsStringNull());
             }
         }
-        private class TestIsSizeEmpty : ICase
+        public class TestIsSizeEmpty : CaseModel
         {
-            public string NameSign() {
-                return @"测试 '集合' 的数量";
+            public TestIsSizeEmpty() {
+                base.NameSign = @"测试 '集合' 的数量";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 List<string> listT = null;
                 Print.WriteLine("listT 为 null : {0}", listT.IsSizeEmpty());

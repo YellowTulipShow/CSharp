@@ -4,13 +4,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Explain : AbsCase
+    public class Test_Explain : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 解析特性";
+        public Test_Explain() {
+            base.NameSign = @"测试 解析特性";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             //Print.WriteLine(@"测试 Model.Name");
             //Print.WriteLine(new Model().Name.GetExplain().Text);
 

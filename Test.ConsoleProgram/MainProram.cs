@@ -10,18 +10,19 @@ namespace Test.ConsoleProgram
 {
     internal class MainProram
     {
+        private static readonly string CaseSourceNullErrorMsg = @"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ";
+
         internal static void Main(string[] args) {
             Console.OutputEncoding = Encoding.Unicode;
             do {
                 ExecuteCaseText();
             } while (IsRepeatExecute());
         }
-
         private static bool IsRepeatExecute() {
-            Print.WriteLine(string.Empty);
-            Print.WriteLine(@"请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine(@"请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
             ConsoleKeyInfo keyinfo = Console.ReadKey(false);
-            Print.WriteLine(string.Empty);
+            Console.WriteLine(string.Empty);
             switch (keyinfo.Key) {
                 case ConsoleKey.Q:
                     return false;
@@ -38,42 +39,59 @@ namespace Test.ConsoleProgram
         private static void ExecuteCaseText() {
             CaseModel[] absCaseArray = new CaseLibray().InitCaseSource();
             if (CheckData.IsSizeEmpty(absCaseArray)) {
-                Console.WriteLine(@"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
+                Console.WriteLine(CaseSourceNullErrorMsg);
                 return;
             }
             foreach (CaseModel caseitem in absCaseArray) {
-                AnalyticAbsCases(caseitem);
+                AnalyticAbsCases(caseitem, new string[] {});
             }
         }
 
-        private static void AnalyticAbsCases(CaseModel absCase) {
-            StatisticsRunTime(absCase);
-            if (CheckData.IsSizeEmpty(absCase.SonCases)) {
+        private static void AnalyticAbsCases(CaseModel absCase, string[] tabs_arr) {
+            StatisticsRunTime(absCase, tabs_arr);
+            if (CheckData.IsSizeEmpty(absCase.SonCases) || tabs_arr.Length > 50) {
                 return;
             }
-            Print.IndentationCharCount++;
-            foreach (CaseModel item in absCase.SonCases) {
-                AnalyticAbsCases(item);
+            for (int i = 0; i < absCase.SonCases.Length; i++) {
+                List<string> tabs_now = new List<string>(tabs_arr);
+                tabs_now.Add(@"    ");
+                AnalyticAbsCases(absCase.SonCases[i], tabs_now.ToArray());
             }
-            Print.IndentationCharCount--;
         }
 
-        private static void StatisticsRunTime(CaseModel caseitem) {
+        private static void StatisticsRunTime(CaseModel caseitem, string[] tabs_arr) {
+            //string father_symbol = ConvertTool.IListToString(tabs_arr, string.Empty);
+            //Console.WriteLine(@"{0}┌ {1}", father_symbol, caseitem.NameSign);
 
-            Print.IndentationCharCount++;
-            Print.WriteLine(@"┌ {0}", caseitem.NameSign);
+            //Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start(); // 开始
+
+            //foreach (string item in caseitem.ExeEvent()) {
+            //    Console.WriteLine(@"{0}│    {1}", father_symbol, item);
+            //}
+
+            //stopwatch.Stop(); // 结束
+            //TimeSpan runtimeSpan = stopwatch.Elapsed;
+
+            //Console.WriteLine(@"{0}└ 运行时间: {1}", father_symbol, runtimeSpan.TotalSeconds);
+            //Console.WriteLine();
+
+
+            string father_symbol = ConvertTool.IListToString(tabs_arr, string.Empty);
+            Print.IndentationCharString = string.Format(@"{0}┌ ", father_symbol);
+            Print.WriteLine(caseitem.NameSign);
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); // 开始
 
-            // 执行实例的主体方法内容
+            Print.IndentationCharString = string.Format(@"{0}│    ", father_symbol);
             caseitem.ExeEvent();
-            Print.IndentationCharCount--;
 
             stopwatch.Stop(); // 结束
             TimeSpan runtimeSpan = stopwatch.Elapsed;
 
-            Print.WriteLine(@"└ 运行时间: {0}", runtimeSpan.TotalSeconds);
+            Print.IndentationCharString = string.Format(@"{0}└ ", father_symbol);
+            Print.WriteLine(string.Format("运行时间: {0}", runtimeSpan.TotalSeconds));
             Print.WriteLine();
         }
     }

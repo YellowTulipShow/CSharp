@@ -6,13 +6,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Lambda : AbsCase
+    public class Test_Lambda : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 Lambda 表达式 查询的速度";
+        public Test_Lambda() {
+            base.NameSign = @"测试 Lambda 表达式 查询的速度";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             ModelArticles[] ml = SourceList();
             Print.WriteLine(string.Format("数据源个数:{0}", ml.Length));
 

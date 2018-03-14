@@ -5,13 +5,14 @@ using CSharp.LibrayDataBase;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Attribute : AbsCase
+    public class Test_Attribute : CaseModel
     {
-        public override string NameSign() {
-            return @"测试学习'特性'";
+        public Test_Attribute() {
+            base.NameSign = @"测试学习'特性'";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             ModelArticles ar = new ModelArticles();
 
             Type tm = typeof(ModelArticles);

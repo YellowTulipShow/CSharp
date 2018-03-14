@@ -3,13 +3,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_NewtonsoftJson : AbsCase
+    public class Test_NewtonsoftJson : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 执行 Newtonsoft.Json 序列化和反序列化";
+        public Test_NewtonsoftJson() {
+            base.NameSign = @"测试 执行 Newtonsoft.Json 序列化和反序列化";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             Model f = new Model();
             f.Id = 84668;
             f.MeiJu = MSSFieldTypeCharCount.VarChar;

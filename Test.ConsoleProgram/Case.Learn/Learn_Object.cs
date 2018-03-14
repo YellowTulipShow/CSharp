@@ -3,13 +3,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
-    public class Learn_Object : AbsCase
+    public class Learn_Object : CaseModel
     {
-        public override string NameSign() {
-            return @"试验测试Object对象";
+        public Learn_Object() {
+            base.NameSign = @"试验测试Object对象";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             object o = null;
             Print.WriteLine("输出 执行: Print.WriteLine(o);");
             Print.WriteLine("结果: {0}", o);
@@ -59,12 +60,14 @@ namespace Test.ConsoleProgram.Case.Learn
 
         private void test_Equals(object A, object B) {
             Print.WriteLine("测试 Object.Equals()");
-            Print.WriteLine("oEquals A:{0} B:{1}", A, B);
+            Print.WriteLine("oEquals A:{0}", A);
+            Print.WriteLine("oEquals B:{0}", B);
             Print.WriteLine("结果: {0}", object.Equals(A, B));
         }
         private void test_ReferenceEquals(object A, object B) {
             Print.WriteLine("测试 Object.ReferenceEquals()");
-            Print.WriteLine("oRefEquals A:{0} B:{1}", A, B);
+            Print.WriteLine("oRefEquals A:{0}", A);
+            Print.WriteLine("oRefEquals B:{0}", B);
             Print.WriteLine("结果: {0}", object.Equals(A, B));
         }
 

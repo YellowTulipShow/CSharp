@@ -8,109 +8,109 @@ namespace Test.ConsoleProgram
     public class Test_AbsCase : CaseModel
     {
         public Test_AbsCase() {
-            this.NameSign = @"季度房价奥四季度覅哦啊接我IE见覅哦啊结尾";
-            this.ExeEvent = () => {
-                Print.WriteLine(@"asdfawejflaijwefjaiewfw");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
-                Print.WriteLine(@"dfasdf");
-                Print.WriteLine(@"sdaf15");
-                Print.WriteLine(@"123123124125412");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
-            };
+            CaseModel model = new ItemCase();
+            this.NameSign = model.NameSign;
+            this.ExeEvent = model.ExeEvent;
             this.SonCases = new CaseModel[] {
-                new Test_TwoCeng(),
+                //new Test_TwoCeng(),
+                //new ItemCase(),
                 new CaseModel() {
-                    NameSign = "name 1",
-                    ExeEvent = () => {
-                        Print.WriteLine(@"name 1 exe method");
-                    },
+                    NameSign = model.NameSign,
+                    ExeEvent = model.ExeEvent,
                     SonCases = new CaseModel[] {
                         new CaseModel() {
-                            NameSign = "name 1",
-                            ExeEvent = () => {
-                                Print.WriteLine(@"name 1 exe method");
-                            },
-                        },new CaseModel() {
-                            NameSign = "name 1",
-                            ExeEvent = () => {
-                                Print.WriteLine(@"name 1 exe method");
-                            },
+                            NameSign = model.NameSign,
+                            ExeEvent = model.ExeEvent,
                             SonCases = new CaseModel[] {
                                 new CaseModel() {
-                                    NameSign = "name 1",
-                                    ExeEvent = () => {
-                                        Print.WriteLine(@"name 1 exe method");
-                                    },
-                                },new CaseModel() {
-                                    NameSign = "name 1",
-                                    ExeEvent = () => {
-                                        Print.WriteLine(@"name 1 exe method");
-                                    },
-                                },new CaseModel() {
-                                    NameSign = "name 1",
-                                    ExeEvent = () => {
-                                        Print.WriteLine(@"name 1 exe method");
-                                    },
+                                    NameSign = model.NameSign,
+                                    ExeEvent = model.ExeEvent,
                                     SonCases = new CaseModel[] {
                                         new CaseModel() {
-                                            NameSign = "name 1",
-                                            ExeEvent = () => {
-                                                Print.WriteLine(@"name 1 exe method");
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
                                             },
                                         },new CaseModel() {
-                                            NameSign = "name 1",
-                                            ExeEvent = () => {
-                                                Print.WriteLine(@"name 1 exe method");
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
                                             },
                                         },new CaseModel() {
-                                            NameSign = "name 1",
-                                            ExeEvent = () => {
-                                                Print.WriteLine(@"name 1 exe method");
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
                                             },
-                                        }
-                                    }
-                                }
-                            }
-                        },new CaseModel() {
-                            NameSign = "name 1",
-                            ExeEvent = () => {
-                                Print.WriteLine(@"name 1 exe method");
+                                        },
+                                    },
+                                },
                             },
-                        }
+                        },new CaseModel() {
+                            NameSign = model.NameSign,
+                            ExeEvent = model.ExeEvent,
+                            SonCases = new CaseModel[] {
+
+                            },
+                        },new CaseModel() {
+                            NameSign = model.NameSign,
+                            ExeEvent = model.ExeEvent,
+                            SonCases = new CaseModel[] {
+                                new CaseModel() {
+                                    NameSign = model.NameSign,
+                                    ExeEvent = model.ExeEvent,
+                                    SonCases = new CaseModel[] {
+                                        new CaseModel() {
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
+                                            },
+                                        },new CaseModel() {
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
+                                            },
+                                        },new CaseModel() {
+                                            NameSign = model.NameSign,
+                                            ExeEvent = model.ExeEvent,
+                                            SonCases = new CaseModel[] {
+
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
                     },
-                }
+                },
             };
         }
     }
     public class Test_TwoCeng : CaseModel
     {
         public Test_TwoCeng() {
-            this.NameSign = @"季度房价奥四季度覅哦啊接我IE见覅哦啊结尾";
-            this.ExeEvent = () => {
-                Print.WriteLine(@"asdfawejflaijwefjaiewfw");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
-                Print.WriteLine(@"dfasdf");
-                Print.WriteLine(@"sdaf15");
-                Print.WriteLine(@"123123124125412");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
-            };
+            CaseModel model = new ItemCase();
+            this.NameSign = model.NameSign;
+            this.ExeEvent = model.ExeEvent;
             this.SonCases = new CaseModel[] {
-                new Test_Result(),
-                new Test_Result(),
+                new ItemCase(),
+                new ItemCase(),
+                new ItemCase(),
             };
         }
     }
-    public class Test_Result : CaseModel
+    public class ItemCase : CaseModel
     {
-        public Test_Result() {
+        public ItemCase() {
             this.NameSign = @"季度房价奥四季度覅哦啊接我IE见覅哦啊结尾";
             this.ExeEvent = () => {
-                Print.WriteLine(@"asdfawejflaijwefjaiewfw");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
-                Print.WriteLine(@"dfasdf");
-                Print.WriteLine(@"sdaf15");
-                Print.WriteLine(@"123123124125412");
-                Print.WriteLine(@"季度房价奥四季度覅哦啊接我");
+                return new string[] {
+                    @"asdfawejflaijwefjaiewfw",
+                };
             };
         }
     }

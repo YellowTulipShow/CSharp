@@ -4,13 +4,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_DateTime : AbsCase
+    public class Test_DateTime : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 DateTime 的用法";
+        public Test_DateTime() {
+            base.NameSign = @"测试 DateTime 的用法";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             Print.WriteLine("SqlTypes SqlDateTime.MinValue");
             Print.WriteLine(SqlDateTime.MinValue.Value.ToString());
             Print.WriteLine("SqlTypes SqlDateTime.MaxValue");

@@ -5,13 +5,14 @@ using CSharp.ApplicationData;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Reflex : AbsCase
+    public class Test_Reflex : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 反射";
+        public Test_Reflex() {
+            base.NameSign = @"测试 反射";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             ModelArticles model = new ModelArticles();
             List<string> list = new List<string>();
             for (int i = 0; i < 5; i++) {

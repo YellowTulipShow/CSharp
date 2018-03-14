@@ -5,12 +5,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_ListSortMethod : AbsCase
+    public class Test_ListSortMethod : CaseModel
     {
-        public override string NameSign() {
-            return @"测试学习: List<T>.Sort() 方法的学习运用";
+        public Test_ListSortMethod() {
+            base.NameSign = @"测试学习: List<T>.Sort() 方法的学习运用";
+            base.ExeEvent = Method;
         }
-        public override void Method() {
+
+        public void Method() {
             List<string> list = GetTestDataSource();
 
             Print.WriteLine(@"测试数据源:");

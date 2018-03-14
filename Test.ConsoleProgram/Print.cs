@@ -10,24 +10,7 @@ namespace Test.ConsoleProgram
     /// </summary>
     public static class Print
     {
-        /// <summary>
-        /// 缩进符个数 默认 使用常量: INDENTATIONCHARCOUNTDEFAULTVALUE
-        /// </summary>
-        public static ushort IndentationCharCount = 0;
-        public const ushort INDENTATIONCHARCOUNT_DEFAULTVALUE = 0;
-
-        private static string IndentationCharString() {
-            StringBuilder str = new StringBuilder();
-            for (int i = 0; i < IndentationCharCount; i++) {
-                if (i == IndentationCharCount - 1) {
-                    str.Append(@"│   ");
-                } else {
-                    str.Append(@"    ");
-                }
-                //str.AppendFormat(@"{0}   ", i >= IndentationCharCount - 2 ? '│' : ' ');
-            }
-            return str.ToString();
-        }
+        public static string IndentationCharString = string.Empty;
 
         #region === use Console Method ===
         public static void Write(object value) {
@@ -40,10 +23,14 @@ namespace Test.ConsoleProgram
             Console.WriteLine();
         }
         public static void WriteLine(object value) {
-            Console.WriteLine(IndentationCharString() + value);
+            Console.WriteLine(IndentationCharString + value.ToString());
+        }
+        public static void WriteLine(string format) {
+            Console.WriteLine(IndentationCharString + format);
         }
         public static void WriteLine(string format, params object[] arg) {
-            Console.WriteLine(IndentationCharString() + format, arg);
+            string val = string.Format(format, arg);
+            Console.WriteLine(IndentationCharString + val);
         }
         #endregion
     }

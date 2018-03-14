@@ -60,14 +60,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICase.cs" />
+    <Compile Include="Case.Learn\Learn_Dictionary.cs" />
+    <Compile Include="Case.Learn\Learn_Object.cs" />
+    <Compile Include="Case.Learn\Learn_RegularExpression.cs" />
+    <Compile Include="Case.SonTests\Test_AbsBasicsDataModel.cs" />
+    <Compile Include="Case.SonTests\Test_Attribute.cs" />
+    <Compile Include="Case.SonTests\Test_CheckData.cs" />
+    <Compile Include="Case.SonTests\Test_ConvertTool.cs" />
+    <Compile Include="Case.SonTests\Test_DateTime.cs" />
+    <Compile Include="Case.SonTests\Test_EnumExplain.cs" />
+    <Compile Include="Case.SonTests\Test_Explain.cs" />
+    <Compile Include="Case.SonTests\Test_Lambda.cs" />
+    <Compile Include="Case.SonTests\Test_ListSortMethod.cs" />
+    <Compile Include="Case.SonTests\Test_NewtonsoftJson.cs" />
+    <Compile Include="Case.SonTests\Test_Random.cs" />
+    <Compile Include="Case.SonTests\Test_Reflex.cs" />
+    <Compile Include="CaseModel.cs" />
     <Compile Include="MainProram.cs" />
-    <Compile Include="Print.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Print.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CaseLibray.cs" />
-    <Compile Include="Test_AbsCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharp.ApplicationData\CSharp.ApplicationData.csproj">

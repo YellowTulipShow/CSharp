@@ -5,13 +5,14 @@ using System.Text;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
-    public class Learn_Dictionary : AbsCase
+    public class Learn_Dictionary : CaseModel
     {
-        public override string NameSign() {
-            return @"学习 Dictionary<K,V> 用法";
+        public Learn_Dictionary() {
+            base.NameSign = @"学习 Dictionary<K,V> 用法";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             // 初始化:
             Dictionary<string, int> dic = new Dictionary<string, int>() {
                 { "key1", 343 },

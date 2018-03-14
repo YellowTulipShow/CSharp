@@ -4,13 +4,14 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_EnumExplain : AbsCase
+    public class Test_EnumExplain : CaseModel
     {
-        public override string NameSign() {
-            return @"测试枚举类型 的自定义扩展";
+        public Test_EnumExplain() {
+            base.NameSign = @"测试枚举类型 的自定义扩展";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
             Print.WriteLine("测试枚举的 '名称' 们: ");
             foreach (object item in Enum.GetNames(typeof(LEKEY))) {
                 Print.WriteLine(item);
@@ -35,19 +36,21 @@ namespace Test.ConsoleProgram.Case.SonTests
             Value = 7
         }
 
-        public override ICase[] SonCaseArray() {
-            return new ICase[] {
+        public CaseModel[] SonCaseArray() {
+            return new CaseModel[] {
                 new Test_GetName(),
                 new Test_GetIntValue(),
                 new Test_GetExplain(),
             };
         }
 
-        private class Test_GetName : ICase
+        public class Test_GetName : CaseModel
         {
-            public string NameSign() {
-                return @"获得枚举名称";
+            public Test_GetName() {
+                base.NameSign = @"获得枚举名称";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 Print.WriteLine("LEKEY.Key.GetName() 结果: ");
                 Print.WriteLine(LEKEY.Key.GetName());
@@ -55,11 +58,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine(LEKEY.Value.GetName());
             }
         }
-        private class Test_GetIntValue : ICase
+        public class Test_GetIntValue : CaseModel
         {
-            public string NameSign() {
-                return @"获得枚举 int 值";
+            public Test_GetIntValue() {
+                base.NameSign = @"获得枚举 int 值";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 Print.WriteLine("LEKEY.Key.GetIntValue() 结果: ");
                 Print.WriteLine(LEKEY.Key.GetIntValue());
@@ -67,11 +72,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Print.WriteLine(LEKEY.Value.GetIntValue());
             }
         }
-        private class Test_GetExplain : ICase
+        public class Test_GetExplain : CaseModel
         {
-            public string NameSign() {
-                return @"获得枚举 解释内容";
+            public Test_GetExplain() {
+                base.NameSign = @"获得枚举 解释内容";
+                base.ExeEvent = Method;
             }
+
             public void Method() {
                 Print.WriteLine("LEKEY.Key.GetExplain().Text 结果: ");
                 Print.WriteLine(LEKEY.Key.GetExplain().Text);

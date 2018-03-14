@@ -4,25 +4,27 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_Random : AbsCase
+    public class Test_Random : CaseModel
     {
-        public override string NameSign() {
-            return @"测试 随机";
+        public Test_Random() {
+            base.NameSign = @"测试 随机";
+            base.ExeEvent = Method;
         }
 
-        public override void Method() {
+        public void Method() {
         }
 
-        public override ICase[] SonCaseArray() {
-            return new ICase[] {
+        public CaseModel[] SonCaseArray() {
+            return new CaseModel[] {
                 new Test_RandomHelper_list(),
             };
         }
 
-        private class Test_RandomHelper_list : ICase
+        public class Test_RandomHelper_list : CaseModel
         {
-            public string NameSign() {
-                return @"随机从列表中选出一个选项";
+            public Test_RandomHelper_list() {
+                base.NameSign = @"随机从列表中选出一个选项";
+                base.ExeEvent = Method;
             }
 
             public void Method() {
