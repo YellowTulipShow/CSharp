@@ -126,17 +126,17 @@ namespace CSharp.ApplicationData
     public class BLLUser : BLLSQLServer<ModelUser> {
         public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
 
-        public override ModelUser DefaultDataModel() {
-            return new ModelUser() {
-                Email = @"1426689530@qq.com",
-                MobilePhone = @"18563920971",
-                NickName = @"YellowTulipShow",
-                Password = @"zrqytspass",
-                RealName = @"赵瑞青",
-                Remark = @"System Developer",
-                TelePhone = string.Empty,
-                TimeAdd = DateTime.Now,
-            };
-        }
+        //public override ModelUser DefaultDataModel() {
+        //    return new ModelUser() {
+        //        Email = @"1426689530@qq.com",
+        //        MobilePhone = @"18563920971",
+        //        NickName = @"YellowTulipShow",
+        //        Password = @"zrqytspass",
+        //        RealName = @"赵瑞青",
+        //        Remark = @"System Developer",
+        //        TelePhone = string.Empty,
+        //        TimeAdd = DateTime.Now,
+        //    };
+        //}
     }
 }

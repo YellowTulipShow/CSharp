@@ -13,7 +13,7 @@ namespace Test.ConsoleProgram.Case.SonTests
 
         public void Method() {
             Print.WriteLine("测试 CloneModelData 克隆方法");
-            AbsBasicsDataModel baseModel = new ModelArticles();
+            AbsBasicDataModel baseModel = new ModelArticles();
             Print.WriteLine("源 模型: ");
             Print.WriteLine(baseModel.ToString());
             Print.WriteLine("");

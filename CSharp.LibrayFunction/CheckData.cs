@@ -107,5 +107,41 @@ namespace CSharp.LibrayFunction
             return Regex.IsMatch(strUrl, @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
         }
         #endregion
+
+
+        /// <summary>
+        /// 模型不能使用的判断
+        /// </summary>
+        /// <typeparam name="M">数据模型类型</typeparam>
+        /// <param name="item">数据来源</param>
+        /// <returns>True: 不能使用, 反之亦然</returns>
+        public delegate bool ModelNotUseIF<M>(M item) where M : AbsBasicDataModel;
+        /// <summary>
+        /// 检查模型可以使用 单例
+        /// </summary>
+        /// <typeparam name="M">数据模型类型</typeparam>
+        /// <param name="item">数据来源</param>
+        /// <param name="errorMethod">不能使用的判断条件</param>
+        /// <returns>True: 可以使用, 反之亦然</returns>
+        public static bool CheckModelCanUseItem<M>(M item, ModelNotUseIF<M> errorMethod) where M : AbsBasicDataModel {
+            return !(CheckData.IsObjectNull(item) || errorMethod(item));
+        }
+        /// <summary>
+        /// 检查模型可以使用 多例
+        /// </summary>
+        /// <typeparam name="M">数据模型类型</typeparam>
+        /// <param name="array">数据来源</param>
+        /// <param name="errorMethod">不能使用的判断条件</param>
+        /// <returns>True: 可以使用, 反之亦然</returns>
+        public static bool CheckModelCanUseArray<M>(M[] array, ModelNotUseIF<M> errorMethod) where M : AbsBasicDataModel {
+            if (!CheckData.IsSizeEmpty(array)) {
+                foreach (M item in array) {
+                    if (CheckModelCanUseItem(item, errorMethod)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

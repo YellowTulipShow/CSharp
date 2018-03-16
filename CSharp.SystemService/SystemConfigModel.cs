@@ -10,7 +10,7 @@ namespace CSharp.SystemService
     /// 系统配置数据模型
     /// </summary>
     [Serializable]
-    public class SystemConfigModel : AbsBasicsDataModel
+    public class SystemConfigModel : AbsBasicDataModel
     {
         /// <summary>
         /// 是否 启用调试

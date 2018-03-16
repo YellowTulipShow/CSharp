@@ -93,7 +93,7 @@ namespace CSharp.LibrayDataBase
     /// 数据表列特性  同一程序不能多个解释。无法继承此类。
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class ColumnAttribute : AbsBasicsAttribute
+    public class ColumnAttribute : AbsBasicAttribute
     {
         #region === Constructor Init DataType ===
         /// <summary>
@@ -198,10 +198,7 @@ namespace CSharp.LibrayDataBase
         /// 获取字段CSharp数据类型
         /// </summary>
         public AbsCsType CsType {
-            get {
-                return !_csType.IsObjectNull() ? _csType :
-                    new MCSDataType.MCSStruct();
-            }
+            get { return !CheckData.IsObjectNull(_csType) ? _csType : new MCSDataType.MCSStruct(); }
         }
         private AbsCsType _csType = null;
 

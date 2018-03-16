@@ -44,11 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsBasicsAttribute.cs" />
     <Compile Include="AbsCsType.cs" />
     <Compile Include="AbsFieldType.cs" />
-    <Compile Include="ItemModel.cs" />
-    <Compile Include="AbsTableDAL.cs" />
+    <Compile Include="CreateSQL.cs" />
+    <Compile Include="DataChar.cs" />
+    <Compile Include="IBasicDataAccess.cs" />
+    <Compile Include="WhereModel.cs" />
+    <Compile Include="KeyValueModel.cs" />
+    <Compile Include="AbsDAL.cs" />
     <Compile Include="IAutoTable.cs" />
     <Compile Include="IDefaultRecord.cs" />
     <Compile Include="ITableBasicFunction.cs">
@@ -56,20 +59,15 @@
     </Compile>
     <Compile Include="ITableName.cs" />
     <Compile Include="ModelParser.cs" />
-    <Compile Include="Son_BLL_DAL\BLLSQLServer.cs" />
     <Compile Include="ColumnAttribute.cs" />
     <Compile Include="TableAttribute.cs" />
-    <Compile Include="Son_BLL_DAL\DALSQLServer.cs">
+    <Compile Include="DALSQLServer.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="AbsTableBLL.cs" />
+    <Compile Include="AbsBLL.cs" />
     <Compile Include="Son_MCSDataType\MCSEnum.cs" />
     <Compile Include="Son_MCSDataType\MCSStruct.cs" />
-    <Compile Include="Son_Model\AbsModel_Remark.cs" />
-    <Compile Include="Son_Model\AbsModel_ID.cs" />
-    <Compile Include="Son_Model\AbsModel_TimeAdd.cs" />
-    <Compile Include="IBasicsSQL.cs" />
     <Compile Include="Son_MSSDataType\MSSMoney.cs" />
     <Compile Include="Son_MSSDataType\MSSInt.cs" />
     <Compile Include="Son_MSSDataType\MSSDatetime.cs" />
@@ -86,7 +84,7 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="AbsModel_Null.cs" />
+    <Compile Include="AbsModelNull.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

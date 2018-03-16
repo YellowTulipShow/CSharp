@@ -13,32 +13,28 @@ namespace Test.ConsoleProgram.Case.SonTests
         public void Method() {
             Model f = new Model();
             f.Id = 84668;
-            f.MeiJu = MSSFieldTypeCharCount.VarChar;
+            f.MeiJu = new MSSFTCC[] { MSSFTCC.Char, MSSFTCC.NVarChar };
             Print.WriteLine(f);
-            string str = "{\"Id\":0,\"MeiJu\":1}";
-            Model m = JsonHelper.DeserializeToObject<Model>(str);
-            Print.WriteLine(m.MeiJu.ToString());
+            //string str = "{\"Id\":0,\"MeiJu\":1}";
+            //Model m = JsonHelper.DeserializeToObject<Model>(str);
+            //Print.WriteLine(m.MeiJu.ToString());
         }
 
-        private enum MSSFieldTypeCharCount
+        private enum MSSFTCC
         {
-            //Char = 5,
-            //NChar = 6,
-            //VarChar = 7,
-            //NVarChar = 0,
             Char,
             NChar,
             VarChar,
             NVarChar,
         }
 
-        private class Model : AbsBasicsDataModel
+        private class Model : AbsBasicDataModel
         {
             public int Id { get { return _id; } set { _id = value; } }
             private int _id = 0;
 
-            public MSSFieldTypeCharCount MeiJu { get { return _meiju; } set { _meiju = value; } }
-            private MSSFieldTypeCharCount _meiju = MSSFieldTypeCharCount.NChar;
+            public MSSFTCC[] MeiJu { get { return _meiju; } set { _meiju = value; } }
+            private MSSFTCC[] _meiju = new MSSFTCC[] { };
         }
     }
 }

@@ -47,9 +47,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0));
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
         public class StringToInt_ErrorValue : CaseModel
@@ -61,9 +61,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
 
@@ -76,9 +76,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s);
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
         public class StringToString_ErrorValue : CaseModel
@@ -90,9 +90,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s, "0");
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
 
@@ -105,9 +105,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 float[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
         public class StringToDecimal : CaseModel
@@ -119,9 +119,9 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public void Method() {
                 string str = Srource();
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 decimal[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
-                Print.WriteLine("Result: \n {0}", array.ToJson());
+                Print.WriteLine("Result: {0}", array.ToJson());
             }
         }
         public class StringToBoolean : CaseModel
@@ -134,12 +134,12 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 string str = @"true,false,flsea,0,1,sliw,trus";
 
-                Print.WriteLine("SourceData: \n {0}", str);
+                Print.WriteLine("SourceData: {0}", str);
                 bool[] array_1 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, true));
-                Print.WriteLine("Default: true Result: \n {0}", array_1.ToJson());
+                Print.WriteLine("Default: true Result: {0}", array_1.ToJson());
 
                 bool[] array_2 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, false));
-                Print.WriteLine("Default: false Result: \n {0}", array_2.ToJson());
+                Print.WriteLine("Default: false Result: {0}", array_2.ToJson());
             }
         }
         public class DataTableToString : CaseModel

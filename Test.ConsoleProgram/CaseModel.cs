@@ -3,7 +3,7 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
-    public class CaseModel : AbsBasicsDataModel
+    public class CaseModel : AbsBasicDataModel
     {
         public CaseModel() { }
         public string NameSign = string.Empty;

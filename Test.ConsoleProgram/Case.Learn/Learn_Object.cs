@@ -71,7 +71,7 @@ namespace Test.ConsoleProgram.Case.Learn
             Print.WriteLine("结果: {0}", object.Equals(A, B));
         }
 
-        private class Model : AbsBasicsDataModel
+        private class Model : AbsBasicDataModel
         {
             /// <summary>
             /// 自增ID

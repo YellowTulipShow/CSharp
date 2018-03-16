@@ -49,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsBasicsDataModel.cs" />
+    <Compile Include="AbsBasicAttribute.cs" />
+    <Compile Include="AbsBasicDataModel.cs" />
     <Compile Include="AnalyticDynamicPage.cs" />
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CheckData.cs" />

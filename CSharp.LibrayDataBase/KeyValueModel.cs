@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using CSharp.LibrayFunction;
 
 namespace CSharp.LibrayDataBase
 {
     /// <summary>
-    /// 抽象: 选项
+    /// 选项 KeyValuePair 模型Model
     /// </summary>
-    public class ItemModel : AbsBasicsAttribute
+    public class KeyValueModel : AbsBasicDataModel
     {
-        /// <summary>
-        /// 关键字
-        /// </summary>
-        public virtual string KeyWords() {
-            return string.Empty;
-        }
+        public KeyValueModel() { }
 
         /// <summary>
         /// 键:

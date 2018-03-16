@@ -42,7 +42,7 @@ namespace Test.ConsoleProgram.Case.SonTests
         }
 
         [Explain(@"临时模型")]
-        protected class Model : AbsBasicsDataModel
+        protected class Model : AbsBasicDataModel
         {
             [Explain(@"姓名")]
             public string Name { get { return _name; } set { _name = value; } }

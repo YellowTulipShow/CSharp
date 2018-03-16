@@ -9,7 +9,7 @@ namespace CSharp.LibrayDataBase
     /// 接口 - 数据表基础方法
     /// </summary>
     /// <typeparam name="M">BasicsModel数据模型 并且限定为 BasicsDataModel 数据模型</typeparam>
-    public interface ITableBasicFunction<M> where M : AbsModel_Null
+    public interface ITableBasicFunction<M> where M : AbsModelNull
     {
         #region ====== Tools Function ======
         int GetRecordCount(string strWhere);

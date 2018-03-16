@@ -75,6 +75,7 @@
     <Compile Include="Case.SonTests\Test_NewtonsoftJson.cs" />
     <Compile Include="Case.SonTests\Test_Random.cs" />
     <Compile Include="Case.SonTests\Test_Reflex.cs" />
+    <Compile Include="Case.SonTests\Test_WhereModel.cs" />
     <Compile Include="CaseModel.cs" />
     <Compile Include="MainProram.cs" />
     <Compile Include="Print.cs" />

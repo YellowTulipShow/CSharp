@@ -10,7 +10,7 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public static class Analysis
     {
-        public static ColumnItemModel[] PropertyColumns<M>() where M: AbsModel_Null {
+        public static ColumnItemModel[] PropertyColumns<M>() where M: AbsModelNull {
             Type modelT = typeof(M);
             if (!modelT.IsDefined(typeof(TableAttribute), false)) {
                 return new ColumnItemModel[] { };
@@ -35,7 +35,7 @@ namespace CSharp.LibrayDataBase
     /// <summary>
     /// 列信息模型
     /// </summary>
-    public class ColumnItemModel : AbsBasicsDataModel
+    public class ColumnItemModel : AbsBasicDataModel
     {
         /// <summary>
         /// 解释翻译信息

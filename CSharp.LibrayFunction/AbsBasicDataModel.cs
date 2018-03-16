@@ -7,14 +7,14 @@ namespace CSharp.LibrayFunction
     /// 基础数据模型
     /// </summary>
     [Serializable]
-    public abstract class AbsBasicsDataModel
+    public abstract class AbsBasicDataModel
     {
-        public AbsBasicsDataModel() { }
+        public AbsBasicDataModel() { }
 
         /// <summary>
         /// 深度克隆一个数据模型对象
         /// </summary>
-        public AbsBasicsDataModel CloneModelData() {
+        public AbsBasicDataModel CloneModelData() {
             return ReflexHelper.CloneProperties(this);
         }
 

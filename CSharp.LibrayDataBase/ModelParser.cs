@@ -6,12 +6,13 @@ namespace CSharp.LibrayDataBase
     /// <summary>
     /// 模型解析器
     /// </summary>
-    public class ModelParser<M> where M : AbsModel_Null
+    public class ColumnModelParser<M> where M : AbsModelNull
     {
-        public readonly ColumnItemModel[] ColumnInfoArray = null;
+        public ColumnItemModel[] ColumnInfoArray { get { return _columnInfoArray; } }
+        private readonly ColumnItemModel[] _columnInfoArray = null;
 
-        public ModelParser() {
-            this.ColumnInfoArray = Analysis.PropertyColumns<M>();
+        public ColumnModelParser() {
+            this._columnInfoArray = Analysis.PropertyColumns<M>();
         }
 
         /// <summary>
@@ -27,12 +28,13 @@ namespace CSharp.LibrayDataBase
         /// <param name="c">行信息</param>
         /// <param name="sourceModel">数据来源</param>
         /// <returns>选项模型</returns>
-        public ItemModel ExtractValue(ColumnItemModel c, M sourceModel) {
-            return new ItemModel() {
+        public KeyValueModel ExtractValue(ColumnItemModel c, M sourceModel) {
+            return new KeyValueModel() {
                 Key = c.Property.Name,
                 Value = c.Attribute.DbType.PrintSaveValue(c.Property.GetValue(sourceModel, null)),
             };
         }
+
         /// <summary>
         /// 填充'模型'数据
         /// </summary>
