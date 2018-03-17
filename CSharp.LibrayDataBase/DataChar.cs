@@ -79,13 +79,13 @@ namespace CSharp.LibrayDataBase
             BigTHAN_EQUAL = 6,
 
             /// <summary>
-            /// 小于(<)
+            /// 小于
             /// </summary>
             [Explain("小于(<)")]
             SmallTHAN = 7,
 
             /// <summary>
-            /// 小于(<=)
+            /// 小于等于
             /// </summary>
             [Explain("小于(<=)")]
             SmallTHAN_EQUAL = 8,

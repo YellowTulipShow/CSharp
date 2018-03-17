@@ -239,11 +239,6 @@ namespace CSharp.LibrayDataBase
         }
         #endregion
 
-        #region SQL WhereModel Parser
-        public string WhereModelParserToSQLString(WhereModel wheres) {
-            return string.Empty;
-        }
-        #endregion
 
         #region === IBasicsSQL<M> ===
         /// <summary>
@@ -274,56 +269,46 @@ namespace CSharp.LibrayDataBase
         /// 产生 删除 SQL 异常: CreateSQLNotHaveWhereException
         /// </summary>
         public virtual string SQLDelete(WhereModel wheres) {
-            return string.Format("delete {0} where {1}", base.GetTableName(), WhereModelParserToSQLString(wheres));
+            return string.Format("delete {0} where {1}", base.GetTableName(), CreateSQL.ParserWhereModel(wheres));
         }
 
         /// <summary>
-        /// 产生 更新 SQL 异常: CreateSQLNotHaveWhereException
+        /// 产生 更新 SQL
         /// </summary>
-        public virtual string SQLUpdate(M model) {
-            List<string> setArr = new List<string>();
-            foreach (ColumnItemModel item in this.CanGetSetColumns()) {
-                KeyValueModel im = this.modelParser.ExtractValue(item, model);
-                if (CheckData.IsObjectNull(im))
-                    continue;
-                setArr.Add(string.Format("{0} = '{1}'", im.Key, im.Value));
-            }
-
-            if (CheckData.IsSizeEmpty(setArr)) {
-                return string.Empty;
-            }
-            string setStr = ConvertTool.IListToString(setArr, ',');
-            return string.Format("update {0} set {1} where {2}", model.GetTableName(), setStr, CreateSignSQLWhere(model));
+        public virtual string SQLUpdate(FieldValueModel[] fielvals, WhereModel wheres) {
+            string set_str = ConvertTool.IListToString(CreateSQL.ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL), ',');
+            string where_str = CreateSQL.ParserWhereModel(wheres);
+            return string.Format("update {0} set {1} where {2}", base.GetTableName(), set_str, where_str);
         }
 
-        /// <summary>
-        /// 创建 标识准确记录的 SQL where 条件部分字符串
-        /// </summary>
-        /// <param name="model">数据来源</param>
-        public virtual string CreateSignSQLWhere(M model) {
-            ColumnItemModel colmodel = null;
-            colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : PrimaryKeyColumn();
-            colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : IDentityColumn();
-            if (CheckData.IsObjectNull(colmodel)) {
-                throw new CreateSQLNotHaveWhereException();
-            }
-            KeyValueModel nowVal = this.modelParser.ExtractValue(colmodel, model);
-            KeyValueModel defVal = this.modelParser.ExtractValue(colmodel, CreateDefaultModel());
-            if (nowVal.IsObjectNull() || nowVal.Equals(defVal) || nowVal.ToString().Trim().IsStringNull()) {
-                throw new CreateSQLNotHaveWhereException();
-            }
-            string where = string.Format("{0} = '{1}'", nowVal.Key, nowVal.Value);
-            return where;
-        }
-        /// <summary>
-        /// 创建SQL语句没有where-产生异常
-        /// </summary>
-        public class CreateSQLNotHaveWhereException : Exception
-        {
-            public override string Message {
-                get { return @"创建数据SQL字符串时, 无法确定 where 条件, 会产生重大隐患!"; }
-            }
-        }
+        ///// <summary>
+        ///// 创建 标识准确记录的 SQL where 条件部分字符串
+        ///// </summary>
+        ///// <param name="model">数据来源</param>
+        //public virtual string CreateSignSQLWhere(M model) {
+        //    ColumnItemModel colmodel = null;
+        //    colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : PrimaryKeyColumn();
+        //    colmodel = !CheckData.IsObjectNull(colmodel) ? colmodel : IDentityColumn();
+        //    if (CheckData.IsObjectNull(colmodel)) {
+        //        throw new CreateSQLNotHaveWhereException();
+        //    }
+        //    KeyValueModel nowVal = this.modelParser.ExtractValue(colmodel, model);
+        //    KeyValueModel defVal = this.modelParser.ExtractValue(colmodel, CreateDefaultModel());
+        //    if (nowVal.IsObjectNull() || nowVal.Equals(defVal) || nowVal.ToString().Trim().IsStringNull()) {
+        //        throw new CreateSQLNotHaveWhereException();
+        //    }
+        //    string where = string.Format("{0} = '{1}'", nowVal.Key, nowVal.Value);
+        //    return where;
+        //}
+        ///// <summary>
+        ///// 创建SQL语句没有where-产生异常
+        ///// </summary>
+        //public class CreateSQLNotHaveWhereException : Exception
+        //{
+        //    public override string Message {
+        //        get { return @"创建数据SQL字符串时, 无法确定 where 条件, 会产生重大隐患!"; }
+        //    }
+        //}
 
         #endregion
 
@@ -373,7 +358,8 @@ namespace CSharp.LibrayDataBase
         //}
 
         #region === ITableBasicFunction<M> ===
-        public virtual int GetRecordCount(string strWhere) {
+        public int GetRecordCount(WhereModel wheres) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres);
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select count(*) as H from " + GetTableName());
             if (!CheckData.IsStringNull(strWhere.Trim())) {
@@ -382,7 +368,7 @@ namespace CSharp.LibrayDataBase
             return ConvertTool.ObjToInt(DbHelperSQL.GetSingle(strSql.ToString()), 0);
         }
 
-        public virtual M DataRowToModel(DataRow row) {
+        public M DataRowToModel(DataRow row) {
             if (CheckData.IsSizeEmpty(row))
                 return null;
             M model = CreateDefaultModel();
@@ -396,15 +382,6 @@ namespace CSharp.LibrayDataBase
             return model;
         }
 
-        public virtual M[] GetModelList(DataTable dt) {
-            if (CheckData.IsSizeEmpty(dt))
-                return new M[] { };
-            List<M> list = new List<M>();
-            foreach (DataRow dr in dt.Rows) {
-                list.Add(DataRowToModel(dr));
-            }
-            return list.ToArray();
-        }
 
         internal string SQLALLSelectWhere(int top, string strWhere, string orderBy) {
             string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
@@ -415,21 +392,8 @@ namespace CSharp.LibrayDataBase
                 sql += string.Format(@" order by {0}", orderBy);
             return sql;
         }
-        internal string AnalysisDictionaryOrderByInfos(Dictionary<string, bool> fieldOrders) {
-            if (CheckData.IsSizeEmpty(fieldOrders))
-                return string.Empty;
-            List<string> fields = new List<string>();
-            foreach (KeyValuePair<string, bool> item in fieldOrders) {
-                string symbol = item.Value ? @"asc" : @"desc";
-                fields.Add(string.Format(@"{0} {1}", item.Key, symbol));
-            }
-            return ConvertTool.IListToString(fields, ',');
-        }
         internal DataTable CheckReturnDataTable(DataSet ds) {
             return CheckData.IsSizeEmpty(ds) ? null : CheckData.IsSizeEmpty(ds.Tables[0]) ? null : ds.Tables[0];
-        }
-        internal M CheckReturnModel(DataSet ds) {
-            return CheckData.IsSizeEmpty(CheckReturnDataTable(ds)) ? null : DataRowToModel(ds.Tables[0].Rows[0]);
         }
         #endregion
 
@@ -450,28 +414,30 @@ namespace CSharp.LibrayDataBase
         }
 
         public override bool Update(FieldValueModel[] fielvals, WhereModel wheres) {
-            if (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) {
-                return false;
-            }
-
-            //List<string> setArr = new List<string>();
-            //foreach (ColumnItemModel item in this.CanGetSetColumns()) {
-            //    KeyValueModel im = this.modelParser.ExtractValue(item, model);
-            //    if (CheckData.IsObjectNull(im))
-            //        continue;
-            //    setArr.Add(string.Format("{0} = '{1}'", im.Key, im.Value));
-            //}
-
-            //if (CheckData.IsSizeEmpty(setArr)) {
-            //    return string.Empty;
-            //}
-            //string setStr = ConvertTool.IListToString(setArr, ',');
-            //return string.Format("update {0} set {1} where {2}", model.GetTableName(), setStr, CreateSignSQLWhere(model));
-            return false;
+            return (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) ? false :
+                DbHelperSQL.ExecuteSql(SQLUpdate(fielvals, wheres)) > 0;
         }
 
         public override M[] Select(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
-            return new M[] { };
+            DataTable dt = SelectSource(top, wheres, fieldOrders);
+            return GetModelList(dt);
+        }
+
+        public DataTable SelectSource(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres);
+            string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
+            string selectStr = SQLALLSelectWhere(top, strWhere, orderbyStr);
+            DataSet ds = DbHelperSQL.Query(selectStr);
+            return CheckReturnDataTable(ds);
+        }
+        public M[] GetModelList(DataTable dt) {
+            if (CheckData.IsSizeEmpty(dt))
+                return new M[] { };
+            List<M> list = new List<M>();
+            foreach (DataRow dr in dt.Rows) {
+                list.Add(DataRowToModel(dr));
+            }
+            return list.ToArray();
         }
     }
 }

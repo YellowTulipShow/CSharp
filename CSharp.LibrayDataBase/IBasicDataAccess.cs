@@ -38,12 +38,12 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="wheres">条件筛选</param>
         /// <returns></returns>
-        M GetModel(WhereModel wheres);
+        M GetModel(WhereModel wheres, FieldOrderModel[] fieldOrders = null);
         /// <summary>
         /// 获取模型数据
         /// </summary>
         /// <param name="fielvals">条件筛选</param>
         /// <returns></returns>
-        M GetModel(FieldValueModel fielvals);
+        M GetModel(FieldValueModel fielvals, FieldOrderModel[] fieldOrders = null);
     }
 }

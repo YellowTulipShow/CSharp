@@ -67,7 +67,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 条件: field != 'values'
         /// </summary>
-        public static string WhereNotEqual(string field, string values) {
+        public static string WhereEqualNot(string field, string values) {
             return String.Format("{0} != '{1}'", field, values);
         }
 
@@ -75,25 +75,25 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 条件: field 小于 'values'
         /// </summary>
-        public static string WhereLessThan(string field, string values) {
+        public static string WhereSmallThan(string field, string values) {
             return String.Format("{0} < '{1}'", field, values);
         }
         /// <summary>
         /// 条件: field 小于= 'values'
         /// </summary>
-        public static string WhereLessThanEqual(string field, string values) {
+        public static string WhereSmallThanEqual(string field, string values) {
             return String.Format("{0} <= '{1}'", field, values);
         }
         /// <summary>
         /// 条件: field > 'values'
         /// </summary>
-        public static string WhereGreaterThan(string field, string values) {
+        public static string WhereBigThan(string field, string values) {
             return String.Format("{0} > '{1}'", field, values);
         }
         /// <summary>
         /// 条件: field >= 'values'
         /// </summary>
-        public static string WhereGreaterThanEqual(string field, string values) {
+        public static string WhereBigThanEqual(string field, string values) {
             return String.Format("{0} >= '{1}'", field, values);
         }
 
@@ -107,7 +107,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 条件: field not like '%values%'
         /// </summary>
-        public static string WhereNotLike(string field, string values) {
+        public static string WhereLikeNot(string field, string values) {
             return String.Format("{0} not like '%{1}%'", field, values);
         }
         /// <summary>
@@ -152,33 +152,24 @@ namespace CSharp.LibrayDataBase
         /// 组合内容字段查询 条件: field like '%,values%' or field like '%values,%' or field ='values'
         /// </summary>
         /// <returns></returns>
-        public static string WhereSymbolLikeOrEqual(string field, string values, char symbol) {
+        public static string WhereLikeSymbolOrEqual(string field, string values, char symbol) {
             return String.Format("({0} like '%{2}{1}%' or {0} like '%{1}{2}%' or {0} ='{1}')", field, values, symbol);
         }
 
         /* ====== Where In Part ====== */
         /// <summary>
-        /// 条件: and field in ('v1','v2','v3','v4')
-        /// </summary>
-        public static string WhereAndIn(string field, string[] values) {
-            string SQLWhereIn = WhereIn(field, values);
-            if (CheckData.IsStringNull(SQLWhereIn))
-                return String.Empty;
-            return WHERE_AND + SQLWhereIn;
-        }
-        /// <summary>
         /// 条件: field in ('v1','v2','v3','v4')
         /// </summary>
         public static string WhereIn(string field, string[] values) {
-            return WhereNotIn(field, values, false);
+            return WhereInNot(field, values, false);
         }
         /// <summary>
         /// 条件: field not in ('v1','v2','v3','v4')
         /// </summary>
-        public static string WhereNotIn(string field, string[] values) {
-            return WhereNotIn(field, values, true);
+        public static string WhereInNot(string field, string[] values) {
+            return WhereInNot(field, values, true);
         }
-        private static string WhereNotIn(string field, string[] values, bool isNot) {
+        private static string WhereInNot(string field, string[] values, bool isNot) {
             StringBuilder instr = new StringBuilder();
             for (int i = 0; i < values.Length; i++) {
                 if (i != 0) {
@@ -260,6 +251,99 @@ namespace CSharp.LibrayDataBase
                 sql.AppendFormat("where {0}", where);
             }
             return sql.ToString();
+        }
+        #endregion
+
+        #region ====== Parser SQL WhereModel ======
+        /// <summary>
+        /// 条件模型解析
+        /// </summary>
+        public static string ParserWhereModel(WhereModel wheres) {
+            List<string> resultArray = new List<string>();
+            string[] fielVals = ParserFieldValueModel(wheres.FielVals);
+            resultArray.AddRange(fielVals);
+            foreach (WhereModel wm in wheres.Wheres) {
+                string son_where_str = ParserWhereModel(wm);
+                if (!CheckData.IsStringNull(son_where_str)) {
+                    resultArray.Add(WhereParenthesesPackage(son_where_str));
+                }
+            }
+            return ConvertTool.IListToString(resultArray, LogicCharString(wheres.KeyChar));
+        }
+        private static string LogicCharString(DataChar.LogicChar logicChar) {
+            const string Space = @" ";
+            switch (logicChar) {
+                case DataChar.LogicChar.AND:
+                    return Space + WHERE_AND + Space;
+                case DataChar.LogicChar.OR:
+                    return Space + WHERE_OR + Space;
+                default:
+                    return LogicCharString(DataChar.LogicChar.AND);
+            }
+        }
+
+        /// <summary>
+        /// 字段值模型解析
+        /// </summary>
+        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals) {
+            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false);
+        }
+        /// <summary>
+        /// 字段值模型解析 固定操作字符
+        /// </summary>
+        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar) {
+            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, true);
+        }
+        private static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool isFixed) {
+            List<string> existed_names = new List<string>();
+            return ConvertTool.ListConvertType(fielvals, FVm => {
+                if (existed_names.Contains(FVm.Name)) {
+                    return string.Empty;
+                } else {
+                    existed_names.Add(FVm.Name);
+                }
+                return OperCharResultString(isFixed ? fixedOperChar : FVm.KeyChar, FVm);
+            }, string.Empty);
+        }
+        private static string OperCharResultString(DataChar.OperChar operChar, FieldValueModel FVm) {
+            switch (operChar) {
+                case DataChar.OperChar.EQUAL:
+                    return WhereEqual(FVm.Name, FVm.Value);
+                case DataChar.OperChar.EQUAL_NOT:
+                    return WhereEqualNot(FVm.Name, FVm.Value);
+                case DataChar.OperChar.LIKE:
+                    return WhereLike(FVm.Name, FVm.Value);
+                case DataChar.OperChar.IN:
+                    return WhereIn(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
+                case DataChar.OperChar.IN_NOT:
+                    return WhereInNot(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
+                case DataChar.OperChar.BigTHAN:
+                    return WhereBigThan(FVm.Name, FVm.Value);
+                case DataChar.OperChar.BigTHAN_EQUAL:
+                    return WhereBigThanEqual(FVm.Name, FVm.Value);
+                case DataChar.OperChar.SmallTHAN:
+                    return WhereSmallThan(FVm.Name, FVm.Value);
+                case DataChar.OperChar.SmallTHAN_EQUAL:
+                    return WhereSmallThanEqual(FVm.Name, FVm.Value);
+                default:
+                    return OperCharResultString(DataChar.OperChar.EQUAL, FVm);
+            }
+        }
+
+        /// <summary>
+        /// 字段排序模型解析
+        /// </summary>
+        public static string ParserFieldOrderModel(FieldOrderModel[] fieldOrders) {
+            List<string> existed_names = new List<string>();
+            string[] item_strs = ConvertTool.ListConvertType(fieldOrders, FOm => {
+                if (existed_names.Contains(FOm.Name)) {
+                    return string.Empty;
+                } else {
+                    existed_names.Add(FOm.Name);
+                }
+                return string.Format("{0} {1}", FOm.Name, FOm.IsAsc ? ORDERBY_ASC : ORDERBY_DESC);
+            }, string.Empty);
+            return ConvertTool.IListToString(item_strs, ',');
         }
         #endregion
     }

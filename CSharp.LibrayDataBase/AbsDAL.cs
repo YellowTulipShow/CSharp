@@ -67,23 +67,18 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="wheres">条件筛选</param>
         /// <returns></returns>
-        public virtual M GetModel(WhereModel wheres) {
+        public virtual M GetModel(WhereModel wheres, FieldOrderModel[] fieldOrders = null) {
             M[] list = Select(1, wheres);
-            if (CheckData.IsSizeEmpty(list)) {
-                return CreateDefaultModel();
-            }
-            return list[0];
+            return (CheckData.IsSizeEmpty(list)) ? null : list[0];
         }
         /// <summary>
         /// 获取模型数据
         /// </summary>
         /// <param name="fielvals">条件筛选</param>
         /// <returns></returns>
-        public virtual M GetModel(FieldValueModel fielvals) {
-            if (CheckData.IsObjectNull(fielvals) || CheckData.IsStringNull(fielvals.Name)) {
-                return null;
-            }
-            return GetModel(new WhereModel() { FielVals = new FieldValueModel[] { fielvals }, });
+        public virtual M GetModel(FieldValueModel fielvals, FieldOrderModel[] fieldOrders = null) {
+            return (FieldValueModel.CheckIsCanUse(fielvals)) ? null :
+                GetModel(new WhereModel() { FielVals = new FieldValueModel[] { fielvals }, }, fieldOrders);
         }
     }
 }
