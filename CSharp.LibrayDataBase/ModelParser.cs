@@ -8,6 +8,9 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     public class ColumnModelParser<M> where M : AbsModelNull
     {
+        /// <summary>
+        /// 列字段列表数组
+        /// </summary>
         public ColumnItemModel[] ColumnInfoArray { get { return _columnInfoArray; } }
         private readonly ColumnItemModel[] _columnInfoArray = null;
 

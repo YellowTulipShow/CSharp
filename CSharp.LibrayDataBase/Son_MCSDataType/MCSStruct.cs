@@ -8,7 +8,6 @@ namespace CSharp.LibrayDataBase.MCSDataType
     public class MCSStruct : AbsCsType
     {
         public override object ToModelValue(ColumnItemModel colinfo, object value) {
-            Type t = colinfo.Property.PropertyType;
             return value;
         }
     }

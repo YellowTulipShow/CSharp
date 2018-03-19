@@ -259,6 +259,9 @@ namespace CSharp.LibrayDataBase
         /// 条件模型解析
         /// </summary>
         public static string ParserWhereModel(WhereModel wheres) {
+            if (CheckData.IsObjectNull(wheres)) {
+                return string.Empty;
+            }
             List<string> resultArray = new List<string>();
             string[] fielVals = ParserFieldValueModel(wheres.FielVals);
             resultArray.AddRange(fielVals);
@@ -295,6 +298,9 @@ namespace CSharp.LibrayDataBase
             return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, true);
         }
         private static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool isFixed) {
+            if (CheckData.IsSizeEmpty(fielvals)) {
+                return new string[] { };
+            }
             List<string> existed_names = new List<string>();
             return ConvertTool.ListConvertType(fielvals, FVm => {
                 if (existed_names.Contains(FVm.Name)) {
@@ -334,6 +340,9 @@ namespace CSharp.LibrayDataBase
         /// 字段排序模型解析
         /// </summary>
         public static string ParserFieldOrderModel(FieldOrderModel[] fieldOrders) {
+            if (CheckData.IsSizeEmpty(fieldOrders)) {
+                return string.Empty;
+            }
             List<string> existed_names = new List<string>();
             string[] item_strs = ConvertTool.ListConvertType(fieldOrders, FOm => {
                 if (existed_names.Contains(FOm.Name)) {
@@ -344,6 +353,89 @@ namespace CSharp.LibrayDataBase
                 return string.Format("{0} {1}", FOm.Name, FOm.IsAsc ? ORDERBY_ASC : ORDERBY_DESC);
             }, string.Empty);
             return ConvertTool.IListToString(item_strs, ',');
+        }
+        #endregion
+
+        #region ====== Basic SQL Grammar ======
+        public static string Insert(string table_name, string[] column_names, string[] column_values) {
+            string fieldStr = ConvertTool.IListToString(column_names, ',');
+            string valueStr = ConvertTool.IListToString(column_values, ',');
+            return string.Format("insert into {0}({1}) values({2})", column_names, fieldStr, valueStr);
+        }
+        #endregion
+
+        #region ====== Tools Method ======
+        /// <summary>
+        /// 创建 SQL if 语句
+        /// </summary>
+        /// <param name="whereExpression">条件表达式, 必填</param>
+        /// <param name="trueCode">true 代码执行体, 必填</param>
+        /// <param name="falseCode">false 代码执行体, 选填</param>
+        /// <returns></returns>
+        public static string If(string whereExpression, string trueCode, string falseCode = @"") {
+            if (CheckData.IsStringNull(whereExpression.Trim()) || CheckData.IsStringNull(trueCode.Trim()))
+                return string.Empty;
+            string sql = string.Format("if {0} begin {1} end", whereExpression, trueCode);
+            if (!CheckData.IsStringNull(falseCode.Trim())) {
+                sql += string.Format(" else begin {0} end", falseCode);
+            }
+            return sql;
+        }
+        /// <summary>
+        /// 检测条件是否存在
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public static string NotExists(string where) {
+            return string.Format("not exists({0})", where);
+        }
+        /// <summary>
+        /// 清空数据表的数据, 但保留列信息
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        public static string TruncateTable(string table_name) {
+            return string.Format("truncate table {0}", table_name);
+        }
+        /// <summary>
+        /// 清空数据表的所有, 包括数据表和列信息
+        /// </summary>
+        /// <param name="table_name">表名信息</param>
+        /// <returns></returns>
+        public static string DropTable(string table_name) {
+            return string.Format("drop table {0}", table_name);
+        }
+        /// <summary>
+        /// 在SQL Server系统中查询表名信息 返回一条数据, 并只返回 object_id 信息
+        /// </summary>
+        /// <returns>返回一条数据, 并只返回 object_id 信息</returns>
+        public static string MSSSysTable(string table_name) {
+            return string.Format("select top 1 object_id from sys.tables where name = '{0}'", table_name);
+        }
+        /// <summary>
+        /// 在SQL Server系统中查询列名信息
+        /// </summary>
+        /// <param name="table_name">列名所属的表名</param>
+        /// <param name="column_name">列名</param>
+        /// <returns>返回多条数据</returns>
+        public static string MSSSysColumns(string table_name, string column_name) {
+            return string.Format("select * from sys.columns where name = '{0}' and object_id = ({1})", column_name, MSSSysTable(table_name));
+        }
+        /// <summary>
+        /// 创建一个表
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="column_formats">所有的列格式信息</param>
+        public static string CreateTable(string table_name, string[] column_formats) {
+            string columnFormats = ConvertTool.IListToString(column_formats, ',');
+            return string.Format("CREATE TABLE {0} ({1})", table_name, columnFormats);
+        }
+        /// <summary>
+        /// 对数据表添加列
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="column_format">列的相关信息</param>
+        public static string AlterColumn(string table_name, string column_format) {
+            return string.Format("ALTER TABLE {0} ADD {1}", table_name, column_format);
         }
         #endregion
     }

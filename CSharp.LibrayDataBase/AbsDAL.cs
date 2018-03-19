@@ -16,8 +16,8 @@ namespace CSharp.LibrayDataBase
         /// 构造函数
         /// </summary>
         public AbsDAL() {
-            modelParser = new ColumnModelParser<M>();
-            this.tableName = CreateDefaultModel().GetTableName();
+            this.modelParser = new ColumnModelParser<M>();
+            this.tableName = this.modelParser.CreateDefaultModel().GetTableName();
         }
 
         /// <summary>

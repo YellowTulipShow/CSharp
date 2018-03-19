@@ -68,7 +68,7 @@
     <Compile Include="Case.SonTests\Test_CheckData.cs" />
     <Compile Include="Case.SonTests\Test_ConvertTool.cs" />
     <Compile Include="Case.SonTests\Test_DateTime.cs" />
-    <Compile Include="Case.SonTests\Test_EnumExplain.cs" />
+    <Compile Include="Case.SonTests\Test_Enum.cs" />
     <Compile Include="Case.SonTests\Test_Explain.cs" />
     <Compile Include="Case.SonTests\Test_Lambda.cs" />
     <Compile Include="Case.SonTests\Test_ListSortMethod.cs" />

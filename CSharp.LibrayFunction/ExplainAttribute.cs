@@ -30,6 +30,5 @@ namespace CSharp.LibrayFunction
                 explainAttr = new ExplainAttribute("未知元素");
             return explainAttr;
         }
-
     }
 }
