@@ -101,7 +101,17 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="dbDataType">枚举: 数据库值类型</param>
         public ColumnAttribute(MSSFieldTypeStruct dbDataType) {
-            this._dbType = AnalysisTypeStruct(dbDataType);
+            switch (dbDataType) {
+                case MSSFieldTypeStruct.Int:
+                    this._dbType = new MSSInt();
+                    break;
+                case MSSFieldTypeStruct.Money:
+                    this._dbType = new MSSMoney();
+                    break;
+                default:
+                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
+                    break;
+            }
         }
         /// <summary>
         /// 初始化信息 数据类型为一种: 默认值特殊类型
@@ -109,7 +119,30 @@ namespace CSharp.LibrayDataBase
         /// <param name="dbDataType">枚举: 数据库值类型</param>
         /// <param name="defalutEnum">枚举: 数据库默认值</param>
         public ColumnAttribute(MSSFieldTypeDefault dbDataType, MSSDefalutValues defalutEnum) {
-            this._dbType = AnalysisTypeDefalut(dbDataType, AnalysisDefalutValue(defalutEnum));
+            object defalutValue = new object();
+            switch (defalutEnum) {
+                case MSSDefalutValues.DateTimeNow:
+                    defalutValue = DateTime.Now.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
+                    break;
+                case MSSDefalutValues.SqlMinDateTime:
+                    defalutValue = SqlDateTime.MinValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
+                    break;
+                case MSSDefalutValues.SqlMaxDateTime:
+                    defalutValue = SqlDateTime.MaxValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
+                    break;
+                default:
+                    defalutValue = string.Empty;
+                    break;
+            }
+
+            switch (dbDataType) {
+                case MSSFieldTypeDefault.Datetime:
+                    this._dbType = new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
+                    break;
+                default:
+                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
+                    break;
+            }
         }
         /// <summary>
         /// 初始化信息 数据类型为一种: 字符类型 需指定字符长度
@@ -117,51 +150,22 @@ namespace CSharp.LibrayDataBase
         /// <param name="dbDataType">枚举: 数据库值类型</param>
         /// <param name="charCount">正整数: 字符长度</param>
         public ColumnAttribute(MSSFieldTypeCharCount dbDataType, ushort charCount) {
-            this._dbType = AnalysisTypeCharCount(dbDataType, charCount);
-        }
-
-        /// <summary>
-        /// 解析枚举数据库-值类型
-        /// </summary>
-        private AbsFieldType AnalysisTypeStruct(MSSFieldTypeStruct dbDataType) {
             switch (dbDataType) {
-                case MSSFieldTypeStruct.Int: return new MSSInt();
-                case MSSFieldTypeStruct.Money: return new MSSMoney();
-                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-            }
-        }
-        /// <summary>
-        /// 解析枚举数据库-字符类型
-        /// </summary>
-        private AbsFieldType AnalysisTypeCharCount(MSSFieldTypeCharCount dbDataType, ushort charCount) {
-            switch (dbDataType) {
-                case MSSFieldTypeCharCount.Char: return new MSSChar(charCount);
-                case MSSFieldTypeCharCount.NChar: return new MSSNChar(charCount);
-                case MSSFieldTypeCharCount.VarChar: return new MSSVarChar(charCount);
-                case MSSFieldTypeCharCount.NVarChar: return new MSSNVarChar(charCount);
-                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-            }
-        }
-        /// <summary>
-        /// 解析枚举数据库-默认值特殊类型
-        /// </summary>
-        private AbsFieldType AnalysisTypeDefalut(MSSFieldTypeDefault dbDataType, object defalutValue) {
-            switch (dbDataType) {
-                case MSSFieldTypeDefault.Datetime:
-                    return new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
-                default: return new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-            }
-        }
-
-        /// <summary>
-        /// 解析枚举数据库-默认值
-        /// </summary>
-        private object AnalysisDefalutValue(MSSDefalutValues defalutEnum) {
-            switch (defalutEnum) {
-                case MSSDefalutValues.DateTimeNow: return DateTime.Now.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                case MSSDefalutValues.SqlMinDateTime: return SqlDateTime.MinValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                case MSSDefalutValues.SqlMaxDateTime: return SqlDateTime.MaxValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                default: return string.Empty;
+                case MSSFieldTypeCharCount.Char:
+                    this._dbType = new MSSChar(charCount);
+                    break;
+                case MSSFieldTypeCharCount.NChar:
+                    this._dbType = new MSSNChar(charCount);
+                    break;
+                case MSSFieldTypeCharCount.VarChar: 
+                    this._dbType = new MSSVarChar(charCount);
+                    break;
+                case MSSFieldTypeCharCount.NVarChar: 
+                    this._dbType = new MSSNVarChar(charCount);
+                    break;
+                default:
+                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
+                    break;
             }
         }
         #endregion
@@ -183,17 +187,15 @@ namespace CSharp.LibrayDataBase
         /// 设置字段CSharp数据类型-枚举指定。
         /// </summary>
         public CsDTEnum CsTypeEnumSign {
-            get { return _csTypeEnumSign; }
+            get { return CsDTEnum.Struct; }
             set {
-                _csTypeEnumSign = value;
-                switch (_csTypeEnumSign) {
+                switch (value) {
                     case CsDTEnum.Struct: _csType = new MCSDataType.MCSStruct(); break;
                     case CsDTEnum.Enum: _csType = new MCSDataType.MCSEnum(); break;
                     default: CsTypeEnumSign = CsDTEnum.Struct; break;
                 }
             }
         }
-        private CsDTEnum _csTypeEnumSign = CsDTEnum.Struct;
         /// <summary>
         /// 获取字段CSharp数据类型
         /// </summary>
@@ -236,7 +238,7 @@ namespace CSharp.LibrayDataBase
 
 
         /// <summary>
-        /// 获取或设置是否列包含数据库自动生成的值。
+        /// 获取或设置是否列包含数据系统自动生成的值。
         /// </summary>
         public bool IsDbGenerated {
             get { return _isDbGenerated; }

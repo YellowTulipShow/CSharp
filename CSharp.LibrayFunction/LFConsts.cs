@@ -29,7 +29,7 @@ namespace CSharp.LibrayFunction
 
         #region ====== Table DateTime Format ======
         /// <summary>
-        /// 数据表时间格式 精确至: 毫秒 (取后三位)
+        /// 数据表时间格式 精确至: 毫秒 (取前三位)
         /// </summary>
         public const string TABLE_DATETIME_FORMAT_MILLISECOND = "yyyy-MM-dd HH:mm:ss.fff";
         /// <summary>

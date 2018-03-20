@@ -48,6 +48,7 @@
     <Compile Include="AbsFieldType.cs" />
     <Compile Include="CreateSQL.cs" />
     <Compile Include="DataChar.cs" />
+    <Compile Include="DataTypeParser.cs" />
     <Compile Include="IBasicDataAccess.cs" />
     <Compile Include="WhereModel.cs" />
     <Compile Include="KeyValueModel.cs" />

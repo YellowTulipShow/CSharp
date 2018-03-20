@@ -24,7 +24,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 },
                 new CaseModel() {
                     NameSign =  @"反向生成枚举值",
-                    ExeEvent = GetExplain_Method,
+                    ExeEvent = CreateEnumValue,
                 },
             };
         }
@@ -54,7 +54,85 @@ namespace Test.ConsoleProgram.Case.SonTests
             Print.WriteLine("LEKEY.Value.GetExplain().Text 结果: ");
             Print.WriteLine(LEKEY.Value.GetExplain().Text);
         }
-        
 
+
+        [Table]
+        public class TestTypeModel : AbsModelNull
+        {
+            public override string GetTableName() {
+                return @"dt_TestTypeModel";
+            }
+
+            /// <summary>
+            /// 性别值
+            /// </summary>
+            [Explain(@"性别值")]
+            public enum SexEnum
+            {
+                /// <summary>
+                /// 保密
+                /// </summary>
+                [Explain(@"保密")]
+                Secrecy = 0,
+                /// <summary>
+                /// 男
+                /// </summary>
+                [Explain(@"男")]
+                Male = 1,
+                /// <summary>
+                /// 女
+                /// </summary>
+                [Explain(@"女")]
+                Female = 2,
+            }
+            /// <summary>
+            /// 性别
+            /// </summary>
+            [Explain(@"性别")]
+            //[Column(MSSFieldTypeStruct.Int)]
+            [Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
+            public SexEnum Sex {
+                get { return _sex; }
+                set {
+                    if (Enum.IsDefined(typeof(SexEnum), value)) {
+                        _sex = value;
+                    }
+                }
+            }
+            private SexEnum _sex = SexEnum.Secrecy;
+
+
+            /// <summary>
+            /// 真实姓名
+            /// </summary>
+            [Explain(@"真实姓名")]
+            [Column(MSSFieldTypeCharCount.NVarChar, 30, SortIndex = 10)]
+            public string RealName { get { return _realName; } set { _realName = value; } }
+            private string _realName = string.Empty;
+        }
+        public void CreateEnumValue() {
+            ColumnModelParser<TestTypeModel> modelParser = new ColumnModelParser<TestTypeModel>();
+
+            TestTypeModel ttm = modelParser.CreateDefaultModel();
+            foreach (ColumnItemModel item in modelParser.ColumnInfoArray) {
+                Print.WriteLine(item.Property.Name);
+                Print.WriteLine(item.Explain.Text);
+
+                object vvv = @"责任区";
+                if (item.Property.PropertyType.BaseType == typeof(Enum)) {
+                    //vvv = new Random().Next(1, 3);
+                    vvv = 1;
+                }
+
+                Print.WriteLine(item.Property.PropertyType.Name);
+                ttm = modelParser.FillValue(item, ttm, vvv);
+
+                Print.WriteLine(string.Empty);
+            }
+
+            Print.WriteLine(ttm.Sex.ToString());
+            Print.WriteLine(ttm.ToJson());
+            //Enum.Parse()
+        }
     }
 }
