@@ -27,7 +27,8 @@ namespace CSharp.LibrayDataBase
         /// 添加时间
         /// </summary>
         [Explain(@"添加时间")]
-        [Column(MSSFieldTypeDefault.Datetime, MSSDefalutValues.DateTimeNow, SortIndex = ushort.MinValue + 1)]
+        //[Column(MSSFieldTypeDefault.Datetime, MSSDefalutValues.DateTimeNow, SortIndex = ushort.MinValue + 1)]
+        [Column(MSQLServerDTParser.DTEnum.DateTime, DefaultValue = ConstData.ConstEnum.DateTimeNow, SortIndex = ushort.MinValue + 1)]
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
         private DateTime _timeAdd = DateTime.Now;
     }
@@ -41,7 +42,7 @@ namespace CSharp.LibrayDataBase
         /// 备注
         /// </summary>
         [Explain(@"备注")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 500, SortIndex = ushort.MinValue + 1)]
+        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = 500, SortIndex = ushort.MinValue + 1)]
         public string Remark { get { return _remark; } set { _remark = value; } }
         private string _remark = String.Empty;
     }
@@ -55,7 +56,7 @@ namespace CSharp.LibrayDataBase
         /// 自增ID
         /// </summary>
         [Explain(@"自增ID")]
-        [Column(MSSFieldTypeStruct.Int, IsPrimaryKey = true, IsIDentity = true, SortIndex = ushort.MinValue)]
+        [Column(MSQLServerDTParser.DTEnum.Int, IsPrimaryKey = true, IsIDentity = true, SortIndex = ushort.MinValue)]
         public int id { get { return _id; } set { _id = value; } }
         private int _id = 0;
     }

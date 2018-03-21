@@ -90,7 +90,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             /// </summary>
             [Explain(@"性别")]
             //[Column(MSSFieldTypeStruct.Int)]
-            [Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
+            [Column(MSQLServerDTParser.DTEnum.Int, CsTypeEnumSign = CsDTEnum.Enum)]
             public SexEnum Sex {
                 get { return _sex; }
                 set {
@@ -106,7 +106,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             /// 真实姓名
             /// </summary>
             [Explain(@"真实姓名")]
-            [Column(MSSFieldTypeCharCount.NVarChar, 30, SortIndex = 10)]
+            [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = 30, SortIndex = 10)]
             public string RealName { get { return _realName; } set { _realName = value; } }
             private string _realName = string.Empty;
         }

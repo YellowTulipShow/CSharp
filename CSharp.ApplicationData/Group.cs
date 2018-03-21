@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 组别名称
         /// </summary>
         [Explain(@"组别名称")]
-        [Column(MSSFieldTypeCharCount.NVarChar, 30)]
+        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = 30)]
         public string Name { get { return _name; } set { _name = value; } }
         private string _name = string.Empty;
 
@@ -48,7 +48,7 @@ namespace CSharp.ApplicationData
         /// 组别类型-(使用枚举 enum GroupTypeEnum 赋值)
         /// </summary>
         [Explain(@"组别类型")]
-        [Column(MSSFieldTypeStruct.Int)]
+        [Column(MSQLServerDTParser.DTEnum.Int)]
         public int GroupType {
             get { return _groupType; }
             set {

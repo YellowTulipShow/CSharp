@@ -45,11 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsCsType.cs" />
-    <Compile Include="AbsFieldType.cs" />
+    <Compile Include="AbsDataType.cs" />
     <Compile Include="CreateSQL.cs" />
     <Compile Include="DataChar.cs" />
-    <Compile Include="DataTypeParser.cs" />
+    <Compile Include="ALLDataTypeFile.cs" />
     <Compile Include="IBasicDataAccess.cs" />
+    <Compile Include="MSSDataType\MSQLServerDTParser.cs" />
     <Compile Include="WhereModel.cs" />
     <Compile Include="KeyValueModel.cs" />
     <Compile Include="AbsDAL.cs" />
@@ -69,13 +70,13 @@
     <Compile Include="AbsBLL.cs" />
     <Compile Include="Son_MCSDataType\MCSEnum.cs" />
     <Compile Include="Son_MCSDataType\MCSStruct.cs" />
-    <Compile Include="Son_MSSDataType\MSSMoney.cs" />
-    <Compile Include="Son_MSSDataType\MSSInt.cs" />
-    <Compile Include="Son_MSSDataType\MSSDatetime.cs" />
-    <Compile Include="Son_MSSDataType\MSSChar.cs" />
-    <Compile Include="Son_MSSDataType\MSSNChar.cs" />
-    <Compile Include="Son_MSSDataType\MSSVarChar.cs" />
-    <Compile Include="Son_MSSDataType\MSSNvarchar.cs" />
+    <Compile Include="MSSDataType\MSSMoney.cs" />
+    <Compile Include="MSSDataType\MSSInt.cs" />
+    <Compile Include="MSSDataType\MSSDateTime.cs" />
+    <Compile Include="MSSDataType\MSSChar.cs" />
+    <Compile Include="MSSDataType\MSSNChar.cs" />
+    <Compile Include="MSSDataType\MSSVarChar.cs" />
+    <Compile Include="MSSDataType\MSSNVarChar.cs" />
     <Compile Include="Utils\CommandInfo.cs">
       <SubType>
       </SubType>

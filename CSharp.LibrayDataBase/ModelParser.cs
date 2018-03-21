@@ -34,7 +34,7 @@ namespace CSharp.LibrayDataBase
         public KeyValueModel ExtractValue(ColumnItemModel c, M sourceModel) {
             return new KeyValueModel() {
                 Key = c.Property.Name,
-                Value = c.Attribute.DbType.PrintSaveValue(c.Property.GetValue(sourceModel, null)),
+                Value = c.Attribute.DbType.TypeConvert(c.Property.GetValue(sourceModel, null)).ToString(),
             };
         }
 

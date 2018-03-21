@@ -152,7 +152,7 @@ namespace CSharp.LibrayDataBase
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
             foreach (ColumnItemModel item in base.modelParser.ColumnInfoArray) {
                 string datafieldName = item.Property.Name;
-                string datatypeName = item.Attribute.DbType.FieldTypeName();
+                string datatypeName = item.Attribute.DbType.TypeName();
                 string value = string.Format("{0} {1}", datafieldName, datatypeName);
                 if (item.Attribute.IsPrimaryKey)
                     value += @" primary key";

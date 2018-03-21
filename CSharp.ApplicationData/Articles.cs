@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 文章内容
         /// </summary>
         [Explain(@"文章内容")]
-        [Column(MSSFieldTypeCharCount.NVarChar, AbsFieldTypeCharMAX.MAXCHARSIGN)]
+        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = AbsDataType.CHARLENGTH_MAX_SIGN)]
         public string Content { get { return _content; } set { _content = value; } }
         private string _content = string.Empty;
 
@@ -32,7 +32,7 @@ namespace CSharp.ApplicationData
         /// 文章金额
         /// </summary>
         [Explain(@"文章金额")]
-        [Column(MSSFieldTypeStruct.Money)]
+        [Column(MSQLServerDTParser.DTEnum.Money)]
         public decimal Money { get { return _money; } set { _money = value; } }
         private decimal _money = 0M;
 

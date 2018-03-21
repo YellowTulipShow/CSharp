@@ -1,77 +1,9 @@
 ﻿using System;
 using System.Data.SqlTypes;
 using CSharp.LibrayFunction;
-using CSharp.LibrayDataBase.MSSDataType;
 
 namespace CSharp.LibrayDataBase
 {
-    #region === DataBase Field Type Enum ===
-    /// <summary>
-    /// Microsoft SQL Server 数据库字段类型: 值类型
-    /// </summary>
-    public enum MSSFieldTypeStruct
-    {
-        /// <summary>
-        /// 数值整形
-        /// </summary>
-        Int = 0,
-        /// <summary>
-        /// 金额字段 搭配C#程序的数据类型是 decimal
-        /// </summary>
-        Money = 4,
-    }
-
-    /// <summary>
-    /// Microsoft SQL Server 数据库字段类型: 限定字符长度
-    /// </summary>
-    public enum MSSFieldTypeCharCount
-    {
-        /// <summary>
-        /// 固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000, 不存中文)
-        /// </summary>
-        Char = 5,
-        /// <summary>
-        /// 固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)
-        /// </summary>
-        NChar = 6,
-        /// <summary>
-        /// 可变长度，存储ANSI字符，根 据数据长度自动变化。(1-8000，不存中文 MAX Yes size: 2^31-1byte 4GB)
-        /// </summary>
-        VarChar = 7,
-        /// <summary>
-        /// 可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)
-        /// </summary>
-        NVarChar = 0,
-    }
-
-    /// <summary>
-    /// Microsoft SQL Server 数据库字段类型: 不为空, 需要默认值
-    /// </summary>
-    public enum MSSFieldTypeDefault
-    {
-        Datetime = 0,
-    }
-
-    /// <summary>
-    /// Microsoft SQL Server 默认值
-    /// </summary>
-    public enum MSSDefalutValues
-    {
-        /// <summary>
-        /// 当前时间
-        /// </summary>
-        DateTimeNow = 0,
-        /// <summary>
-        /// Microsoft SQL Server 最小值时间
-        /// </summary>
-        SqlMinDateTime = 2,
-        /// <summary>
-        /// Microsoft SQL Server 最大值时间
-        /// </summary>
-        SqlMaxDateTime = 3,
-    }
-    #endregion
-
     #region === CSharp Program Data Type Enum ===
     /// <summary>
     /// CSharp 程序数据类型
@@ -95,92 +27,39 @@ namespace CSharp.LibrayDataBase
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ColumnAttribute : AbsBasicAttribute
     {
-        #region === Constructor Init DataType ===
         /// <summary>
         /// 初始化信息 数据类型为一种: 值类型
         /// </summary>
         /// <param name="dbDataType">枚举: 数据库值类型</param>
-        public ColumnAttribute(MSSFieldTypeStruct dbDataType) {
-            switch (dbDataType) {
-                case MSSFieldTypeStruct.Int:
-                    this._dbType = new MSSInt();
-                    break;
-                case MSSFieldTypeStruct.Money:
-                    this._dbType = new MSSMoney();
-                    break;
-                default:
-                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-                    break;
-            }
+        public ColumnAttribute(MSQLServerDTParser.DTEnum dtenum) {
+            this._dbType = MSQLServerDTParser.DataTypeBind(dtenum);
         }
-        /// <summary>
-        /// 初始化信息 数据类型为一种: 默认值特殊类型
-        /// </summary>
-        /// <param name="dbDataType">枚举: 数据库值类型</param>
-        /// <param name="defalutEnum">枚举: 数据库默认值</param>
-        public ColumnAttribute(MSSFieldTypeDefault dbDataType, MSSDefalutValues defalutEnum) {
-            object defalutValue = new object();
-            switch (defalutEnum) {
-                case MSSDefalutValues.DateTimeNow:
-                    defalutValue = DateTime.Now.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                    break;
-                case MSSDefalutValues.SqlMinDateTime:
-                    defalutValue = SqlDateTime.MinValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                    break;
-                case MSSDefalutValues.SqlMaxDateTime:
-                    defalutValue = SqlDateTime.MaxValue.Value.ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND);
-                    break;
-                default:
-                    defalutValue = string.Empty;
-                    break;
-            }
-
-            switch (dbDataType) {
-                case MSSFieldTypeDefault.Datetime:
-                    this._dbType = new MSSDatetime(ConvertTool.ObjToSqlDateTime(defalutValue, new SqlDateTime(DateTime.Now)));
-                    break;
-                default:
-                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-                    break;
-            }
-        }
-        /// <summary>
-        /// 初始化信息 数据类型为一种: 字符类型 需指定字符长度
-        /// </summary>
-        /// <param name="dbDataType">枚举: 数据库值类型</param>
-        /// <param name="charCount">正整数: 字符长度</param>
-        public ColumnAttribute(MSSFieldTypeCharCount dbDataType, ushort charCount) {
-            switch (dbDataType) {
-                case MSSFieldTypeCharCount.Char:
-                    this._dbType = new MSSChar(charCount);
-                    break;
-                case MSSFieldTypeCharCount.NChar:
-                    this._dbType = new MSSNChar(charCount);
-                    break;
-                case MSSFieldTypeCharCount.VarChar: 
-                    this._dbType = new MSSVarChar(charCount);
-                    break;
-                case MSSFieldTypeCharCount.NVarChar: 
-                    this._dbType = new MSSNVarChar(charCount);
-                    break;
-                default:
-                    this._dbType = new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
-                    break;
-            }
-        }
-        #endregion
 
 
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        public AbsFieldType DbType {
+        public AbsDataType DbType {
             get {
-                return !_dbType.IsObjectNull() ? _dbType :
-                    new MSSNVarChar(AbsFieldTypeCharMAX.MAXCHARSIGN);
+                return !_dbType.IsObjectNull() ? _dbType : new MSSDataType.MSSNVarChar();
             }
         }
-        private AbsFieldType _dbType = null;
+        private AbsDataType _dbType = null;
+
+        /// <summary>
+        /// 设置字符长度
+        /// </summary>
+        public ushort CharLength {
+            get { return this.DbType.CharLength; }
+            set { this.DbType.SetCharLength(value); }
+        }
+        /// <summary>
+        /// 设置默认值
+        /// </summary>
+        public ConstData.ConstEnum DefaultValue {
+            get { return this.DbType.DefaultValue; }
+            set { this.DbType.SetDefaultValue(value); }
+        }
 
 
         /// <summary>

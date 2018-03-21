@@ -11,7 +11,9 @@ namespace CSharp.LibrayFunction
     public class ExplainAttribute : System.Attribute
     {
         public ExplainAttribute(String explaninStr) {
-            this._text = explaninStr;
+            if (CheckData.IsStringNull(explaninStr)) {
+                this._text = explaninStr;
+            }
         }
 
         /// <summary>
@@ -19,7 +21,6 @@ namespace CSharp.LibrayFunction
         /// </summary>
         public String Text { get { return _text; } }
         private String _text = String.Empty;
-
 
         /// <summary>
         /// 获得解释特性信息
