@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlTypes;
 using CSharp.LibrayFunction;
-using CSharp.LibrayDataBase.MSSDataType;
 
 namespace CSharp.LibrayDataBase
 {
@@ -57,6 +56,7 @@ namespace CSharp.LibrayDataBase
             return string.Empty;
         }
     }
+
     /// <summary>
     /// Microsoft SQL Server 数据类型解析器
     /// </summary>
@@ -97,25 +97,25 @@ namespace CSharp.LibrayDataBase
         public static AbsDataType DataTypeBind(DTEnum dtenum) {
             switch (dtenum) {
                 case DTEnum.Char:
-                    return new MSSChar();
+                    return new MSSDataType.MSSChar();
                     break;
                 case DTEnum.DateTime:
-                    return new MSSDateTime();
+                    return new MSSDataType.MSSDateTime();
                     break;
                 case DTEnum.Int:
-                    return new MSSInt();
+                    return new MSSDataType.MSSInt();
                     break;
                 case DTEnum.Money:
-                    return new MSSMoney();
+                    return new MSSDataType.MSSMoney();
                     break;
                 case DTEnum.NChar:
-                    return new MSSNChar();
+                    return new MSSDataType.MSSNChar();
                     break;
                 case DTEnum.NVarChar:
-                    return new MSSNVarChar();
+                    return new MSSDataType.MSSNVarChar();
                     break;
                 case DTEnum.VarChar:
-                    return new MSSVarChar();
+                    return new MSSDataType.MSSVarChar();
                     break;
                 default:
                     return DataTypeBind(DTEnum.NVarChar);

@@ -13,168 +13,33 @@ namespace CSharp.LibrayDataBase
     /// Microsoft SQL Server 2008 版本数据库 数据访问器
     /// </summary>
     /// <typeparam name="M">数据访问模型</typeparam>
-    public class BLLSQLServer<M> : AbsBLL<DALSQLServer<M>, M>
-        //, IDefaultRecord<M>
-        where M : AbsModelNull
+    public class BLLSQLServer<M> : AbsBLL<DALSQLServer<M>, M> where M : AbsModelNull
     {
         public BLLSQLServer(DALSQLServer<M> dal) : base(dal) { }
-
-        //public static bool Transaction(string[] sqllist) {
-        //    return DALSQLServer<M>.Transaction(sqllist);
-        //}
-        //#region === IBasicsSQL<M> ===
-        //public string SQLInsert(M model) {
-        //    return TableDAL.SQLInsert(model);
-        //}
-
-        //public string SQLDelete(M model) {
-        //    return TableDAL.SQLDelete(model);
-        //}
-
-        //public string SQLUpdate(M model) {
-        //    return TableDAL.SQLUpdate(model);
-        //}
-        //#endregion
-
-        //#region === ITableBasicFunction<M> ===
-        //public int GetRecordCount(string strWhere) {
-        //    return TableDAL.GetRecordCount(strWhere);
-        //}
-
-        //public bool Insert(M model, out int IDentity) {
-        //    return TableDAL.Insert(model, out IDentity);
-        //}
-
-        //public bool Delete(M model) {
-        //    return TableDAL.Delete(model);
-        //}
-
-        //public bool Update(M model) {
-        //    return TableDAL.Update(model);
-        //}
-
-        //public M GetModel(int IDentity) {
-        //    return TableDAL.GetModel(IDentity);
-        //}
-
-        //public M DataRowToModel(DataRow row) {
-        //    return TableDAL.DataRowToModel(row);
-        //}
-
-        //public M[] GetModelList(DataTable dt) {
-        //    return TableDAL.GetModelList(dt);
-        //}
-
-        //public DataTable GetList(int top = 0, string strWhere = "", Dictionary<string, bool> fieldOrders = null) {
-        //    DataTable dt = TableDAL.GetList(top, strWhere, fieldOrders);
-        //    if (CheckData.IsSizeEmpty(dt)) {
-        //        KeepDataNotBlank();
-        //        dt = TableDAL.GetList(top, strWhere, fieldOrders);
-        //    }
-        //    return dt;
-        //}
-
-        //public DataTable GetList(int pageCount, int pageIndex, out int recordCount, string strWhere, Dictionary<string, bool> fieldOrders) {
-        //    DataTable dt = TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
-        //    if (CheckData.IsSizeEmpty(dt)) {
-        //        KeepDataNotBlank();
-        //        dt = TableDAL.GetList(pageCount, pageIndex, out recordCount, strWhere, fieldOrders);
-        //    }
-        //    return dt;
-        //}
-        //#endregion
-
-        ///// <summary>
-        ///// 保持数据不空白
-        ///// </summary>
-        //private void KeepDataNotBlank() {
-        //    M model = DefaultDataModel();
-        //    if (CheckData.IsObjectNull(model))
-        //        return;
-        //    int count = GetRecordCount(string.Empty);
-        //    if (count <= 0) {
-        //        int id = 0;
-        //        Insert(model, out id);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 默认数据模型
-        ///// </summary>
-        //public virtual M DefaultDataModel() {
-        //    return null;
-        //}
     }
 
     /// <summary>
     /// Microsoft SQL Server 2008 版本数据库 数据访问器
     /// </summary>
     /// <typeparam name="M">数据访问模型</typeparam>
-    public class DALSQLServer<M> : AbsDAL<M>
-        where M : AbsModelNull
+    public class DALSQLServer<M> : AbsDAL<M> where M : AbsModelNull
     {
-        public DALSQLServer()
-            : base() {
-            EXECreateTable();
-        }
+        public DALSQLServer() : base() { }
 
+        #region ====== override:AbsDAL<M> ======
         /// <summary>
-        /// 执行创建数据表
+        /// 增
         /// </summary>
-        private void EXECreateTable() {
-            DbHelperSQL.GetSingle(SQLCreateTable());
-        }
-
-        /// <summary>
-        /// 执行-SQL字符串事务处理
-        /// </summary>
-        /// <param name="sqllist">SQL字符串列表</param>
-        /// <returns>是否成功</returns>
-        public static bool Transaction(string[] sqllist) {
-            if (CheckData.IsSizeEmpty(sqllist))
+        public override bool Insert(M model) {
+            const int errorID = 0;
+            string sqlinsert = SQLInsert(model);
+            if (CheckData.IsStringNull(sqlinsert.Trim()))
                 return false;
-            bool resu = DbHelperSQL.ExecuteTransaction(sqllist);
-            return resu;
+            string strSql = sqlinsert + " ;select @@IDENTITY; ";
+            object obj = DbHelperSQL.GetSingle(strSql);
+            int IDentity = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
+            return IDentity != errorID;
         }
-
-        private string SQLCreateTable() {
-            string str_if_where = CreateSQL.NotExists(CreateSQL.MSSSysTable(GetTableName()));
-
-            Dictionary<string, string> columns = GetCreateColumns();
-            string[] column_formats = ConvertTool.ListConvertType(columns, d => d.Value);
-            string SQL_CreateTable = CreateSQL.CreateTable(GetTableName(), column_formats);
-            string SQL_AlterColumns = SQLAlterColumns(columns);
-
-            string sql = CreateSQL.If(str_if_where, SQL_CreateTable, SQL_AlterColumns);
-            return sql;
-        }
-        private Dictionary<string, string> GetCreateColumns() {
-            Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnItemModel item in base.modelParser.ColumnInfoArray) {
-                string datafieldName = item.Property.Name;
-                string datatypeName = item.Attribute.DbType.TypeName();
-                string value = string.Format("{0} {1}", datafieldName, datatypeName);
-                if (item.Attribute.IsPrimaryKey)
-                    value += @" primary key";
-                if (!item.Attribute.IsCanBeNull)
-                    value += @" not null";
-                if (item.Attribute.IsIDentity)
-                    value += @" identity (1,1)";
-                resuDic[item.Property.Name] = value;
-            }
-            return resuDic;
-        }
-        private string SQLAlterColumns(Dictionary<string, string> columns) {
-            List<string> ifExists = new List<string>();
-            foreach (KeyValuePair<string, string> item in columns) {
-                string if_where = CreateSQL.NotExists(CreateSQL.MSSSysColumns(GetTableName(), item.Key));
-                string sql = CreateSQL.If(if_where, CreateSQL.AlterColumn(GetTableName(), item.Value));
-                ifExists.Add(sql);
-            }
-            return ConvertTool.IListToString(ifExists, " ");
-        }
-
-
         private string SQLInsert(M model) {
             ColumnItemModel[] caninsertColumns = base.modelParser.ColumnInfoArray.Where(colinfo => {
                 return !colinfo.Attribute.IsDbGenerated;
@@ -194,48 +59,40 @@ namespace CSharp.LibrayDataBase
             }
             return CreateSQL.Insert(base.GetTableName(), fieldArr.ToArray(), valueArr.ToArray());
         }
+
+        /// <summary>
+        /// 删
+        /// </summary>
+        public override bool Delete(WhereModel wheres) {
+            return !WhereModel.CheckIsCanUse(wheres) ? false : DbHelperSQL.ExecuteSql(SQLDelete(wheres)) > 0;
+        }
         private string SQLDelete(WhereModel wheres) {
             return string.Format("delete {0} where {1}", base.GetTableName(), CreateSQL.ParserWhereModel(wheres));
+        }
+
+        /// <summary>
+        /// 改
+        /// </summary>
+        public override bool Update(FieldValueModel[] fielvals, WhereModel wheres) {
+            return (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) ? false :
+                DbHelperSQL.ExecuteSql(SQLUpdate(fielvals, wheres)) > 0;
         }
         private string SQLUpdate(FieldValueModel[] fielvals, WhereModel wheres) {
             string set_str = ConvertTool.IListToString(CreateSQL.ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL), ',');
             string where_str = CreateSQL.ParserWhereModel(wheres);
             return string.Format("update {0} set {1} where {2}", base.GetTableName(), set_str, where_str);
         }
-        private string SQLSelect(int top, string strWhere, string orderBy) {
-            string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
-            string sql = string.Format(@"select {0} from {1}", column, GetTableName());
-            if (!CheckData.IsStringNull(strWhere.Trim()))
-                sql += string.Format(@" where {0}", strWhere);
-            if (!CheckData.IsStringNull(orderBy.Trim()))
-                sql += string.Format(@" order by {0}", orderBy);
-            return sql;
-        }
 
-        public override bool Insert(M model) {
-            const int errorID = 0;
-            string sqlinsert = SQLInsert(model);
-            if (CheckData.IsStringNull(sqlinsert.Trim()))
-                return false;
-            string strSql = sqlinsert + " ;select @@IDENTITY; ";
-            object obj = DbHelperSQL.GetSingle(strSql);
-            int IDentity = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
-            return IDentity != errorID;
-        }
-        public override bool Delete(WhereModel wheres) {
-            return !WhereModel.CheckIsCanUse(wheres) ? false : DbHelperSQL.ExecuteSql(SQLDelete(wheres)) > 0;
-        }
-        public override bool Update(FieldValueModel[] fielvals, WhereModel wheres) {
-            return (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) ? false :
-                DbHelperSQL.ExecuteSql(SQLUpdate(fielvals, wheres)) > 0;
-        }
+
+        /// <summary>
+        /// 查
+        /// </summary>
         public override M[] Select(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
             DataTable dt = SelectSource(top, wheres, fieldOrders);
             return GetModelList(dt);
         }
-
         /// <summary>
-        /// 分页查询
+        /// 分页 查
         /// </summary>
         /// <param name="pageCount">定义: 每页记录数</param>
         /// <param name="pageIndex">定义: 浏览到第几页</param>
@@ -243,29 +100,9 @@ namespace CSharp.LibrayDataBase
         /// <param name="wheres">定义: 查询条件</param>
         /// <param name="fieldOrders">定义: 字段排序集合, true 为正序, false 倒序</param>
         /// <returns>结果数据表</returns>
-        public M[] Select(int pageCount, int pageIndex, out int recordCount, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
+        public override M[] Select(int pageCount, int pageIndex, out int recordCount, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
             DataTable dt = SelectSource(pageCount, pageIndex, out recordCount, wheres, fieldOrders);
             return GetModelList(dt);
-        }
-        public DataTable SelectSource(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
-            string strWhere = CreateSQL.ParserWhereModel(wheres);
-            string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
-            string selectStr = SQLSelect(top, strWhere, orderbyStr);
-            DataSet ds = DbHelperSQL.Query(selectStr);
-            return CheckReturnDataTable(ds);
-        }
-        private DataTable SelectSource(int pageCount, int pageIndex, out int recordCount, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
-            string strWhere = CreateSQL.ParserWhereModel(wheres);
-            string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
-            string selectStr = SQLSelect(0, strWhere, orderbyStr);
-            recordCount = GetRecordCount(selectStr);
-            DataSet ds = DbHelperSQL.Query(PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, selectStr, orderbyStr));
-            return CheckReturnDataTable(ds);
-        }
-
-        #region === tools method ===
-        private DataTable CheckReturnDataTable(DataSet ds) {
-            return CheckData.IsSizeEmpty(ds) ? null : CheckData.IsSizeEmpty(ds.Tables[0]) ? null : ds.Tables[0];
         }
         private M[] GetModelList(DataTable dt) {
             if (CheckData.IsSizeEmpty(dt))
@@ -289,9 +126,40 @@ namespace CSharp.LibrayDataBase
             }
             return model;
         }
-        #endregion
+        private DataTable SelectSource(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres);
+            string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
+            string selectStr = SQLSelect(top, strWhere, orderbyStr);
+            DataSet ds = DbHelperSQL.Query(selectStr);
+            return CheckReturnDataTable(ds);
+        }
+        private DataTable SelectSource(int pageCount, int pageIndex, out int recordCount, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres);
+            string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
+            string selectStr = SQLSelect(0, strWhere, orderbyStr);
+            recordCount = GetRecordCount(selectStr);
+            DataSet ds = DbHelperSQL.Query(PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, selectStr, orderbyStr));
+            return CheckReturnDataTable(ds);
+        }
+        private DataTable CheckReturnDataTable(DataSet ds) {
+            return CheckData.IsSizeEmpty(ds) ? null : CheckData.IsSizeEmpty(ds.Tables[0]) ? null : ds.Tables[0];
+        }
+        private string SQLSelect(int top, string strWhere, string orderBy) {
+            string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
+            string sql = string.Format(@"select {0} from {1}", column, GetTableName());
+            if (!CheckData.IsStringNull(strWhere.Trim()))
+                sql += string.Format(@" where {0}", strWhere);
+            if (!CheckData.IsStringNull(orderBy.Trim()))
+                sql += string.Format(@" order by {0}", orderBy);
+            return sql;
+        }
 
-        public int GetRecordCount(WhereModel wheres) {
+
+        /// <summary>
+        /// 获得条件的记录总数
+        /// </summary>
+        /// <param name="wheres">条件</param>
+        public override int GetRecordCount(WhereModel wheres) {
             return GetRecordCount(CreateSQL.ParserWhereModel(wheres));
         }
         private int GetRecordCount(string wheresql) {
@@ -301,6 +169,75 @@ namespace CSharp.LibrayDataBase
                 strSql.Append(" where " + wheresql);
             }
             return ConvertTool.ObjToInt(DbHelperSQL.GetSingle(strSql.ToString()), 0);
+        }
+
+
+        /// <summary>
+        /// 执行补全
+        /// </summary>
+        public override void Supplementary() {
+            // sql if 判断条件 判断表是否不存在
+            string str_if_where = CreateSQL.NotExists(CreateSQL.MSSSysTable(GetTableName()));
+            // sql 列的名称 和 数据类型格式 数据源集合
+            Dictionary<string, string> columns = GetCreateColumns();
+
+            string[] column_formats = ConvertTool.ListConvertType(columns, d => d.Value);
+            // 不存在 需要创建表
+            string SQL_CreateTable = CreateSQL.CreateTable(GetTableName(), column_formats);
+
+            //存在 需要补全缺失的列
+            string SQL_AlterColumns = SQLAlterColumns(columns);
+
+            string sql = CreateSQL.If(str_if_where, SQL_CreateTable, SQL_AlterColumns);
+            DbHelperSQL.GetSingle(sql);
+        }
+        /// <summary>
+        /// 获得列信息
+        /// </summary>
+        private Dictionary<string, string> GetCreateColumns() {
+            Dictionary<string, string> resuDic = new Dictionary<string, string>();
+            foreach (ColumnItemModel item in base.modelParser.ColumnInfoArray) {
+                string fieldName = item.Property.Name;
+                if (resuDic.ContainsKey(fieldName)) {
+                    continue;
+                }
+                string typeName = item.Attribute.DbType.TypeName();
+                string[] vals = new string[] {
+                    fieldName,
+                    typeName,
+                    item.Attribute.IsPrimaryKey ? @"primary key" : null,
+                    !item.Attribute.IsCanBeNull ? @"not null" : null,
+                    item.Attribute.IsIDentity ? @"identity(1,1)" : null,
+                };
+                resuDic[fieldName] = ConvertTool.IListToString(vals, @" ");
+            }
+            return resuDic;
+        }
+        /// <summary>
+        /// 获得补全表列信息
+        /// </summary>
+        private string SQLAlterColumns(Dictionary<string, string> columns) {
+            List<string> ifExists = new List<string>();
+            foreach (KeyValuePair<string, string> item in columns) {
+                string if_where = CreateSQL.NotExists(CreateSQL.MSSSysColumns(GetTableName(), item.Key));
+                string sql = CreateSQL.If(if_where, CreateSQL.AlterColumn(GetTableName(), item.Value));
+                ifExists.Add(sql);
+            }
+            return ConvertTool.IListToString(ifExists, @" ");
+        }
+        #endregion
+
+        /// <summary>
+        /// 执行-SQL字符串事务处理
+        /// </summary>
+        /// <param name="sqllist">SQL字符串列表</param>
+        /// <returns>是否成功</returns>
+        public static bool Transaction(string[] sqllist) {
+            if (CheckData.IsSizeEmpty(sqllist)) {
+                return false;
+            }
+            bool resu = DbHelperSQL.ExecuteTransaction(sqllist);
+            return resu;
         }
     }
 }

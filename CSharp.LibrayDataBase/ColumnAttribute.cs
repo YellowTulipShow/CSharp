@@ -28,13 +28,12 @@ namespace CSharp.LibrayDataBase
     public class ColumnAttribute : AbsBasicAttribute
     {
         /// <summary>
-        /// 初始化信息 数据类型为一种: 值类型
+        /// 初始化信息 Microsoft SQL Server 数据库数据类型枚举标识
         /// </summary>
         /// <param name="dbDataType">枚举: 数据库值类型</param>
         public ColumnAttribute(MSQLServerDTParser.DTEnum dtenum) {
             this._dbType = MSQLServerDTParser.DataTypeBind(dtenum);
         }
-
 
         /// <summary>
         /// 获取或设置数据库列的类型。

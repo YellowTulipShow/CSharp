@@ -50,15 +50,11 @@
     <Compile Include="DataChar.cs" />
     <Compile Include="ALLDataTypeFile.cs" />
     <Compile Include="IBasicDataAccess.cs" />
-    <Compile Include="MSSDataType\MSQLServerDTParser.cs" />
+    <Compile Include="ISupplementaryStructure.cs" />
     <Compile Include="WhereModel.cs" />
     <Compile Include="KeyValueModel.cs" />
     <Compile Include="AbsDAL.cs" />
-    <Compile Include="IAutoTable.cs" />
     <Compile Include="IDefaultRecord.cs" />
-    <Compile Include="ITableBasicFunction.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ITableName.cs" />
     <Compile Include="ModelParser.cs" />
     <Compile Include="ColumnAttribute.cs" />
@@ -81,7 +77,7 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="IPropertyColumn.cs" />
+    <Compile Include="ColumnItemModel.cs" />
     <Compile Include="Utils\DbHelperSQL.cs">
       <SubType>
       </SubType>

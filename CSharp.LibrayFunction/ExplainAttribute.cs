@@ -10,6 +10,11 @@ namespace CSharp.LibrayFunction
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = false)]
     public class ExplainAttribute : System.Attribute
     {
+        /// <summary>
+        /// 错误注释文本
+        /// </summary>
+        public const string ERROR_EXPLAIN_TEXT = @"未知元素";
+
         public ExplainAttribute(String explaninStr) {
             if (CheckData.IsStringNull(explaninStr)) {
                 this._text = explaninStr;
@@ -28,7 +33,7 @@ namespace CSharp.LibrayFunction
         public static ExplainAttribute Extract(MemberInfo memberInfo) {
             ExplainAttribute explainAttr = memberInfo.FindAttributeOnly<ExplainAttribute>();
             if (CheckData.IsObjectNull(explainAttr))
-                explainAttr = new ExplainAttribute("未知元素");
+                explainAttr = new ExplainAttribute(ERROR_EXPLAIN_TEXT);
             return explainAttr;
         }
     }

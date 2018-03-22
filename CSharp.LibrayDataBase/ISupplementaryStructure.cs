@@ -6,13 +6,13 @@ using System.Text;
 namespace CSharp.LibrayDataBase
 {
     /// <summary>
-    /// 接口 - 数据表默认数据模型
+    /// 用于补全数据结构(常用于数据库表,列的补全)
     /// </summary>
-    public interface IDefaultRecord<M> where M : AbsModelNull
+    public interface ISupplementaryStructure
     {
         /// <summary>
-        /// 默认的数据记录
+        /// 执行补全
         /// </summary>
-        M[] DefaultDataModel();
+        void Supplementary();
     }
 }

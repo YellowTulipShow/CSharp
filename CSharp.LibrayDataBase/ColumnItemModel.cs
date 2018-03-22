@@ -17,14 +17,14 @@ namespace CSharp.LibrayDataBase
             }
             List<ColumnItemModel> colms = new List<ColumnItemModel>();
             PropertyInfo[] protertys = modelT.GetProperties();
-            foreach (PropertyInfo pro in protertys) {
-                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(pro);
+            foreach (PropertyInfo property in protertys) {
+                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(property);
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
                 colms.Add(new ColumnItemModel() {
-                    Property = pro,
+                    Property = property,
                     Attribute = columnAttr,
-                    Explain = ExplainAttribute.Extract(pro),
+                    Explain = ExplainAttribute.Extract(property),
                 });
             }
             colms.Sort(ColumnItemModel.ColumnInfoSort);
