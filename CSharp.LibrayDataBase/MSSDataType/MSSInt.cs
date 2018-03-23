@@ -6,17 +6,18 @@ namespace CSharp.LibrayDataBase.MSSDataType
     /// <summary>
     /// Microsoft SQL Server 字段 int 类型
     /// </summary>
-    public class MSSInt : AbsDataType
+    public class MSSInt : AbsDBType
     {
         public override string TypeName() {
             return @"int";
         }
 
-        public override object TypeConvert(object sourceValue) {
-            if (CheckData.IsObjectNull(sourceValue) || !CheckData.IsNumber(sourceValue)) {
-                return GetDefaultValueString();
-            }
-            return sourceValue.ToString();
+        public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
+            //if (CheckData.IsObjectNull(sourceValue) || !CheckData.IsNumber(sourceValue)) {
+            //    return GetDefaultValueString();
+            //}
+            //return sourceValue.ToString();
+            return sourceValue;
         }
     }
 }

@@ -5,20 +5,6 @@ using CSharp.LibrayFunction;
 namespace CSharp.LibrayDataBase
 {
     #region === CSharp Program Data Type Enum ===
-    /// <summary>
-    /// CSharp 程序数据类型
-    /// </summary>
-    public enum CsDTEnum
-    {
-        /// <summary>
-        /// 值类型(int,float,double,char...), 常规类型(string)
-        /// </summary>
-        Struct,
-        /// <summary>
-        /// 枚举类型
-        /// </summary>
-        Enum,
-    }
     #endregion
 
     /// <summary>
@@ -32,55 +18,54 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="dbDataType">枚举: 数据库值类型</param>
         public ColumnAttribute(MSQLServerDTParser.DTEnum dtenum) {
-            this._dbType = MSQLServerDTParser.DataTypeBind(dtenum);
+            this._dbParser = MSQLServerDTParser.DataTypeBind(dtenum);
         }
 
         /// <summary>
         /// 获取或设置数据库列的类型。
         /// </summary>
-        public AbsDataType DbType {
+        public AbsDBType DTParser {
             get {
-                return !_dbType.IsObjectNull() ? _dbType : new MSSDataType.MSSNVarChar();
+                return !_dbParser.IsObjectNull() ? _dbParser : new MSSDataType.MSSNVarChar();
             }
         }
-        private AbsDataType _dbType = null;
-
+        private AbsDBType _dbParser = null;
         /// <summary>
         /// 设置字符长度
         /// </summary>
         public ushort CharLength {
-            get { return this.DbType.CharLength; }
-            set { this.DbType.SetCharLength(value); }
+            get { return this.DTParser.CharLength; }
+            set { this.DTParser.SetCharLength(value); }
         }
         /// <summary>
         /// 设置默认值
         /// </summary>
         public ConstData.ConstEnum DefaultValue {
-            get { return this.DbType.DefaultValue; }
-            set { this.DbType.SetDefaultValue(value); }
+            get { return this.DTParser.DefaultValue; }
+            set { this.DTParser.SetDefaultValue(value); }
         }
 
 
         /// <summary>
         /// 设置字段CSharp数据类型-枚举指定。
         /// </summary>
-        public CsDTEnum CsTypeEnumSign {
-            get { return CsDTEnum.Struct; }
-            set {
-                switch (value) {
-                    case CsDTEnum.Struct: _csType = new MCSDataType.MCSStruct(); break;
-                    case CsDTEnum.Enum: _csType = new MCSDataType.MCSEnum(); break;
-                    default: CsTypeEnumSign = CsDTEnum.Struct; break;
-                }
-            }
+        public MCSharpDTParser.DTEnum CSDTEnum {
+            get { return _csDTEnum; }
+            set { _csDTEnum = value; }
         }
+        private MCSharpDTParser.DTEnum _csDTEnum = MCSharpDTParser.DTEnum.Struct;
         /// <summary>
         /// 获取字段CSharp数据类型
         /// </summary>
-        public AbsCsType CsType {
-            get { return !CheckData.IsObjectNull(_csType) ? _csType : new MCSDataType.MCSStruct(); }
+        public AbsCSType CSParser {
+            get {
+                if (CheckData.IsObjectNull(_csParser)) {
+                    _csParser = MCSharpDTParser.DataTypeBind(this.CSDTEnum);
+                }
+                return _csParser;
+            }
         }
-        private AbsCsType _csType = null;
+        private AbsCSType _csParser = null;
 
 
         /// <summary>

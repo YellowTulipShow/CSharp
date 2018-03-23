@@ -5,13 +5,13 @@ namespace CSharp.LibrayDataBase.MSSDataType
     /// <summary>
     /// Microsoft SQL Server 字段 nchar 类型
     /// </summary>
-    public class MSSNChar : AbsDataType
+    public class MSSNChar : AbsDBType
     {
         public override string TypeName() {
             return string.Format("nchar{0}", GetCharLengthStrSign());
         }
 
-        public override object TypeConvert(object sourceValue) {
+        public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
             return base.CharStringTypeConvert(sourceValue);
         }
 

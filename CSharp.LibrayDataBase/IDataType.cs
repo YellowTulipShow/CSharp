@@ -4,11 +4,38 @@ using CSharp.LibrayFunction;
 namespace CSharp.LibrayDataBase
 {
     /// <summary>
-    /// 抽象-数据类型
+    /// 接口-数据类型
     /// </summary>
-    public abstract class AbsDataType
+    public interface IDataType
     {
-        public AbsDataType() { }
+        /// <summary>
+        /// 输入转换
+        /// </summary>
+        object OutputConvert(object sourceValue, ColumnItemModel colmodel);
+        /// <summary>
+        /// 输出转换
+        /// </summary>
+        object InputConvert(object sourceValue, ColumnItemModel colmodel);
+    }
+
+    /// <summary>
+    /// 抽象-C# 数据类型映射
+    /// </summary>
+    public abstract class AbsCSType : IDataType
+    {
+        public AbsCSType() { }
+
+        public abstract object OutputConvert(object sourceValue, ColumnItemModel colmodel);
+
+        public abstract object InputConvert(object sourceValue, ColumnItemModel colmodel);
+    }
+
+    /// <summary>
+    /// 抽象-数据系统 数据类型映射
+    /// </summary>
+    public abstract class AbsDBType : IDataType
+    {
+        public AbsDBType() { }
 
         /// <summary>
         /// Object 字符串描述
@@ -22,9 +49,15 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public abstract string TypeName();
         /// <summary>
-        /// 打印 用于保存到数据库的值
+        /// 输出转换
         /// </summary>
-        public abstract object TypeConvert(object sourceValue);
+        public virtual object OutputConvert(object sourceValue, ColumnItemModel colmodel) {
+            return sourceValue;
+        }
+        /// <summary>
+        /// 输入转换
+        /// </summary>
+        public abstract object InputConvert(object sourceValue, ColumnItemModel colmodel);
 
         #region === Char Length ===
         /// <summary>
@@ -91,13 +124,13 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         protected string LimitCharLengthContent(object datasource) {
             string result = string.Empty;
-            if (CheckData.IsObjectNull(datasource)) {
+            if (!CheckData.IsObjectNull(datasource)) {
                 result = datasource.ToString();
             }
-            if (this.CharLength == CHARLENGTH_ERROR || this.CharLength == CHARLENGTH_MAX_SIGN) {
+            if (this.CharLength == CHARLENGTH_ERROR || this.CharLength == CHARLENGTH_MAX_SIGN || result.Length < this.CharLength) {
                 return result;
             }
-            return datasource.ToString().Substring(0, this.CharLength);
+            return result.Substring(0, this.CharLength);
         }
 
         /// <summary>

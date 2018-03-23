@@ -49,15 +49,8 @@ namespace CSharp.ApplicationData
         /// </summary>
         [Explain(@"组别类型")]
         [Column(MSQLServerDTParser.DTEnum.Int)]
-        public int GroupType {
-            get { return _groupType; }
-            set {
-                if (Enum.IsDefined(typeof(GroupTypeEnum), value)) {
-                    _groupType = value;
-                }
-            }
-        }
-        private int _groupType = GroupTypeEnum.UserGroup.GetIntValue();
+        public GroupTypeEnum GroupType { get { return _groupType; } set { _groupType = value; } }
+        private GroupTypeEnum _groupType = GroupTypeEnum.UserGroup;
         #endregion
     }
 }

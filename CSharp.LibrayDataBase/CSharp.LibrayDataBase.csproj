@@ -44,28 +44,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsCsType.cs" />
-    <Compile Include="AbsDataType.cs" />
+    <Compile Include="IDataType.cs" />
     <Compile Include="CreateSQL.cs" />
     <Compile Include="DataChar.cs" />
     <Compile Include="ALLDataTypeFile.cs" />
     <Compile Include="IBasicDataAccess.cs" />
     <Compile Include="ISupplementaryStructure.cs" />
+    <Compile Include="MCSDataType\MCSList.cs" />
+    <Compile Include="MCSDataType\MCSListModel.cs" />
+    <Compile Include="MCSDataType\MCSModel.cs" />
     <Compile Include="WhereModel.cs" />
     <Compile Include="KeyValueModel.cs" />
-    <Compile Include="AbsDAL.cs" />
+    <Compile Include="AbsBLLDAL.cs" />
     <Compile Include="IDefaultRecord.cs" />
     <Compile Include="ITableName.cs" />
     <Compile Include="ModelParser.cs" />
     <Compile Include="ColumnAttribute.cs" />
     <Compile Include="TableAttribute.cs" />
-    <Compile Include="DALSQLServer.cs">
+    <Compile Include="BLLDALSQLServer.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="AbsBLL.cs" />
-    <Compile Include="Son_MCSDataType\MCSEnum.cs" />
-    <Compile Include="Son_MCSDataType\MCSStruct.cs" />
+    <Compile Include="MCSDataType\MCSStruct.cs" />
     <Compile Include="MSSDataType\MSSMoney.cs" />
     <Compile Include="MSSDataType\MSSInt.cs" />
     <Compile Include="MSSDataType\MSSDateTime.cs" />

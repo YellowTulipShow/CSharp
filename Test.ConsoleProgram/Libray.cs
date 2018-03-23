@@ -4,9 +4,9 @@ using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
-    public class CaseLibray
+    public class Libray
     {
-        public CaseLibray() { }
+        public Libray() { }
 
         /// <summary>
         /// 在这里面手动设置要测试的实例
@@ -14,6 +14,8 @@ namespace Test.ConsoleProgram
         public CaseModel[] InitCaseSource() {
             return new CaseModel[] {
                 // new Case.SonTests.*****(),
+
+                new Case.SonTests.Test_CaseModel_Tool_Value(),
 
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),
@@ -24,12 +26,14 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_CheckData(),
                 //new Case.SonTests.Test_ConvertTool(),
                 //new Case.SonTests.Test_DateTime(),
-                new Case.SonTests.Test_Enum(),
+                //new Case.SonTests.Test_Enum(),
                 //new Case.SonTests.Test_NewtonsoftJson(),
                 //new Case.SonTests.Test_Random(),
                 //new Case.SonTests.Test_Reflex(),
                 //new Case.SonTests.Test_Lambda(),
                 //new Case.SonTests.Test_WhereModel(),
+
+                //new Case.SonTests.Test_BLLDALSQLServer(),
             };
         }
     }

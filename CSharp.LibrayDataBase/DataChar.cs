@@ -90,5 +90,50 @@ namespace CSharp.LibrayDataBase
             [Explain("小于(<=)")]
             SmallTHAN_EQUAL = 8,
         }
+
+        #region ====== Parser Region: ======
+
+        /// <summary>
+        /// Microsoft SQL Server SQL 逻辑符解析器
+        /// </summary>
+        public static string MSQLServer_LogicChar_Parser(LogicChar logicChar) {
+            const string Space = @" ";
+            switch (logicChar) {
+                case DataChar.LogicChar.AND:
+                    return Space + CreateSQL.WHERE_AND + Space;
+                case DataChar.LogicChar.OR:
+                    return Space + CreateSQL.WHERE_OR + Space;
+                default:
+                    return MSQLServer_LogicChar_Parser(DataChar.LogicChar.AND);
+            }
+        }
+        /// <summary>
+        /// Microsoft SQL Server SQL 操作符解析器
+        /// </summary>
+        public static string MSQLServer_OperChar_Parser(DataChar.OperChar operChar, FieldValueModel FVm) {
+            switch (operChar) {
+                case DataChar.OperChar.EQUAL:
+                    return CreateSQL.WhereEqual(FVm.Name, FVm.Value);
+                case DataChar.OperChar.EQUAL_NOT:
+                    return CreateSQL.WhereEqualNot(FVm.Name, FVm.Value);
+                case DataChar.OperChar.LIKE:
+                    return CreateSQL.WhereLike(FVm.Name, FVm.Value);
+                case DataChar.OperChar.IN:
+                    return CreateSQL.WhereIn(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
+                case DataChar.OperChar.IN_NOT:
+                    return CreateSQL.WhereInNot(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
+                case DataChar.OperChar.BigTHAN:
+                    return CreateSQL.WhereBigThan(FVm.Name, FVm.Value);
+                case DataChar.OperChar.BigTHAN_EQUAL:
+                    return CreateSQL.WhereBigThanEqual(FVm.Name, FVm.Value);
+                case DataChar.OperChar.SmallTHAN:
+                    return CreateSQL.WhereSmallThan(FVm.Name, FVm.Value);
+                case DataChar.OperChar.SmallTHAN_EQUAL:
+                    return CreateSQL.WhereSmallThanEqual(FVm.Name, FVm.Value);
+                default:
+                    return MSQLServer_OperChar_Parser(DataChar.OperChar.EQUAL, FVm);
+            }
+        }
+        #endregion
     }
 }

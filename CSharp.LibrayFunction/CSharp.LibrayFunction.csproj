@@ -54,6 +54,7 @@
     <Compile Include="AnalyticDynamicPage.cs" />
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CheckData.cs" />
+    <Compile Include="CommonData.cs" />
     <Compile Include="ConvertTool.cs" />
     <Compile Include="EnumExtension.cs" />
     <Compile Include="ExplainAttribute.cs" />

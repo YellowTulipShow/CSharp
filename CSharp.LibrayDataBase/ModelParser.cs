@@ -24,31 +24,38 @@ namespace CSharp.LibrayDataBase
         public M CreateDefaultModel() {
             return System.Activator.CreateInstance<M>();
         }
-        
+
+        /** 数据转化六部曲: 
+         * 设置模型数据: 数据源 @1=> DTParser @2=> CSParser @3=> 模型解构
+         * 获取模型数据: 数据源 <=@4 DTParser <=@5 CSParser <=@6 模型解构
+         */
         /// <summary>
-        /// 提取'行'数据
+        /// 获取'模型'数据
         /// </summary>
         /// <param name="c">行信息</param>
         /// <param name="sourceModel">数据来源</param>
-        /// <returns>选项模型</returns>
-        public KeyValueModel ExtractValue(ColumnItemModel c, M sourceModel) {
+        /// <returns>键值数据</returns>
+        public KeyValueModel GetModelValue(ColumnItemModel colmodel, M sourceModel) {
+            object sour = colmodel.Property.GetValue(sourceModel, null); // @6
+            sour = colmodel.Attribute.CSParser.OutputConvert(sour, colmodel); // @5
+            sour = colmodel.Attribute.DTParser.InputConvert(sour, colmodel); // @4
             return new KeyValueModel() {
-                Key = c.Property.Name,
-                Value = c.Attribute.DbType.TypeConvert(c.Property.GetValue(sourceModel, null)).ToString(),
+                Key = colmodel.Property.Name,
+                Value = !CheckData.IsObjectNull(sour) ? sour.ToString() : string.Empty,
             };
         }
-
         /// <summary>
-        /// 填充'模型'数据
+        /// 设置'模型'数据
         /// </summary>
-        /// <param name="c">行信息</param>
+        /// <param name="colmodel">行信息</param>
         /// <param name="targetModel">目标模型</param>
         /// <param name="value">数据</param>
         /// <returns>目标模型</returns>
-        public M FillValue(ColumnItemModel c, M targetModel, object value) {
-            if (!CheckData.IsObjectNull(value) && c.Property.CanWrite) {
-                value = c.Attribute.CsType.ToModelValue(c, value);
-                c.Property.SetValue(targetModel, value, null);
+        public M SetModelValue(ColumnItemModel colmodel, M targetModel, object value) { // @1
+            if (!CheckData.IsObjectNull(value) && colmodel.Property.CanWrite) {
+                value = colmodel.Attribute.DTParser.OutputConvert(value, colmodel); // @2
+                value = colmodel.Attribute.CSParser.InputConvert(value, colmodel); // @3
+                colmodel.Property.SetValue(targetModel, value, null);
             }
             return targetModel;
         }

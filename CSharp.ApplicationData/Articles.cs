@@ -23,7 +23,7 @@ namespace CSharp.ApplicationData
         /// 文章内容
         /// </summary>
         [Explain(@"文章内容")]
-        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = AbsDataType.CHARLENGTH_MAX_SIGN)]
+        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = AbsDBType.CHARLENGTH_MAX_SIGN)]
         public string Content { get { return _content; } set { _content = value; } }
         private string _content = string.Empty;
 

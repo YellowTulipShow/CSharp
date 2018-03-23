@@ -6,7 +6,6 @@ using CSharp.LibrayDataBase.MCSDataType;
 
 namespace CSharp.ApplicationData
 {
-
     /// <summary>
     /// 数据模型类: 用户
     /// </summary>
@@ -69,8 +68,6 @@ namespace CSharp.ApplicationData
         public string RealName { get { return _realName; } set { _realName = value; } }
         private string _realName = string.Empty;
 
-
-
         /// <summary>
         /// 性别值
         /// </summary>
@@ -93,23 +90,6 @@ namespace CSharp.ApplicationData
             [Explain(@"女")]
             Female = 2,
         }
-
-        ///// <summary>
-        ///// 性别
-        ///// </summary>
-        //[Explain(@"性别")]
-        //[Column(MSSFieldTypeStruct.Int, CsTypeEnumSign = CsDTEnum.Enum)]
-        //public int Sex {
-        //    get { return _sex; }
-        //    set {
-        //        if (Enum.IsDefined(typeof(SexEnum), value)) {
-        //            _sex = value;
-        //        }
-        //    }
-        //}
-        //private int _sex = SexEnum.Secrecy.GetIntValue();
-
-
         /// <summary>
         /// 性别
         /// </summary>
@@ -123,20 +103,24 @@ namespace CSharp.ApplicationData
     /// <summary>
     /// 数据逻辑类: 用户
     /// </summary>
-    public class BLLUser : BLLSQLServer<ModelUser> {
+    public class BLLUser : BLLSQLServer<ModelUser>
+    {
         public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
 
-        //public override ModelUser DefaultDataModel() {
-        //    return new ModelUser() {
-        //        Email = @"1426689530@qq.com",
-        //        MobilePhone = @"18563920971",
-        //        NickName = @"YellowTulipShow",
-        //        Password = @"zrqytspass",
-        //        RealName = @"赵瑞青",
-        //        Remark = @"System Developer",
-        //        TelePhone = string.Empty,
-        //        TimeAdd = DateTime.Now,
-        //    };
-        //}
+        public override ModelUser[] DefaultDataModel() {
+            return new ModelUser[] {
+                new ModelUser() {
+                    Email = @"1426689530@qq.com",
+                    MobilePhone = @"18563920971",
+                    NickName = @"YellowTulipShow",
+                    Password = @"zrqytspass",
+                    RealName = @"赵瑞青",
+                    Remark = @"System Developer",
+                    Sex = ModelUser.SexEnum.Male,
+                    TelePhone = string.Empty,
+                    TimeAdd = DateTime.Now,
+                },
+            };
+        }
     }
 }

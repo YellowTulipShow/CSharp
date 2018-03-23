@@ -263,7 +263,7 @@ namespace CSharp.LibrayDataBase
                 return string.Empty;
             }
             List<string> resultArray = new List<string>();
-            string[] fielVals = ParserFieldValueModel(wheres.FielVals);
+            string[] fielVals = ParserFieldValueModel(wheres.FielVals, wheres.IsAllowFieldRepeat);
             resultArray.AddRange(fielVals);
             foreach (WhereModel wm in wheres.Wheres) {
                 string son_where_str = ParserWhereModel(wm);
@@ -271,69 +271,34 @@ namespace CSharp.LibrayDataBase
                     resultArray.Add(WhereParenthesesPackage(son_where_str));
                 }
             }
-            return ConvertTool.IListToString(resultArray, LogicCharString(wheres.KeyChar));
-        }
-        private static string LogicCharString(DataChar.LogicChar logicChar) {
-            const string Space = @" ";
-            switch (logicChar) {
-                case DataChar.LogicChar.AND:
-                    return Space + WHERE_AND + Space;
-                case DataChar.LogicChar.OR:
-                    return Space + WHERE_OR + Space;
-                default:
-                    return LogicCharString(DataChar.LogicChar.AND);
-            }
+            return ConvertTool.IListToString(resultArray, DataChar.MSQLServer_LogicChar_Parser(wheres.KeyChar));
         }
 
         /// <summary>
         /// 字段值模型解析
         /// </summary>
-        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals) {
-            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false);
+        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, bool IsAllowFieldRepeat = WhereModel.DEFAULT_ISALLOWFIELDREPEAT) {
+            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false, IsAllowFieldRepeat);
         }
         /// <summary>
         /// 字段值模型解析 固定操作字符
         /// </summary>
-        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar) {
-            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, true);
+        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool IsAllowFieldRepeat = WhereModel.DEFAULT_ISALLOWFIELDREPEAT) {
+            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, true, IsAllowFieldRepeat);
         }
-        private static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool isFixed) {
+        private static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool isFixedOperChar, bool IsAllowFieldRepeat) {
             if (CheckData.IsSizeEmpty(fielvals)) {
                 return new string[] { };
             }
             List<string> existed_names = new List<string>();
             return ConvertTool.ListConvertType(fielvals, FVm => {
-                if (existed_names.Contains(FVm.Name)) {
+                if (existed_names.Contains(FVm.Name) && !IsAllowFieldRepeat) {
                     return string.Empty;
                 } else {
                     existed_names.Add(FVm.Name);
                 }
-                return OperCharResultString(isFixed ? fixedOperChar : FVm.KeyChar, FVm);
+                return DataChar.MSQLServer_OperChar_Parser(isFixedOperChar ? fixedOperChar : FVm.KeyChar, FVm);
             }, string.Empty);
-        }
-        private static string OperCharResultString(DataChar.OperChar operChar, FieldValueModel FVm) {
-            switch (operChar) {
-                case DataChar.OperChar.EQUAL:
-                    return WhereEqual(FVm.Name, FVm.Value);
-                case DataChar.OperChar.EQUAL_NOT:
-                    return WhereEqualNot(FVm.Name, FVm.Value);
-                case DataChar.OperChar.LIKE:
-                    return WhereLike(FVm.Name, FVm.Value);
-                case DataChar.OperChar.IN:
-                    return WhereIn(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
-                case DataChar.OperChar.IN_NOT:
-                    return WhereInNot(FVm.Name, ConvertTool.ToArrayList(FVm.Value, DataChar.ARRAYLIST_INTERVAL_CHAR));
-                case DataChar.OperChar.BigTHAN:
-                    return WhereBigThan(FVm.Name, FVm.Value);
-                case DataChar.OperChar.BigTHAN_EQUAL:
-                    return WhereBigThanEqual(FVm.Name, FVm.Value);
-                case DataChar.OperChar.SmallTHAN:
-                    return WhereSmallThan(FVm.Name, FVm.Value);
-                case DataChar.OperChar.SmallTHAN_EQUAL:
-                    return WhereSmallThanEqual(FVm.Name, FVm.Value);
-                default:
-                    return OperCharResultString(DataChar.OperChar.EQUAL, FVm);
-            }
         }
 
         /// <summary>
@@ -360,7 +325,7 @@ namespace CSharp.LibrayDataBase
         public static string Insert(string table_name, string[] column_names, string[] column_values) {
             string fieldStr = ConvertTool.IListToString(column_names, ',');
             string valueStr = ConvertTool.IListToString(column_values, ',');
-            return string.Format("insert into {0}({1}) values({2})", column_names, fieldStr, valueStr);
+            return string.Format("insert into {0}({1}) values({2})", table_name, fieldStr, valueStr);
         }
         #endregion
 

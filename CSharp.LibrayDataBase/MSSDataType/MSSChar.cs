@@ -6,13 +6,13 @@ namespace CSharp.LibrayDataBase.MSSDataType
     /// <summary>
     /// Microsoft SQL Server 字段 char 类型
     /// </summary>
-    public class MSSChar : AbsDataType
+    public class MSSChar : AbsDBType
     {
         public override string TypeName() {
             return string.Format("char{0}", GetCharLengthStrSign());
         }
 
-        public override object TypeConvert(object sourceValue) {
+        public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
             return base.CharStringTypeConvert(sourceValue);
         }
 

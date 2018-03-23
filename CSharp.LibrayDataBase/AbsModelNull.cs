@@ -27,8 +27,7 @@ namespace CSharp.LibrayDataBase
         /// 添加时间
         /// </summary>
         [Explain(@"添加时间")]
-        //[Column(MSSFieldTypeDefault.Datetime, MSSDefalutValues.DateTimeNow, SortIndex = ushort.MinValue + 1)]
-        [Column(MSQLServerDTParser.DTEnum.DateTime, DefaultValue = ConstData.ConstEnum.DateTimeNow, SortIndex = ushort.MinValue + 1)]
+        [Column(MSQLServerDTParser.DTEnum.DateTime, DefaultValue = ConstData.ConstEnum.DateTimeNow, SortIndex = ushort.MaxValue - 1)]
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
         private DateTime _timeAdd = DateTime.Now;
     }
@@ -42,7 +41,7 @@ namespace CSharp.LibrayDataBase
         /// 备注
         /// </summary>
         [Explain(@"备注")]
-        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = 500, SortIndex = ushort.MinValue + 1)]
+        [Column(MSQLServerDTParser.DTEnum.NVarChar, CharLength = AbsDBType.CHARLENGTH_MAX_SIGN, SortIndex = ushort.MaxValue)]
         public string Remark { get { return _remark; } set { _remark = value; } }
         private string _remark = String.Empty;
     }

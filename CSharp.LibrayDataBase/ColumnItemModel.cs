@@ -75,6 +75,7 @@ namespace CSharp.LibrayDataBase
             if (x.Attribute.IsCanBeNull != y.Attribute.IsCanBeNull) {
                 return y.Attribute.IsCanBeNull ? 1 : -1;
             }
+            // 排序序列
             int indexResult = Sort.Int(x.Attribute.SortIndex, y.Attribute.SortIndex);
             return indexResult == 0 ? Sort.String(x.Property.Name, y.Property.Name) : indexResult;
         }

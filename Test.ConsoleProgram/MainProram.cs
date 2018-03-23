@@ -37,7 +37,7 @@ namespace Test.ConsoleProgram
         }
 
         private static void ExecuteCaseText() {
-            CaseModel[] absCaseArray = new CaseLibray().InitCaseSource();
+            CaseModel[] absCaseArray = new Libray().InitCaseSource();
             if (CheckData.IsSizeEmpty(absCaseArray)) {
                 Console.WriteLine(CaseSourceNullErrorMsg);
                 return;
@@ -60,23 +60,6 @@ namespace Test.ConsoleProgram
         }
 
         private static void StatisticsRunTime(CaseModel caseitem, string[] tabs_arr) {
-            //string father_symbol = ConvertTool.IListToString(tabs_arr, string.Empty);
-            //Console.WriteLine(@"{0}┌ {1}", father_symbol, caseitem.NameSign);
-
-            //Stopwatch stopwatch = new Stopwatch();
-            //stopwatch.Start(); // 开始
-
-            //foreach (string item in caseitem.ExeEvent()) {
-            //    Console.WriteLine(@"{0}│    {1}", father_symbol, item);
-            //}
-
-            //stopwatch.Stop(); // 结束
-            //TimeSpan runtimeSpan = stopwatch.Elapsed;
-
-            //Console.WriteLine(@"{0}└ 运行时间: {1}", father_symbol, runtimeSpan.TotalSeconds);
-            //Console.WriteLine();
-
-
             string father_symbol = ConvertTool.IListToString(tabs_arr, string.Empty);
             Print.IndentationCharString = string.Format(@"{0}┌ ", father_symbol);
             Print.WriteLine(caseitem.NameSign);

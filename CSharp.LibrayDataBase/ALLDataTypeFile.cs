@@ -58,6 +58,56 @@ namespace CSharp.LibrayDataBase
     }
 
     /// <summary>
+    /// Microsoft C# 程序语言 数据类型解析器
+    /// </summary>
+    public static class MCSharpDTParser
+    {
+        public enum DTEnum
+        {
+            /// <summary>
+            /// 基础数据类型(bool, byte, char, DateTime, decimal, double, short, int, long, sbyte, float, string, ushort, uint, ulong)
+            /// </summary>
+            [Explain(@"基础数据类型(bool, byte, char, DateTime, decimal, double, short, int, long, sbyte, float, string, ushort, uint, ulong)")]
+            Struct,
+            /// <summary>
+            /// 继承自 AbsModelNull 的数据模型
+            /// </summary>
+            [Explain(@"继承自 AbsModelNull 的数据模型")]
+            Model,
+            /// <summary>
+            /// 以基础数据类型组成的数组集合
+            /// </summary>
+            [Explain(@"以基础数据类型组成的数组集合")]
+            List,
+            /// <summary>
+            /// 以 AbsModelNull 的数据模型组成的数组集合
+            /// </summary>
+            [Explain(@"以 AbsModelNull 的数据模型组成的数组集合")]
+            ListModel,
+        }
+
+        public static AbsCSType DataTypeBind(DTEnum dtenum) {
+            switch (dtenum) {
+                case DTEnum.Struct:
+                    return new MCSDataType.MCSStruct();
+                    break;
+                case DTEnum.Model:
+                    return new MCSDataType.MCSModel();
+                    break;
+                case DTEnum.List:
+                    return new MCSDataType.MCSList();
+                    break;
+                case DTEnum.ListModel:
+                    return new MCSDataType.MCSListModel();
+                    break;
+                default:
+                    return DataTypeBind(DTEnum.Struct);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
     /// Microsoft SQL Server 数据类型解析器
     /// </summary>
     public static class MSQLServerDTParser
@@ -67,34 +117,41 @@ namespace CSharp.LibrayDataBase
             /// <summary>
             /// 数值整形
             /// </summary>
+            [Explain(@"数值整形")]
             Int,
             /// <summary>
             /// 金额字段 搭配C#程序的数据类型是 decimal
             /// </summary>
+            [Explain(@"金额字段")]
             Money,
             /// <summary>
             /// 时间
             /// </summary>
+            [Explain(@"时间")]
             DateTime,
             /// <summary>
             /// 字符(串)固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000, 不存中文)
             /// </summary>
+            [Explain(@"字符(串)固定长度，存储ANSI字符，不足的补英文半角空格。(1-8000, 不存中文)")]
             Char,
             /// <summary>
             /// 字符(串)固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)
             /// </summary>
+            [Explain(@"字符(串)固定长度，存储Unicode字符，不足的补英文半角空格。(1-4000)")]
             NChar,
             /// <summary>
             /// 字符(串)可变长度，存储ANSI字符，根 据数据长度自动变化。(1-8000，不存中文 MAX Yes size: 2^31-1byte 4GB)
             /// </summary>
+            [Explain(@"字符(串)可变长度，存储ANSI字符，根 据数据长度自动变化。(1-8000，不存中文 MAX Yes size: 2^31-1byte 4GB)")]
             VarChar,
             /// <summary>
             /// 字符(串)可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)
             /// </summary>
+            [Explain(@"字符(串)可变长度，存储Unicode字符，根据数据长度自动变化。(1-4000，MAX Yes size: 2^31-1byte 4GB)")]
             NVarChar,
         }
 
-        public static AbsDataType DataTypeBind(DTEnum dtenum) {
+        public static AbsDBType DataTypeBind(DTEnum dtenum) {
             switch (dtenum) {
                 case DTEnum.Char:
                     return new MSSDataType.MSSChar();

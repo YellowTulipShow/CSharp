@@ -89,8 +89,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             /// 性别
             /// </summary>
             [Explain(@"性别")]
-            //[Column(MSSFieldTypeStruct.Int)]
-            [Column(MSQLServerDTParser.DTEnum.Int, CsTypeEnumSign = CsDTEnum.Enum)]
+            [Column(MSQLServerDTParser.DTEnum.Int)]
             public SexEnum Sex {
                 get { return _sex; }
                 set {
@@ -125,7 +124,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 }
 
                 Print.WriteLine(item.Property.PropertyType.Name);
-                ttm = modelParser.FillValue(item, ttm, vvv);
+                ttm = modelParser.SetModelValue(item, ttm, vvv);
 
                 Print.WriteLine(string.Empty);
             }

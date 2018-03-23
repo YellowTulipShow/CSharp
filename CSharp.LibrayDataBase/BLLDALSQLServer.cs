@@ -40,7 +40,7 @@ namespace CSharp.LibrayDataBase
             int IDentity = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
             return IDentity != errorID;
         }
-        private string SQLInsert(M model) {
+        protected string SQLInsert(M model) {
             ColumnItemModel[] caninsertColumns = base.modelParser.ColumnInfoArray.Where(colinfo => {
                 return !colinfo.Attribute.IsDbGenerated;
             }).ToArray(); // 排除那些由数据库系统自动生成的数据列, 来执行插入操作
@@ -48,7 +48,7 @@ namespace CSharp.LibrayDataBase
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
             foreach (ColumnItemModel item in caninsertColumns) {
-                KeyValueModel im = base.modelParser.ExtractValue(item, model);
+                KeyValueModel im = base.modelParser.GetModelValue(item, model);
                 if (CheckData.IsObjectNull(im) || CheckData.IsStringNull(im.Key))
                     continue;
                 fieldArr.Add(im.Key);
@@ -66,7 +66,7 @@ namespace CSharp.LibrayDataBase
         public override bool Delete(WhereModel wheres) {
             return !WhereModel.CheckIsCanUse(wheres) ? false : DbHelperSQL.ExecuteSql(SQLDelete(wheres)) > 0;
         }
-        private string SQLDelete(WhereModel wheres) {
+        protected string SQLDelete(WhereModel wheres) {
             return string.Format("delete {0} where {1}", base.GetTableName(), CreateSQL.ParserWhereModel(wheres));
         }
 
@@ -77,8 +77,8 @@ namespace CSharp.LibrayDataBase
             return (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) ? false :
                 DbHelperSQL.ExecuteSql(SQLUpdate(fielvals, wheres)) > 0;
         }
-        private string SQLUpdate(FieldValueModel[] fielvals, WhereModel wheres) {
-            string set_str = ConvertTool.IListToString(CreateSQL.ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL), ',');
+        protected string SQLUpdate(FieldValueModel[] fielvals, WhereModel wheres) {
+            string set_str = ConvertTool.IListToString(CreateSQL.ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false), ',');
             string where_str = CreateSQL.ParserWhereModel(wheres);
             return string.Format("update {0} set {1} where {2}", base.GetTableName(), set_str, where_str);
         }
@@ -122,7 +122,7 @@ namespace CSharp.LibrayDataBase
                     continue;
                 }
                 object value = row[item.Property.Name];
-                model = base.modelParser.FillValue(item, model, value);
+                model = base.modelParser.SetModelValue(item, model, value);
             }
             return model;
         }
@@ -144,7 +144,7 @@ namespace CSharp.LibrayDataBase
         private DataTable CheckReturnDataTable(DataSet ds) {
             return CheckData.IsSizeEmpty(ds) ? null : CheckData.IsSizeEmpty(ds.Tables[0]) ? null : ds.Tables[0];
         }
-        private string SQLSelect(int top, string strWhere, string orderBy) {
+        protected string SQLSelect(int top, string strWhere, string orderBy) {
             string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
             string sql = string.Format(@"select {0} from {1}", column, GetTableName());
             if (!CheckData.IsStringNull(strWhere.Trim()))
@@ -201,7 +201,7 @@ namespace CSharp.LibrayDataBase
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;
                 }
-                string typeName = item.Attribute.DbType.TypeName();
+                string typeName = item.Attribute.DTParser.TypeName();
                 string[] vals = new string[] {
                     fieldName,
                     typeName,
@@ -238,6 +238,28 @@ namespace CSharp.LibrayDataBase
             }
             bool resu = DbHelperSQL.ExecuteTransaction(sqllist);
             return resu;
+        }
+    }
+
+    /// <summary>
+    /// Microsoft SQL Server 2008 版本数据库 数据访问器 ID版本
+    /// </summary>
+    /// <typeparam name="M">数据访问模型ID版本</typeparam>
+    public class DALSQLServerID<M> : DALSQLServer<M> where M : AbsModel_ID
+    {
+        public DALSQLServerID() : base() { }
+
+        public bool Insert(M model, out int id) {
+            const int errorID = 0;
+            id = errorID;
+            string sqlinsert = SQLInsert(model);
+            if (CheckData.IsStringNull(sqlinsert.Trim())) {
+                return false;
+            }
+            string strSql = sqlinsert + " ;select @@IDENTITY; ";
+            object obj = DbHelperSQL.GetSingle(strSql);
+            id = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
+            return id != errorID;
         }
     }
 }
