@@ -212,18 +212,18 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             public override ModelUser[] DefaultDataModel() {
                 return new ModelUser[] {
-                new ModelUser() {
-                    Email = @"1426689530@qq.com",
-                    MobilePhone = @"18563920971",
-                    NickName = @"YellowTulipShow",
-                    Password = @"zrqytspass",
-                    RealName = @"赵瑞青",
-                    Remark = @"System Developer",
-                    Sex = ModelUser.SexEnum.Male,
-                    TelePhone = string.Empty,
-                    TimeAdd = DateTime.Now,
-                },
-            };
+                    new ModelUser() {
+                        Email = @"1426689530@qq.com",
+                        MobilePhone = @"18563920971",
+                        NickName = @"YellowTulipShow",
+                        Password = @"zrqytspass",
+                        RealName = @"赵瑞青",
+                        Remark = @"System Developer",
+                        Sex = ModelUser.SexEnum.Male,
+                        TelePhone = string.Empty,
+                        TimeAdd = DateTime.Now,
+                    },
+                };
             }
         }
         #endregion

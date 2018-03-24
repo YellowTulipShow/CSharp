@@ -29,8 +29,9 @@ namespace CSharp.LibrayDataBase
          * 设置模型数据: 数据源 @1=> DTParser @2=> CSParser @3=> 模型解构
          * 获取模型数据: 数据源 <=@4 DTParser <=@5 CSParser <=@6 模型解构
          */
+
         /// <summary>
-        /// 获取'模型'数据
+        /// 获取_模型_数据
         /// </summary>
         /// <param name="c">行信息</param>
         /// <param name="sourceModel">数据来源</param>
@@ -50,7 +51,7 @@ namespace CSharp.LibrayDataBase
             };
         }
         /// <summary>
-        /// 设置'模型'数据
+        /// 设置_模型_数据
         /// </summary>
         /// <param name="colmodel">行信息</param>
         /// <param name="targetModel">目标模型</param>
