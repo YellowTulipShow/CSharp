@@ -36,9 +36,14 @@ namespace CSharp.LibrayDataBase
         /// <param name="sourceModel">数据来源</param>
         /// <returns>键值数据</returns>
         public KeyValueModel GetModelValue(ColumnItemModel colmodel, M sourceModel) {
-            object sour = colmodel.Property.GetValue(sourceModel, null); // @6
-            sour = colmodel.Attribute.CSParser.OutputConvert(sour, colmodel); // @5
-            sour = colmodel.Attribute.DTParser.InputConvert(sour, colmodel); // @4
+            object sour = null;
+            if (colmodel.Attribute.IsOnlySetToDefaultValue) {
+                sour = colmodel.Attribute.DTParser.GetDefaultValueString();
+            } else {
+                sour = colmodel.Property.GetValue(sourceModel, null); // @6
+                sour = colmodel.Attribute.CSParser.OutputConvert(sour, colmodel); // @5
+                sour = colmodel.Attribute.DTParser.InputConvert(sour, colmodel); // @4
+            }
             return new KeyValueModel() {
                 Key = colmodel.Property.Name,
                 Value = !CheckData.IsObjectNull(sour) ? sour.ToString() : string.Empty,

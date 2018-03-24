@@ -9,37 +9,10 @@ namespace CSharp.LibrayFunction
     /// </summary>
     public class CommonData
     {
-        #region ====== Random: ======
         /// <summary>
-        /// 随机字符串
+        /// 创建一个全局的随机数生成器 可以确保在调用生成随机数时, 非重复!
         /// </summary>
-        /// <param name="max_charlength">指定字符个数, 默认500个</param>
-        public static string Random_String(int max_charlength = 500) {
-            return Random_String(ASCII_ALL(), max_charlength);
-        }
-        /// <summary>
-        /// 随机字符串
-        /// </summary>
-        /// <param name="source">指定数据源</param>
-        /// <returns></returns>
-        public static string Random_String(char[] source) {
-            return Random_String(source, source.Length);
-        }
-        /// <summary>
-        /// 随机字符串
-        /// </summary>
-        /// <param name="source">指定数据源</param>
-        /// <param name="max_charlength">指定字符个数</param>
-        /// <returns></returns>
-        public static string Random_String(char[] source, int max_charlength) {
-            Random random = new Random();
-            StringBuilder strbu = new StringBuilder();
-            for (int i = 0; i < max_charlength; i++) {
-                strbu.Append(source[random.Next(0, source.Length)]);
-            }
-            return strbu.ToString();
-        }
-        #endregion
+        private static readonly Random R = new Random();
 
         #region ====== ASCII Code: ======
         /// <summary>
@@ -47,6 +20,16 @@ namespace CSharp.LibrayFunction
         /// </summary>
         public static char[] ASCII_ALL() {
             return ASCII_IndexRegion(33, 127);
+        }
+        /// <summary>
+        /// ASCII 常用文本字符
+        /// </summary>
+        public static char[] ASCII_WordText() {
+            List<char> charArr = new List<char>();
+            charArr.AddRange(ASCII_Number());
+            charArr.AddRange(ASCII_LowerEnglish());
+            charArr.AddRange(ASCII_UpperEnglish());
+            return charArr.ToArray();
         }
         /// <summary>
         /// 阿拉伯数字
@@ -91,6 +74,68 @@ namespace CSharp.LibrayFunction
                 cl.Add(Convert.ToChar(str));
             }
             return cl.ToArray();
+        }
+        #endregion
+
+        #region ====== Random: ======
+        /// <summary>
+        /// 随机字符串
+        /// </summary>
+        /// <param name="max_charlength">指定字符个数, 默认500个</param>
+        /// <returns>拼接结果</returns>
+        public static string Random_String(int max_charlength = 500) {
+            return Random_String(ASCII_ALL(), max_charlength);
+        }
+        /// <summary>
+        /// 拼接随机字符串
+        /// </summary>
+        /// <param name="source">指定字符进行拼接</param>
+        /// <returns>拼接结果</returns>
+        public static string Random_String(char[] source) {
+            return Random_String(source, source.Length);
+        }
+        /// <summary>
+        /// 拼接随机字符串
+        /// </summary>
+        /// <param name="source">指定字符进行拼接</param>
+        /// <param name="max_charlength">指定字符个数</param>
+        /// <returns>拼接结果</returns>
+        public static string Random_String(char[] source, int max_charlength) {
+            if (CheckData.IsSizeEmpty(source)) {
+                return string.Empty;
+            }
+            StringBuilder strbu = new StringBuilder();
+            for (int i = 0; i < max_charlength; i++) {
+                strbu.Append(source[R.Next(0, source.Length)]);
+            }
+            return strbu.ToString();
+        }
+
+        /// <summary>
+        /// 随机选取其中一个选项
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="source">数据源</param>
+        /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
+        public static T Random_Item<T>(T[] source) {
+            if (CheckData.IsSizeEmpty(source)) {
+                return default(T);
+            }
+            return source[R.Next(0, source.Length)];
+        }
+
+        /// <summary>
+        /// 随机获取日期
+        /// </summary>
+        public static DateTime Random_DateTime() {
+            int year = R.Next(1, 9999 + 1);
+            int month = R.Next(1, 12 + 1);
+            int day = R.Next(1, DateTime.DaysInMonth(year, month) + 1);
+            int hour = R.Next(0, 23 + 1);
+            int minute = R.Next(0, 59 + 1);
+            int second = R.Next(0, 59 + 1);
+            int millisecond = R.Next(0, 999 + 1);
+            return new DateTime(year, month, day, hour, minute, second, millisecond);
         }
         #endregion
     }

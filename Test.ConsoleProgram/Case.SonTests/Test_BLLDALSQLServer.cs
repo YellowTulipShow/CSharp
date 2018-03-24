@@ -46,8 +46,8 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Password = CommonData.Random_String(100),
                 RealName = CommonData.Random_String(CommonData.ASCII_UpperEnglish(), 10),
                 Remark = CommonData.Random_String(200),
-                Sex = ModelUser.SexEnum.Female,
-                TimeAdd = DateTime.Now,
+                Sex = CommonData.Random_Item(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
+                TimeAdd = CommonData.Random_DateTime(),
             });
             Print.WriteLine(result);
         }
@@ -71,8 +71,31 @@ namespace Test.ConsoleProgram.Case.SonTests
             });
             Print.WriteLine(result);
         }
-        public void UpdateData() { }
-        public void SelectData() { }
+        public void UpdateData() {
+            bool result = bllUser.Update(new FieldValueModel[] {
+                new FieldValueModel(DataChar.OperChar.EQUAL) {
+                    Name = bllUser.ColName_Remark,
+                    Value = @"'''",
+                },
+            }, new WhereModel(DataChar.LogicChar.AND) {
+                FielVals = new FieldValueModel[] {
+                    new FieldValueModel(DataChar.OperChar.EQUAL) {
+                        Name = bllUser.ColName_id,
+                        Value = @"2",
+                    },
+                },
+            });
+            Print.WriteLine(result);
+        }
+        public void SelectData() {
+            ModelUser modeluser = bllUser.GetModel(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"2",
+            });
+            Print.WriteLine("id: " + modeluser.id);
+            Print.WriteLine("Remark: " + modeluser.Remark);
+            Print.WriteLine("RealName: " + modeluser.RealName);
+        }
 
         #region === 测试模型 ===
         /// <summary>

@@ -15,5 +15,32 @@ namespace Test.ConsoleProgram
 
         #region ====== Tool Region: ======
         #endregion
+
+        #region ====== Const Data: ======
+        public enum TestEnum
+        {
+            All,
+            Show,
+            View,
+            Add,
+            Edit,
+            Delete,
+            System,
+            Users,
+            WebSite,
+            Password,
+            SysGive,
+            Recharge,
+            Consumption,
+            AdminGive,
+            AdminDraw,
+            BuyXNCourse,
+            BuyCoupons,
+            BuyFandvip,
+            BuyMomentvip,
+            BuyPartner,
+            BuyAgent,
+        }
+        #endregion
     }
 }

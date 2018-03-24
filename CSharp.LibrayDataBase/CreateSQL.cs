@@ -297,6 +297,7 @@ namespace CSharp.LibrayDataBase
                 } else {
                     existed_names.Add(FVm.Name);
                 }
+                FVm.Value = ReplaceSpecialCharacters(FVm.Value);
                 return DataChar.MSQLServer_OperChar_Parser(isFixedOperChar ? fixedOperChar : FVm.KeyChar, FVm);
             }, string.Empty);
         }
@@ -401,6 +402,21 @@ namespace CSharp.LibrayDataBase
         /// <param name="column_format">列的相关信息</param>
         public static string AlterColumn(string table_name, string column_format) {
             return string.Format("ALTER TABLE {0} ADD {1}", table_name, column_format);
+        }
+        #endregion
+
+        #region ====== Word Text  ======
+        /// <summary>
+        /// 替换掉特殊字符
+        /// </summary>
+        public static string ReplaceSpecialCharacters(string source) {
+            return source.Replace("'", "@&Y*#01");
+        }
+        /// <summary>
+        /// 还原回特殊字符
+        /// </summary>
+        public static string RevertSpecialCharacters(string source) {
+            return source.Replace("@&Y*#01", "'");
         }
         #endregion
     }

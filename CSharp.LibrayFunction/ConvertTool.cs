@@ -144,6 +144,14 @@ namespace CSharp.LibrayFunction
         #endregion
 
         #region === Data Type Convert ===
+
+        /// <summary>
+        /// 将对象转换为String类型, 区别在于判断是否为Null
+        /// </summary>
+        public static string ObjToString(object source) {
+            return CheckData.IsObjectNull(source) ? string.Empty : source.ToString();
+        }
+
         /// <summary>
         /// 将对象转换为Int32类型
         /// </summary>
@@ -331,6 +339,20 @@ namespace CSharp.LibrayFunction
         /// <returns>Json 字符串</returns>
         public static string ToJson(this object obj) {
             return JsonHelper.SerializeObject(obj);
+        }
+
+
+        /// <summary>
+        /// 枚举遍历所有枚举值
+        /// </summary>
+        /// <typeparam name="E">枚举类型</typeparam>
+        public static E[] EnumForeachArray<E>() where E : struct {
+            try {
+                Array arr = Enum.GetValues(typeof(E));
+                return arr.Cast<E>().ToArray();
+            } catch (Exception) {
+                return new E[] { };
+            }
         }
         #endregion
     }

@@ -13,11 +13,10 @@ namespace CSharp.LibrayDataBase.MSSDataType
         }
 
         public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
-            //if (CheckData.IsObjectNull(sourceValue) || !CheckData.IsNumber(sourceValue)) {
-            //    return GetDefaultValueString();
-            //}
-            //return sourceValue.ToString();
-            return sourceValue;
+            if (CheckData.IsObjectNull(sourceValue) || !CheckData.IsNumber(sourceValue)) {
+                return GetDefaultValueString();
+            }
+            return sourceValue.ToString();
         }
     }
 }

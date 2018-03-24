@@ -27,7 +27,7 @@ namespace CSharp.LibrayDataBase
         /// 添加时间
         /// </summary>
         [Explain(@"添加时间")]
-        [Column(MSQLServerDTParser.DTEnum.DateTime, DefaultValue = ConstData.ConstEnum.DateTimeNow, SortIndex = ushort.MaxValue - 1)]
+        [Column(MSQLServerDTParser.DTEnum.DateTime, IsOnlySetToDefaultValue = true, DefaultValue = ConstData.ConstEnum.DateTimeNow, SortIndex = ushort.MaxValue - 1)]
         public DateTime TimeAdd { get { return _timeAdd; } set { _timeAdd = value; } }
         private DateTime _timeAdd = DateTime.Now;
     }

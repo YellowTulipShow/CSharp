@@ -114,6 +114,15 @@ namespace CSharp.LibrayDataBase
         }
         private bool _isDbGenerated = false;
 
+        /// <summary>
+        /// 获取或设置是否列只设置为默认值。
+        /// </summary>
+        public bool IsOnlySetToDefaultValue {
+            get { return _isOnlySetToDefaultValue; }
+            set { _isOnlySetToDefaultValue = value; }
+        }
+        private bool _isOnlySetToDefaultValue = false;
+
 
         /// <summary>
         /// 获取或设置是否列可以包含 null 值。

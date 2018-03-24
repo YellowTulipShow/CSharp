@@ -83,7 +83,6 @@ namespace CSharp.LibrayDataBase
             return string.Format("update {0} set {1} where {2}", base.GetTableName(), set_str, where_str);
         }
 
-
         /// <summary>
         /// 查
         /// </summary>

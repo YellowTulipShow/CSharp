@@ -1,18 +1,15 @@
 ﻿using System;
+using CSharp.LibrayFunction;
 
 namespace CSharp.LibrayDataBase.MSSDataType
 {
     /// <summary>
     /// Microsoft SQL Server 字段 nvarchar 类型
     /// </summary>
-    public class MSSVarChar : AbsDBType
+    public class MSSVarChar : AbsDBTypeStrChar
     {
         public override string TypeName() {
             return string.Format("varchar{0}", GetCharLengthStrSign());
-        }
-
-        public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
-            return base.CharStringTypeConvert(sourceValue);
         }
 
         protected override ushort MinCharLength {

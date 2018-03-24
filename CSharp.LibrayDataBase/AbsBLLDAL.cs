@@ -236,7 +236,7 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="fielvals">条件筛选</param>
         public virtual M GetModel(FieldValueModel fielvals, FieldOrderModel[] fieldOrders = null) {
-            return (FieldValueModel.CheckIsCanUse(fielvals)) ? null :
+            return !FieldValueModel.CheckIsCanUse(fielvals) ? null :
                 GetModel(new WhereModel() { FielVals = new FieldValueModel[] { fielvals }, }, fieldOrders);
         }
 

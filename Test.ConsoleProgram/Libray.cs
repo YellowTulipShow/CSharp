@@ -15,7 +15,7 @@ namespace Test.ConsoleProgram
             return new CaseModel[] {
                 // new Case.SonTests.*****(),
 
-                new Case.SonTests.Test_CaseModel_Tool_Value(),
+                //new Case.SonTests.Test_CaseModel_Tool_Value(),
 
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),
@@ -24,6 +24,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_AbsBasicsDataModel(),
                 //new Case.SonTests.Test_Attribute(),
                 //new Case.SonTests.Test_CheckData(),
+                //new Case.SonTests.Test_CommonData(),
                 //new Case.SonTests.Test_ConvertTool(),
                 //new Case.SonTests.Test_DateTime(),
                 //new Case.SonTests.Test_Enum(),
@@ -33,7 +34,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_Lambda(),
                 //new Case.SonTests.Test_WhereModel(),
 
-                //new Case.SonTests.Test_BLLDALSQLServer(),
+                new Case.SonTests.Test_BLLDALSQLServer(),
             };
         }
     }

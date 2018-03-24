@@ -9,31 +9,34 @@ namespace Test.ConsoleProgram.Case.SonTests
     public class Test_ConvertTool : CaseModel
     {
         public Test_ConvertTool() {
-            base.NameSign = @"测试 转化工具";
-            base.ExeEvent = Method;
-            base.SonCases = SonCaseArray();
-        }
-
-        public void Method() {
-            Print.WriteLine(@"ConvertTool 的类型转化工具");
-        }
-
-        public CaseModel[] SonCaseArray() {
-            //List<ICase> 
-            return new CaseModel[] {
-                new StringToInt(),
-                new StringToInt_ErrorValue(),
-                new StringToString(),
-                new StringToString_ErrorValue(),
-                new StringToFloat(),
-                new StringToDecimal(),
-                new StringToBoolean(),
-                new DataTableToString(),
-                new DictionaryToString(),
+            base.NameSign = @"测试 转化工具类";
+            base.ExeEvent = () => { };
+            base.SonCases = new CaseModel[] {
+                //DataTypeConvert(),
+                EnumTypeValue(),
             };
         }
-        //public class TypeConvert : AbsCase {}
 
+        #region === DataTypeConvert ===
+        public CaseModel DataTypeConvert() {
+            return new CaseModel() {
+                NameSign = @"数据类型转换",
+                ExeEvent = () => {
+                    Print.WriteLine(@"ConvertTool 的类型转化工具");
+                },
+                SonCases = new CaseModel[] {
+                    new StringToInt(),
+                    new StringToInt_ErrorValue(),
+                    new StringToString(),
+                    new StringToString_ErrorValue(),
+                    new StringToFloat(),
+                    new StringToDecimal(),
+                    new StringToBoolean(),
+                    new DataTableToString(),
+                    new DictionaryToString(),
+                },
+            };
+        }
         #region Son Test Case
         private static string Srource() {
             return ",15,8,3,-1,,,r,2,0,ssss,55,5,4,34M,350,0,";
@@ -206,6 +209,34 @@ namespace Test.ConsoleProgram.Case.SonTests
                     Print.WriteLine("Key Array: {0}", k);
                 }
             }
+        }
+        #endregion
+        #endregion
+
+        #region === Enum Type Value ===
+        private CaseModel EnumTypeValue() {
+            return new CaseModel() {
+                NameSign = @"枚举类型-相关测试",
+                ExeEvent = () => { },
+                SonCases = new CaseModel[] {
+                    new CaseModel() {
+                        NameSign = @"输出枚举int值",
+                        ExeEvent = () => {
+                            foreach (int item in ConvertTool.EnumToInts<TestEnum>()) {
+                                Print.WriteLine(item);
+                            }
+                        },
+                    },
+                    new CaseModel() {
+                        NameSign = @"输出枚举所有个项",
+                        ExeEvent = () => {
+                            foreach (TestEnum item in ConvertTool.EnumForeachArray<TestEnum>()) {
+                                Print.WriteLine(string.Format("Name: {0}  Value: {1}", item.GetName(), item.GetIntValue()));
+                            }
+                        },
+                    },
+                },
+            };
         }
         #endregion
     }

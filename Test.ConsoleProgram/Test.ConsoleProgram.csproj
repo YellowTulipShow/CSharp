@@ -63,6 +63,7 @@
     <Compile Include="Case.Learn\Learn_Dictionary.cs" />
     <Compile Include="Case.Learn\Learn_Object.cs" />
     <Compile Include="Case.Learn\Learn_RegularExpression.cs" />
+    <Compile Include="Case.SonTests\Test_CommonData.cs" />
     <Compile Include="Case.SonTests\Test_AbsBasicsDataModel.cs" />
     <Compile Include="Case.SonTests\Test_Attribute.cs" />
     <Compile Include="Case.SonTests\Test_BLLDALSQLServer.cs" />

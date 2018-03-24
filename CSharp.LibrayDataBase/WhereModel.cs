@@ -97,13 +97,15 @@ namespace CSharp.LibrayDataBase
         /// 检查是否可以使用 (单个)
         /// </summary>
         public static bool CheckIsCanUse(FieldValueModel fielvals) {
-            return CheckData.IsCanUseModel(fielvals, m => CheckData.IsStringNull(m.Name));
+            bool result = CheckData.IsCanUseModel(fielvals, m => CheckData.IsStringNull(m.Name));
+            return result;
         }
         /// <summary>
         /// 检查是否可以使用 (多个)
         /// </summary>
         public static bool CheckIsCanUse(FieldValueModel[] fielvals) {
-            return CheckData.IsCanUseModel(fielvals, m => CheckData.IsStringNull(m.Name));
+            bool result = CheckData.IsCanUseModel(fielvals, m => CheckData.IsStringNull(m.Name));
+            return result;
         }
     }
 
