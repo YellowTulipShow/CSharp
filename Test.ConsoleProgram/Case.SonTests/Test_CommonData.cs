@@ -9,10 +9,10 @@ namespace Test.ConsoleProgram.Case.SonTests
             this.NameSign = @"常用工具的测试";
             this.ExeEvent = () => { };
             this.SonCases = new CaseModel[] {
-                //ExeEvent_Section_ASCII_String(),
-                ExeEvent_RandomStrignMethod(),
-                ExeEvent_Random_DateTime(),
-                ExeEvent_Random_Select_Item(),
+                ExeEvent_Section_ASCII_String(),
+                //ExeEvent_RandomStrignMethod(),
+                //ExeEvent_Random_DateTime(),
+                //ExeEvent_Random_Select_Item(),
             };
         }
 

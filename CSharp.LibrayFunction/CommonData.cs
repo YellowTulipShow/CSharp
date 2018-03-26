@@ -38,15 +38,15 @@ namespace CSharp.LibrayFunction
             return ASCII_IndexRegion(48, 58);
         }
         /// <summary>
-        /// 小写英文
-        /// </summary>
-        public static char[] ASCII_LowerEnglish() {
-            return ASCII_IndexRegion(65, 91);
-        }
-        /// <summary>
         /// 大写英文
         /// </summary>
         public static char[] ASCII_UpperEnglish() {
+            return ASCII_IndexRegion(65, 91);
+        }
+        /// <summary>
+        /// 小写英文
+        /// </summary>
+        public static char[] ASCII_LowerEnglish() {
             return ASCII_IndexRegion(97, 123);
         }
         /// <summary>

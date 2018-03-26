@@ -47,7 +47,7 @@ namespace CSharp.LibrayDataBase
             }
             return new KeyValueModel() {
                 Key = colmodel.Property.Name,
-                Value = !CheckData.IsObjectNull(sour) ? sour.ToString() : string.Empty,
+                Value = ConvertTool.ObjToString(sour),
             };
         }
         /// <summary>

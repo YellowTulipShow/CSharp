@@ -56,16 +56,13 @@ namespace Test.ConsoleProgram.Case.SonTests
                 IsAllowFieldRepeat = true,
                 FielVals = new FieldValueModel[] {
                     new FieldValueModel(DataChar.OperChar.EQUAL) {
-                        Name = bllUser.ColName_id,
-                        Value = @"5",
+                        Name = bllUser.ColName_id, Value = @"5",
                     },
                     new FieldValueModel(DataChar.OperChar.EQUAL) {
-                        Name = bllUser.ColName_id,
-                        Value = @"3",
+                        Name = bllUser.ColName_id, Value = @"3",
                     },
                     new FieldValueModel(DataChar.OperChar.EQUAL) {
-                        Name = bllUser.ColName_id,
-                        Value = @"6",
+                        Name = bllUser.ColName_id, Value = @"6",
                     },
                 },
             });
