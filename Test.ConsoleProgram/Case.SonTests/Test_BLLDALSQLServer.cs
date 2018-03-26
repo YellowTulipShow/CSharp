@@ -26,6 +26,10 @@ namespace Test.ConsoleProgram.Case.SonTests
                     NameSign = @"查询数据",
                     ExeEvent = SelectData,
                 },
+                new CaseModel() {
+                    NameSign = @"全部数据条数",
+                    ExeEvent = ALLRecordCount,
+                },
             };
         }
 
@@ -38,6 +42,7 @@ namespace Test.ConsoleProgram.Case.SonTests
         }
 
         public void InsertData() {
+            int id = 0;
             bool result = bllUser.Insert(new ModelUser() {
                 Email = CommonData.Random_String(10),
                 TelePhone = CommonData.Random_String(CommonData.ASCII_Number(), 12),
@@ -48,8 +53,9 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Remark = CommonData.Random_String(200),
                 Sex = CommonData.Random_Item(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
                 TimeAdd = CommonData.Random_DateTime(),
-            });
+            }, out id);
             Print.WriteLine(result);
+            Print.WriteLine(id);
         }
         public void DeleteData() {
             bool result = bllUser.Delete(new WhereModel(DataChar.LogicChar.OR) {
@@ -72,13 +78,13 @@ namespace Test.ConsoleProgram.Case.SonTests
             bool result = bllUser.Update(new FieldValueModel[] {
                 new FieldValueModel(DataChar.OperChar.EQUAL) {
                     Name = bllUser.ColName_Remark,
-                    Value = @"'''",
+                    Value = @"'846'&(&'",
                 },
             }, new WhereModel(DataChar.LogicChar.AND) {
                 FielVals = new FieldValueModel[] {
                     new FieldValueModel(DataChar.OperChar.EQUAL) {
                         Name = bllUser.ColName_id,
-                        Value = @"2",
+                        Value = @"34",
                     },
                 },
             });
@@ -87,11 +93,19 @@ namespace Test.ConsoleProgram.Case.SonTests
         public void SelectData() {
             ModelUser modeluser = bllUser.GetModel(new FieldValueModel() {
                 Name = bllUser.ColName_id,
-                Value = @"2",
+                Value = @"34",
             });
-            Print.WriteLine("id: " + modeluser.id);
-            Print.WriteLine("Remark: " + modeluser.Remark);
-            Print.WriteLine("RealName: " + modeluser.RealName);
+            if (CheckData.IsObjectNull(modeluser)) {
+                Print.WriteLine("没有查到 id = 34 的数据");
+            } else {
+                Print.WriteLine("id: " + modeluser.id);
+                Print.WriteLine("Remark: " + modeluser.Remark);
+                Print.WriteLine("RealName: " + modeluser.RealName);
+            }
+        }
+        public void ALLRecordCount() {
+            int recordCount = bllUser.GetRecordCount(null);
+            Print.WriteLine("数据条数: {0}", recordCount);
         }
 
         #region === 测试模型 ===
@@ -191,7 +205,7 @@ namespace Test.ConsoleProgram.Case.SonTests
         /// <summary>
         /// 数据逻辑类: 用户
         /// </summary>
-        protected class BLLUser : BLLSQLServer<ModelUser>
+        protected class BLLUser : BLLSQLServerID<DALSQLServerID<ModelUser>, ModelUser>
         {
             private static readonly ModelUser defModel = new ModelUser();
             public readonly string ColName_id = ReflexHelper.Name(() => defModel.id);
@@ -205,7 +219,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public readonly string ColName_TelePhone = ReflexHelper.Name(() => defModel.TelePhone);
             public readonly string ColName_TimeAdd = ReflexHelper.Name(() => defModel.TimeAdd);
 
-            public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
+            public BLLUser() : base(new DALSQLServerID<ModelUser>()) { }
 
             public override ModelUser[] DefaultDataModel() {
                 return new ModelUser[] {

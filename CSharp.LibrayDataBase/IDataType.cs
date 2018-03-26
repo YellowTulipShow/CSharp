@@ -112,13 +112,9 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 获取字符长度字符串标识, 使用自定义的格式输出
         /// </summary>
-        public string GetCharLengthStrSign(CharLengthFormatOutput formatOutput) {
+        public string GetCharLengthStrSign(Func<ushort, string> formatOutput) {
             return CheckData.IsObjectNull(formatOutput) ? formatOutput(this.CharLength) : GetCharLengthStrSign();
         }
-        /// <summary>
-        /// 字符长度格式输出自定义方法
-        /// </summary>
-        public delegate string CharLengthFormatOutput(ushort charlength);
         /// <summary>
         /// 截取符合字符限制的内容
         /// </summary>

@@ -110,20 +110,13 @@ namespace CSharp.LibrayFunction
 
         #region === Is Can Use Model ===
         /// <summary>
-        /// 模型不能使用的判断
-        /// </summary>
-        /// <typeparam name="M">数据模型类型</typeparam>
-        /// <param name="item">数据来源</param>
-        /// <returns>True: 不能使用, 反之亦然</returns>
-        public delegate bool ModelNotUseIF<M>(M item) where M : AbsBasicDataModel;
-        /// <summary>
         /// 检查模型可以使用 单例
         /// </summary>
         /// <typeparam name="M">数据模型类型</typeparam>
         /// <param name="item">数据来源</param>
         /// <param name="errorMethod">不能使用的判断条件</param>
         /// <returns>True: 可以使用, 反之亦然</returns>
-        public static bool IsCanUseModel<M>(M item, ModelNotUseIF<M> errorMethod) where M : AbsBasicDataModel {
+        public static bool IsCanUseModel<M>(M item, Func<M, bool> errorMethod) where M : AbsBasicDataModel {
             return !(CheckData.IsObjectNull(item) || errorMethod(item));
         }
         /// <summary>
@@ -133,7 +126,7 @@ namespace CSharp.LibrayFunction
         /// <param name="array">数据来源</param>
         /// <param name="errorMethod">不能使用的判断条件</param>
         /// <returns>True: 可以使用, 反之亦然</returns>
-        public static bool IsCanUseModel<M>(M[] array, ModelNotUseIF<M> errorMethod) where M : AbsBasicDataModel {
+        public static bool IsCanUseModel<M>(M[] array, Func<M, bool> errorMethod) where M : AbsBasicDataModel {
             if (!CheckData.IsSizeEmpty(array)) {
                 foreach (M item in array) {
                     if (IsCanUseModel(item, errorMethod)) {

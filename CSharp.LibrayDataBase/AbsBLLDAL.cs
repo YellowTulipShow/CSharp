@@ -253,5 +253,17 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public virtual void Supplementary() { }
         #endregion
+
+        /// <summary>
+        /// 获得可以写入的列选项模型
+        /// </summary>
+        public ColumnItemModel[] GetCanWriteColumn() {
+            return ConvertTool.ListConvertType(modelParser.ColumnInfoArray, colinfo => {
+                if (colinfo.Attribute.IsDbGenerated) {
+                    return null;
+                }
+                return colinfo;
+            }, null);
+        }
     }
 }

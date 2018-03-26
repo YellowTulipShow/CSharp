@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLDALSystemText.cs" />
     <Compile Include="IDataType.cs" />
     <Compile Include="CreateSQL.cs" />
     <Compile Include="DataChar.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="AbsBLLDAL.cs" />
     <Compile Include="IDefaultRecord.cs" />
     <Compile Include="ITableName.cs" />
-    <Compile Include="ModelParser.cs" />
+    <Compile Include="ColumnModelParser.cs" />
     <Compile Include="ColumnAttribute.cs" />
     <Compile Include="TableAttribute.cs" />
     <Compile Include="BLLDALSQLServer.cs">

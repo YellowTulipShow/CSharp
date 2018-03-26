@@ -153,6 +153,13 @@ namespace CSharp.LibrayFunction
         }
 
         /// <summary>
+        /// 将字符串去除前后多余空格
+        /// </summary>
+        public static string StrToStrTrim(string source) {
+            return CheckData.IsStringNull(source) ? string.Empty : source.Trim();
+        }
+
+        /// <summary>
         /// 将对象转换为Int32类型
         /// </summary>
         /// <param name="expression">要转换的字符串</param>

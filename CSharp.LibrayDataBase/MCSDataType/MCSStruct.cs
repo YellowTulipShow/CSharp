@@ -15,10 +15,12 @@ namespace CSharp.LibrayDataBase.MCSDataType
         /// </summary>
         public override object OutputConvert(object sourceValue, ColumnItemModel colmodel) {
             Type t = sourceValue.GetType();
-            if (t.IsEnum) {
+
+            if (t.IsEnum) { // 特别区别: 枚举类型
                 sourceValue = Convert.ToInt32(sourceValue);
                 return sourceValue;
             }
+
             return sourceValue;
         }
 

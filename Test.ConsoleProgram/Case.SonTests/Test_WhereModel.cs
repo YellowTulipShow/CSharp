@@ -230,7 +230,7 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             Print.WriteLine("解析 字段值模型 测试: ");
             Print.WriteLine(JsonHelper.SerializeObject(FVmlist));
-            Print.WriteLine(JsonHelper.SerializeObject(CreateSQL.ParserFieldValueModel(FVmlist.ToArray())));
+            //Print.WriteLine(JsonHelper.SerializeObject(CreateSQL.ParserFieldValueModel(FVmlist.ToArray())));
             Print.WriteLine("测试结束");
 
             Print.WriteLine(string.Empty);
@@ -238,7 +238,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             Print.WriteLine("解析 条件模型 测试: ");
             WhereModel wm = DBS_WM(4);
             Print.WriteLine(JsonHelper.SerializeObject(wm));
-            Print.WriteLine(CreateSQL.ParserWhereModel(wm));
+            //Print.WriteLine(CreateSQL.ParserWhereModel(wm));
             Print.WriteLine("测试结束");
         }
         private WhereModel DBS_WM(int level) {

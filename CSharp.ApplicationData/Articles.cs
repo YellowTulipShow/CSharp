@@ -48,7 +48,7 @@ namespace CSharp.ApplicationData
     /// <summary>
     /// 数据逻辑类: 文章
     /// </summary>
-    public class BLLArticles : BLLSQLServer<ModelArticles>
+    public class BLLArticles : BLLSQLServer<DALSQLServer<ModelArticles>, ModelArticles>
     {
         public BLLArticles() : base(new DALSQLServer<ModelArticles>()) { }
     }

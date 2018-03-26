@@ -103,7 +103,7 @@ namespace CSharp.ApplicationData
     /// <summary>
     /// 数据逻辑类: 用户
     /// </summary>
-    public class BLLUser : BLLSQLServer<ModelUser>
+    public class BLLUser : BLLSQLServer<DALSQLServer<ModelUser>, ModelUser>
     {
         public BLLUser() : base(new DALSQLServer<ModelUser>()) { }
 

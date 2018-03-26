@@ -12,6 +12,13 @@ namespace CSharp.LibrayDataBase
     public static class CreateSQL
     {
         #region ====== Const Field String Char ======
+        /* ====== Select Part ====== */
+        /// <summary>
+        /// 查询标识列
+        /// </summary>
+        public const string SELECT_IDENTITY = @";select @@IDENTITY;";
+
+
         /* ====== Where Part ====== */
         /// <summary>
         /// 和并且 and 字段
@@ -258,48 +265,69 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 条件模型解析
         /// </summary>
-        public static string ParserWhereModel(WhereModel wheres) {
-            if (CheckData.IsObjectNull(wheres)) {
+        /// <typeparam name="M">解析的'表'模型类型</typeparam>
+        /// <param name="whereMSour">条件模型源</param>
+        /// <param name="modelParser">模型解析器</param>
+        /// <returns></returns>
+        public static string ParserWhereModel<M>(WhereModel whereMSour, ColumnModelParser<M> modelParser) where M : AbsModelNull {
+            if (CheckData.IsObjectNull(whereMSour) || CheckData.IsObjectNull(modelParser)) {
                 return string.Empty;
             }
             List<string> resultArray = new List<string>();
-            string[] fielVals = ParserFieldValueModel(wheres.FielVals, wheres.IsAllowFieldRepeat);
+            string[] fielVals = ParserFieldValueModel<M>(whereMSour.FielVals, modelParser, isAllowFieldRepeat: whereMSour.IsAllowFieldRepeat);
             resultArray.AddRange(fielVals);
-            foreach (WhereModel wm in wheres.Wheres) {
-                string son_where_str = ParserWhereModel(wm);
+            foreach (WhereModel wm in whereMSour.Wheres) {
+                string son_where_str = ParserWhereModel(wm, modelParser);
                 if (!CheckData.IsStringNull(son_where_str)) {
                     resultArray.Add(WhereParenthesesPackage(son_where_str));
                 }
             }
-            return ConvertTool.IListToString(resultArray, DataChar.MSQLServer_LogicChar_Parser(wheres.KeyChar));
-        }
-
-        /// <summary>
-        /// 字段值模型解析
-        /// </summary>
-        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, bool IsAllowFieldRepeat = WhereModel.DEFAULT_ISALLOWFIELDREPEAT) {
-            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false, IsAllowFieldRepeat);
+            return ConvertTool.IListToString(resultArray, DataChar.MSQLServer_LogicChar_Parser(whereMSour.KeyChar));
         }
         /// <summary>
-        /// 字段值模型解析 固定操作字符
+        /// 解析字段值模型列表
         /// </summary>
-        public static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool IsAllowFieldRepeat = WhereModel.DEFAULT_ISALLOWFIELDREPEAT) {
-            return ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, true, IsAllowFieldRepeat);
-        }
-        private static string[] ParserFieldValueModel(FieldValueModel[] fielvals, DataChar.OperChar fixedOperChar, bool isFixedOperChar, bool IsAllowFieldRepeat) {
-            if (CheckData.IsSizeEmpty(fielvals)) {
+        /// <typeparam name="M">解析的'表'模型类型</typeparam>
+        /// <param name="fielvals">字段值模型来源</param>
+        /// <param name="modelParser">模型解析器</param>
+        /// <param name="isFixedOperChar">是否固定操作符, 默认不固定</param>
+        /// <param name="fixedOperChar">固定的操作符</param>
+        /// <param name="isAllowFieldRepeat">是否允许字段重复, 默认允许</param>
+        /// <returns></returns>
+        public static string[] ParserFieldValueModel<M>(FieldValueModel[] fielvals, ColumnModelParser<M> modelParser,
+            bool isFixedOperChar = false, DataChar.OperChar fixedOperChar = DataChar.OperChar.EQUAL,
+            bool isAllowFieldRepeat = WhereModel.DEFAULT_ISALLOWFIELDREPEAT) where M : AbsModelNull {
+            if (CheckData.IsSizeEmpty(fielvals) || CheckData.IsObjectNull(modelParser)) {
                 return new string[] { };
             }
-            List<string> existed_names = new List<string>();
-            return ConvertTool.ListConvertType(fielvals, FVm => {
-                if (existed_names.Contains(FVm.Name) && !IsAllowFieldRepeat) {
-                    return string.Empty;
-                } else {
-                    existed_names.Add(FVm.Name);
+            List<string> Contains_names = new List<string>();
+            List<string> sql_expressions = new List<string>();
+            foreach (FieldValueModel FVm in fielvals) {
+                ColumnItemModel columnItem = IsColumnField(FVm, modelParser.ColumnInfoArray);
+                if (CheckData.IsObjectNull(columnItem) || (Contains_names.Contains(FVm.Name) && !isAllowFieldRepeat)) {
+                    continue;
                 }
-                FVm.Value = ReplaceSpecialCharacters(FVm.Value);
-                return DataChar.MSQLServer_OperChar_Parser(isFixedOperChar ? fixedOperChar : FVm.KeyChar, FVm);
-            }, string.Empty);
+                Contains_names.Add(FVm.Name);
+                KeyValueModel kvM = modelParser.GetModelValue(columnItem, FVm.Value);
+                if (CheckData.IsObjectNull(kvM)) {
+                    continue;
+                }
+                FVm.Value = kvM.Value;
+                FVm.SetKeyChar(isFixedOperChar ? fixedOperChar : FVm.KeyChar);
+                sql_expressions.Add(DataChar.MSQLServer_OperChar_Parser(FVm));
+            }
+            return sql_expressions.ToArray();
+        }
+        private static ColumnItemModel IsColumnField(FieldValueModel FVm, ColumnItemModel[] columnItemModel) {
+            if (CheckData.IsObjectNull(FVm) || CheckData.IsSizeEmpty(columnItemModel)) {
+                return null;
+            }
+            foreach (ColumnItemModel item in columnItemModel) {
+                if (FVm.Name == item.Property.Name) {
+                    return item;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -323,10 +351,54 @@ namespace CSharp.LibrayDataBase
         #endregion
 
         #region ====== Basic SQL Grammar ======
-        public static string Insert(string table_name, string[] column_names, string[] column_values) {
+        public static string Insert(string table_name, string[] column_names, string[] column_values, bool isResultID = false) {
+            table_name = ConvertTool.StrToStrTrim(table_name);
+            if (CheckData.IsStringNull(table_name) || CheckData.IsSizeEmpty(column_names) ||
+                CheckData.IsSizeEmpty(column_values) || column_names.Length != column_values.Length) {
+                return string.Empty;
+            }
             string fieldStr = ConvertTool.IListToString(column_names, ',');
             string valueStr = ConvertTool.IListToString(column_values, ',');
-            return string.Format("insert into {0}({1}) values({2})", table_name, fieldStr, valueStr);
+            string resultIDval = isResultID ? SELECT_IDENTITY : string.Empty;
+            return string.Format("insert into {0}({1}) values({2}) {3}", table_name, fieldStr, valueStr, resultIDval).Trim();
+        }
+        public static string Delete(string table_name, string where) {
+            table_name = ConvertTool.StrToStrTrim(table_name);
+            where = ConvertTool.StrToStrTrim(where);
+            if (CheckData.IsStringNull(table_name)) {
+                return string.Empty;
+            }
+            where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
+            return string.Format("delete {0} {1}", table_name, where).Trim();
+        }
+        public static string Update(string table_name, string setcontent, string where) {
+            table_name = ConvertTool.StrToStrTrim(table_name);
+            setcontent = ConvertTool.StrToStrTrim(setcontent);
+            where = ConvertTool.StrToStrTrim(where);
+            if (CheckData.IsStringNull(table_name) || CheckData.IsStringNull(setcontent)) {
+                return string.Empty;
+            }
+            where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
+            return string.Format("update {0} set {1} {2}", table_name, setcontent, where).Trim();
+        }
+        public static string Select(string table_name, int top, string where, string order) {
+            table_name = ConvertTool.StrToStrTrim(table_name);
+            where = ConvertTool.StrToStrTrim(where);
+            order = ConvertTool.StrToStrTrim(order);
+            if (CheckData.IsStringNull(table_name)) {
+                return string.Empty;
+            }
+            string showcolumn = top <= 0 ? @"*" : string.Format("top {0} *", top);
+            where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
+            order = CheckData.IsStringNull(order) ? string.Empty : string.Format(" order by {0} ", order);
+            return string.Format("select {1} from {0} {2} {3}", table_name, showcolumn, where, order).Trim();
+        }
+        public static string Select_Count(string table_name, string where) {
+            if (CheckData.IsStringNull(table_name)) {
+                return string.Empty;
+            }
+            where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
+            return string.Format("select count(*) as H from {0} {1}", table_name, where);
         }
         #endregion
 
@@ -419,5 +491,6 @@ namespace CSharp.LibrayDataBase
             return source.Replace("@&Y*#01", "'");
         }
         #endregion
+
     }
 }

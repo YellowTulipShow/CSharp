@@ -13,6 +13,7 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public const char ARRAYLIST_INTERVAL_CHAR = ',';
 
+        #region ====== LogicChar: ======
         /// <summary>
         /// 逻辑符
         /// </summary>
@@ -30,7 +31,23 @@ namespace CSharp.LibrayDataBase
             [Explain("或(or)")]
             OR = 1,
         }
+        /// <summary>
+        /// Microsoft SQL Server SQL 逻辑符解析器
+        /// </summary>
+        public static string MSQLServer_LogicChar_Parser(LogicChar logicChar) {
+            const string Space = @" ";
+            switch (logicChar) {
+                case DataChar.LogicChar.AND:
+                    return Space + CreateSQL.WHERE_AND + Space;
+                case DataChar.LogicChar.OR:
+                    return Space + CreateSQL.WHERE_OR + Space;
+                default:
+                    return MSQLServer_LogicChar_Parser(DataChar.LogicChar.AND);
+            }
+        }
+        #endregion
 
+        #region ====== OperChar: ======
         /// <summary>
         /// 操作符
         /// </summary>
@@ -91,27 +108,14 @@ namespace CSharp.LibrayDataBase
             SmallTHAN_EQUAL = 8,
         }
 
-        #region ====== Parser Region: ======
-
-        /// <summary>
-        /// Microsoft SQL Server SQL 逻辑符解析器
-        /// </summary>
-        public static string MSQLServer_LogicChar_Parser(LogicChar logicChar) {
-            const string Space = @" ";
-            switch (logicChar) {
-                case DataChar.LogicChar.AND:
-                    return Space + CreateSQL.WHERE_AND + Space;
-                case DataChar.LogicChar.OR:
-                    return Space + CreateSQL.WHERE_OR + Space;
-                default:
-                    return MSQLServer_LogicChar_Parser(DataChar.LogicChar.AND);
-            }
-        }
         /// <summary>
         /// Microsoft SQL Server SQL 操作符解析器
         /// </summary>
-        public static string MSQLServer_OperChar_Parser(DataChar.OperChar operChar, FieldValueModel FVm) {
-            switch (operChar) {
+        public static string MSQLServer_OperChar_Parser(FieldValueModel FVm) {
+            if (CheckData.IsObjectNull(FVm)) {
+                return string.Empty;
+            }
+            switch (FVm.KeyChar) {
                 case DataChar.OperChar.EQUAL:
                     return CreateSQL.WhereEqual(FVm.Name, FVm.Value);
                 case DataChar.OperChar.EQUAL_NOT:
@@ -131,7 +135,8 @@ namespace CSharp.LibrayDataBase
                 case DataChar.OperChar.SmallTHAN_EQUAL:
                     return CreateSQL.WhereSmallThanEqual(FVm.Name, FVm.Value);
                 default:
-                    return MSQLServer_OperChar_Parser(DataChar.OperChar.EQUAL, FVm);
+                    FVm.SetKeyChar(DataChar.OperChar.EQUAL);
+                    return MSQLServer_OperChar_Parser(FVm);
             }
         }
         #endregion

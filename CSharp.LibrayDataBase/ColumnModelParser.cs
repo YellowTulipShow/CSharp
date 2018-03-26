@@ -30,18 +30,34 @@ namespace CSharp.LibrayDataBase
          * 获取模型数据: 数据源 <=@4 DTParser <=@5 CSParser <=@6 模型解构
          */
 
+
         /// <summary>
         /// 获取_模型_数据
         /// </summary>
-        /// <param name="c">行信息</param>
+        /// <param name="colmodel">行信息</param>
         /// <param name="sourceModel">数据来源</param>
         /// <returns>键值数据</returns>
         public KeyValueModel GetModelValue(ColumnItemModel colmodel, M sourceModel) {
+            if (CheckData.IsObjectNull(colmodel) || CheckData.IsObjectNull(sourceModel)) {
+                return null;
+            }
+            return GetModelValue(colmodel, colmodel.Property.GetValue(sourceModel, null));
+        }
+        /// <summary>
+        /// 获取_模型_数据
+        /// </summary>
+        /// <param name="colmodel">行信息</param>
+        /// <param name="srouceValue">数据来源</param>
+        /// <returns>键值数据</returns>
+        public KeyValueModel GetModelValue(ColumnItemModel colmodel, object srouceValue) {
+            if (CheckData.IsObjectNull(colmodel) || CheckData.IsObjectNull(srouceValue)) {
+                return null;
+            }
             object sour = null;
             if (colmodel.Attribute.IsOnlySetToDefaultValue) {
                 sour = colmodel.Attribute.DTParser.GetDefaultValueString();
             } else {
-                sour = colmodel.Property.GetValue(sourceModel, null); // @6
+                sour = srouceValue; // @6
                 sour = colmodel.Attribute.CSParser.OutputConvert(sour, colmodel); // @5
                 sour = colmodel.Attribute.DTParser.InputConvert(sour, colmodel); // @4
             }
@@ -50,6 +66,7 @@ namespace CSharp.LibrayDataBase
                 Value = ConvertTool.ObjToString(sour),
             };
         }
+
         /// <summary>
         /// 设置_模型_数据
         /// </summary>

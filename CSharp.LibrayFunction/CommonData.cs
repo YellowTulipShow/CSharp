@@ -81,9 +81,9 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 随机字符串
         /// </summary>
-        /// <param name="max_charlength">指定字符个数, 默认500个</param>
+        /// <param name="max_charlength">指定字符个数, 默认32个</param>
         /// <returns>拼接结果</returns>
-        public static string Random_String(int max_charlength = 500) {
+        public static string Random_String(int max_charlength = 32) {
             return Random_String(ASCII_ALL(), max_charlength);
         }
         /// <summary>

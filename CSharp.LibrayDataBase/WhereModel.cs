@@ -29,11 +29,11 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         public FieldValueModel[] FielVals { get { return _fielVals; } set { _fielVals = value; } }
         private FieldValueModel[] _fielVals = new FieldValueModel[] { };
-        
+
         /// <summary>
         /// 默认值: 是否允许字段重复 默认允许
         /// </summary>
-        public const bool DEFAULT_ISALLOWFIELDREPEAT =  true;
+        public const bool DEFAULT_ISALLOWFIELDREPEAT = true;
         /// <summary>
         /// 是否允许字段重复
         /// </summary>

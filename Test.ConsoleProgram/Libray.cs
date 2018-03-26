@@ -34,7 +34,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_Lambda(),
                 //new Case.SonTests.Test_WhereModel(),
 
-                //new Case.SonTests.Test_BLLDALSQLServer(),
+                new Case.SonTests.Test_BLLDALSQLServer(),
             };
         }
     }

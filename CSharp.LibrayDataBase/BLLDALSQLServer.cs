@@ -13,9 +13,11 @@ namespace CSharp.LibrayDataBase
     /// Microsoft SQL Server 2008 版本数据库 数据访问器
     /// </summary>
     /// <typeparam name="M">数据访问模型</typeparam>
-    public class BLLSQLServer<M> : AbsBLL<DALSQLServer<M>, M> where M : AbsModelNull
+    public class BLLSQLServer<D, M> : AbsBLL<D, M>
+        where D : AbsDAL<M>
+        where M : AbsModelNull
     {
-        public BLLSQLServer(DALSQLServer<M> dal) : base(dal) { }
+        public BLLSQLServer(D dal) : base(dal) { }
     }
 
     /// <summary>
@@ -31,23 +33,13 @@ namespace CSharp.LibrayDataBase
         /// 增
         /// </summary>
         public override bool Insert(M model) {
-            const int errorID = 0;
-            string sqlinsert = SQLInsert(model);
-            if (CheckData.IsStringNull(sqlinsert.Trim()))
-                return false;
-            string strSql = sqlinsert + " ;select @@IDENTITY; ";
-            object obj = DbHelperSQL.GetSingle(strSql);
-            int IDentity = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
-            return IDentity != errorID;
+            string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
+            return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
-        protected string SQLInsert(M model) {
-            ColumnItemModel[] caninsertColumns = base.modelParser.ColumnInfoArray.Where(colinfo => {
-                return !colinfo.Attribute.IsDbGenerated;
-            }).ToArray(); // 排除那些由数据库系统自动生成的数据列, 来执行插入操作
-
+        protected string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
-            foreach (ColumnItemModel item in caninsertColumns) {
+            foreach (ColumnItemModel item in base.GetCanWriteColumn()) {
                 KeyValueModel im = base.modelParser.GetModelValue(item, model);
                 if (CheckData.IsObjectNull(im) || CheckData.IsStringNull(im.Key))
                     continue;
@@ -57,30 +49,37 @@ namespace CSharp.LibrayDataBase
             if ((fieldArr.Count != valueArr.Count) || CheckData.IsSizeEmpty(fieldArr)) {
                 return string.Empty;
             }
-            return CreateSQL.Insert(base.GetTableName(), fieldArr.ToArray(), valueArr.ToArray());
+            return CreateSQL.Insert(base.GetTableName(), fieldArr.ToArray(), valueArr.ToArray(), isResultID);
         }
 
         /// <summary>
         /// 删
         /// </summary>
         public override bool Delete(WhereModel wheres) {
-            return !WhereModel.CheckIsCanUse(wheres) ? false : DbHelperSQL.ExecuteSql(SQLDelete(wheres)) > 0;
-        }
-        protected string SQLDelete(WhereModel wheres) {
-            return string.Format("delete {0} where {1}", base.GetTableName(), CreateSQL.ParserWhereModel(wheres));
-        }
+            if (!WhereModel.CheckIsCanUse(wheres)) {
+                return false;
+            }
+            string where = CreateSQL.ParserWhereModel(wheres, base.modelParser);
+            string sqldelete = CreateSQL.Delete(base.GetTableName(), where);
 
+            return CheckData.IsStringNull(sqldelete) ? false : DbHelperSQL.ExecuteSql(sqldelete) > 0;
+        }
         /// <summary>
         /// 改
         /// </summary>
         public override bool Update(FieldValueModel[] fielvals, WhereModel wheres) {
-            return (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) ? false :
-                DbHelperSQL.ExecuteSql(SQLUpdate(fielvals, wheres)) > 0;
-        }
-        protected string SQLUpdate(FieldValueModel[] fielvals, WhereModel wheres) {
-            string set_str = ConvertTool.IListToString(CreateSQL.ParserFieldValueModel(fielvals, DataChar.OperChar.EQUAL, false), ',');
-            string where_str = CreateSQL.ParserWhereModel(wheres);
-            return string.Format("update {0} set {1} where {2}", base.GetTableName(), set_str, where_str);
+            if (!FieldValueModel.CheckIsCanUse(fielvals) || !WhereModel.CheckIsCanUse(wheres)) {
+                return false;
+            }
+            string[] expressions = CreateSQL.ParserFieldValueModel(fielvals, base.modelParser,
+                isFixedOperChar: true, fixedOperChar: DataChar.OperChar.EQUAL);
+            string set_str = ConvertTool.IListToString(expressions, ',');
+            string where_str = CreateSQL.ParserWhereModel(wheres, base.modelParser);
+            string sql_update = CreateSQL.Update(base.GetTableName(), set_str, where_str);
+            if (CheckData.IsStringNull(sql_update)) {
+                return false;
+            }
+            return DbHelperSQL.ExecuteSql(sql_update) > 0;
         }
 
         /// <summary>
@@ -125,32 +124,29 @@ namespace CSharp.LibrayDataBase
             }
             return model;
         }
-        private DataTable SelectSource(int top = 0, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
-            string strWhere = CreateSQL.ParserWhereModel(wheres);
+        private DataTable SelectSource(int top, WhereModel wheres, FieldOrderModel[] fieldOrders) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres, base.modelParser);
             string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
-            string selectStr = SQLSelect(top, strWhere, orderbyStr);
+            string selectStr = CreateSQL.Select(base.GetTableName(), top, strWhere, orderbyStr);
+            if (CheckData.IsStringNull(selectStr)) {
+                return new DataTable();
+            }
             DataSet ds = DbHelperSQL.Query(selectStr);
             return CheckReturnDataTable(ds);
         }
-        private DataTable SelectSource(int pageCount, int pageIndex, out int recordCount, WhereModel wheres = null, FieldOrderModel[] fieldOrders = null) {
-            string strWhere = CreateSQL.ParserWhereModel(wheres);
+        private DataTable SelectSource(int pageCount, int pageIndex, out int recordCount, WhereModel wheres, FieldOrderModel[] fieldOrders) {
+            string strWhere = CreateSQL.ParserWhereModel(wheres, base.modelParser);
             string orderbyStr = CreateSQL.ParserFieldOrderModel(fieldOrders);
-            string selectStr = SQLSelect(0, strWhere, orderbyStr);
-            recordCount = GetRecordCount(selectStr);
+            string selectStr = CreateSQL.Select(base.GetTableName(), 0, strWhere, orderbyStr);
+            recordCount = GetRecordCount(strWhere);
+            if (CheckData.IsStringNull(selectStr)) {
+                return new DataTable();
+            }
             DataSet ds = DbHelperSQL.Query(PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, selectStr, orderbyStr));
             return CheckReturnDataTable(ds);
         }
         private DataTable CheckReturnDataTable(DataSet ds) {
             return CheckData.IsSizeEmpty(ds) ? null : CheckData.IsSizeEmpty(ds.Tables[0]) ? null : ds.Tables[0];
-        }
-        protected string SQLSelect(int top, string strWhere, string orderBy) {
-            string column = top > 0 ? string.Format(@"top {0} *", top) : @"*";
-            string sql = string.Format(@"select {0} from {1}", column, GetTableName());
-            if (!CheckData.IsStringNull(strWhere.Trim()))
-                sql += string.Format(@" where {0}", strWhere);
-            if (!CheckData.IsStringNull(orderBy.Trim()))
-                sql += string.Format(@" order by {0}", orderBy);
-            return sql;
         }
 
 
@@ -159,15 +155,16 @@ namespace CSharp.LibrayDataBase
         /// </summary>
         /// <param name="wheres">条件</param>
         public override int GetRecordCount(WhereModel wheres) {
-            return GetRecordCount(CreateSQL.ParserWhereModel(wheres));
+            return GetRecordCount(CreateSQL.ParserWhereModel(wheres, base.modelParser));
         }
         private int GetRecordCount(string wheresql) {
-            StringBuilder strSql = new StringBuilder();
-            strSql.AppendFormat("select count(*) as H from {0}", base.GetTableName());
-            if (!CheckData.IsStringNull(wheresql.Trim())) {
-                strSql.Append(" where " + wheresql);
+            const int errorint = 0;
+            string sql_select = CreateSQL.Select_Count(base.GetTableName(), wheresql);
+            if (CheckData.IsStringNull(sql_select)) {
+                return errorint;
             }
-            return ConvertTool.ObjToInt(DbHelperSQL.GetSingle(strSql.ToString()), 0);
+            object value = DbHelperSQL.GetSingle(sql_select);
+            return ConvertTool.ObjToInt(value, errorint);
         }
 
 
@@ -240,6 +237,27 @@ namespace CSharp.LibrayDataBase
         }
     }
 
+
+    /// <summary>
+    /// Microsoft SQL Server 2008 版本数据库 数据访问器
+    /// </summary>
+    /// <typeparam name="M">数据访问模型</typeparam>
+    public class BLLSQLServerID<D, M> : BLLSQLServer<D, M>
+        where D : DALSQLServerID<M>
+        where M : AbsModel_ID
+    {
+        public BLLSQLServerID(D dal) : base(dal) { }
+
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="model">需要添加的数据模型</param>
+        /// <param name="id">返回的记录ID</param>
+        /// <returns></returns>
+        public bool Insert(M model, out int id) {
+            return base.SelfDAL.Insert(model, out id);
+        }
+    }
     /// <summary>
     /// Microsoft SQL Server 2008 版本数据库 数据访问器 ID版本
     /// </summary>
@@ -248,15 +266,20 @@ namespace CSharp.LibrayDataBase
     {
         public DALSQLServerID() : base() { }
 
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="model">需要添加的数据模型</param>
+        /// <param name="id">返回的记录ID</param>
+        /// <returns></returns>
         public bool Insert(M model, out int id) {
             const int errorID = 0;
             id = errorID;
-            string sqlinsert = SQLInsert(model);
-            if (CheckData.IsStringNull(sqlinsert.Trim())) {
+            string sqlinsert = SQLInsert(model, true);
+            if (CheckData.IsStringNull(sqlinsert)) {
                 return false;
             }
-            string strSql = sqlinsert + " ;select @@IDENTITY; ";
-            object obj = DbHelperSQL.GetSingle(strSql);
+            object obj = DbHelperSQL.GetSingle(sqlinsert);
             id = CheckData.IsObjectNull(obj) ? errorID : ConvertTool.ObjToInt(obj, errorID);
             return id != errorID;
         }
