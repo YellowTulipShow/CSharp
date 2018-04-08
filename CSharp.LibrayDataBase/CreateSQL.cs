@@ -491,6 +491,5 @@ namespace CSharp.LibrayDataBase
             return source.Replace("@&Y*#01", "'");
         }
         #endregion
-
     }
 }

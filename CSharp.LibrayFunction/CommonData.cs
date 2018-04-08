@@ -12,7 +12,7 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 创建一个全局的随机数生成器 可以确保在调用生成随机数时, 非重复!
         /// </summary>
-        private static readonly Random R = new Random();
+        public static readonly Random R = new Random();
 
         #region ====== ASCII Code: ======
         /// <summary>
@@ -128,14 +128,29 @@ namespace CSharp.LibrayFunction
         /// 随机获取日期
         /// </summary>
         public static DateTime Random_DateTime() {
-            int year = R.Next(1, 9999 + 1);
-            int month = R.Next(1, 12 + 1);
-            int day = R.Next(1, DateTime.DaysInMonth(year, month) + 1);
-            int hour = R.Next(0, 23 + 1);
-            int minute = R.Next(0, 59 + 1);
-            int second = R.Next(0, 59 + 1);
-            int millisecond = R.Next(0, 999 + 1);
-            return new DateTime(year, month, day, hour, minute, second, millisecond);
+            return Random_DateTime(DateTime.MinValue, DateTime.MaxValue);
+        }
+        /// <summary>
+        /// 随机获取日期, 指定最大时间区间
+        /// </summary>
+        public static DateTime Random_DateTime(DateTime maxtime) {
+            return Random_DateTime(DateTime.MinValue, maxtime);
+        }
+        /// <summary>
+        /// 随机获取日期, 指定时间范围区间
+        /// </summary>
+        public static DateTime Random_DateTime(DateTime mintime, DateTime maxtime) {
+            if (mintime > maxtime) {
+                DateTime zhong = mintime;
+                mintime = maxtime;
+                maxtime = zhong;
+            }
+            TimeSpan ts = maxtime - mintime;
+            DateTime resultTime = mintime.AddHours(R.Next(1, (int)ts.TotalHours + 1));
+            resultTime = resultTime.AddMinutes(R.Next(1, ts.Minutes + 1));
+            resultTime = resultTime.AddSeconds(R.Next(1, ts.Seconds + 1));
+            resultTime = resultTime.AddMilliseconds(R.Next(1, ts.Milliseconds + 1));
+            return resultTime;
         }
         #endregion
     }

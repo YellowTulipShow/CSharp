@@ -88,7 +88,7 @@ namespace CSharp.LibrayDataBase
         /// 字符长度
         /// </summary>
         internal ushort CharLength { get { return _charLength; } set { _charLength = value; } }
-        protected ushort _charLength = CHARLENGTH_ERROR;
+        protected ushort _charLength = CHARLENGTH_MAX_SIGN;
 
         /// <summary>
         /// 设置字符长度

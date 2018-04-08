@@ -91,16 +91,39 @@ namespace Test.ConsoleProgram.Case.SonTests
             Print.WriteLine(result);
         }
         public void SelectData() {
-            ModelUser modeluser = bllUser.GetModel(new FieldValueModel() {
+            SelectModelUser(new FieldValueModel() {
                 Name = bllUser.ColName_id,
                 Value = @"34",
             });
+            SelectModelUser(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"35",
+            });
+            SelectModelUser(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"36",
+            });
+            SelectModelUser(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"37",
+            });
+            SelectModelUser(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"38",
+            });
+            SelectModelUser(new FieldValueModel() {
+                Name = bllUser.ColName_id,
+                Value = @"39",
+            });
+        }
+        private void SelectModelUser(FieldValueModel fieldValueWhereModel) {
+            ModelUser modeluser = bllUser.GetModel(fieldValueWhereModel);
             if (CheckData.IsObjectNull(modeluser)) {
-                Print.WriteLine("没有查到 id = 34 的数据");
+                Print.WriteLine("没有查到 id = {0} 的数据", fieldValueWhereModel.Value);
             } else {
                 Print.WriteLine("id: " + modeluser.id);
-                Print.WriteLine("Remark: " + modeluser.Remark);
                 Print.WriteLine("RealName: " + modeluser.RealName);
+                Print.WriteLine("Sex: " + modeluser.Sex.GetName());
             }
         }
         public void ALLRecordCount() {

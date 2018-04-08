@@ -9,10 +9,11 @@ namespace Test.ConsoleProgram.Case.SonTests
             this.NameSign = @"常用工具的测试";
             this.ExeEvent = () => { };
             this.SonCases = new CaseModel[] {
-                ExeEvent_Section_ASCII_String(),
+                //ExeEvent_Section_ASCII_String(),
                 //ExeEvent_RandomStrignMethod(),
-                //ExeEvent_Random_DateTime(),
+                ExeEvent_Random_DateTime(),
                 //ExeEvent_Random_Select_Item(),
+                ExeEvent_Random_DateTime_Region(),
             };
         }
 
@@ -60,8 +61,23 @@ namespace Test.ConsoleProgram.Case.SonTests
             return new CaseModel() {
                 NameSign = @"随机时间",
                 ExeEvent = () => {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 20; i++) {
                         Print.WriteLine(CommonData.Random_DateTime().ToString(LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND));
+                    }
+                },
+            };
+        }
+
+        private CaseModel ExeEvent_Random_DateTime_Region() {
+            const string timeFormat = LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND;
+            DateTime min_time = new DateTime(2018, 3, 1, 0, 0, 0);
+            DateTime max_time = new DateTime(2018, 3, 31, 23, 59, 59);
+            return new CaseModel() {
+                NameSign = @"随机时间范围",
+                ExeEvent = () => {
+                    for (int i = 0; i < 20; i++) {
+                        DateTime time = CommonData.Random_DateTime(min_time, max_time);
+                        Print.WriteLine(time.ToString(timeFormat));
                     }
                 },
             };

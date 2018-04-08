@@ -96,5 +96,12 @@ namespace CSharp.LibrayFunction
             }
         }
         #endregion
+
+        /// <summary>
+        /// 复制时间
+        /// </summary>
+        public static DateTime CopyDateTime(DateTime sourcetime) {
+            return new DateTime(sourcetime.Year, sourcetime.Month, sourcetime.Day, sourcetime.Hour, sourcetime.Minute, sourcetime.Second, sourcetime.Millisecond, sourcetime.Kind);
+        }
     }
 }
