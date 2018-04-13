@@ -44,15 +44,15 @@ namespace Test.ConsoleProgram.Case.SonTests
         public void InsertData() {
             int id = 0;
             bool result = bllUser.Insert(new ModelUser() {
-                Email = CommonData.Random_String(10),
-                TelePhone = CommonData.Random_String(CommonData.ASCII_Number(), 12),
-                MobilePhone = CommonData.Random_String(CommonData.ASCII_Number(), 11),
-                NickName = CommonData.Random_String(CommonData.ASCII_UpperEnglish(), 30),
-                Password = CommonData.Random_String(100),
-                RealName = CommonData.Random_String(CommonData.ASCII_UpperEnglish(), 10),
-                Remark = CommonData.Random_String(200),
-                Sex = CommonData.Random_Item(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
-                TimeAdd = CommonData.Random_DateTime(),
+                Email = RandomData.GetString(10),
+                TelePhone = RandomData.GetString(CommonData.ASCII_Number(), 12),
+                MobilePhone = RandomData.GetString(CommonData.ASCII_Number(), 11),
+                NickName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), 30),
+                Password = RandomData.GetString(100),
+                RealName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), 10),
+                Remark = RandomData.GetString(200),
+                Sex = RandomData.GetItem(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
+                TimeAdd = RandomData.GetDateTime(),
             }, out id);
             Print.WriteLine(result);
             Print.WriteLine(id);

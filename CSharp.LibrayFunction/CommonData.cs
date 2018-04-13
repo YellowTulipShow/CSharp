@@ -7,22 +7,17 @@ namespace CSharp.LibrayFunction
     /// <summary>
     /// 常用数据
     /// </summary>
-    public class CommonData
+    public static class CommonData
     {
-        /// <summary>
-        /// 创建一个全局的随机数生成器 可以确保在调用生成随机数时, 非重复!
-        /// </summary>
-        public static readonly Random R = new Random();
-
         #region ====== ASCII Code: ======
         /// <summary>
         /// ASCII 所有常用 字符 33-127
         /// </summary>
         public static char[] ASCII_ALL() {
-            return ASCII_IndexRegion(33, 127);
+            return ASCII_IndexRegion();
         }
         /// <summary>
-        /// ASCII 常用文本字符
+        /// ASCII 常用文本字符 \w: 0-9a-zA-Z
         /// </summary>
         public static char[] ASCII_WordText() {
             List<char> charArr = new List<char>();
@@ -65,7 +60,7 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="min">最小值(包含)</param>
         /// <param name="max">最大值(不包含)</param>
-        public static char[] ASCII_IndexRegion(int min, int max) {
+        public static char[] ASCII_IndexRegion(int min = 33, int max = 127) {
             List<char> cl = new List<char>();
             byte[] array = new byte[1];
             for (int i = min; i < max; i++) {
@@ -77,81 +72,39 @@ namespace CSharp.LibrayFunction
         }
         #endregion
 
-        #region ====== Random: ======
         /// <summary>
-        /// 随机字符串
+        /// ASCII 码十六进制组成字符
         /// </summary>
-        /// <param name="max_charlength">指定字符个数, 默认32个</param>
-        /// <returns>拼接结果</returns>
-        public static string Random_String(int max_charlength = 32) {
-            return Random_String(ASCII_ALL(), max_charlength);
-        }
-        /// <summary>
-        /// 拼接随机字符串
-        /// </summary>
-        /// <param name="source">指定字符进行拼接</param>
-        /// <returns>拼接结果</returns>
-        public static string Random_String(char[] source) {
-            return Random_String(source, source.Length);
-        }
-        /// <summary>
-        /// 拼接随机字符串
-        /// </summary>
-        /// <param name="source">指定字符进行拼接</param>
-        /// <param name="max_charlength">指定字符个数</param>
-        /// <returns>拼接结果</returns>
-        public static string Random_String(char[] source, int max_charlength) {
-            if (CheckData.IsSizeEmpty(source)) {
-                return string.Empty;
-            }
-            StringBuilder strbu = new StringBuilder();
-            for (int i = 0; i < max_charlength; i++) {
-                strbu.Append(source[R.Next(0, source.Length)]);
-            }
-            return strbu.ToString();
+        public static char[] ASCII_Hexadecimal() {
+            return new List<char>(ASCII_Number()) { 'a', 'b', 'c', 'd', 'e', 'f' }.ToArray();
         }
 
         /// <summary>
-        /// 随机选取其中一个选项
+        /// Unicode 中文字符集 最小 十六进制字符串
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="source">数据源</param>
-        /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
-        public static T Random_Item<T>(T[] source) {
-            if (CheckData.IsSizeEmpty(source)) {
-                return default(T);
-            }
-            return source[R.Next(0, source.Length)];
+        public static string Unicode_Chinese_MIN_Hexadecimal() {
+            return @"4e00";
+        }
+        /// <summary>
+        /// Unicode 中文字符集 最小 十进制标识
+        /// </summary>
+        public static int Unicode_Chinese_MIN_Decimal() {
+            return ConvertTool.HexadecimalToDecimal(Unicode_Chinese_MIN_Hexadecimal());
         }
 
         /// <summary>
-        /// 随机获取日期
+        /// Unicode 中文字符集 最大 十六进制字符串
         /// </summary>
-        public static DateTime Random_DateTime() {
-            return Random_DateTime(DateTime.MinValue, DateTime.MaxValue);
+        /// <returns></returns>
+        public static string Unicode_Chinese_MAX_Hexadecimal() {
+            return @"9fa5";
         }
         /// <summary>
-        /// 随机获取日期, 指定最大时间区间
+        /// Unicode 中文字符集 最大 十进制标识
         /// </summary>
-        public static DateTime Random_DateTime(DateTime maxtime) {
-            return Random_DateTime(DateTime.MinValue, maxtime);
+        /// <returns></returns>
+        public static int Unicode_Chinese_MAX_Decimal() {
+            return ConvertTool.HexadecimalToDecimal(Unicode_Chinese_MAX_Hexadecimal());
         }
-        /// <summary>
-        /// 随机获取日期, 指定时间范围区间
-        /// </summary>
-        public static DateTime Random_DateTime(DateTime mintime, DateTime maxtime) {
-            if (mintime > maxtime) {
-                DateTime zhong = mintime;
-                mintime = maxtime;
-                maxtime = zhong;
-            }
-            TimeSpan ts = maxtime - mintime;
-            DateTime resultTime = mintime.AddHours(R.Next(1, (int)ts.TotalHours + 1));
-            resultTime = resultTime.AddMinutes(R.Next(1, ts.Minutes + 1));
-            resultTime = resultTime.AddSeconds(R.Next(1, ts.Seconds + 1));
-            resultTime = resultTime.AddMilliseconds(R.Next(1, ts.Milliseconds + 1));
-            return resultTime;
-        }
-        #endregion
     }
 }

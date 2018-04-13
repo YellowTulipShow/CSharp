@@ -20,11 +20,12 @@ namespace Test.ConsoleProgram
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),
                 //new Case.Learn.Learn_RegularExpression(),
+                new Case.Learn.Learn_XML(),
 
                 //new Case.SonTests.Test_AbsBasicsDataModel(),
                 //new Case.SonTests.Test_Attribute(),
                 //new Case.SonTests.Test_CheckData(),
-                //new Case.SonTests.Test_CommonData(),
+                //new Case.SonTests.Test_CommonData_RandomData(),
                 //new Case.SonTests.Test_ConvertTool(),
                 //new Case.SonTests.Test_DateTime(),
                 //new Case.SonTests.Test_Enum(),
@@ -36,7 +37,7 @@ namespace Test.ConsoleProgram
 
                 //new Case.SonTests.Test_BLLDALSQLServer(),
 
-                new Case.SonTests.Test_addRecord(),
+                //new Case.SonTests.Test_addRecord(),
             };
         }
     }

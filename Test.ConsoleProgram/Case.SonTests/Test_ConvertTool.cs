@@ -13,7 +13,8 @@ namespace Test.ConsoleProgram.Case.SonTests
             base.ExeEvent = () => { };
             base.SonCases = new CaseModel[] {
                 //DataTypeConvert(),
-                EnumTypeValue(),
+                //EnumTypeValue(),
+                Event_Test_Unicode_Format_String(),
             };
         }
 
@@ -239,5 +240,25 @@ namespace Test.ConsoleProgram.Case.SonTests
             };
         }
         #endregion
+
+        public CaseModel Event_Test_Unicode_Format_String() {
+            return new CaseModel() {
+                NameSign = @"测试 Unicode 格式字符转换",
+                ExeEvent = () => {
+                    char[] word_chars = CommonData.ASCII_WordText();
+                    List<string> Sour_Str = new List<string>();
+                    for (int i = 0; i < 10; i++) {
+                        Sour_Str.Add(RandomData.GetString(word_chars, RandomData.R.Next(3, 15)));
+                    }
+                    foreach (string item in Sour_Str) {
+                        string sour = string.Empty;
+                        sour = item;
+                        string repl = ConvertTool.StringToHexadecimal(sour);
+                        string unicode = ConvertTool.Unicode_Format_String(repl);
+                        Print.WriteLine("{0} : {1} : {2}", item, repl, unicode);
+                    }
+                },
+            };
+        }
     }
 }

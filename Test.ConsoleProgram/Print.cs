@@ -23,14 +23,18 @@ namespace Test.ConsoleProgram
             Console.WriteLine();
         }
         public static void WriteLine(object value) {
-            Console.WriteLine(IndentationCharString + value.ToString());
+            ShowText(value.ToString());
         }
         public static void WriteLine(string format) {
-            Console.WriteLine(IndentationCharString + format);
+            ShowText(format);
         }
         public static void WriteLine(string format, params object[] arg) {
             string val = string.Format(format, arg);
-            Console.WriteLine(IndentationCharString + val);
+            ShowText(val);
+        }
+        private static void ShowText(string value) {
+            //value = value.Replace("\n", IndentationCharString + "\n");
+            Console.WriteLine(IndentationCharString + value);
         }
         #endregion
     }

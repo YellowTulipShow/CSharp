@@ -24,13 +24,13 @@ namespace Test.ConsoleProgram.Case.SonTests
 
             BLLspread_wxUserInfo BLLwxuser = new BLLspread_wxUserInfo();
             for (int i = 0; i < 10000; i++) {
-                string user_wechatno = CommonData.Random_String(chars, CommonData.R.Next(1, 21));
+                string user_wechatno = RandomData.GetString(chars, RandomData.R.Next(1, 21));
 
                 bool isSuccess = BLLwxuser.Insert(new Modelspread_wxUserInfo() {
-                    ManagerID = CommonData.Random_Item(managerIDs),
+                    ManagerID = RandomData.GetItem(managerIDs),
                     Remark = string.Empty,
-                    TelSign = CommonData.Random_Item(telsigns),
-                    TimeAdd = CommonData.Random_DateTime(min_time, max_time),
+                    TelSign = RandomData.GetItem(telsigns),
+                    TimeAdd = RandomData.GetDateTime(min_time, max_time),
                     WeChatNo = user_wechatno,
                     VoucherPictures = user_wechatno,
                 });

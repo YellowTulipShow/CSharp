@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CSharp.LibrayFunction
 {
@@ -362,5 +363,125 @@ namespace CSharp.LibrayFunction
             }
         }
         #endregion
+
+        /// <summary>
+        /// 截取 数组元素
+        /// </summary>
+        /// <typeparam name="T">数组的数据类型</typeparam>
+        /// <param name="list">数据源</param>
+        /// <param name="start_sign">开始下标标识</param>
+        /// <param name="end_sign">结束下标标识, 结果不包含</param>
+        /// <returns>结果</returns>
+        public static T[] Interception<T>(this T[] list, int start_sign, int end_sign) {
+            List<T> RL = new List<T>();
+            if (start_sign > end_sign) {
+                int zhong = start_sign;
+                start_sign = end_sign;
+                end_sign = zhong;
+            }
+            if (start_sign > list.Length) {
+                start_sign = list.Length;
+            }
+            if (end_sign > list.Length) {
+                end_sign = list.Length;
+            }
+            for (int i = start_sign; i < end_sign; i++) {
+                try {
+                    RL.Add(list[i]);
+                } catch (Exception) {
+                    continue;
+                }
+            }
+            return RL.ToArray();
+        }
+
+        /// <summary>
+        /// 汉字转换为Unicode编码
+        /// </summary>
+        /// <param name="gb2312_str">要编码的汉字字符串</param>
+        /// <returns>Unicode编码的的字符串</returns>
+        public static string GB2312ToUnicode(string gb2312_str) {
+            if (CheckData.IsStringNull(gb2312_str)) {
+                return string.Empty;
+            }
+            byte[] bts = Encoding.Unicode.GetBytes(gb2312_str);
+            string r = "";
+            for (int i = 0; i < bts.Length; i += 2) r += "\\u" + bts[i + 1].ToString("x").PadLeft(2, '0') + bts[i].ToString("x").PadLeft(2, '0');
+            return r;
+        }
+        /// <summary>
+        /// 将Unicode编码转换为汉字字符串
+        /// </summary>
+        /// <param name="unicode_str">Unicode编码字符串</param>
+        /// <returns>汉字字符串</returns>
+        public static string UnicodeToGB2312(string unicode_str) {
+            if (CheckData.IsStringNull(unicode_str)) {
+                return string.Empty;
+            }
+            string r = "";
+            MatchCollection mc = Regex.Matches(unicode_str, @"\\u([\w]{2})([\w]{2})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            byte[] bts = new byte[2];
+            foreach (Match m in mc) {
+                bts[0] = (byte)int.Parse(m.Groups[2].Value, NumberStyles.HexNumber);
+                bts[1] = (byte)int.Parse(m.Groups[1].Value, NumberStyles.HexNumber);
+                r += Encoding.Unicode.GetString(bts);
+            }
+            return r;
+        }
+
+        /// <summary>
+        /// 十六进制字符串 转 十进制Int32类型值
+        /// </summary>
+        /// <param name="hexadecimal_string">十六进制字符串</param>
+        /// <returns>十进制Int32类型值</returns>
+        public static Int32 HexadecimalToDecimal(string hexadecimal_string, int deferrorval = 0) {
+            hexadecimal_string = StringToHexadecimal(hexadecimal_string);
+            if (CheckData.IsStringNull(hexadecimal_string)) {
+                return deferrorval;
+            }
+            return Int32.Parse(hexadecimal_string, System.Globalization.NumberStyles.HexNumber);
+        }
+        /// <summary>
+        /// 任意字符串转十六进制字符数据
+        /// </summary>
+        /// <param name="obj_string">任意字符串</param>
+        /// <returns></returns>
+        public static string StringToHexadecimal(string obj_string) {
+            if (CheckData.IsStringNull(obj_string)) {
+                return string.Empty;
+            }
+            return Regex.Replace(obj_string, @"[^0-9a-fA-F]", "", RegexOptions.IgnoreCase).ToLower();
+        }
+
+        /// <summary>
+        /// 十进制Int32类型值 转 十六进制字符串
+        /// </summary>
+        /// <param name="decimal_value">十进制Int32类型值</param>
+        /// <returns>十六进制字符串</returns>
+        public static string DecimalToHexadecimal(Int32 decimal_value) {
+            return decimal_value.ToString("x");
+        }
+
+        /// <summary>
+        /// 十六进制值转为Unicode格式字符串
+        /// </summary>
+        /// <param name="hexadecimal_string">十六进制字符串</param>
+        /// <returns></returns>
+        public static string Unicode_Format_String(string hexadecimal_string) {
+            string result_str = hexadecimal_string; // string 引用地址的问题
+            result_str = StringToHexadecimal(result_str);
+            if (CheckData.IsStringNull(result_str)) {
+                return string.Empty;
+            }
+            if (result_str.Length < 4) {
+                int cha = 4 - result_str.Length;
+                for (int i = 0; i < cha; i++) {
+                    result_str = @"0" + result_str;
+                }
+            } else if (result_str.Length > 4) {
+                result_str = result_str.Substring(result_str.Length - 4, 4);
+            }
+            return string.Format("\\u{0}", result_str);
+        }
     }
 }

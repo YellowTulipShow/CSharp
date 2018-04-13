@@ -10,7 +10,7 @@ namespace Test.ConsoleProgram
         public CaseModel() { }
         public string NameSign = string.Empty;
         public delegate void EventMethod();
-        public EventMethod ExeEvent = null;
+        public EventMethod ExeEvent = () => { };
         public CaseModel[] SonCases = new CaseModel[] { };
 
         #region ====== Tool Region: ======
