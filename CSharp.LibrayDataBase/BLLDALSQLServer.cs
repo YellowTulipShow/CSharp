@@ -14,7 +14,7 @@ namespace CSharp.LibrayDataBase
     /// </summary>
     /// <typeparam name="M">数据访问模型</typeparam>
     public class BLLSQLServer<D, M> : AbsBLL<D, M>
-        where D : AbsDAL<M>
+        where D : DALSQLServer<M>
         where M : AbsModelNull
     {
         public BLLSQLServer(D dal) : base(dal) { }

@@ -30,13 +30,13 @@ namespace Test.ConsoleProgram.Case.SonTests
             public void Method() {
                 int[] int_list = new int[] { 51, 5, 48, 63, 2, 18, 4, 3, 2, 87, 15, 41, 1, 4, 8, 6, 3};
                 for (int i = 0; i < int_list.Length; i++) {
-                    int int_item = RandomHelper.RandomOneItem(int_list);
+                    int int_item = RandomData.GetItem(int_list);
                     ShowResult(int_list.ToJson(), int_item);
                 }
 
                 string[] str_list = new string[] { "hello", "world", "zrq", "love", "wechatno", "show", "yellowtulip" };
                 for (int i = 0; i < str_list.Length; i++) {
-                    string str_item = RandomHelper.RandomOneItem(str_list);
+                    string str_item = RandomData.GetItem(str_list);
                     ShowResult(str_list.ToJson(), str_item);
                 }
             }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLDALSystemText.cs" />
+    <Compile Include="BLLDALXML.cs" />
     <Compile Include="IDataType.cs" />
     <Compile Include="CreateSQL.cs" />
     <Compile Include="DataChar.cs" />

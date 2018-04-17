@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CSharp.LibrayFunction
@@ -12,6 +13,12 @@ namespace CSharp.LibrayFunction
         /// 将相对路径转换为绝对路径
         /// </summary>
         public static string ConvertToAbsolutePath(string RelativePath) {
+            if (CheckData.IsStringNull(RelativePath)) {
+                return string.Empty;
+            }
+            if (Regex.IsMatch(RelativePath, @"^([a-zA-Z]:\\)?[^\/\:\*\?\""\<\>\|\,]*$")) {
+                return RelativePath;
+            }
             if (RelativePath.ToLower().StartsWith("http://")) {
                 return RelativePath;
             }

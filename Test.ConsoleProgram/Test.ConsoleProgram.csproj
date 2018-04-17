@@ -65,6 +65,7 @@
     <Compile Include="Case.Learn\Learn_RegularExpression.cs" />
     <Compile Include="Case.Learn\Learn_XML.cs" />
     <Compile Include="Case.SonTests\Test_addRecord.cs" />
+    <Compile Include="Case.SonTests\Test_BLLDALXML.cs" />
     <Compile Include="Case.SonTests\Test_CommonData_RandomData.cs" />
     <Compile Include="Case.SonTests\Test_AbsBasicsDataModel.cs" />
     <Compile Include="Case.SonTests\Test_Attribute.cs" />

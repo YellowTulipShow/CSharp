@@ -4,12 +4,14 @@ using CSharp.LibrayDataBase;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
-    public class Test_BLLDALSQLServer : CaseModel
+    public class Test_BLLDALXML : CaseModel
     {
-        public Test_BLLDALSQLServer() {
-            base.NameSign = @"开始测试 BLLDALSQLServer 解析器";
+        public Test_BLLDALXML() {
+            base.NameSign = @"开始测试 BLLDALXML 解析器";
             base.ExeEvent = FatherMainMethod;
             base.SonCases = new CaseModel[] {
+                Exe_GetAbsFilePath(),
+
                 new CaseModel() {
                     NameSign = @"添加数据",
                     ExeEvent = InsertData,
@@ -41,8 +43,16 @@ namespace Test.ConsoleProgram.Case.SonTests
             //Print.WriteLine(jsonBLL);
         }
 
+        public CaseModel Exe_GetAbsFilePath() {
+            return new CaseModel() {
+                NameSign = "输出文件路径",
+                ExeEvent = () => {
+                    Print.WriteLine(this.bllUser.GetFileAbsPath());
+                },
+            };
+        }
+
         public void InsertData() {
-            int id = 0;
             bool result = bllUser.Insert(new ModelUser() {
                 Email = RandomData.GetString(10),
                 TelePhone = RandomData.GetString(CommonData.ASCII_Number(), 12),
@@ -53,9 +63,8 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Remark = RandomData.GetString(200),
                 Sex = RandomData.GetItem(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
                 TimeAdd = RandomData.GetDateTime(),
-            }, out id);
+            });
             Print.WriteLine(result);
-            Print.WriteLine(id);
         }
         public void DeleteData() {
             bool result = bllUser.Delete(new WhereModel(DataChar.LogicChar.OR) {
@@ -226,7 +235,7 @@ namespace Test.ConsoleProgram.Case.SonTests
         /// <summary>
         /// 数据逻辑类: 用户
         /// </summary>
-        protected class BLLUser : BLLSQLServerID<DALSQLServerID<ModelUser>, ModelUser>
+        protected class BLLUser : BLLXML<DALXML<ModelUser>, ModelUser>
         {
             private static readonly ModelUser defModel = new ModelUser();
             public readonly string ColName_id = ReflexHelper.Name(() => defModel.id);
@@ -240,7 +249,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             public readonly string ColName_TelePhone = ReflexHelper.Name(() => defModel.TelePhone);
             public readonly string ColName_TimeAdd = ReflexHelper.Name(() => defModel.TimeAdd);
 
-            public BLLUser() : base(new DALSQLServerID<ModelUser>()) { }
+            public BLLUser() : base(new DALXML<ModelUser>()) { }
 
             public override ModelUser[] DefaultDataModel() {
                 return new ModelUser[] {

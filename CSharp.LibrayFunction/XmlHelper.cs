@@ -10,166 +10,81 @@ namespace CSharp.LibrayFunction
     /// </summary>
     public class XmlHelper
     {
-        public const string XML_VERSION_NO = @"1.0";
+        /// <summary>
+        /// XML文件声明版本号
+        /// </summary>
+        public const string DECLARATION_VERSION_NO = @"1.0";
+        /// <summary>
+        /// 根节点名称
+        /// </summary>
+        public const string ROOT_NODE_NAME = @"root.root";
 
-        public static XmlDocument GetXmlDocument(string path) {
+        /// <summary>
+        /// 获得 XML 文档对象
+        /// </summary>
+        /// <param name="path">文档路径</param>
+        /// <param name="defaultRootName">默认根节点名称</param>
+        /// <returns></returns>
+        public static XmlDocument GetDocument(string path, string defaultRootName = ROOT_NODE_NAME) {
+            string abspath = PathHelper.ConvertToAbsolutePath(path);
+            if (FileHelper.IsExistFile(abspath)) {
+                return ReadExistDocument(path);
+            } else {
+                return CreateNewDocument(defaultRootName);
+            }
+        }
+        public static XmlDocument ReadExistDocument(string path) {
+            XmlDocument document = new XmlDocument();
             XmlReader reader = XmlReader.Create(path, new XmlReaderSettings() {
                 IgnoreComments = true,
                 IgnoreWhitespace = true,
-            });
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(reader);
-            reader.Close();
-            return xmldoc;
+            }); // 配置
+            document.Load(reader); // 加载
+            reader.Close(); // 关闭
+            return document;
+        }
+        public static XmlDocument CreateNewDocument(string defaultRootName = ROOT_NODE_NAME) {
+            XmlDocument document = new XmlDocument();
+            document.AppendChild(CreateNewDeclaration(document)); // 声明节点
+            document.AppendChild(document.CreateElement(defaultRootName)); // 根节点
+            return document;
         }
 
-        public static XmlAttribute CreateXmlAttribute(XmlDocument document, string attrName, string attrValue) {
+        /// <summary>
+        /// 创建新XML声明节点
+        /// </summary>
+        public static XmlDeclaration CreateNewDeclaration(XmlDocument document) {
+            return document.CreateXmlDeclaration(DECLARATION_VERSION_NO, Encoding.UTF8.BodyName, null);
+        }
+        /// <summary>
+        /// 创建新属性
+        /// </summary>
+        /// <param name="document">来源文档</param>
+        /// <param name="attrName">属性名称</param>
+        /// <param name="attrValue">属性值</param>
+        public static XmlAttribute CreateNewAttribute(XmlDocument document, string attrName, string attrValue) {
             XmlAttribute xmlattr = document.CreateAttribute(attrName);
             xmlattr.InnerText = attrValue;
             return xmlattr;
         }
-
-        public static XmlElement CreateXmlElement(XmlDocument document, string elementName) {
-            XmlElement xmlelement = document.CreateElement(elementName);
-            return xmlelement;
+        /// <summary>
+        /// 创建新元素
+        /// </summary>
+        /// <param name="document">来源文档</param>
+        /// <param name="elementName">元素名称</param>
+        public static XmlElement CreateNewElement(XmlDocument document, string elementName) {
+            return document.CreateElement(elementName);
         }
-        public static XmlElement CreateXmlElement(XmlDocument document, string elementName, string elementValue) {
-            XmlElement xmlelement = CreateXmlElement(document, elementName);
+        /// <summary>
+        /// 创建新元素
+        /// </summary>
+        /// <param name="document">来源文档</param>
+        /// <param name="elementName">元素名称</param>
+        /// <param name="elementValue">元素值</param>
+        public static XmlElement CreateNewElement(XmlDocument document, string elementName, string elementValue) {
+            XmlElement xmlelement = CreateNewElement(document, elementName);
             xmlelement.InnerText = elementValue;
             return xmlelement;
         }
-
-        #region ////// old method \\\\\\
-        //#region 增、删、改操作==============================================
-
-        ///// <summary>
-        ///// 追加节点
-        ///// </summary>
-        ///// <param name="filePath">XML文档绝对路径</param>
-        ///// <param name="xPath">范例: @"Skill/First/SkillItem"</param>
-        ///// <param name="xmlNode">XmlNode节点</param>
-        ///// <returns></returns>
-        //public static bool AppendChild(string filePath, string xPath, XmlNode xmlNode)
-        //{
-        //    try
-        //    {
-        //        XmlDocument doc = new XmlDocument();
-        //        doc.Load(filePath);
-        //        XmlNode xn = doc.SelectSingleNode(xPath);
-        //        XmlNode n = doc.ImportNode(xmlNode, true);
-        //        xn.AppendChild(n);
-        //        doc.Save(filePath);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 从XML文档中读取节点追加到另一个XML文档中
-        ///// </summary>
-        ///// <param name="filePath">需要读取的XML文档绝对路径</param>
-        ///// <param name="xPath">范例: @"Skill/First/SkillItem"</param>
-        ///// <param name="toFilePath">被追加节点的XML文档绝对路径</param>
-        ///// <param name="toXPath">范例: @"Skill/First/SkillItem"</param>
-        ///// <returns></returns>
-        //public static bool AppendChild(string filePath, string xPath, string toFilePath, string toXPath)
-        //{
-        //    try
-        //    {
-        //        XmlDocument doc = new XmlDocument();
-        //        doc.Load(toFilePath);
-        //        XmlNode xn = doc.SelectSingleNode(toXPath);
-
-        //        XmlNodeList xnList = ReadNodes(filePath, xPath);
-        //        if (xnList != null)
-        //        {
-        //            foreach (XmlElement xe in xnList)
-        //            {
-        //                XmlNode n = doc.ImportNode(xe, true);
-        //                xn.AppendChild(n);
-        //            }
-        //            doc.Save(toFilePath);
-        //        }
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 修改节点的InnerText的值
-        ///// </summary>
-        ///// <param name="filePath">XML文件绝对路径</param>
-        ///// <param name="xPath">范例: @"Skill/First/SkillItem"</param>
-        ///// <param name="value">节点的值</param>
-        ///// <returns></returns>
-        //public static bool UpdateNodeInnerText(string filePath, string xPath, string value)
-        //{
-        //    try
-        //    {
-        //        XmlDocument doc = new XmlDocument();
-        //        doc.Load(filePath);
-        //        XmlNode xn = doc.SelectSingleNode(xPath);
-        //        XmlElement xe = (XmlElement)xn;
-        //        xe.InnerText = value;
-        //        doc.Save(filePath);
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
-        ///// <summary>
-        ///// 读取XML文档
-        ///// </summary>
-        ///// <param name="filePath">XML文件绝对路径</param>
-        ///// <returns></returns>
-        //public static XmlDocument LoadXmlDoc(string filePath)
-        //{
-        //    try
-        //    {
-        //        XmlDocument doc = new XmlDocument();
-        //        doc.Load(filePath);
-        //        return doc;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-        //#endregion 增、删、改操作
-
-        //#region 扩展方法===================================================
-        ///// <summary>
-        ///// 读取XML的所有子节点
-        ///// </summary>
-        ///// <param name="filePath">XML文件绝对路径</param>
-        ///// <param name="xPath">范例: @"Skill/First/SkillItem"</param>
-        ///// <returns></returns>
-        //public static XmlNodeList ReadNodes(string filePath, string xPath)
-        //{
-        //    try
-        //    {
-        //        XmlDocument doc = new XmlDocument();
-        //        doc.Load(filePath);
-        //        XmlNode xn = doc.SelectSingleNode(xPath);
-        //        XmlNodeList xnList = xn.ChildNodes;  //得到该节点的子节点
-        //        return xnList;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //#endregion 扩展方法
-        #endregion
     }
 }
