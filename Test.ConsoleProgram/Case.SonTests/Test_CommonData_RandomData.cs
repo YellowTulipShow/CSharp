@@ -12,11 +12,11 @@ namespace Test.ConsoleProgram.Case.SonTests
             this.SonCases = new CaseModel[] {
                 //ExeEvent_Section_ASCII_String(),
                 //ExeEvent_Section_UnicodeConvert(),
-                ExeEvent_Section_Unicode_Create_Test(),
+                //ExeEvent_Section_Unicode_Create_Test(),
                 //ExeEvent_RandomStrignMethod(),
                 //ExeEvent_Random_Select_Item(),
                 //ExeEvent_Random_DateTime(),
-                //ExeEvent_Random_DateTime_Region(),
+                ExeEvent_Random_DateTime_Region(),
                 //ExeEvent_Random_Int(),
                 //ExeEvent_Random_Double(),
             };
@@ -112,8 +112,10 @@ namespace Test.ConsoleProgram.Case.SonTests
 
         private CaseModel ExeEvent_Random_DateTime_Region() {
             const string timeFormat = LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND;
-            DateTime min_time = new DateTime(2018, 3, 1, 0, 0, 0);
-            DateTime max_time = new DateTime(2018, 3, 31, 23, 59, 59);
+            //DateTime min_time = new DateTime(2018, 3, 1, 0, 0, 0);
+            DateTime min_time = new DateTime(2018, 04, 19, 17, 40, 0); ;
+            //DateTime max_time = new DateTime(2018, 3, 31, 23, 59, 59);
+            DateTime max_time = new DateTime(2018, 04, 19, 18, 10, 0);
             return new CaseModel() {
                 NameSign = @"随机时间范围",
                 ExeEvent = () => {

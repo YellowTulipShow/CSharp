@@ -2,6 +2,7 @@
 using System.Data;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace CSharp.LibrayFunction
 {
@@ -48,6 +49,12 @@ namespace CSharp.LibrayFunction
         /// </summary>
         public static bool IsSizeEmpty(this DataRow row) {
             return IsObjectNull(row) || row.Table.Rows.Count <= 0;
+        }
+        /// <summary>
+        /// 判断是否: XmlNodeList 数据行 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty(this XmlNodeList list) {
+            return IsObjectNull(list) || list.Count <= 0;
         }
         #endregion
 

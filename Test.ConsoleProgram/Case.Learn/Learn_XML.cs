@@ -16,18 +16,16 @@ namespace Test.ConsoleProgram.Case.Learn
             base.NameSign = @"学习 XML 操作";
             base.ExeEvent = MainMethod;
             base.SonCases = new CaseModel[] {
-                new CaseModel() {
-                    NameSign = @"CreateFile",
-                    ExeEvent = CreateFile,
-                },
+                //new CaseModel() {
+                //    NameSign = @"CreateFile",
+                //    ExeEvent = CreateFile,
+                //},
                 //new CaseModel() {
                 //    NameSign = @"LoadXML",
                 //    ExeEvent = LoadXML,
                 //},
-                //new CaseModel() {
-                //    NameSign = @"Insert",
-                //    ExeEvent = Insert,
-                //},
+                
+                Insert(),
                 //new CaseModel() {
                 //    NameSign = @"Delete",
                 //    ExeEvent = Delete,
@@ -52,8 +50,8 @@ namespace Test.ConsoleProgram.Case.Learn
             Print.WriteLine(System.Text.Encoding.UTF8.BodyName);
         }
         private void CreateFile() {
-            //string fileurl = TEXTFOLDER_ABSPATH + "\\" + DEFAULT_FILE_NAME;
-            string fileurl = "D:\\ZRQWork\\JianGuoYunFolder\\YellowTulipShowSystem\\YTS.CSharp\\Test.ConsoleProgram\\bin\\Debug\\DataXML\\dt_User.xml";
+            string fileurl = TEXTFOLDER_ABSPATH + "\\" + DEFAULT_FILE_NAME;
+            //string fileurl = "D:\\ZRQWork\\JianGuoYunFolder\\YellowTulipShowSystem\\YTS.CSharp\\Test.ConsoleProgram\\bin\\Debug\\DataXML\\dt_User.xml";
             Print.WriteLine(fileurl);
 
             XmlDocument document = new XmlDocument();
@@ -65,28 +63,51 @@ namespace Test.ConsoleProgram.Case.Learn
 
             document.Save(fileurl);
         }
-        private void Insert() {
-            Print.WriteLine("Insert Before: ");
-            Select();
 
-            XmlDocument xmldocument = GetXmlDocument();
-            XmlNode root = xmldocument.SelectSingleNode("bookstore");
-            root.AppendChild(CreateRandomNode(xmldocument));
-            xmldocument.Save(TEXTFOLDER_ABSPATH + @"\Book.xml");
-
-            Print.WriteLine("Insert After: ");
-            Select();
+        private CaseModel Insert() {
+            return new CaseModel() {
+                NameSign = @"Insert",
+                ExeEvent = () => {
+                    for (int i = 0; i < 500; i++) {
+                        XmlDocument xmldocument = GetXmlDocument();
+                        XmlNode root = xmldocument.SelectSingleNode(XmlHelper.ROOT_NODE_NAME);
+                        if (CheckData.IsObjectNull(root)) {
+                            root = xmldocument.CreateElement(XmlHelper.ROOT_NODE_NAME);
+                            xmldocument.AppendChild(root);
+                        }
+                        root.AppendChild(CreateRandomNode(xmldocument));
+                        xmldocument.Save(TEXTFOLDER_ABSPATH + @"\Book.xml");
+                        Print.WriteLine("Complete: {0}", i);
+                    }
+                },
+            };
+            
         }
         private XmlNode CreateRandomNode(XmlDocument xmldocument) {
             char[] ISBN_Sour = new List<char>(CommonData.ASCII_Number()) { '-' }.ToArray();
+            char[] Ascii_words = CommonData.ASCII_WordText();
+            char[] Ascii_lowerenglish = CommonData.ASCII_LowerEnglish();
             XmlElement book = xmldocument.CreateElement(@"book");
-            book.SetAttributeNode(XmlHelper.CreateNewAttribute(xmldocument, @"Type", RandomData.GetChineseString(2) + @"课"));
-            book.SetAttributeNode(XmlHelper.CreateNewAttribute(xmldocument, @"ISBN", RandomData.GetString(ISBN_Sour, RandomData.R.Next(4, 13))));
-            book.AppendChild(XmlHelper.CreateNewElement(xmldocument, @"title", RandomData.GetChineseString(RandomData.R.Next(4, 10))));
-            book.AppendChild(XmlHelper.CreateNewElement(xmldocument, @"author", RandomData.GetChineseString(RandomData.R.Next(2, 4))));
-            book.AppendChild(XmlHelper.CreateNewElement(xmldocument, @"price", RandomData.GetDouble().ToString()));
+            Dictionary<string, string> Dic_Attrs = new Dictionary<string, string>() {
+                { @"Type", RandomData.GetChineseString(2) + @"课" },
+                { @"ISBN", RandomData.GetString(ISBN_Sour, RandomData.GetInt(4, 13)) }
+            };
+            foreach (KeyValuePair<string, string> item in Dic_Attrs) {
+                book.SetAttributeNode(XmlHelper.CreateNewAttribute(xmldocument, item.Key, item.Value));
+            }
+            Dictionary<string, string> Dic_Nodes = new Dictionary<string,string>() {
+                { @"title", RandomData.GetString(Ascii_words, RandomData.GetInt(4, 10)) },
+                { @"author", RandomData.GetString(Ascii_lowerenglish, RandomData.GetInt(2, 4)) },
+                { @"price", RandomData.GetDouble().ToString() },
+            };
+            foreach (KeyValuePair<string, string> item in Dic_Nodes) {
+                book.AppendChild(XmlHelper.CreateNewElement(xmldocument, item.Key, item.Value));
+            }
             return book;
         }
+
+
+
         private void Delete() {
             Print.WriteLine("Delete Before: ");
             Select();

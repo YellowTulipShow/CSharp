@@ -16,7 +16,7 @@ namespace CSharp.LibrayFunction
             if (CheckData.IsStringNull(RelativePath)) {
                 return string.Empty;
             }
-            if (Regex.IsMatch(RelativePath, @"^([a-zA-Z]:\\)?[^\/\:\*\?\""\<\>\|\,]*$")) {
+            if (IsAbstractPath(RelativePath)) {
                 return RelativePath;
             }
             if (RelativePath.ToLower().StartsWith("http://")) {
@@ -34,6 +34,15 @@ namespace CSharp.LibrayFunction
                 }
                 return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RelativePath);
             }
+        }
+
+        /// <summary>
+        /// 是否是绝对路径
+        /// </summary>
+        /// <param name="path_string">路径字符串</param>
+        /// <returns>True是, False否</returns>
+        public static bool IsAbstractPath(string path_string) {
+            return Regex.IsMatch(path_string, @"^([a-zA-Z]:\\)?[^\/\:\*\?\""\<\>\|\,]*$");
         }
     }
 }

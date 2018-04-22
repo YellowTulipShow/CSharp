@@ -32,6 +32,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                     NameSign = @"全部数据条数",
                     ExeEvent = ALLRecordCount,
                 },
+                SelectALLData(),
             };
         }
 
@@ -39,8 +40,7 @@ namespace Test.ConsoleProgram.Case.SonTests
         public void FatherMainMethod() {
             Print.WriteLine(@"初始化一个BLL实例 BLLUser 输出其Json格式数据");
             bllUser = new BLLUser();
-            string jsonBLL = JsonHelper.SerializeObject(bllUser);
-            //Print.WriteLine(jsonBLL);
+            //Print.WriteLine(JsonHelper.SerializeObject(bllUser));
         }
 
         public CaseModel Exe_GetAbsFilePath() {
@@ -54,13 +54,13 @@ namespace Test.ConsoleProgram.Case.SonTests
 
         public void InsertData() {
             bool result = bllUser.Insert(new ModelUser() {
-                Email = RandomData.GetString(10),
+                Email = RandomData.GetString(RandomData.GetInt(5, 10)),
                 TelePhone = RandomData.GetString(CommonData.ASCII_Number(), 12),
                 MobilePhone = RandomData.GetString(CommonData.ASCII_Number(), 11),
-                NickName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), 30),
-                Password = RandomData.GetString(100),
-                RealName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), 10),
-                Remark = RandomData.GetString(200),
+                NickName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), RandomData.GetInt(5, 16)),
+                Password = RandomData.GetString(30),
+                RealName = RandomData.GetChineseString(RandomData.GetInt(2, 4)),
+                Remark = RandomData.GetString(RandomData.GetInt(10, 81)),
                 Sex = RandomData.GetItem(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
                 TimeAdd = RandomData.GetDateTime(),
             });
@@ -98,39 +98,33 @@ namespace Test.ConsoleProgram.Case.SonTests
             Print.WriteLine(result);
         }
         public void SelectData() {
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"34",
-            });
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"35",
-            });
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"36",
-            });
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"37",
-            });
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"38",
-            });
-            SelectModelUser(new FieldValueModel() {
-                Name = bllUser.ColName_id,
-                Value = @"39",
-            });
+            for (int i = 0; i < 5; i++) {
+                SelectModelUser(new FieldValueModel() {
+                    Name = bllUser.ColName_id,
+                    Value = RandomData.GetInt(1, 55).ToString(),
+                });
+            }
+        }
+        public CaseModel SelectALLData() {
+            return new CaseModel() {
+                NameSign = @"全部数据记录",
+                ExeEvent = () => {
+                    ModelUser[] model_list = bllUser.Select();
+                    foreach (ModelUser item in model_list) {
+                        Print.WriteLine(JsonHelper.SerializeObject(item));
+                    }
+                },
+            };
         }
         private void SelectModelUser(FieldValueModel fieldValueWhereModel) {
             ModelUser modeluser = bllUser.GetModel(fieldValueWhereModel);
             if (CheckData.IsObjectNull(modeluser)) {
                 Print.WriteLine("没有查到 id = {0} 的数据", fieldValueWhereModel.Value);
             } else {
-                Print.WriteLine("id: " + modeluser.id);
-                Print.WriteLine("RealName: " + modeluser.RealName);
-                Print.WriteLine("Sex: " + modeluser.Sex.GetName());
+                //Print.WriteLine("id: " + modeluser.id);
+                //Print.WriteLine("RealName: " + modeluser.RealName);
+                //Print.WriteLine("Sex: " + modeluser.Sex.GetName());
+                Print.WriteLine(JsonHelper.SerializeObject(modeluser));
             }
         }
         public void ALLRecordCount() {

@@ -22,26 +22,36 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 XML 文档对象
         /// </summary>
-        /// <param name="path">文档路径</param>
+        /// <param name="fileabspath">文档路径</param>
         /// <param name="defaultRootName">默认根节点名称</param>
         /// <returns></returns>
-        public static XmlDocument GetDocument(string path, string defaultRootName = ROOT_NODE_NAME) {
-            string abspath = PathHelper.ConvertToAbsolutePath(path);
-            if (FileHelper.IsExistFile(abspath)) {
-                return ReadExistDocument(path);
-            } else {
-                return CreateNewDocument(defaultRootName);
+        public static XmlDocument GetDocument(string fileabspath, string defaultRootName = ROOT_NODE_NAME) {
+            if (!FileHelper.IsExistFile(fileabspath)) {
+                return XmlHelper.CreateNewDocument(defaultRootName);
+            }
+            try {
+                return XmlHelper.ReadExistDocument(fileabspath);
+            } catch (Exception) {
+                return XmlHelper.CreateNewDocument(defaultRootName);
             }
         }
         public static XmlDocument ReadExistDocument(string path) {
-            XmlDocument document = new XmlDocument();
-            XmlReader reader = XmlReader.Create(path, new XmlReaderSettings() {
-                IgnoreComments = true,
-                IgnoreWhitespace = true,
-            }); // 配置
-            document.Load(reader); // 加载
-            reader.Close(); // 关闭
-            return document;
+            XmlReader reader = null;
+            try {
+                reader = XmlReader.Create(path, new XmlReaderSettings() {
+                    IgnoreComments = true,
+                    IgnoreWhitespace = true,
+                }); // 配置
+                XmlDocument document = new XmlDocument();
+                document.Load(reader); // 加载
+                reader.Close(); // 关闭
+                return document;
+            } catch (Exception ex) {
+                if (!CheckData.IsObjectNull(reader)) {
+                    reader.Close(); // 关闭
+                }
+                throw ex;
+            }
         }
         public static XmlDocument CreateNewDocument(string defaultRootName = ROOT_NODE_NAME) {
             XmlDocument document = new XmlDocument();

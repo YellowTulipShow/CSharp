@@ -26,10 +26,9 @@ namespace CSharp.LibrayDataBase
         }
 
         /** 数据转化六部曲: 
-         * 设置模型数据: 数据源 @1=> DTParser @2=> CSParser @3=> 模型解构
-         * 获取模型数据: 数据源 <=@4 DTParser <=@5 CSParser <=@6 模型解构
+         * 设置模型数据: 数据源 @1=> DTParser @2=> CSParser @3=> 模型
+         * 获取模型数据: 数据源 <=@4 DTParser <=@5 CSParser <=@6 模型
          */
-
 
         /// <summary>
         /// 获取_模型_数据

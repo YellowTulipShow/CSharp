@@ -24,7 +24,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_AbsBasicsDataModel(),
                 //new Case.SonTests.Test_Attribute(),
                 //new Case.SonTests.Test_CheckData(),
-                //new Case.SonTests.Test_CommonData_RandomData(),
+                new Case.SonTests.Test_CommonData_RandomData(),
                 //new Case.SonTests.Test_ConvertTool(),
                 //new Case.SonTests.Test_DateTime(),
                 //new Case.SonTests.Test_Enum(),
@@ -35,7 +35,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_WhereModel(),
                 //new Case.SonTests.Test_BLLDALSQLServer(),
                 //new Case.SonTests.Test_addRecord(),
-                new Case.SonTests.Test_BLLDALXML(),
+                //new Case.SonTests.Test_BLLDALXML(),
             };
         }
     }

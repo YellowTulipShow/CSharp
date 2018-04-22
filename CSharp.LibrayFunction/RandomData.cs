@@ -75,11 +75,55 @@ namespace CSharp.LibrayFunction
                 maxtime = zhong;
             }
             TimeSpan ts = maxtime - mintime;
-            DateTime resultTime = mintime.AddHours(R.Next(1, (int)ts.TotalHours + 1));
-            resultTime = resultTime.AddMinutes(R.Next(1, ts.Minutes + 1));
-            resultTime = resultTime.AddSeconds(R.Next(1, ts.Seconds + 1));
-            resultTime = resultTime.AddMilliseconds(R.Next(1, ts.Milliseconds + 1));
-            return resultTime;
+            int add_hour = ts.Hours == 0 ? 0 : R.Next(0, ts.Hours + 1);
+            int add_minute = ts.Minutes == 0 ? 0 : R.Next(0, ts.Minutes + 1);
+            int add_second = ts.Seconds == 0 ? 0 : R.Next(0, ts.Seconds + 1);
+            int add_millisecond = ts.Milliseconds == 0 ? 0 : R.Next(0, ts.Milliseconds + 1);
+
+            DateTime rt = mintime.AddHours(add_hour);
+            int year = rt.Year;
+            int month = rt.Month;
+            int day = rt.Day;
+            int hour = rt.Hour;
+            int minute = rt.Minute;
+            int second = rt.Second;
+            int millisecond = rt.Millisecond;
+
+            if (add_hour < ts.Hours) {
+                minute = R.Next(0, 60);
+                second = R.Next(0, 60);
+                millisecond = R.Next(0, 1000);
+            } else {
+                rt = rt.AddMinutes(add_minute);
+                if (add_minute < ts.Minutes) {
+                    minute = rt.Minute;
+                    second = R.Next(0, 60);
+                    millisecond = R.Next(0, 1000);
+                } else {
+                    rt = rt.AddSeconds(add_second);
+                    if (add_second < ts.Seconds) {
+                        minute = rt.Minute;
+                        second = rt.Second;
+                        millisecond = R.Next(0, 1000);
+                    } else {
+                        rt.AddMilliseconds(add_millisecond);
+                        if (add_millisecond < ts.Milliseconds) {
+                            minute = rt.Minute;
+                            second = rt.Second;
+                            millisecond = rt.Millisecond;
+                        }
+                    }
+                }
+            }
+            year = rt.Year;
+            month = rt.Month;
+            day = rt.Day;
+            hour = rt.Hour;
+            //minute = rt.Minute;
+            //second = rt.Second;
+            //millisecond = rt.Millisecond;
+
+            return new DateTime(year, month, day, hour, minute, second, millisecond);
         }
         /// <summary>
         /// 随机获取日期

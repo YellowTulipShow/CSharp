@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using CSharp.LibrayFunction;
 
 namespace CSharp.LibrayDataBase.MCSDataType
 {
@@ -28,7 +31,30 @@ namespace CSharp.LibrayDataBase.MCSDataType
         /// 输出转换
         /// </summary>
         public override object InputConvert(object sourceValue, ColumnItemModel colmodel) {
-            Type t = sourceValue.GetType();
+            //string name = colmodel.Property.Name;
+            //if (name == @"TimeAdd") {
+            //    name = name;
+            //}
+            Type propertytype = colmodel.Property.PropertyType;
+            if (propertytype.BaseType.FullName == typeof(Enum).FullName) {
+                sourceValue = ConvertTool.ObjToInt(sourceValue, 0);
+            }
+
+            if (propertytype.FullName == typeof(Int32).FullName) {
+                sourceValue = ConvertTool.ObjToInt(sourceValue, 0);
+            }
+            if (propertytype.FullName == typeof(Single).FullName) {
+                sourceValue = ConvertTool.ObjToFloat(sourceValue, 0);
+            }
+            if (propertytype.FullName == typeof(Double).FullName) {
+                sourceValue = ConvertTool.ObjToFloat(sourceValue, 0);
+            }
+            if (propertytype.FullName == typeof(Boolean).FullName) {
+                sourceValue = ConvertTool.ObjToBool(sourceValue, false);
+            }
+            if (propertytype.FullName == typeof(DateTime).FullName) {
+                sourceValue = ConvertTool.ObjToDateTime(sourceValue, SqlDateTime.MinValue.Value);
+            }
             return sourceValue;
         }
     }
