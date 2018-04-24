@@ -18,7 +18,7 @@ namespace CSharp.LibrayDataBase
             List<ColumnItemModel> colms = new List<ColumnItemModel>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo property in protertys) {
-                ColumnAttribute columnAttr = ReflexHelper.FindAttributeOnly<ColumnAttribute>(property);
+                ColumnAttribute columnAttr = ReflexHelper.AttributeFindOnly<ColumnAttribute>(property);
                 if (CheckData.IsObjectNull(columnAttr))
                     continue;
                 colms.Add(new ColumnItemModel() {

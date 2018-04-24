@@ -11,20 +11,25 @@ namespace CSharp.LibrayFunction
     {
         #region ====== ASCII Code: ======
         /// <summary>
+        /// ASCII 码指定范围获取对应的字符
+        /// </summary>
+        /// <param name="min">最小值(包含)</param>
+        /// <param name="max">最大值(不包含)</param>
+        public static char[] ASCII_IndexRegion(int min = 33, int max = 127) {
+            List<char> cl = new List<char>();
+            byte[] array = new byte[1];
+            for (int i = min; i < max; i++) {
+                array[0] = (byte)i; //ASCII码强制转换二进制
+                string str = Encoding.ASCII.GetString(array);
+                cl.Add(Convert.ToChar(str));
+            }
+            return cl.ToArray();
+        }
+        /// <summary>
         /// ASCII 所有常用 字符 33-127
         /// </summary>
         public static char[] ASCII_ALL() {
             return ASCII_IndexRegion();
-        }
-        /// <summary>
-        /// ASCII 常用文本字符 \w: 0-9a-zA-Z
-        /// </summary>
-        public static char[] ASCII_WordText() {
-            List<char> charArr = new List<char>();
-            charArr.AddRange(ASCII_Number());
-            charArr.AddRange(ASCII_LowerEnglish());
-            charArr.AddRange(ASCII_UpperEnglish());
-            return charArr.ToArray();
         }
         /// <summary>
         /// 阿拉伯数字
@@ -56,29 +61,24 @@ namespace CSharp.LibrayFunction
             return charArr.ToArray();
         }
         /// <summary>
-        /// ASCII 码指定范围获取对应的字符
+        /// ASCII 常用文本字符 \w: 0-9a-zA-Z
         /// </summary>
-        /// <param name="min">最小值(包含)</param>
-        /// <param name="max">最大值(不包含)</param>
-        public static char[] ASCII_IndexRegion(int min = 33, int max = 127) {
-            List<char> cl = new List<char>();
-            byte[] array = new byte[1];
-            for (int i = min; i < max; i++) {
-                array[0] = (byte)i; //ASCII码强制转换二进制
-                string str = Encoding.ASCII.GetString(array);
-                cl.Add(Convert.ToChar(str));
-            }
-            return cl.ToArray();
+        public static char[] ASCII_WordText() {
+            List<char> charArr = new List<char>();
+            charArr.AddRange(ASCII_Number());
+            charArr.AddRange(ASCII_LowerEnglish());
+            charArr.AddRange(ASCII_UpperEnglish());
+            return charArr.ToArray();
         }
-        #endregion
-
         /// <summary>
         /// ASCII 码十六进制组成字符
         /// </summary>
         public static char[] ASCII_Hexadecimal() {
             return new List<char>(ASCII_Number()) { 'a', 'b', 'c', 'd', 'e', 'f' }.ToArray();
         }
+        #endregion
 
+        #region ====== Unicode Code: ======
         /// <summary>
         /// Unicode 中文字符集 最小 十六进制字符串
         /// </summary>
@@ -106,5 +106,21 @@ namespace CSharp.LibrayFunction
         public static int Unicode_Chinese_MAX_Decimal() {
             return ConvertTool.HexadecimalToDecimal(Unicode_Chinese_MAX_Hexadecimal());
         }
+        #endregion
+
+        #region ====== Date Time: ======
+        /// <summary>
+        /// 获得最大的天数
+        /// </summary>
+        /// <param name="year">年份</param>
+        /// <param name="month">月份</param>
+        /// <returns>条件的最大天数</returns>
+        public static int GetMaxDayCount(int year, int month) {
+            if (month == 2) {
+                return (year % 4 == 0) ? 29 : 28;
+            }
+            return (month <= 7 ? month : month + 1) % 2 == 1 ? 31 : 30;
+        }
+        #endregion
     }
 }

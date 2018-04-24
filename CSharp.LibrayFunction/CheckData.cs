@@ -11,21 +11,22 @@ namespace CSharp.LibrayFunction
     /// </summary>
     public static class CheckData
     {
+        #region ====== Basic Code Method Check: ======
         /// <summary>
         /// Object 对象 是否为空 无值
         /// </summary>
         public static bool IsObjectNull(this object obj) {
             return (Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value));
         }
-
         /// <summary>
         /// String 对象 是否为空 无值 如有需要请将参数.Trim()
         /// </summary>
         public static bool IsStringNull(this String str) {
             return IsObjectNull(str) || String.Equals(str, String.Empty) || String.Equals(str, "") || str.Length <= 0;
         }
+        #endregion
 
-        #region  === Is Size Empty ===
+        #region  ====== Is Size Empty ======
         /// <summary>
         /// 判断是否: ICollection 数据集合 大小 为 '空'
         /// </summary>
@@ -58,7 +59,7 @@ namespace CSharp.LibrayFunction
         }
         #endregion
 
-        #region === Is Data Type ===
+        #region ====== Is Data Type ======
         /// <summary>
         /// 判断对象是否可以转成int型
         /// </summary>
@@ -115,7 +116,7 @@ namespace CSharp.LibrayFunction
         }
         #endregion
 
-        #region === Is Can Use Model ===
+        #region ====== Is Can Use Model ======
         /// <summary>
         /// 检查模型可以使用 单例
         /// </summary>

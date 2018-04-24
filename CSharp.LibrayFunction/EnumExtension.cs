@@ -32,7 +32,7 @@ namespace CSharp.LibrayFunction
                 if (info.IsObjectNull()) {
                     throw new Exception();
                 }
-                ExplainAttribute explain = info.FindAttributeOnly<ExplainAttribute>();
+                ExplainAttribute explain = info.AttributeFindOnly<ExplainAttribute>();
                 if (explain.IsObjectNull()) {
                     throw new Exception();
                 }

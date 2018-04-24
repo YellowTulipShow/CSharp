@@ -254,7 +254,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                         string sour = string.Empty;
                         sour = item;
                         string repl = ConvertTool.StringToHexadecimal(sour);
-                        string unicode = ConvertTool.Unicode_Format_String(repl);
+                        string unicode = ConvertTool.UnicodeFormatString(repl);
                         Print.WriteLine("{0} : {1} : {2}", item, repl, unicode);
                     }
                 },

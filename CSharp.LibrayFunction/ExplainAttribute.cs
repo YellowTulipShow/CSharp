@@ -31,7 +31,7 @@ namespace CSharp.LibrayFunction
         /// 获得解释特性信息
         /// </summary>
         public static ExplainAttribute Extract(MemberInfo memberInfo) {
-            ExplainAttribute explainAttr = memberInfo.FindAttributeOnly<ExplainAttribute>();
+            ExplainAttribute explainAttr = memberInfo.AttributeFindOnly<ExplainAttribute>();
             if (CheckData.IsObjectNull(explainAttr))
                 explainAttr = new ExplainAttribute(ERROR_EXPLAIN_TEXT);
             return explainAttr;

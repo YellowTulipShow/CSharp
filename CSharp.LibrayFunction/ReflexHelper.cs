@@ -11,6 +11,7 @@ namespace CSharp.LibrayFunction
     /// </summary>
     public static class ReflexHelper
     {
+        #region ====== Lambda Name: ======
         /// <summary>
         /// 获取指定 "内容" 名称 用法: ***.Name(() => new ModelClass().ID)
         /// </summary>
@@ -18,14 +19,16 @@ namespace CSharp.LibrayFunction
             MemberExpression expressionBody = (MemberExpression)memberExpression.Body;
             return expressionBody.Member.Name;
         }
+        #endregion
 
+        #region ====== Attributes: ======
         /// <summary>
         /// 查找指定的 Attribute '特性' 内容列表 默认不查找继承链
         /// </summary>
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
         /// <returns></returns>
-        public static A[] FindAttributes<A>(this MemberInfo memberInfo) where A : System.Attribute {
+        public static A[] AttributeFindALL<A>(this MemberInfo memberInfo) where A : System.Attribute {
             object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
             return ConvertTool.ListConvertType(attrs, o => o as A);
         }
@@ -35,14 +38,15 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
         /// <returns></returns>
-        public static A FindAttributeOnly<A>(this MemberInfo memberInfo) where A : System.Attribute {
-            A[] attrs = memberInfo.FindAttributes<A>();
+        public static A AttributeFindOnly<A>(this MemberInfo memberInfo) where A : System.Attribute {
+            A[] attrs = memberInfo.AttributeFindALL<A>();
             return CheckData.IsSizeEmpty(attrs) ? null : attrs[0];
         }
+        #endregion
 
-        #region === Clone Data ===
+        #region ====== Clone: ======
         /// <summary>
-        /// 克隆 对象 公共属性属性值 (但克隆DataGridView 需调用CloneDataGridView()方法)
+        /// 克隆 对象公共属性属性值 (但克隆DataGridView 需调用CloneDataGridView()方法)
         /// </summary>
         public static T CloneProperties<T>(T obj) where T : class {
             Type type = obj.GetType();
@@ -57,7 +61,7 @@ namespace CSharp.LibrayFunction
             return model;
         }
         /// <summary>
-        /// 克隆DataGridView对象
+        /// 克隆 DataGridView对象
         /// </summary>
         /// <param name="dgv"></param>
         /// <returns></returns>
@@ -95,13 +99,12 @@ namespace CSharp.LibrayFunction
             } finally {
             }
         }
-        #endregion
-
         /// <summary>
-        /// 复制时间
+        /// 克隆数据时间
         /// </summary>
-        public static DateTime CopyDateTime(DateTime sourcetime) {
+        public static DateTime CloneDateTime(DateTime sourcetime) {
             return new DateTime(sourcetime.Year, sourcetime.Month, sourcetime.Day, sourcetime.Hour, sourcetime.Minute, sourcetime.Second, sourcetime.Millisecond, sourcetime.Kind);
         }
+        #endregion
     }
 }

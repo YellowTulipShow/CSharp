@@ -21,7 +21,7 @@ namespace CSharp.LibrayFunction
         public static string CombinationContent(params object[] objs) {
             StringBuilder returnString = new StringBuilder();
             foreach (object obj in objs) {
-                returnString.Append(obj.ToString());
+                returnString.Append(ObjToString(obj));
             }
             return returnString.ToString();
         }
@@ -72,6 +72,37 @@ namespace CSharp.LibrayFunction
             } catch (Exception) {
                 return new string[] { };
             }
+        }
+
+        /// <summary>
+        /// 截取 数组元素
+        /// </summary>
+        /// <typeparam name="T">数组的数据类型</typeparam>
+        /// <param name="list">数据源</param>
+        /// <param name="start_sign">开始下标标识</param>
+        /// <param name="end_sign">结束下标标识, 结果不包含</param>
+        /// <returns>结果</returns>
+        public static T[] Interception<T>(this T[] list, int start_sign, int end_sign) {
+            List<T> RL = new List<T>();
+            if (start_sign > end_sign) {
+                int zhong = start_sign;
+                start_sign = end_sign;
+                end_sign = zhong;
+            }
+            if (start_sign > list.Length) {
+                start_sign = list.Length;
+            }
+            if (end_sign > list.Length) {
+                end_sign = list.Length;
+            }
+            for (int i = start_sign; i < end_sign; i++) {
+                try {
+                    RL.Add(list[i]);
+                } catch (Exception) {
+                    continue;
+                }
+            }
+            return RL.ToArray();
         }
         #endregion
 
@@ -145,6 +176,15 @@ namespace CSharp.LibrayFunction
         #endregion
 
         #region === Data Type Convert ===
+        /// <summary>
+        /// 转换为 Json 格式的字符串
+        /// </summary>
+        /// <param name="obj">数据源</param>
+        /// <returns>Json 字符串</returns>
+        public static string ToJson(this object obj) {
+            return JsonHelper.SerializeObject(obj);
+        }
+
 
         /// <summary>
         /// 将对象转换为String类型, 区别在于判断是否为Null
@@ -152,13 +192,13 @@ namespace CSharp.LibrayFunction
         public static string ObjToString(object source) {
             return CheckData.IsObjectNull(source) ? string.Empty : source.ToString();
         }
-
         /// <summary>
         /// 将字符串去除前后多余空格
         /// </summary>
         public static string StrToStrTrim(string source) {
             return CheckData.IsStringNull(source) ? string.Empty : source.Trim();
         }
+
 
         /// <summary>
         /// 将对象转换为Int32类型
@@ -339,17 +379,6 @@ namespace CSharp.LibrayFunction
                 return new int[] { };
             }
         }
-
-        /// <summary>
-        /// 转换为 Json 格式的字符串
-        /// </summary>
-        /// <param name="obj">数据源</param>
-        /// <returns>Json 字符串</returns>
-        public static string ToJson(this object obj) {
-            return JsonHelper.SerializeObject(obj);
-        }
-
-
         /// <summary>
         /// 枚举遍历所有枚举值
         /// </summary>
@@ -362,41 +391,10 @@ namespace CSharp.LibrayFunction
                 return new E[] { };
             }
         }
-        #endregion
+
 
         /// <summary>
-        /// 截取 数组元素
-        /// </summary>
-        /// <typeparam name="T">数组的数据类型</typeparam>
-        /// <param name="list">数据源</param>
-        /// <param name="start_sign">开始下标标识</param>
-        /// <param name="end_sign">结束下标标识, 结果不包含</param>
-        /// <returns>结果</returns>
-        public static T[] Interception<T>(this T[] list, int start_sign, int end_sign) {
-            List<T> RL = new List<T>();
-            if (start_sign > end_sign) {
-                int zhong = start_sign;
-                start_sign = end_sign;
-                end_sign = zhong;
-            }
-            if (start_sign > list.Length) {
-                start_sign = list.Length;
-            }
-            if (end_sign > list.Length) {
-                end_sign = list.Length;
-            }
-            for (int i = start_sign; i < end_sign; i++) {
-                try {
-                    RL.Add(list[i]);
-                } catch (Exception) {
-                    continue;
-                }
-            }
-            return RL.ToArray();
-        }
-
-        /// <summary>
-        /// 汉字转换为Unicode编码
+        /// 汉字转换为Unicode编码 (网络代码)
         /// </summary>
         /// <param name="gb2312_str">要编码的汉字字符串</param>
         /// <returns>Unicode编码的的字符串</returns>
@@ -410,7 +408,7 @@ namespace CSharp.LibrayFunction
             return r;
         }
         /// <summary>
-        /// 将Unicode编码转换为汉字字符串
+        /// 将Unicode编码转换为汉字字符串 (网络代码)
         /// </summary>
         /// <param name="unicode_str">Unicode编码字符串</param>
         /// <returns>汉字字符串</returns>
@@ -429,6 +427,26 @@ namespace CSharp.LibrayFunction
             return r;
         }
 
+
+        /// <summary>
+        /// 任意字符串转十六进制字符数据
+        /// </summary>
+        /// <param name="obj_string">任意字符串</param>
+        /// <returns></returns>
+        public static string StringToHexadecimal(string obj_string) {
+            if (CheckData.IsStringNull(obj_string)) {
+                return string.Empty;
+            }
+            return Regex.Replace(obj_string, @"[^0-9a-fA-F]", "", RegexOptions.IgnoreCase).ToLower();
+        }
+        /// <summary>
+        /// 十进制Int32类型值 转 十六进制字符串
+        /// </summary>
+        /// <param name="decimal_value">十进制Int32类型值</param>
+        /// <returns>十六进制字符串</returns>
+        public static string DecimalToHexadecimal(Int32 decimal_value) {
+            return decimal_value.ToString("x");
+        }
         /// <summary>
         /// 十六进制字符串 转 十进制Int32类型值
         /// </summary>
@@ -441,33 +459,14 @@ namespace CSharp.LibrayFunction
             }
             return Int32.Parse(hexadecimal_string, System.Globalization.NumberStyles.HexNumber);
         }
-        /// <summary>
-        /// 任意字符串转十六进制字符数据
-        /// </summary>
-        /// <param name="obj_string">任意字符串</param>
-        /// <returns></returns>
-        public static string StringToHexadecimal(string obj_string) {
-            if (CheckData.IsStringNull(obj_string)) {
-                return string.Empty;
-            }
-            return Regex.Replace(obj_string, @"[^0-9a-fA-F]", "", RegexOptions.IgnoreCase).ToLower();
-        }
-
-        /// <summary>
-        /// 十进制Int32类型值 转 十六进制字符串
-        /// </summary>
-        /// <param name="decimal_value">十进制Int32类型值</param>
-        /// <returns>十六进制字符串</returns>
-        public static string DecimalToHexadecimal(Int32 decimal_value) {
-            return decimal_value.ToString("x");
-        }
+        #endregion
 
         /// <summary>
         /// 十六进制值转为Unicode格式字符串
         /// </summary>
         /// <param name="hexadecimal_string">十六进制字符串</param>
         /// <returns></returns>
-        public static string Unicode_Format_String(string hexadecimal_string) {
+        public static string UnicodeFormatString(string hexadecimal_string) {
             string result_str = hexadecimal_string; // string 引用地址的问题
             result_str = StringToHexadecimal(result_str);
             if (CheckData.IsStringNull(result_str)) {

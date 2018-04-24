@@ -16,7 +16,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 //ExeEvent_RandomStrignMethod(),
                 //ExeEvent_Random_Select_Item(),
                 //ExeEvent_Random_DateTime(),
-                ExeEvent_Random_DayRegion(),
+                //ExeEvent_Random_DayRegion(),
                 ExeEvent_Random_DateTime_Region(true),
                 ExeEvent_Random_DateTime_Region(false),
                 //ExeEvent_Random_Int(),
@@ -91,7 +91,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                         int hexa_int_max_sign = CommonData.Unicode_Chinese_MAX_Decimal();
                         int random_value = RandomData.R.Next(hexa_int_min_sign, hexa_int_max_sign + 1);
                         string random_heax_string = ConvertTool.DecimalToHexadecimal(random_value);
-                        string unicode_format_str = ConvertTool.Unicode_Format_String(random_heax_string);
+                        string unicode_format_str = ConvertTool.UnicodeFormatString(random_heax_string);
                         string chinese_char = ConvertTool.UnicodeToGB2312(unicode_format_str);
                         Print.WriteLine("{0} : {1} : {2} : {3}", random_value, random_heax_string, unicode_format_str, chinese_char);
                     }
@@ -118,7 +118,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 ExeEvent = () => {
                     foreach (int year in new int[] { 2000, 2001 }) {
                         for (int month = 1; month <= 12; month++) {
-                            Print.WriteLine("{0}年{1}月有{2}天", year, month, RandomData.DayRegion(year, month));
+                            Print.WriteLine("{0}年{1}月有{2}天", year, month, RandomData.GetMaxDayCount(year, month));
                         }
                     }
                 },
@@ -135,17 +135,43 @@ namespace Test.ConsoleProgram.Case.SonTests
                     Print.WriteLine("Init: {0}-{1}", min_time.ToString(timeFormat), max_time.ToString(timeFormat));
                     for (int i = 0; i < 20; i++) {
                         DateTime time = RandomData.GetDateTime(min_time, max_time);
+                        string symbol = string.Empty;
                         if (isAsc) {
                             min_time = time;
+                            symbol = @"↑";
                         } else {
                             max_time = time;
+                            symbol = @"↓";
                         }
-                        Print.WriteLine(time.ToString(timeFormat));
+                        Print.WriteLine(time.ToString(timeFormat) + symbol);
                         //break;
                     }
                 },
             };
         }
+
+        //private CaseModel ExeEvent_Random_DateTime_RandomRegionValue() {
+        //    return new CaseModel() {
+        //        NameSign = @"随机获取区域值",
+        //        ExeEvent = () => {
+        //            int min = 1;
+        //            int max = 9999;
+        //            int start = 2018;
+        //            int end = 2020;
+        //            for (int x = start; x <= end; x++) {
+        //                for (int y = start; y <= end; y++) {
+        //                    for (int z = 0; z <= 3; z++) {
+        //                        int upstatue = z;
+        //                        Print.WriteLine("参数: upstatue:{0}, min:{1}, max:{2}, start:{3}, end:{4}", upstatue, min, max, x, y);
+        //                        int value = RandomData.TimeRangeSelect(ref upstatue, min, max, x, y);
+        //                        Print.WriteLine("结果: value:{0}, upstatue:{1}", value, upstatue);
+        //                        Print.WriteLine(string.Empty);
+        //                    }
+        //                }
+        //            }
+        //        },
+        //    };
+        //}
         #endregion
 
         #region === Random Select Item ===
