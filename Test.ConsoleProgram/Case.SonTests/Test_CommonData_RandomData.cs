@@ -16,7 +16,9 @@ namespace Test.ConsoleProgram.Case.SonTests
                 //ExeEvent_RandomStrignMethod(),
                 //ExeEvent_Random_Select_Item(),
                 //ExeEvent_Random_DateTime(),
-                ExeEvent_Random_DateTime_Region(),
+                ExeEvent_Random_DayRegion(),
+                ExeEvent_Random_DateTime_Region(true),
+                ExeEvent_Random_DateTime_Region(false),
                 //ExeEvent_Random_Int(),
                 //ExeEvent_Random_Double(),
             };
@@ -110,18 +112,36 @@ namespace Test.ConsoleProgram.Case.SonTests
             };
         }
 
-        private CaseModel ExeEvent_Random_DateTime_Region() {
+        private CaseModel ExeEvent_Random_DayRegion() {
+            return new CaseModel() {
+                NameSign = @"每个月的最大天数",
+                ExeEvent = () => {
+                    foreach (int year in new int[] { 2000, 2001 }) {
+                        for (int month = 1; month <= 12; month++) {
+                            Print.WriteLine("{0}年{1}月有{2}天", year, month, RandomData.DayRegion(year, month));
+                        }
+                    }
+                },
+            };
+        }
+
+        private CaseModel ExeEvent_Random_DateTime_Region(bool isAsc) {
             const string timeFormat = LFKeys.TABLE_DATETIME_FORMAT_MILLISECOND;
-            //DateTime min_time = new DateTime(2018, 3, 1, 0, 0, 0);
-            DateTime min_time = new DateTime(2018, 04, 19, 17, 40, 0); ;
-            //DateTime max_time = new DateTime(2018, 3, 31, 23, 59, 59);
-            DateTime max_time = new DateTime(2018, 04, 19, 18, 10, 0);
+            DateTime min_time = new DateTime(2018, 04, 19, 06, 40, 0);
+            DateTime max_time = new DateTime(2020, 01, 5, 18, 10, 0);
             return new CaseModel() {
                 NameSign = @"随机时间范围",
                 ExeEvent = () => {
+                    Print.WriteLine("Init: {0}-{1}", min_time.ToString(timeFormat), max_time.ToString(timeFormat));
                     for (int i = 0; i < 20; i++) {
                         DateTime time = RandomData.GetDateTime(min_time, max_time);
+                        if (isAsc) {
+                            min_time = time;
+                        } else {
+                            max_time = time;
+                        }
                         Print.WriteLine(time.ToString(timeFormat));
+                        //break;
                     }
                 },
             };

@@ -66,79 +66,6 @@ namespace CSharp.LibrayFunction
         }
 
         /// <summary>
-        /// 随机获取日期, 指定时间范围区间
-        /// </summary>
-        public static DateTime GetDateTime(DateTime mintime, DateTime maxtime) {
-            if (mintime > maxtime) {
-                DateTime zhong = mintime;
-                mintime = maxtime;
-                maxtime = zhong;
-            }
-            TimeSpan ts = maxtime - mintime;
-            int add_hour = ts.Hours == 0 ? 0 : R.Next(0, ts.Hours + 1);
-            int add_minute = ts.Minutes == 0 ? 0 : R.Next(0, ts.Minutes + 1);
-            int add_second = ts.Seconds == 0 ? 0 : R.Next(0, ts.Seconds + 1);
-            int add_millisecond = ts.Milliseconds == 0 ? 0 : R.Next(0, ts.Milliseconds + 1);
-
-            DateTime rt = mintime.AddHours(add_hour);
-            int year = rt.Year;
-            int month = rt.Month;
-            int day = rt.Day;
-            int hour = rt.Hour;
-            int minute = rt.Minute;
-            int second = rt.Second;
-            int millisecond = rt.Millisecond;
-
-            if (add_hour < ts.Hours) {
-                minute = R.Next(0, 60);
-                second = R.Next(0, 60);
-                millisecond = R.Next(0, 1000);
-            } else {
-                rt = rt.AddMinutes(add_minute);
-                if (add_minute < ts.Minutes) {
-                    minute = rt.Minute;
-                    second = R.Next(0, 60);
-                    millisecond = R.Next(0, 1000);
-                } else {
-                    rt = rt.AddSeconds(add_second);
-                    if (add_second < ts.Seconds) {
-                        minute = rt.Minute;
-                        second = rt.Second;
-                        millisecond = R.Next(0, 1000);
-                    } else {
-                        rt.AddMilliseconds(add_millisecond);
-                        if (add_millisecond < ts.Milliseconds) {
-                            minute = rt.Minute;
-                            second = rt.Second;
-                            millisecond = rt.Millisecond;
-                        }
-                    }
-                }
-            }
-            year = rt.Year;
-            month = rt.Month;
-            day = rt.Day;
-            hour = rt.Hour;
-            //minute = rt.Minute;
-            //second = rt.Second;
-            //millisecond = rt.Millisecond;
-
-            return new DateTime(year, month, day, hour, minute, second, millisecond);
-        }
-        /// <summary>
-        /// 随机获取日期
-        /// </summary>
-        public static DateTime GetDateTime() {
-            return GetDateTime(DateTime.MinValue, DateTime.MaxValue);
-        }
-        /// <summary>
-        /// 随机获取日期, 指定最大时间区间
-        /// </summary>
-        public static DateTime GetDateTime(DateTime maxtime) {
-            return GetDateTime(DateTime.MinValue, maxtime);
-        }
-
-        /// <summary>
         /// 随机获取 Int 值
         /// </summary>
         /// <param name="minval">最小值, 默认为 [int.MinValue + 1]</param>
@@ -181,5 +108,82 @@ namespace CSharp.LibrayFunction
             }
             return result_str.ToString();
         }
+
+        /// <summary>
+        /// 随机获取日期
+        /// </summary>
+        public static DateTime GetDateTime() {
+            return GetDateTime(DateTime.MinValue, DateTime.MaxValue);
+        }
+        /// <summary>
+        /// 随机获取日期, 指定最大时间区间
+        /// </summary>
+        public static DateTime GetDateTime(DateTime maxtime) {
+            return GetDateTime(DateTime.MinValue, maxtime);
+        }
+        /// <summary>
+        /// 随机获取日期, 指定时间范围区间
+        /// </summary>
+        public static DateTime GetDateTime(DateTime min, DateTime max) {
+            if (min > max) {
+                DateTime zhong = min;
+                min = max;
+                max = zhong;
+            }
+            int upstatue = 0;
+            int r_Year = RandomRegionValue(ref upstatue, 1, 9999, min.Year, max.Year);
+            int r_Month = RandomRegionValue(ref upstatue, 1, 12, min.Month, max.Month);
+            int r_Day = RandomRegionValue(ref upstatue, 1, DayRegion(r_Year, r_Month), min.Day, max.Day);
+            int r_Hour = RandomRegionValue(ref upstatue, 0, 24, min.Hour, max.Hour);
+            int r_Minute = RandomRegionValue(ref upstatue, 0, 60, min.Minute, max.Minute);
+            int r_Second = RandomRegionValue(ref upstatue, 0, 60, min.Second, max.Second);
+            int r_Millisecond = RandomRegionValue(ref upstatue, 0, 1000, min.Millisecond, max.Millisecond);
+            return new DateTime(r_Year, r_Month, r_Day, r_Hour, r_Minute, r_Second, r_Millisecond);
+        }
+
+        public static int DayRegion(int year, int month) {
+            if (month == 2) {
+                return (year % 4 == 0) ? 29 : 28;
+            }
+            return (month <= 7 ? month : month + 1) % 2 == 1 ? 31 : 30;
+        }
+
+        private static int RandomRegionValue(ref int upstatue, int min, int max, int start, int end) {
+            if (upstatue == 4) {
+                return R.Next(min, max);
+            }
+
+            int result = -1;
+            int minvalue = start;
+            int maxvalue = end;
+            if (upstatue == 0 || upstatue == 1) {
+                result = R.Next(minvalue, maxvalue + 1);
+            }
+            if (upstatue == 2) {
+                maxvalue = max;
+                result = R.Next(minvalue, maxvalue);
+            }
+            if (upstatue == 3) {
+                minvalue = min;
+                result = R.Next(minvalue, maxvalue + 1);
+            }
+            
+            int selfstatus = 0;
+            if (minvalue == result && result == maxvalue) {
+                selfstatus = 1;
+            }
+            if (minvalue == result && result < maxvalue) {
+                selfstatus = (upstatue == 3) ? 4 : 2;
+            }
+            if (minvalue < result &&  result == maxvalue) {
+                selfstatus = (upstatue == 2) ? 4 : 3;
+            }
+            if (minvalue < result && result < maxvalue) {
+                selfstatus = 4;
+            }
+            upstatue = (selfstatus < upstatue) ? upstatue : selfstatus;
+            return result;
+        }
+
     }
 }
