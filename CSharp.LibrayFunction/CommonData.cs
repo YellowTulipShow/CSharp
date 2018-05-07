@@ -117,7 +117,8 @@ namespace CSharp.LibrayFunction
         /// <returns>条件的最大天数</returns>
         public static int GetMaxDayCount(int year, int month) {
             if (month == 2) {
-                return (year % 4 == 0) ? 29 : 28;
+                int calc_num = year % 100 == 0 ? 400 : 4;
+                return (year % calc_num == 0) ? 29 : 28;
             }
             return (month <= 7 ? month : month + 1) % 2 == 1 ? 31 : 30;
         }

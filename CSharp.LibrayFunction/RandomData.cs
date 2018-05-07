@@ -131,13 +131,13 @@ namespace CSharp.LibrayFunction
                 max = zhong;
             }
             int upstatue = 0;
-            int r_Year = TimeRangeSelect(ref upstatue, 1, 9999, min.Year, max.Year);
-            int r_Month = TimeRangeSelect(ref upstatue, 1, 12, min.Month, max.Month);
-            int r_Day = TimeRangeSelect(ref upstatue, 1, CommonData.GetMaxDayCount(r_Year, r_Month), min.Day, max.Day);
-            int r_Hour = TimeRangeSelect(ref upstatue, 0, 24, min.Hour, max.Hour);
-            int r_Minute = TimeRangeSelect(ref upstatue, 0, 60, min.Minute, max.Minute);
-            int r_Second = TimeRangeSelect(ref upstatue, 0, 60, min.Second, max.Second);
-            int r_Millisecond = TimeRangeSelect(ref upstatue, 0, 1000, min.Millisecond, max.Millisecond);
+            int r_Year = TimeRangeSelect(ref upstatue, 1, 9999 + 1, min.Year, max.Year);
+            int r_Month = TimeRangeSelect(ref upstatue, 1, 12 + 1, min.Month, max.Month);
+            int r_Day = TimeRangeSelect(ref upstatue, 1, CommonData.GetMaxDayCount(r_Year, r_Month) + 1, min.Day, max.Day);
+            int r_Hour = TimeRangeSelect(ref upstatue, 0, 23 + 1, min.Hour, max.Hour);
+            int r_Minute = TimeRangeSelect(ref upstatue, 0, 59 + 1, min.Minute, max.Minute);
+            int r_Second = TimeRangeSelect(ref upstatue, 0, 59 + 1, min.Second, max.Second);
+            int r_Millisecond = TimeRangeSelect(ref upstatue, 0, 999 + 1, min.Millisecond, max.Millisecond);
             return new DateTime(r_Year, r_Month, r_Day, r_Hour, r_Minute, r_Second, r_Millisecond);
         }
         private static int TimeRangeSelect(ref int upstatue, int min, int max, int start, int end) {

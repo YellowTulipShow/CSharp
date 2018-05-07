@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSharp.LibrayFunction;
+using CSharp.SystemService;
 
 namespace Test.ConsoleProgram.Case.SonTests
 {
@@ -17,10 +18,11 @@ namespace Test.ConsoleProgram.Case.SonTests
                 //ExeEvent_Random_Select_Item(),
                 //ExeEvent_Random_DateTime(),
                 //ExeEvent_Random_DayRegion(),
-                ExeEvent_Random_DateTime_Region(true),
-                ExeEvent_Random_DateTime_Region(false),
+                //ExeEvent_Random_DateTime_Region(true),
+                //ExeEvent_Random_DateTime_Region(false),
                 //ExeEvent_Random_Int(),
                 //ExeEvent_Random_Double(),
+                ExeEvent_Random_DateTime_CreateLibray(),
             };
         }
 
@@ -118,7 +120,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 ExeEvent = () => {
                     foreach (int year in new int[] { 2000, 2001 }) {
                         for (int month = 1; month <= 12; month++) {
-                            Print.WriteLine("{0}年{1}月有{2}天", year, month, RandomData.GetMaxDayCount(year, month));
+                            Print.WriteLine("{0}年{1}月有{2}天", year, month, CommonData.GetMaxDayCount(year, month));
                         }
                     }
                 },
@@ -150,28 +152,31 @@ namespace Test.ConsoleProgram.Case.SonTests
             };
         }
 
-        //private CaseModel ExeEvent_Random_DateTime_RandomRegionValue() {
-        //    return new CaseModel() {
-        //        NameSign = @"随机获取区域值",
-        //        ExeEvent = () => {
-        //            int min = 1;
-        //            int max = 9999;
-        //            int start = 2018;
-        //            int end = 2020;
-        //            for (int x = start; x <= end; x++) {
-        //                for (int y = start; y <= end; y++) {
-        //                    for (int z = 0; z <= 3; z++) {
-        //                        int upstatue = z;
-        //                        Print.WriteLine("参数: upstatue:{0}, min:{1}, max:{2}, start:{3}, end:{4}", upstatue, min, max, x, y);
-        //                        int value = RandomData.TimeRangeSelect(ref upstatue, min, max, x, y);
-        //                        Print.WriteLine("结果: value:{0}, upstatue:{1}", value, upstatue);
-        //                        Print.WriteLine(string.Empty);
-        //                    }
-        //                }
-        //            }
-        //        },
-        //    };
-        //}
+        private CaseModel ExeEvent_Random_DateTime_CreateLibray() {
+            return new CaseModel() {
+                NameSign = @"随机时间范围",
+                ExeEvent = () => {
+                    const string timeFormat = @"MM-dd HH:mm";
+                    const int addDayNum = 2;
+                    const int year = 2017;
+                    DateTime min_time = new DateTime(year, 01, 01, 08, 08, 08);
+                    DateTime max_time = min_time.AddHours(addDayNum);
+                    List<string> list = new List<string>();
+                    Print.WriteLine("Init: {0}-{1}", min_time.ToString(timeFormat), max_time.ToString(timeFormat));
+                    for (int i = 0; i < 20000; i++) {
+                        DateTime time = RandomData.GetDateTime(min_time, max_time);
+                        if (time.Year > year) {
+                            break;
+                        }
+                        list.Add(time.ToString(timeFormat));
+                        min_time = time;
+                        max_time = time.AddHours(addDayNum);
+                    }
+                    SystemLog.Write("NULL", ConvertTool.IListToString(list, "#"));
+                    Print.WriteLine(list.Count);
+                },
+            };
+        }
         #endregion
 
         #region === Random Select Item ===

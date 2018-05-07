@@ -70,8 +70,6 @@ namespace CSharp.LibrayDataBase
         }
 
         #region ====== override:AbsDAL<M> ======
-
-
         public override bool Insert(M model) {
             try {
                 string fileabspath = GetFileAbsPath();
