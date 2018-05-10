@@ -28,6 +28,29 @@ namespace CSharp.LibrayFunction
             }
             return source[R.Next(0, source.Length)];
         }
+
+
+        public static T[] GetList<T>(T[] list, int need_num = 1) {
+            if (CheckData.IsSizeEmpty(list) || need_num <= 0) {
+                return new T[] { };
+            }
+            need_num = Math.Abs(need_num);
+            List<int> signs = new List<int>();
+            List<T> RLarr = new List<T>();
+            while (true) {
+                int rv = RandomData.GetInt(0, list.Length);
+                if (signs.Contains(rv)) {
+                    continue;
+                }
+                signs.Add(rv);
+                RLarr.Add(list[rv]);
+                need_num -= 1;
+                if (need_num <= 0) {
+                    break;
+                }
+            }
+            return RLarr.ToArray();
+        }
         #endregion
 
         #region ====== Basic Data Type: ======
