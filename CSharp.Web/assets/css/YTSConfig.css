@@ -94,7 +94,7 @@
     .font-hide p,
     .font-hide b,
     .font-hide a,
-    .font-hide input { 
+    .font-hide input {
         word-break: keep-all;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -102,7 +102,7 @@
     }
 
     /*当文字超出限制的时候隐藏多余文字*/
-    .wbox-flex { 
+    .wbox-flex {
         -webkit-flex: 1 !important;
         -webkit-box-flex: 1;
         word-wrap: break-word;
@@ -125,7 +125,7 @@
     .bgc-transparent { background-color: transparent !important; }
     /*背景橙色*/
     .bgc-orange { background-color: #fdb03e !important; }
-    /*淡黄色*/ 
+    /*淡黄色*/
     .bgc-yellowy { background-color: #faecca !important; }
     /*背景红色*/
     .bgc-red { background-color: #f23030 !important; }
@@ -205,7 +205,14 @@
     }
 
     /*盒子阴影*/
-    .box-shadow { -moz-box-shadow: 1px 1px 10px #888888; box-shadow: 1px 1px 10px #888888; }
+    .box-shadow {
+        -moz-box-shadow: 0px 0px 4px #888888;
+        box-shadow: 0px 0px 4px #888888;
+    }
+    .box-shadow-hover:hover {
+        -moz-box-shadow: 0px 0px 4px #888888;
+        box-shadow: 0px 0px 4px #888888;
+    }
 
 /* display ~~~ */
     /*显示元素,默认为block(块级元素)*/
@@ -302,7 +309,7 @@
 
 /* transition ~~~ */
     /*过渡样式*/
-    .transition { 
+    .transition {
         -webkit-transition: all .2s ease-in-out 0s;
         -moz-transition: all .2s ease-in-out 0s;
         -ms-transition: all .2s ease-in-out 0s;

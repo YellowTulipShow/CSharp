@@ -95,13 +95,13 @@ namespace CSharp.LibrayFunction
         /// <param name="source">指定字符进行拼接</param>
         /// <param name="max_charlength">指定字符个数</param>
         /// <returns>拼接结果</returns>
-        public static string GetString(char[] source, int max_charlength) {
+        public static string GetString(char[] source, int sum_length) {
             if (CheckData.IsSizeEmpty(source)) {
                 return string.Empty;
             }
             StringBuilder strbu = new StringBuilder();
-            for (int i = 0; i < max_charlength; i++) {
-                strbu.Append(source[R.Next(0, source.Length)]);
+            for (int i = 0; i < sum_length; i++) {
+                strbu.Append(GetItem(source));
             }
             return strbu.ToString();
         }
@@ -110,8 +110,8 @@ namespace CSharp.LibrayFunction
         /// </summary>
         /// <param name="max_charlength">指定字符个数, 默认32个</param>
         /// <returns>拼接结果</returns>
-        public static string GetString(int max_charlength = 32) {
-            return GetString(CommonData.ASCII_ALL(), max_charlength);
+        public static string GetString(int sum_length = 32) {
+            return GetString(CommonData.ASCII_ALL(), sum_length);
         }
         /// <summary>
         /// 拼接随机字符串
@@ -128,9 +128,9 @@ namespace CSharp.LibrayFunction
         /// 获取中文随机字符串
         /// </summary>
         /// <param name="length">长度</param>
-        public static string GetChineseString(int length = 5) {
+        public static string GetChineseString(int sum_length = 5) {
             StringBuilder result_str = new StringBuilder();
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < sum_length; i++) {
                 int hexa_int_min_sign = CommonData.Unicode_Chinese_MIN_Decimal();
                 int hexa_int_max_sign = CommonData.Unicode_Chinese_MAX_Decimal();
                 int random_value = R.Next(hexa_int_min_sign, hexa_int_max_sign + 1);
@@ -204,6 +204,29 @@ namespace CSharp.LibrayFunction
         /// </summary>
         public static DateTime GetDateTime(DateTime maxtime) {
             return GetDateTime(DateTime.MinValue, maxtime);
+        }
+        #endregion
+
+        #region ====== IP Address: ======
+        /// <summary>
+        /// 随机获取IPv4地址
+        /// </summary>
+        public static string GetIPv4() {
+            List<int> list = new List<int>();
+            for (int i = 0; i < 4; i++) {
+                list.Add(GetInt(0, 255 + 1));
+            }
+            return ConvertTool.IListToString(list, '.');
+        }
+        #endregion
+
+        #region ====== Telephone: ======
+        private readonly static string[] TelPrefixs = "134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153,180,181,182,183,185,186,176,187,188,189,177,178".Split(',');
+        /// <summary>
+        /// 获得十一位电话号
+        /// </summary>
+        public static string GetTelephone_ElevenBit() {
+            return GetItem(TelPrefixs) + GetString(CommonData.ASCII_Number(), 8);
         }
         #endregion
     }

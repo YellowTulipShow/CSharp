@@ -482,13 +482,13 @@ namespace CSharp.LibrayDataBase
         /// 替换掉特殊字符
         /// </summary>
         public static string ReplaceSpecialCharacters(string source) {
-            return source.Replace("'", "@&Y*#01");
+            return source.Replace("'", "''");
         }
         /// <summary>
         /// 还原回特殊字符
         /// </summary>
         public static string RevertSpecialCharacters(string source) {
-            return source.Replace("@&Y*#01", "'");
+            return source;
         }
         #endregion
     }

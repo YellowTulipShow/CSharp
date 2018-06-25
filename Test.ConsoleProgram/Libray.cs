@@ -19,6 +19,7 @@ namespace Test.ConsoleProgram
                 //new Case.Learn.Learn_Object(),
                 //new Case.Learn.Learn_RegularExpression(),
                 //new Case.Learn.Learn_XML(),
+                //new Case.Learn.Learn_CalcRule(),
 
                 //new Case.SonTests.Test_CaseModel_Tool_Value(),
                 //new Case.SonTests.Test_AbsBasicsDataModel(),
@@ -29,13 +30,15 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_DateTime(),
                 //new Case.SonTests.Test_Enum(),
                 //new Case.SonTests.Test_NewtonsoftJson(),
-                new Case.SonTests.Test_Random(),
+                //new Case.SonTests.Test_Random(),
                 //new Case.SonTests.Test_Reflex(),
                 //new Case.SonTests.Test_Lambda(),
                 //new Case.SonTests.Test_WhereModel(),
                 //new Case.SonTests.Test_BLLDALSQLServer(),
                 //new Case.SonTests.Test_addRecord(),
-                //new Case.SonTests.Test_BLLDALXML(),
+                new Case.SonTests.Test_BLLDALXML(),
+
+                //new Case.SonTests.Test_ForAdd(),
             };
         }
     }
