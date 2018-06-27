@@ -46,17 +46,17 @@ namespace CSharp.LibrayDataBase
         /// 获取_模型_数据
         /// </summary>
         /// <param name="colmodel">行信息</param>
-        /// <param name="srouceValue">数据来源</param>
+        /// <param name="sourceValue">数据来源</param>
         /// <returns>键值数据</returns>
-        public KeyValueModel GetModelValue(ColumnItemModel colmodel, object srouceValue) {
-            if (CheckData.IsObjectNull(colmodel) || CheckData.IsObjectNull(srouceValue)) {
+        public KeyValueModel GetModelValue(ColumnItemModel colmodel, object sourceValue) {
+            if (CheckData.IsObjectNull(colmodel) || CheckData.IsObjectNull(sourceValue)) {
                 return null;
             }
             object sour = null;
             if (colmodel.Attribute.IsOnlySetToDefaultValue) {
                 sour = colmodel.Attribute.DTParser.GetDefaultValueString();
             } else {
-                sour = srouceValue; // @6
+                sour = sourceValue; // @6
                 sour = colmodel.Attribute.CSParser.OutputConvert(sour, colmodel); // @5
                 sour = colmodel.Attribute.DTParser.InputConvert(sour, colmodel); // @4
             }

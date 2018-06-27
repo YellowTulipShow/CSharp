@@ -123,7 +123,9 @@ namespace CSharp.LibrayDataBase
             if (!CheckData.IsObjectNull(datasource)) {
                 result = datasource.ToString();
             }
-            if (this.CharLength == CHARLENGTH_ERROR || this.CharLength == CHARLENGTH_MAX_SIGN || result.Length < this.CharLength) {
+            if (this.CharLength == CHARLENGTH_ERROR ||
+                this.CharLength == CHARLENGTH_MAX_SIGN ||
+                result.Length < this.CharLength) {
                 return result;
             }
             return result.Substring(0, this.CharLength);

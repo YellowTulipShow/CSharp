@@ -55,6 +55,7 @@ namespace CSharp.LibrayDataBase.MCSDataType
             if (propertytype.FullName == typeof(DateTime).FullName) {
                 sourceValue = ConvertTool.ObjToDateTime(sourceValue, SqlDateTime.MinValue.Value);
             }
+
             return sourceValue;
         }
     }

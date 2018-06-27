@@ -351,6 +351,14 @@ namespace CSharp.LibrayDataBase
         #endregion
 
         #region ====== Basic SQL Grammar ======
+        /// <summary>
+        /// 基础: 增加一条数据
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="column_names">插入的列名数组</param>
+        /// <param name="column_values">插入的值数组</param>
+        /// <param name="isResultID">是否结果返回ID标识</param>
+        /// <returns>sql insert 语句</returns>
         public static string Insert(string table_name, string[] column_names, string[] column_values, bool isResultID = false) {
             table_name = ConvertTool.StrToStrTrim(table_name);
             if (CheckData.IsStringNull(table_name) || CheckData.IsSizeEmpty(column_names) ||
@@ -362,6 +370,12 @@ namespace CSharp.LibrayDataBase
             string resultIDval = isResultID ? SELECT_IDENTITY : string.Empty;
             return string.Format("insert into {0}({1}) values({2}) {3}", table_name, fieldStr, valueStr, resultIDval).Trim();
         }
+        /// <summary>
+        /// 基础: 删除数据
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="where">删除条件</param>
+        /// <returns>sql delete 语句</returns>
         public static string Delete(string table_name, string where) {
             table_name = ConvertTool.StrToStrTrim(table_name);
             where = ConvertTool.StrToStrTrim(where);
@@ -371,6 +385,13 @@ namespace CSharp.LibrayDataBase
             where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
             return string.Format("delete {0} {1}", table_name, where).Trim();
         }
+        /// <summary>
+        /// 基础: 更新数据
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="setcontent">设置的值内容</param>
+        /// <param name="where">更新条件</param>
+        /// <returns>sql update 语句</returns>
         public static string Update(string table_name, string setcontent, string where) {
             table_name = ConvertTool.StrToStrTrim(table_name);
             setcontent = ConvertTool.StrToStrTrim(setcontent);
@@ -381,6 +402,14 @@ namespace CSharp.LibrayDataBase
             where = !CheckData.IsStringNull(where) ? string.Format(" where {0} ", where) : string.Empty;
             return string.Format("update {0} set {1} {2}", table_name, setcontent, where).Trim();
         }
+        /// <summary>
+        /// 基础: 查询语句
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="top">显示条数</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="order">排序条件</param>
+        /// <returns>sql select 语句</returns>
         public static string Select(string table_name, int top, string where, string order) {
             table_name = ConvertTool.StrToStrTrim(table_name);
             where = ConvertTool.StrToStrTrim(where);
@@ -393,6 +422,12 @@ namespace CSharp.LibrayDataBase
             order = CheckData.IsStringNull(order) ? string.Empty : string.Format(" order by {0} ", order);
             return string.Format("select {1} from {0} {2} {3}", table_name, showcolumn, where, order).Trim();
         }
+        /// <summary>
+        /// 扩展: 获得查询结果条数
+        /// </summary>
+        /// <param name="table_name">表名</param>
+        /// <param name="where">查询条件</param>
+        /// <returns>sql select 语句</returns>
         public static string Select_Count(string table_name, string where) {
             if (CheckData.IsStringNull(table_name)) {
                 return string.Empty;
@@ -428,7 +463,7 @@ namespace CSharp.LibrayDataBase
             return string.Format("not exists({0})", where);
         }
         /// <summary>
-        /// 清空数据表的数据, 但保留列信息
+        /// 清空数据表的数据, 但保留列信息(ID标识等)
         /// </summary>
         /// <param name="table_name">表名</param>
         public static string TruncateTable(string table_name) {
