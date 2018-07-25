@@ -190,7 +190,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                     }
 
                     Print.WriteLine("随机筛选的值: ");
-                    TestEnum random_selitem = RandomData.GetItem(source);
+                    TestEnum random_selitem = RandomData.Item(source);
                     Print.WriteLine(string.Format("Name: {0}  Value: {1}", random_selitem.GetName(), random_selitem.GetIntValue()));
                 },
             };

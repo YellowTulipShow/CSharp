@@ -27,9 +27,9 @@ namespace Test.ConsoleProgram.Case.SonTests
                 string user_wechatno = RandomData.GetString(chars, RandomData.R.Next(1, 21));
 
                 bool isSuccess = BLLwxuser.Insert(new Modelspread_wxUserInfo() {
-                    ManagerID = RandomData.GetItem(managerIDs),
+                    ManagerID = RandomData.Item(managerIDs),
                     Remark = string.Empty,
-                    TelSign = RandomData.GetItem(telsigns),
+                    TelSign = RandomData.Item(telsigns),
                     TimeAdd = RandomData.GetDateTime(min_time, max_time),
                     WeChatNo = user_wechatno,
                     VoucherPictures = user_wechatno,

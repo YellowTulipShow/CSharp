@@ -51,7 +51,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Password = RandomData.GetString(100),
                 RealName = RandomData.GetString(CommonData.ASCII_UpperEnglish(), 10),
                 Remark = RandomData.GetString(200),
-                Sex = RandomData.GetItem(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
+                Sex = RandomData.Item(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
                 TimeAdd = RandomData.GetDateTime(),
             }, out id);
             Print.WriteLine(result);

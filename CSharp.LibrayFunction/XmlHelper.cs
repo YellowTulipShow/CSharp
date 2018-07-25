@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml;
 
@@ -22,23 +23,23 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得 XML 文档对象
         /// </summary>
-        /// <param name="fileabspath">文档路径</param>
+        /// <param name="fileAbsPath">文档路径</param>
         /// <param name="defaultRootName">默认根节点名称</param>
         /// <returns></returns>
-        public static XmlDocument GetDocument(string fileabspath, string defaultRootName = ROOT_NODE_NAME) {
-            if (!FileHelper.IsExistFile(fileabspath)) {
+        public static XmlDocument GetDocument(string fileAbsPath, string defaultRootName = ROOT_NODE_NAME) {
+            if (!File.Exists(fileAbsPath)) {
                 return XmlHelper.CreateNewDocument(defaultRootName);
             }
             try {
-                return XmlHelper.ReadExistDocument(fileabspath);
+                return XmlHelper.ReadExistDocument(fileAbsPath);
             } catch (Exception) {
                 return XmlHelper.CreateNewDocument(defaultRootName);
             }
         }
-        public static XmlDocument ReadExistDocument(string path) {
+        public static XmlDocument ReadExistDocument(string fileAbsPath) {
             XmlReader reader = null;
             try {
-                reader = XmlReader.Create(path, new XmlReaderSettings() {
+                reader = XmlReader.Create(fileAbsPath, new XmlReaderSettings() {
                     IgnoreComments = true,
                     IgnoreWhitespace = true,
                 }); // 配置

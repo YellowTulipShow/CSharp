@@ -61,7 +61,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 Password = RandomData.GetString(30),
                 RealName = RandomData.GetChineseString(RandomData.GetInt(2, 4)),
                 Remark = RandomData.GetString(RandomData.GetInt(10, 81)),
-                Sex = RandomData.GetItem(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
+                Sex = RandomData.Item(ConvertTool.EnumForeachArray<ModelUser.SexEnum>()),
                 TimeAdd = RandomData.GetDateTime(),
             });
             Print.WriteLine(result);

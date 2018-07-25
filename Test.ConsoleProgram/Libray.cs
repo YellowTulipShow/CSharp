@@ -20,6 +20,7 @@ namespace Test.ConsoleProgram
                 //new Case.Learn.Learn_RegularExpression(),
                 //new Case.Learn.Learn_XML(),
                 //new Case.Learn.Learn_CalcRule(),
+                new Case.Learn.Learn_Algorithm(),
 
                 //new Case.SonTests.Test_CaseModel_Tool_Value(),
                 //new Case.SonTests.Test_AbsBasicsDataModel(),
@@ -36,7 +37,7 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_WhereModel(),
                 //new Case.SonTests.Test_BLLDALSQLServer(),
                 //new Case.SonTests.Test_addRecord(),
-                new Case.SonTests.Test_BLLDALXML(),
+                //new Case.SonTests.Test_BLLDALXML(),
 
                 //new Case.SonTests.Test_ForAdd(),
             };

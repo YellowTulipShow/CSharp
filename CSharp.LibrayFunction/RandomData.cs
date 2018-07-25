@@ -22,34 +22,42 @@ namespace CSharp.LibrayFunction
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
         /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
-        public static T GetItem<T>(T[] source) {
+        public static T Item<T>(T[] source) {
             if (CheckData.IsSizeEmpty(source)) {
                 return default(T);
             }
             return source[R.Next(0, source.Length)];
         }
 
-
-        public static T[] GetList<T>(T[] list, int need_num = 1) {
-            if (CheckData.IsSizeEmpty(list) || need_num <= 0) {
+        /// <summary>
+        /// 打乱序列列表的元素顺序
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="slist">数据源序列</param>
+        /// <param name="need_num">需要的结果数量 如小于等于零取值序列个数</param>
+        /// <returns>结果序列</returns>
+        public static T[] Sample<T>(T[] slist, int need_num = 0) {
+            if (CheckData.IsSizeEmpty(slist)) {
                 return new T[] { };
             }
-            need_num = Math.Abs(need_num);
-            List<int> signs = new List<int>();
-            List<T> RLarr = new List<T>();
-            while (true) {
-                int rv = RandomData.GetInt(0, list.Length);
-                if (signs.Contains(rv)) {
-                    continue;
-                }
-                signs.Add(rv);
-                RLarr.Add(list[rv]);
-                need_num -= 1;
-                if (need_num <= 0) {
-                    break;
-                }
+            List<T> rlist = new List<T>();
+            int slen_size = slist.Length;
+            if (need_num <= 0) {
+                need_num = slen_size;
             }
-            return RLarr.ToArray();
+            if (need_num > slen_size) {
+                rlist.AddRange(Sample(slist, need_num - slen_size));
+                need_num = slen_size;
+            }
+            while (need_num > 0) {
+                int index = GetInt(0, need_num);
+                need_num -= 1;
+                rlist.Add(slist[index]);
+                T C = slist[index];
+                slist[index] = slist[need_num];
+                slist[need_num] = C;
+            }
+            return rlist.ToArray();
         }
         #endregion
 
@@ -58,7 +66,7 @@ namespace CSharp.LibrayFunction
         /// 随机获取布尔值
         /// </summary>
         public static bool GetBoolean() {
-            return GetItem(new bool[] { true, false });
+            return Item(new bool[] { true, false });
         }
 
         /// <summary>
@@ -101,7 +109,7 @@ namespace CSharp.LibrayFunction
             }
             StringBuilder strbu = new StringBuilder();
             for (int i = 0; i < sum_length; i++) {
-                strbu.Append(GetItem(source));
+                strbu.Append(Item(source));
             }
             return strbu.ToString();
         }
@@ -211,7 +219,7 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 随机获取IPv4地址
         /// </summary>
-        public static string GetIPv4() {
+        public static string IPv4() {
             List<int> list = new List<int>();
             for (int i = 0; i < 4; i++) {
                 list.Add(GetInt(0, 255 + 1));
@@ -225,8 +233,38 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 获得十一位电话号
         /// </summary>
-        public static string GetTelephone_ElevenBit() {
-            return GetItem(TelPrefixs) + GetString(CommonData.ASCII_Number(), 8);
+        public static string Telephone_ElevenBit() {
+            return Item(TelPrefixs) + GetString(CommonData.ASCII_Number(), 8);
+        }
+        #endregion
+
+        #region ====== Color: ======
+        /// <summary>
+        /// RGB颜色 三项数字值0-255
+        /// </summary>
+        public static int[] RGBColor_NumberList() {
+            const int min = 0;
+            const int max = 255;
+            return new int[3] {
+                GetInt(min, max + 1),
+                GetInt(min, max + 1),
+                GetInt(min, max + 1),
+            };
+        }
+        /// <summary>
+        /// RGB颜色 六位字符串
+        /// </summary>
+        /// <param name="isNeedAdd_Hashtag">是否需要加 '#' 号</param>
+        public static string RGBColor_SixDigitString(bool isNeedAdd_Hashtag = true) {
+            char[] clist = CommonData.ASCII_Hexadecimal();
+            StringBuilder str = new StringBuilder();
+            if (isNeedAdd_Hashtag) {
+                str.Append('#');
+            }
+            for (int i = 0; i < 6; i++) {
+                str.Append(Item(clist));
+            }
+            return str.ToString();
         }
         #endregion
     }

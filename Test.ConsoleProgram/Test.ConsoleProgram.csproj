@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Case.Learn\Learn_Algorithm.cs" />
     <Compile Include="Case.Learn\Learn_CalcRule.cs" />
     <Compile Include="Case.Learn\Learn_Dictionary.cs" />
     <Compile Include="Case.Learn\Learn_Object.cs" />
@@ -79,8 +80,8 @@
     <Compile Include="Case.SonTests\Test_Lambda.cs" />
     <Compile Include="Case.SonTests\Test_ListSortMethod.cs" />
     <Compile Include="Case.SonTests\Test_NewtonsoftJson.cs" />
-    <Compile Include="Case.SonTests\Test_ForAdd.cs" />
     <Compile Include="Case.SonTests\Test_Random.cs" />
+    <Compile Include="Case.SonTests\Test_ForAdd.cs" />
     <Compile Include="Case.SonTests\Test_CaseModel_Tool_Value.cs" />
     <Compile Include="Case.SonTests\Test_Reflex.cs" />
     <Compile Include="Case.SonTests\Test_WhereModel.cs" />
