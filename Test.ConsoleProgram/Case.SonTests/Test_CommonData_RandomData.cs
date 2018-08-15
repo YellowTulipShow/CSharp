@@ -11,7 +11,7 @@ namespace Test.ConsoleProgram.Case.SonTests
             this.NameSign = @"常用工具的测试";
             this.ExeEvent = () => { };
             this.SonCases = new CaseModel[] {
-                //ExeEvent_Section_ASCII_String(),
+                ExeEvent_Section_ASCII_String(),
                 //ExeEvent_Section_UnicodeConvert(),
                 //ExeEvent_Section_Unicode_Create_Test(),
                 //ExeEvent_RandomStrignMethod(),
@@ -22,7 +22,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 //ExeEvent_Random_DateTime_Region(false),
                 //ExeEvent_Random_Int(),
                 //ExeEvent_Random_Double(),
-                ExeEvent_Random_DateTime_CreateLibray(),
+                //ExeEvent_Random_DateTime_CreateLibray(),
             };
         }
 

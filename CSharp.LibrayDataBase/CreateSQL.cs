@@ -16,7 +16,7 @@ namespace CSharp.LibrayDataBase
         /// <summary>
         /// 查询标识列
         /// </summary>
-        public const string SELECT_IDENTITY = @";select @@IDENTITY;";
+        public const string SELECT_IDENTITY = @"@@IDENTITY";
 
 
         /* ====== Where Part ====== */
@@ -367,7 +367,7 @@ namespace CSharp.LibrayDataBase
             }
             string fieldStr = ConvertTool.IListToString(column_names, ',');
             string valueStr = ConvertTool.IListToString(column_values, ',');
-            string resultIDval = isResultID ? SELECT_IDENTITY : string.Empty;
+            string resultIDval = isResultID ? string.Format(";select {0};", SELECT_IDENTITY) : string.Empty;
             return string.Format("insert into {0}({1}) values({2}) {3}", table_name, fieldStr, valueStr, resultIDval).Trim();
         }
         /// <summary>
