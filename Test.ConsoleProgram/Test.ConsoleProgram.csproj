@@ -76,6 +76,7 @@
     <Compile Include="Case.SonTests\Test_BLLDALSQLServer.cs" />
     <Compile Include="Case.SonTests\Test_CheckData.cs" />
     <Compile Include="Case.SonTests\Test_ConvertTool.cs" />
+    <Compile Include="Case.SonTests\Test_CreateSQL.cs" />
     <Compile Include="Case.SonTests\Test_DateTime.cs" />
     <Compile Include="Case.SonTests\Test_Enum.cs" />
     <Compile Include="Case.SonTests\Test_Explain.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Case.SonTests\Test_ForAdd.cs" />
     <Compile Include="Case.SonTests\Test_CaseModel_Tool_Value.cs" />
     <Compile Include="Case.SonTests\Test_Reflex.cs" />
+    <Compile Include="Case.SonTests\Test_URL_or_URI.cs" />
     <Compile Include="Case.SonTests\Test_WhereModel.cs" />
     <Compile Include="Case.Topic\MissQueue.cs" />
     <Compile Include="CaseModel.cs" />

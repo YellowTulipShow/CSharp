@@ -15,8 +15,8 @@ namespace CSharp.LibrayFunction
         /// </summary>
         public const string ERROR_EXPLAIN_TEXT = @"未知元素";
 
-        public ExplainAttribute(String explaninStr) {
-            if (CheckData.IsStringNull(explaninStr)) {
+        public ExplainAttribute(string explaninStr) {
+            if (!CheckData.IsStringNull(explaninStr)) {
                 this._text = explaninStr;
             }
         }
@@ -24,16 +24,17 @@ namespace CSharp.LibrayFunction
         /// <summary>
         /// 文本注释
         /// </summary>
-        public String Text { get { return _text; } }
-        private String _text = String.Empty;
+        public string Text { get { return _text; } }
+        private string _text = string.Empty;
 
         /// <summary>
         /// 获得解释特性信息
         /// </summary>
         public static ExplainAttribute Extract(MemberInfo memberInfo) {
             ExplainAttribute explainAttr = memberInfo.AttributeFindOnly<ExplainAttribute>();
-            if (CheckData.IsObjectNull(explainAttr))
+            if (CheckData.IsObjectNull(explainAttr)) {
                 explainAttr = new ExplainAttribute(ERROR_EXPLAIN_TEXT);
+            }
             return explainAttr;
         }
     }

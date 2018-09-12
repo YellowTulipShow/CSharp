@@ -11,7 +11,8 @@ namespace Test.ConsoleProgram.Case.SonTests
             base.ExeEvent = Method;
             base.SonCases = new CaseModel[] {
                 //Method_GetMaxDayCount_TwoDayNum(),
-                Method_GetMaxDayCount_AllMonthDayNum(),
+                //Method_GetMaxDayCount_AllMonthDayNum(),
+                TestTimeSpan(),
             };
         }
 
@@ -68,6 +69,37 @@ namespace Test.ConsoleProgram.Case.SonTests
                             Print.WriteLine(strfor, year, month, @"错误值");
                         }
                     }
+                },
+            };
+        }
+
+        public CaseModel TestTimeSpan() {
+            return new CaseModel() {
+                NameSign = @"两个时间的差值",
+                ExeEvent = () => {
+                    DateTime EDT = DateTime.MinValue;
+                    DateTime dt1 = ConvertTool.ObjToDateTime(@"2018-08-27 11:57:40.300", EDT);
+                    DateTime dt2 = ConvertTool.ObjToDateTime(@"2018-08-27 11:57:40.500", EDT);
+                    TimeSpan tS = dt2 - dt1;
+                    Print.WriteLine("Days: {0}", tS.Days);
+                    Print.WriteLine("Hours: {0}", tS.Hours);
+                    Print.WriteLine("Milliseconds: {0}", tS.Milliseconds);
+                    Print.WriteLine("Minutes: {0}", tS.Minutes);
+                    Print.WriteLine("Seconds: {0}", tS.Seconds);
+                    Print.WriteLine("Ticks: {0}", tS.Ticks);
+                    Print.WriteLine("TotalDays: {0}", tS.TotalDays);
+                    Print.WriteLine("TotalHours: {0}", tS.TotalHours);
+                    Print.WriteLine("TotalMilliseconds: {0}", tS.TotalMilliseconds);
+                    Print.WriteLine("TotalMinutes: {0}", tS.TotalMinutes);
+                    Print.WriteLine("TotalSeconds: {0}", tS.TotalSeconds);
+
+                    /*
+正则解析
+
+\s+//.*
+^\s+public \w+ (\w+) { get; }
+Print.WriteLine("$1: {0}", uri.$1);
+                     */
                 },
             };
         }

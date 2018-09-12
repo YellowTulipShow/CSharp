@@ -60,6 +60,76 @@ namespace CSharp.LibrayFunction
         #endregion
 
         #region ====== Is Data Type ======
+
+        #region === IsType ===
+        /// <summary>
+        /// 检查两个类型是否相同
+        /// </summary>
+        /// <param name="tV1">值类型</param>
+        /// <param name="tV2">值类型</param>
+        /// <returns></returns>
+        public static bool IsTypeEqual(Type tV1, Type tV2) {
+            return tV1.Equals(tV2);
+        }
+        /// <summary>
+        /// 检查两个类型是否相同
+        /// </summary>
+        /// <typeparam name="T1">泛型类型</typeparam>
+        /// <typeparam name="T2">泛型类型</typeparam>
+        /// <returns></returns>
+        public static bool IsTypeEqual<T1, T2>() {
+            return IsTypeEqual(typeof(T1), typeof(T2));
+        }
+        /// <summary>
+        /// 检查两个类型是否相同
+        /// </summary>
+        /// <typeparam name="T">泛型类型</typeparam>
+        /// <param name="tV">值类型</param>
+        /// <returns></returns>
+        public static bool IsTypeEqual<T>(Type tV) {
+            return IsTypeEqual(typeof(T), tV);
+        }
+        /// <summary>
+        /// 检查两个类型是否相同(是否深入递归检查每层父级) 只检查了类的继承(不包括结果)
+        /// </summary>
+        /// <typeparam name="T">泛型类型</typeparam>
+        /// <param name="tV">值类型</param>
+        /// <param name="isDepth">是否深入递归检查每层父级</param>
+        /// <returns></returns>
+        public static bool IsTypeEqual<T>(Type tV, bool isDepth) {
+            if (!isDepth) {
+                return IsTypeEqual<T>(tV);
+            }
+            if (IsTypeEqual<T>(tV) || IsTypeEqual<T, object>()) {
+                return true;
+            }
+            if (IsTypeEqual<object>(tV)) {
+                return false;
+            }
+            return IsTypeEqual<T>(tV.BaseType, true);
+        }
+
+        /// <summary>
+        /// 检查数据值的类型
+        /// </summary>
+        /// <typeparam name="T">要检查的类型</typeparam>
+        /// <param name="v_object">要检查的数据</param>
+        public static bool IsTypeValue<T>(object v_object) {
+            return IsTypeEqual(typeof(T), v_object.GetType());
+        }
+        /// <summary>
+        /// 检查数据值的类型(递归检查每层父级)
+        /// </summary>
+        /// <typeparam name="T">要检查的类型</typeparam>
+        /// <param name="v_object">要检查的数据</param>
+        public static bool IsTypeValue<T>(object v_object, bool isDepth) {
+            if (!isDepth) {
+                return IsTypeValue<T>(v_object);
+            }
+            return IsTypeEqual<T>(v_object.GetType(), true);
+        }
+        #endregion
+
         /// <summary>
         /// 判断对象是否可以转成int型
         /// </summary>

@@ -12,6 +12,13 @@ namespace CSharp.LibrayDataBase
     public static class CreateSQL
     {
         #region ====== Const Field String Char ======
+        /* ====== Column Part ====== */
+        /// <summary>
+        /// 数据列间隔符
+        /// </summary>
+        public const string COLUMN_INTERVALSYMBOL = @", ";
+
+
         /* ====== Select Part ====== */
         /// <summary>
         /// 查询标识列
