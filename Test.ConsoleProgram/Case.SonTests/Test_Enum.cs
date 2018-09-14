@@ -53,54 +53,6 @@ namespace Test.ConsoleProgram.Case.SonTests
             };
         }
 
-        public class EnumInfo : AbsBasicDataModel
-        {
-            /// <summary>
-            /// 默认 Int 类型的值
-            /// </summary>
-            public const int DEFAULT_INT_VALUE = 0;
-
-            /// <summary>
-            /// 名称
-            /// </summary>
-            public string Name { get { return _Name; } set { _Name = value; } }
-            private string _Name = string.Empty;
-
-            /// <summary>
-            /// 组别名称
-            /// </summary>
-            public int IntValue { get { return _IntValue; } set { _IntValue = value; } }
-            private int _IntValue = DEFAULT_INT_VALUE;
-
-            /// <summary>
-            /// 解释值
-            /// </summary>
-            public string Explain { get { return _Explain; } set { _Explain = value; } }
-            private string _Explain = string.Empty;
-
-            /// <summary>
-            /// 将一种枚举类型解析
-            /// </summary>
-            public static EnumInfo[] EnumGetInfo<E>() {
-                List<EnumInfo> list = new List<EnumInfo>();
-                Type type = typeof(E);
-                if (!type.IsEnum) {
-                    return new EnumInfo[] { };
-                }
-                foreach (int ival in Enum.GetValues(type)) {
-                    string name = Enum.GetName(type, ival);
-                    FieldInfo info = type.GetField(name);
-                    ExplainAttribute exp = ExplainAttribute.Extract(info);
-                    list.Add(new EnumInfo() {
-                        Name = name,
-                        IntValue = ival,
-                        Explain = exp.Text,
-                    });
-                }
-                return list.ToArray();
-            }
-        }
-
         #region old
         public void GetName_Method() {
             Print.WriteLine("LEKEY.Key.GetName() 结果: ");

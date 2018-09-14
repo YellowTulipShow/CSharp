@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C19FFA43-75AB-4BC2-ABBC-C8CAC5DD8973}</ProjectGuid>
+    <ProjectGuid>{CD093053-F358-440D-BF8F-2F1E27E4BD6F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CSharp.WebPageTemp</RootNamespace>
-    <AssemblyName>CSharp.WebPageTemp</AssemblyName>
+    <RootNamespace>YTS.Tools</RootNamespace>
+    <AssemblyName>YTS.Tools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,9 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,31 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LibrayConfig.cs" />
-    <Compile Include="HttpModule.cs" />
-    <Compile Include="Page\BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page\index.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page\Main.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page\PeopleProfile.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="CacheHelper.cs" />
+    <Compile Include="CheckData.cs" />
+    <Compile Include="CommonData.cs" />
+    <Compile Include="ConvertTool.cs" />
+    <Compile Include="FileHelper.cs" />
+    <Compile Include="JSON.cs" />
+    <Compile Include="PathHelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Template\PageTemplate.cs" />
-    <Compile Include="Template\URLRewrite.cs" />
+    <Compile Include="RandomData.cs" />
+    <Compile Include="ReflexHelp.cs" />
+    <Compile Include="Sort.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSharp.SystemService\CSharp.SystemService.csproj">
-      <Project>{4365ab63-a3cd-4cc9-805e-07fc2a470163}</Project>
-      <Name>CSharp.SystemService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

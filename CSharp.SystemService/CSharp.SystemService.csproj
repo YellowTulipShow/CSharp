@@ -44,12 +44,6 @@
     <Compile Include="SystemConfigModel.cs" />
     <Compile Include="SystemLog.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSharp.LibrayFunction\CSharp.LibrayFunction.csproj">
-      <Project>{dfff7d60-d1d5-49d4-8a0e-c9a5d2dbf393}</Project>
-      <Name>CSharp.LibrayFunction</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
