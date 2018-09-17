@@ -19,7 +19,7 @@ namespace YTS.DAL
         where M : AbsTable_IntID
     {
         public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
-        public readonly string ColName_ID = ReflexHelp.Name(() => defmodel.id);
+        public readonly string ColName_IID = ReflexHelp.Name(() => defmodel.IID);
 
         public MSSQLServer_IntID() : base() { }
 
@@ -49,9 +49,9 @@ namespace YTS.DAL
         /// <returns>是否成功</returns>
         public virtual bool IDDelete(int id) {
             if (id <= AbsTable_IntID.ERROR_DEFAULT_INT_VALUE) {
-                return true;
+                return true; // 没有错误数据不用删除
             }
-            return Delete(CreateSQL.WhereEqual(ColName_ID, id.ToString()));
+            return Delete(CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace YTS.DAL
         /// <param name="id">ID条件</param>
         /// <returns>是否成功</returns>
         public virtual bool IDUpdate(KeyString[] keyvaluedic, int id) {
-            return Update(keyvaluedic, CreateSQL.WhereEqual(ColName_ID, id.ToString()));
+            return Update(keyvaluedic, CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace YTS.DAL
         /// <param name="id">ID条件</param>
         /// <returns>映射数据模型</returns>
         public virtual M IDGetModel(int id) {
-            return GetModel(CreateSQL.WhereEqual(ColName_ID, id.ToString()));
+            return GetModel(CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
         #endregion
     }

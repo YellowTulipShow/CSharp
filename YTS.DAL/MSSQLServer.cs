@@ -79,6 +79,9 @@ namespace YTS.DAL
             if (CheckData.IsTypeValue<DateTime>(model_value)) {
                 return ((DateTime)model_value).ToString(Model.Const.Format.DATETIME_MILLISECOND);
             }
+            if (CheckData.IsTypeValue<Enum>(model_value)) {
+                return ((int)model_value).ToString();
+            }
             return ConvertTool.ObjToString(model_value);
         }
 

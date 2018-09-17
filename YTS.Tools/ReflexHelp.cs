@@ -15,7 +15,7 @@ namespace YTS.Tools
         /// <summary>
         /// 获取指定 "内容" 名称 用法: ***.Name(() => new ModelClass().ID)
         /// </summary>
-        public static String Name<T>(Expression<Func<T>> memberExpression) {
+        public static string Name<T>(Expression<Func<T>> memberExpression) {
             MemberExpression expressionBody = (MemberExpression)memberExpression.Body;
             return expressionBody.Member.Name;
         }

@@ -44,8 +44,10 @@
     <Compile Include="IBasicDataAccess.cs" />
     <Compile Include="IDataBaseResult.cs" />
     <Compile Include="IDefaultRecord.cs" />
-    <Compile Include="IRecordIDPrimaryKey.cs" />
+    <Compile Include="IRecordStringIDPrimaryKey.cs" />
+    <Compile Include="IRecordIntIDPrimaryKey.cs" />
     <Compile Include="ISupplementaryStructure.cs" />
+    <Compile Include="MSSQLServer_StringID.cs" />
     <Compile Include="MSSQLServer_IntID.cs" />
     <Compile Include="MSSQLServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +65,9 @@
       <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>
       <Name>YTS.Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DB\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -46,11 +46,17 @@
     <Compile Include="Const\Enums.cs" />
     <Compile Include="Const\Format.cs" />
     <Compile Include="Const\Names.cs" />
+    <Compile Include="DB\Article.cs" />
+    <Compile Include="DB\Permissions.cs" />
+    <Compile Include="DB\Role.cs" />
+    <Compile Include="DB\Group.cs" />
+    <Compile Include="DB\User.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyObject.cs" />
     <Compile Include="KeyString.cs" />
     <Compile Include="Attribute\AbsBasicAttribute.cs" />
-    <Compile Include="Table\AbsTable_ID.cs" />
+    <Compile Include="Table\AbsTable_StringID.cs" />
+    <Compile Include="Table\AbsTable_IntID.cs" />
     <Compile Include="Table\AbsTable_Remark.cs" />
     <Compile Include="Table\AbsTable_TimeAdd.cs" />
     <Compile Include="Table\Attribute\ColumnAttribute.cs" />
@@ -58,8 +64,8 @@
     <Compile Include="EnumInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table\AbsTable.cs" />
-    <Compile Include="Table\Attribute\EntityAttribute.cs" />
-    <Compile Include="Table\Attribute\ViewAttribute.cs" />
+    <Compile Include="Table\Attribute\EntityTableAttribute.cs" />
+    <Compile Include="Table\Attribute\ViewTableAttribute.cs" />
     <Compile Include="Table\ITableName.cs" />
     <Compile Include="Table\Attribute\BasicTableAttribute.cs" />
   </ItemGroup>

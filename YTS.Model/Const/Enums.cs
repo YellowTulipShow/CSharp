@@ -12,6 +12,48 @@ namespace YTS.Model.Const
     public static class Enums
     {
         /// <summary>
+        /// 用途代码标记
+        /// </summary>
+        public enum UseCodeMark
+        {
+            /// <summary>
+            /// 用户
+            /// </summary>
+            [Explain(@"用户")]
+            User = 1001,
+
+            /// <summary>
+            /// 组别
+            /// </summary>
+            [Explain(@"组别")]
+            Group = 1002,
+
+            /// <summary>
+            /// 角色
+            /// </summary>
+            [Explain(@"角色")]
+            Role = 1003,
+
+            /// <summary>
+            /// 权限
+            /// </summary>
+            [Explain(@"权限")]
+            Permissions = 1004,
+
+            /// <summary>
+            /// 文章
+            /// </summary>
+            [Explain(@"文章")]
+            Article = 2001,
+
+            /// <summary>
+            /// 文件
+            /// </summary>
+            [Explain(@"文件")]
+            File = 3001,
+        }
+
+        /// <summary>
         /// 管理操作
         /// </summary>
         public enum ManagementOperate
@@ -257,6 +299,45 @@ namespace YTS.Model.Const
             /// </summary>
             [Explain(@"购买代理")]
             BuyAgent,
+        }
+
+        /// <summary>
+        /// 性别枚举
+        /// </summary>
+        public enum SexEnum
+        {
+            /// <summary>
+            /// 保密
+            /// </summary>
+            [Explain(@"保密")]
+            Secrecy = 0,
+            /// <summary>
+            /// 男
+            /// </summary>
+            [Explain(@"男")]
+            Male = 1,
+            /// <summary>
+            /// 女
+            /// </summary>
+            [Explain(@"女")]
+            Female = 2,
+        }
+
+        /// <summary>
+        /// 是否布尔
+        /// </summary>
+        public enum IsBoolean
+        {
+            /// <summary>
+            /// 是
+            /// </summary>
+            [Explain(@"是")]
+            No = 0,
+            /// <summary>
+            /// 否
+            /// </summary>
+            [Explain(@"否")]
+            Yes = 1,
         }
     }
 }
