@@ -14,6 +14,7 @@ namespace Test.ConsoleProgram
             return new CaseModel[] {
                 new Tools.Test_ReflexHelp(),
                 new Model.Test_EnumInfo(),
+                new BLL.Test_MSSQLServer_StringID(),
 
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),

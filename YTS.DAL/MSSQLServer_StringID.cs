@@ -43,6 +43,19 @@ namespace YTS.DAL
         }
 
         /// <summary>
+        /// 插入一条数据
+        /// </summary>
+        /// <param name="model">数据来源</param>
+        /// <returns>是否成功</returns>
+        public override bool Insert(M model) {
+            if (model.SID == AbsTable_StringID.ERROR_DEFAULT_SID_VALUE) {
+                string sid = string.Empty;
+                return IDInsert(model, out sid);
+            }
+            return base.Insert(model);
+        }
+
+        /// <summary>
         /// 删除数据
         /// </summary>
         /// <param name="sid">ID条件</param>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using YTS.Engine.DataBase;
 using YTS.Engine.DataBase.MSQLServer;
 using YTS.Model;
@@ -31,6 +32,11 @@ namespace YTS.DAL
         public MSSQLServer() : base() {
             this.modelParser = new ColumnModelParser<M>();
             this._tableName_ = ReflexHelp.CreateNewObject<M>().GetTableName();
+
+            // 执行补全
+            if (IsNeedSupplementary()) {
+                ExecutionSupplementary();
+            }
         }
 
         #region ====== using:ITableName ======
@@ -261,11 +267,17 @@ namespace YTS.DAL
         }
 
         # region Supplementary new Method:
-        /*
+        /// <summary>
+        /// 是否补全结构
+        /// </summary>
+        /// <returns>MSQLServer需要补全结构</returns>
+        public override bool IsNeedSupplementary() {
+            return true;
+        }
         /// <summary>
         /// 执行补全
         /// </summary>
-        public override void Supplementary() {
+        public override void ExecutionSupplementary() {
             // sql if 判断条件 判断表是否不存在
             string str_if_where = CreateSQL.NotExists(CreateSQL.MSSSysTable(GetTableName()));
             // sql 列的名称 和 数据类型格式 数据源集合
@@ -286,13 +298,12 @@ namespace YTS.DAL
         /// </summary>
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnItemModel item in this.modelParser.ColumnInfoArray) {
+            foreach (ColumnInfo item in this.modelParser.GetColumn_ALL()) {
                 string fieldName = item.Property.Name;
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;
                 }
-                //string typeName = item.Attribute.DTParser.TypeName();
-                string typeName = string.Empty;
+                string typeName = GetMemberInfoMSQLServerDataType(item);
                 string[] vals = new string[] {
                     fieldName,
                     typeName,
@@ -303,6 +314,24 @@ namespace YTS.DAL
                 resuDic[fieldName] = ConvertTool.IListToString(vals, @" ");
             }
             return resuDic;
+        }
+        private string GetMemberInfoMSQLServerDataType(ColumnInfo info) {
+            Type detype = info.Property.PropertyType;
+            if (CheckData.IsTypeEqual<int>(detype)) {
+                return @"int";
+            }
+            if (CheckData.IsTypeEqual<float>(detype)) {
+                return @"money";
+            }
+            if (CheckData.IsTypeEqual<double>(detype)) {
+                return @"float";
+            }
+            if (CheckData.IsTypeEqual<DateTime>(detype)) {
+                return @"datetime";
+            }
+            string charlen = !info.Attribute.IsPrimaryKey ? "max" : info.Attribute.CharLength.ToString();
+            string str = string.Format("nvarchar({0})", charlen);
+            return str;
         }
         /// <summary>
         /// 获得补全表列信息
@@ -316,7 +345,8 @@ namespace YTS.DAL
             }
             return ConvertTool.IListToString(ifExists, @" ");
         }
-        */
+
+        /**/
         #endregion
     }
 }

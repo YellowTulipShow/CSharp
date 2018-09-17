@@ -8,7 +8,7 @@ namespace YTS.Model.Table
     /// 表-基础-模型 记录ID
     /// </summary>
     [Serializable]
-    public abstract class AbsTable_IntID : AbsTable_Remark
+    public abstract class AbsTable_IntID : AbsTable_TimeAdd
     {
         public const int ERROR_DEFAULT_INT_VALUE = 0;
 

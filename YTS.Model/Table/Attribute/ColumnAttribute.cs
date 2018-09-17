@@ -73,5 +73,16 @@ namespace YTS.Model.Table.Attribute
         /// </summary>
         public ushort SortIndex { get { return _sortIndex; } set { _sortIndex = value; } }
         private ushort _sortIndex = 999;
+
+
+        /// <summary>
+        /// 错误默认的字符长度
+        /// </summary>
+        public const int ERROR_DEFAULT_CHARLENGTH = 0;
+        /// <summary>
+        /// 字符长度
+        /// </summary>
+        public int CharLength { get { return _CharLength; } set { _CharLength = value; } }
+        private int _CharLength = ERROR_DEFAULT_CHARLENGTH;
     }
 }
