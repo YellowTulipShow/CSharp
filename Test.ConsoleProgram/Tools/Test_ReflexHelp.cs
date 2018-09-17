@@ -5,7 +5,7 @@ using YTS.Model.Attribute;
 using YTS.Model.Table.Attribute;
 using YTS.Tools;
 
-namespace Test.ConsoleProgram.Case.SonTests
+namespace Test.ConsoleProgram.Tools
 {
     public class Test_ReflexHelp : CaseModel
     {

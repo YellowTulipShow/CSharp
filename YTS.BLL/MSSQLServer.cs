@@ -28,7 +28,7 @@ namespace YTS.BLL
         }
         #endregion
 
-        #region ====== using:ITableName ======
+        #region ====== using:IDataBaseResult ======
         /// <summary>
         /// 查询数据
         /// </summary>

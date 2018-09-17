@@ -12,9 +12,8 @@ namespace Test.ConsoleProgram
         /// </summary>
         public CaseModel[] InitCaseSource() {
             return new CaseModel[] {
-                // new Case.SonTests.*****(),
-
-                new Case.SonTests.Test_ReflexHelp(),
+                new Tools.Test_ReflexHelp(),
+                new Model.Test_EnumInfo(),
 
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),

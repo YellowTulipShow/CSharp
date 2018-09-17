@@ -61,7 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Case.SonTests\Test_ReflexHelp.cs">
+    <Compile Include="Model\Test_EnumInfo.cs" />
+    <Compile Include="Tools\Test_ReflexHelp.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CaseModel.cs" />
