@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using CSharp.LibrayFunction;
+using YTS.Model;
 
 namespace Test.ConsoleProgram
 {
     public class CaseModel : AbsBasicDataModel
     {
         public CaseModel() { }
-        public string NameSign = string.Empty;
-        public delegate void EventMethod();
-        public EventMethod ExeEvent = () => { };
+        public string NameSign = @"实例模型初始名称";
+        public Func<bool> ExeEvent = () => true;
         public CaseModel[] SonCases = new CaseModel[] { };
 
         #region ====== Tool Region: ======

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CSharp.LibrayFunction;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
@@ -30,7 +28,7 @@ namespace Test.ConsoleProgram.Case.Learn
                     int m = 3;
                     Print.WriteLine("m: {0}", m);
                     int[] slist = CreateIntList(0, 10);
-                    Print.WriteLine("slist: {0}", JsonHelper.SerializeObject(slist));
+                    Print.WriteLine("slist: {0}", JSON.SerializeObject(slist));
                     int[] rlist = new int[slist.Length];
                     for (int i = 0; i < slist.Length; i++) {
                         int si = i + m;
@@ -39,7 +37,7 @@ namespace Test.ConsoleProgram.Case.Learn
                         }
                         rlist[si] = slist[i];
                     }
-                    Print.WriteLine("rlist: {0}", JsonHelper.SerializeObject(rlist));
+                    Print.WriteLine("rlist: {0}", JSON.SerializeObject(rlist));
 
                     //Print.WriteLine(JsonHelper.SerializeObject(CommonData.ASCII_LowerEnglish()));
                     char[] le = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };

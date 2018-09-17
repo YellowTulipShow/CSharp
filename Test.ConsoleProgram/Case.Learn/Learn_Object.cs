@@ -1,5 +1,7 @@
 ﻿using System;
-using CSharp.LibrayFunction;
+using YTS.Model;
+using YTS.Model.Attribute;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
@@ -41,6 +43,7 @@ namespace Test.ConsoleProgram.Case.Learn
                 Money = 100,
                 Remark = "Test A"
             };
+            
             Model B = (Model)A.CloneModelData();
 
             test_Equals(A, B);

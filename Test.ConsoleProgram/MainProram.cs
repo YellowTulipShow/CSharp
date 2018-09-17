@@ -1,10 +1,9 @@
-﻿using CSharp.LibrayFunction;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram
 {
@@ -37,45 +36,43 @@ namespace Test.ConsoleProgram
         }
 
         private static void ExecuteCaseText() {
-            CaseModel[] absCaseArray = new Libray().InitCaseSource();
-            if (CheckData.IsSizeEmpty(absCaseArray)) {
+            CaseModel[] case_list = new Libray().InitCaseSource();
+            if (CheckData.IsSizeEmpty(case_list)) {
                 Console.WriteLine(CaseSourceNullErrorMsg);
                 return;
             }
-            foreach (CaseModel caseitem in absCaseArray) {
-                AnalyticAbsCases(caseitem, new string[] {});
+            if (AnalyticCaseModel(case_list)) {
+                Console.WriteLine(@"[+] 测试成功, 完美!");
+            } else {
+                Console.WriteLine(@"[-] 测试含有错误已停止!");
             }
         }
 
-        private static void AnalyticAbsCases(CaseModel absCase, string[] tabs_arr) {
-            StatisticsRunTime(absCase, tabs_arr);
-            if (CheckData.IsSizeEmpty(absCase.SonCases) || tabs_arr.Length > 50) {
-                return;
+        /// <summary>
+        /// 解析执行实例模型
+        /// </summary>
+        private static bool AnalyticCaseModel(CaseModel[] cases) {
+            foreach (CaseModel model in cases) {
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start(); // 开始
+                bool isby = model.ExeEvent();
+                stopwatch.Stop(); // 结束
+                TimeSpan runtimeSpan = stopwatch.Elapsed;
+                if (isby) {
+                    Console.WriteLine("[+] Name: [{0}] 成功 Success Time: {1}s", model.NameSign, runtimeSpan.TotalSeconds);
+                } else {
+                    Console.WriteLine("[-] Name: [{0}] 失败 Error Time: {1}s", model.NameSign, runtimeSpan.TotalSeconds);
+                    return false;
+                }
+
+                // 执行含有子方法
+                if (!CheckData.IsSizeEmpty(model.SonCases)) {
+                    if (!AnalyticCaseModel(model.SonCases)) {
+                        return false;
+                    }
+                }
             }
-            for (int i = 0; i < absCase.SonCases.Length; i++) {
-                List<string> tabs_now = new List<string>(tabs_arr);
-                tabs_now.Add(@"    ");
-                AnalyticAbsCases(absCase.SonCases[i], tabs_now.ToArray());
-            }
-        }
-
-        private static void StatisticsRunTime(CaseModel caseitem, string[] tabs_arr) {
-            string father_symbol = ConvertTool.IListToString(tabs_arr, string.Empty);
-            Print.IndentationCharString = string.Format(@"{0}┌ ", father_symbol);
-            Print.WriteLine(caseitem.NameSign);
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start(); // 开始
-
-            Print.IndentationCharString = string.Format(@"{0}│    ", father_symbol);
-            caseitem.ExeEvent();
-
-            stopwatch.Stop(); // 结束
-            TimeSpan runtimeSpan = stopwatch.Elapsed;
-
-            Print.IndentationCharString = string.Format(@"{0}└ ", father_symbol);
-            Print.WriteLine(string.Format("运行时间: {0}", runtimeSpan.TotalSeconds));
-            Print.WriteLine();
+            return true;
         }
     }
 }

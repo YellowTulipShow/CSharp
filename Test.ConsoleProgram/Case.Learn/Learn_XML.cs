@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using CSharp.LibrayFunction;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
@@ -146,7 +146,7 @@ namespace Test.ConsoleProgram.Case.Learn
             XmlDocument xmldocument = GetXmlDocument();
             XmlNode root = xmldocument.SelectSingleNode("bookstore");
             foreach (XmlNode item in root.ChildNodes) {
-                Print.WriteLine(JsonHelper.SerializeObject(new BookModel() {
+                Print.WriteLine(JSON.SerializeObject(new BookModel() {
                     BookType = item.Attributes["Type"].Value,
                     BookISBN = item.Attributes["ISBN"].Value,
                     BookName = item.SelectSingleNode("title").InnerText,

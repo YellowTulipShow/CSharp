@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
-using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram.Case.Learn
 {
@@ -48,6 +47,8 @@ namespace Test.ConsoleProgram.Case.Learn
                 string newimgPath = string.Format(@"{0}\{1}", directory, @"jiwjefa.png");
                 Print.WriteLine("sorimgPath: {0}\nmd5: {1}\n\n", sorimgPath, GetMD5HashFromFile(sorimgPath));
                 Print.WriteLine("newimgPath: {0}\nmd5: {1}\n\n", newimgPath, GetMD5HashFromFile(newimgPath));
+
+                return true;
             };
         }
         private string GetMD5HashFromFile(string fileName) {

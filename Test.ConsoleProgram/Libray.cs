@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSharp.LibrayFunction;
 
 namespace Test.ConsoleProgram
 {
@@ -14,6 +13,8 @@ namespace Test.ConsoleProgram
         public CaseModel[] InitCaseSource() {
             return new CaseModel[] {
                 // new Case.SonTests.*****(),
+
+                new Case.SonTests.Test_ReflexHelp(),
 
                 //new Case.Learn.Learn_Dictionary(),
                 //new Case.Learn.Learn_Object(),
@@ -33,13 +34,12 @@ namespace Test.ConsoleProgram
                 //new Case.SonTests.Test_Enum(),
                 //new Case.SonTests.Test_NewtonsoftJson(),
                 //new Case.SonTests.Test_Random(),
-                //new Case.SonTests.Test_Reflex(),
                 //new Case.SonTests.Test_Lambda(),
                 //new Case.SonTests.Test_WhereModel(),
                 //new Case.SonTests.Test_BLLDALSQLServer(),
                 //new Case.SonTests.Test_addRecord(),
                 //new Case.SonTests.Test_BLLDALXML(),
-                new Case.SonTests.Test_URL_or_URI(),
+                //new Case.SonTests.Test_URL_or_URI(),
 
                 //new Case.SonTests.Test_ForAdd(),
 
