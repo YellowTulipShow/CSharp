@@ -16,7 +16,7 @@ namespace YTS.BLL
         ISupplementaryStructure,
         IDefaultRecord<M>
         where D : AbsDAL<M>
-        where M : AbsTable
+        where M : AbsShineUpon
     {
         /// <summary>
         /// 当前DAL对象

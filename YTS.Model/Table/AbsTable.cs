@@ -6,7 +6,7 @@ namespace YTS.Model.Table
     /// 表-基础-模型
     /// </summary>
     [Serializable]
-    public abstract class AbsTable : AbsBasicDataModel, ITableName
+    public abstract class AbsTable : AbsShineUpon, ITableName
     {
         public AbsTable() { }
 

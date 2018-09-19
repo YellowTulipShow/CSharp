@@ -36,12 +36,12 @@ namespace Test.ConsoleProgram
         }
 
         private static void ExecuteCaseText() {
-            CaseModel[] case_list = new Libray().InitCaseSource();
+            CaseModel[] case_list = new Libray().GetALLCases();
             if (CheckData.IsSizeEmpty(case_list)) {
                 Console.WriteLine(CaseSourceNullErrorMsg);
                 return;
             }
-            if (AnalyticCaseModel(case_list)) {
+            if (AnalyticCaseModel(case_list, string.Empty)) {
                 Console.WriteLine(@"[+] 测试成功, 完美!");
             } else {
                 Console.WriteLine(@"[-] 测试含有错误已停止!");
@@ -51,28 +51,50 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 解析执行实例模型
         /// </summary>
-        private static bool AnalyticCaseModel(CaseModel[] cases) {
+        private static bool AnalyticCaseModel(CaseModel[] cases, string upper_layer_name) {
+            upper_layer_name = ConvertTool.ObjToString(upper_layer_name);
             foreach (CaseModel model in cases) {
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start(); // 开始
-                bool isby = model.ExeEvent();
-                stopwatch.Stop(); // 结束
-                TimeSpan runtimeSpan = stopwatch.Elapsed;
-                if (isby) {
-                    Console.WriteLine("[+] Name: [{0}] 成功 Success Time: {1}s", model.NameSign, runtimeSpan.TotalSeconds);
+                // 获取名称
+                string name = model.NameSign;
+                if (!CheckData.IsStringNull(upper_layer_name)) {
+                    name = string.Format("{0}: {1}", upper_layer_name, name);
+                }
+
+                // 执行自身方法
+                if (CheckData.IsObjectNull(model.ExeEvent)) {
+                    Console.WriteLine("\n[-] Name: [{0}] ExeEvent Is NULL", name);
                 } else {
-                    Console.WriteLine("[-] Name: [{0}] 失败 Error Time: {1}s", model.NameSign, runtimeSpan.TotalSeconds);
-                    return false;
+                    bool isby = AnalyticCaseModelOneItem(model, name);
+                    if (!isby) {
+                        return false;
+                    }
                 }
 
                 // 执行含有子方法
                 if (!CheckData.IsSizeEmpty(model.SonCases)) {
-                    if (!AnalyticCaseModel(model.SonCases)) {
+                    if (!AnalyticCaseModel(model.SonCases, name)) {
                         return false;
                     }
                 }
             }
             return true;
+        }
+
+        private static bool AnalyticCaseModelOneItem(CaseModel model, string name) {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start(); // 开始
+            bool isby = model.ExeEvent();
+            stopwatch.Stop(); // 结束
+            TimeSpan runtimeSpan = stopwatch.Elapsed;
+
+            double exe_time = runtimeSpan.TotalSeconds;
+            if (isby) {
+                Console.WriteLine("[+] Name: [{0}] 成功 Success Time: {1}s", name, exe_time);
+                return true;
+            } else {
+                Console.WriteLine("[-] Name: [{0}] 失败 Error Time: {1}s", name, exe_time);
+                return false;
+            }
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="IRecordStringIDPrimaryKey.cs" />
     <Compile Include="IRecordIntIDPrimaryKey.cs" />
     <Compile Include="ISupplementaryStructure.cs" />
+    <Compile Include="LocalFileServer.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />
     <Compile Include="MSSQLServer_IntID.cs" />
     <Compile Include="MSSQLServer.cs" />

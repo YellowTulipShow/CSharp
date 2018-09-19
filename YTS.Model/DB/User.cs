@@ -76,6 +76,14 @@ namespace YTS.Model.DB
         [Column]
         public Const.Enums.SexEnum Sex { get { return _sex; } set { _sex = value; } }
         private Const.Enums.SexEnum _sex = Const.Enums.SexEnum.Secrecy;
+
+        /// <summary>
+        /// 生日
+        /// </summary>
+        [Explain(@"生日")]
+        [Column]
+        public DateTime Birthday { get { return _Birthday; } set { _Birthday = value; } }
+        private DateTime _Birthday = DateTime.Now;
         #endregion
     }
 }

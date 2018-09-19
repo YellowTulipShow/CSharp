@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsBasicDataModel.cs" />
+    <Compile Include="AbsShineUpon.cs" />
+    <Compile Include="Attribute\ShineUponModelAttribute.cs" />
+    <Compile Include="Attribute\ShineUponPropertyAttribute.cs" />
     <Compile Include="Const\CalcEnums.cs" />
     <Compile Include="Const\DataType.cs" />
     <Compile Include="Const\Enums.cs" />
@@ -51,6 +54,10 @@
     <Compile Include="DB\Role.cs" />
     <Compile Include="DB\Group.cs" />
     <Compile Include="DB\User.cs" />
+    <Compile Include="File\AbsFile.cs" />
+    <Compile Include="File\Attribute\EntityFileAttribute.cs" />
+    <Compile Include="File\Attribute\FieldAttribute.cs" />
+    <Compile Include="File\IFileName.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyObject.cs" />
     <Compile Include="KeyString.cs" />

@@ -41,12 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\ColumnItemModel.cs" />
+    <Compile Include="AbsInfo_ShineUpon.cs" />
+    <Compile Include="AbsParser_ShineUpon.cs" />
+    <Compile Include="DataBase\ColumnInfo.cs" />
     <Compile Include="DataBase\ColumnModelParser.cs" />
     <Compile Include="DataBase\MSQLServer\CommandInfo.cs" />
     <Compile Include="DataBase\MSQLServer\CreateSQL.cs" />
     <Compile Include="DataBase\MSQLServer\DbHelperSQL.cs" />
     <Compile Include="DataBase\MSQLServer\PagingHelper.cs" />
+    <Compile Include="FileField\FieldInfo.cs" />
+    <Compile Include="FileField\FieldModelParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

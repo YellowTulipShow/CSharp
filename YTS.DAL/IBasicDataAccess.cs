@@ -1,6 +1,5 @@
 ﻿using System;
 using YTS.Model;
-using YTS.Model.Table;
 
 namespace YTS.DAL
 {
@@ -8,7 +7,7 @@ namespace YTS.DAL
     /// 基础数据访问接口
     /// </summary>
     /// <typeparam name="M">访问的数据映射模型</typeparam>
-    public interface IBasicDataAccess<M> where M : AbsTable
+    public interface IBasicDataAccess<M> where M : Model.AbsShineUpon
     {
         /// <summary>
         /// 插入一条数据

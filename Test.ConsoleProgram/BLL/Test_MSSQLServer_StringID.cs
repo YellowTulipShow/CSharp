@@ -13,12 +13,11 @@ namespace Test.ConsoleProgram.BLL
     public class Test_MSSQLServer_StringID : CaseModel
     {
         public Test_MSSQLServer_StringID() {
-            this.NameSign = @"测试 业务逻辑层 数据访问器 字符串类型ID标识";
+            this.NameSign = @"测试 Microsoft SQL Server 2008 业务逻辑层 数据访问器 字符串类型ID标识";
             this.SonCases = new CaseModel[] {
                 Func_IDInsert(),
             };
         }
-
 
         /// <summary>
         /// 数据模型类: 文章
@@ -51,6 +50,7 @@ namespace Test.ConsoleProgram.BLL
             [Column]
             public string Name { get { return _Name; } set { _Name = value; } }
             private string _Name = string.Empty;
+
 
             /// <summary>
             /// 内容

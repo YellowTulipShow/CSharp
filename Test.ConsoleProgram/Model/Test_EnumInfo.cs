@@ -11,7 +11,7 @@ namespace Test.ConsoleProgram.Model
     public class Test_EnumInfo : CaseModel
     {
         public Test_EnumInfo() {
-            this.NameSign = @"测试枚举信息静态工具类";
+            this.NameSign = @"静态枚举信息类";
             this.SonCases = new CaseModel[] {
                 Func_AnalysisList(),
                 Func_AnalysisItem(),
@@ -34,6 +34,7 @@ namespace Test.ConsoleProgram.Model
             /// </summary>
             [Explain(@"女")]
             Female = 81,
+            Test,
         }
 
         public CaseModel Func_AnalysisList() {
@@ -44,6 +45,7 @@ namespace Test.ConsoleProgram.Model
                         new EnumInfo() { Name = @"Secrecy", IntValue = 0, Explain = @"保密" },
                         new EnumInfo() { Name = @"Male", IntValue = 1, Explain = ExplainAttribute.ERROR_EXPLAIN_TEXT },
                         new EnumInfo() { Name = @"Female", IntValue = 81, Explain = @"女" },
+                        new EnumInfo() { Name = @"Test", IntValue = 82, Explain = ExplainAttribute.ERROR_EXPLAIN_TEXT },
                     };
 
                     EnumInfo[] enums = EnumInfo.AnalysisList<TestEnum>();
@@ -97,6 +99,9 @@ namespace Test.ConsoleProgram.Model
                         return false;
                     }
                     if (!method(TestEnum.Female, @"Female", 81, @"女")) {
+                        return false;
+                    }
+                    if (!method(TestEnum.Test, @"Test", 82, ExplainAttribute.ERROR_EXPLAIN_TEXT)) {
                         return false;
                     }
                     return true;

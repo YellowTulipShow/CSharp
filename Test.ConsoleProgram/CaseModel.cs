@@ -20,7 +20,7 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 执行事件
         /// </summary>
-        public Func<bool> ExeEvent = () => true;
+        public Func<bool> ExeEvent = null;
 
         /// <summary>
         /// 子类实例

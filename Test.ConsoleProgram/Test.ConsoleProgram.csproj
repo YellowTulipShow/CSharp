@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\Test_MSSQLServer_StringID.cs" />
+    <Compile Include="Engine\Test_AbsShineUponParser.cs" />
     <Compile Include="Model\Test_EnumInfo.cs" />
     <Compile Include="Tools\Test_ReflexHelp.cs">
       <SubType>Code</SubType>

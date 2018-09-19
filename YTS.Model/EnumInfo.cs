@@ -39,11 +39,20 @@ namespace YTS.Model
         /// <typeparam name="E">枚举类型</typeparam>
         /// <returns>解析结果</returns>
         public static EnumInfo[] AnalysisList<E>() {
-            List<EnumInfo> list = new List<EnumInfo>();
             Type type = typeof(E);
+            return AnalysisList(type);
+        }
+
+        /// <summary>
+        /// 解析一种枚举的所有选项
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        /// <returns>解析结果</returns>
+        public static EnumInfo[] AnalysisList(Type type) {
             if (!type.IsEnum) {
                 return new EnumInfo[] { };
             }
+            List<EnumInfo> list = new List<EnumInfo>();
             foreach (int ival in Enum.GetValues(type)) {
                 string name = Enum.GetName(type, ival);
                 FieldInfo info = type.GetField(name);

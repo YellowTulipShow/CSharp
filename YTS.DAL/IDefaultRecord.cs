@@ -1,12 +1,11 @@
 ﻿using System;
-using YTS.Model.Table;
 
 namespace YTS.DAL
 {
     /// <summary>
     /// 接口 - 默认数据映射模型
     /// </summary>
-    public interface IDefaultRecord<M> where M : AbsTable
+    public interface IDefaultRecord<M> where M : Model.AbsShineUpon
     {
         /// <summary>
         /// 是否需要默认记录

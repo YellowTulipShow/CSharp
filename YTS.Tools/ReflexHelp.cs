@@ -23,23 +23,26 @@ namespace YTS.Tools
 
         #region ====== Attributes: ======
         /// <summary>
-        /// 查找指定的 Attribute '特性' 内容列表 默认不查找继承链
+        /// 查找指定的 Attribute '特性' 内容列表
         /// </summary>
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
-        /// <returns></returns>
-        public static A[] AttributeFindALL<A>(MemberInfo memberInfo) where A : System.Attribute {
-            object[] attrs = memberInfo.GetCustomAttributes(typeof(A), false);
+        /// <param name="isFindInherit">是否查找继承链, 默认不查找</param>
+        /// <returns>返回指定'特性'类型列表结果</returns>
+        public static A[] AttributeFindALL<A>(MemberInfo memberInfo, bool isFindInherit = false) where A : System.Attribute {
+            object[] attrs = memberInfo.GetCustomAttributes(typeof(A), isFindInherit);
             return ConvertTool.ListConvertType(attrs, o => o as A);
         }
+
         /// <summary>
-        /// 查找指定的 Attribute '特性' 内容对象 默认不查找继承链
+        /// 查找指定的 Attribute '特性' 内容对象
         /// </summary>
         /// <typeparam name="A">指定的 Attribute '特性'</typeparam>
         /// <param name="memberInfo">元数据</param>
-        /// <returns></returns>
-        public static A AttributeFindOnly<A>(MemberInfo memberInfo) where A : System.Attribute {
-            A[] attrs = AttributeFindALL<A>(memberInfo);
+        /// <param name="isFindInherit">是否查找继承链, 默认不查找</param>
+        /// <returns>返回指定'特性'类型的第一个结果</returns>
+        public static A AttributeFindOnly<A>(MemberInfo memberInfo, bool isFindInherit = false) where A : System.Attribute {
+            A[] attrs = AttributeFindALL<A>(memberInfo, isFindInherit);
             return CheckData.IsSizeEmpty(attrs) ? null : attrs[0];
         }
         #endregion

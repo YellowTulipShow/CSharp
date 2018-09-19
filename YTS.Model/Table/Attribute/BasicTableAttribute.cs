@@ -6,8 +6,7 @@ namespace YTS.Model.Table.Attribute
     /// <summary>
     /// 基础数据库表
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class BasicTableAttribute : AbsBasicAttribute
+    public class BasicTableAttribute : ShineUponModelAttribute
     {
         /// <summary>
         /// 是否检查结构体

@@ -4,8 +4,6 @@ using System.Reflection;
 using YTS.Engine.DataBase;
 using YTS.Model;
 using YTS.Model.Attribute;
-using YTS.Model.Table;
-using YTS.Model.Table.Attribute;
 using YTS.Tools;
 
 namespace YTS.DAL
@@ -14,44 +12,12 @@ namespace YTS.DAL
     /// 抽象-数据访问层(Data Access Layer)
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public abstract class AbsDAL<M> : IBasicDataAccess<M>, ISupplementaryStructure where M : AbsTable
+    public abstract class AbsDAL<M> :
+        IBasicDataAccess<M>,
+        ISupplementaryStructure
+        where M : Model.AbsShineUpon
     {
-        /// <summary>
-        /// 映射模型的列信息集合
-        /// </summary>
-        public ColumnInfo[] modelColumns = null;
-
-        public AbsDAL() {
-            this.modelColumns = AnalysisMappingModel();
-        }
-
-        /// <summary>
-        /// 分析映射模型
-        /// </summary>
-        /// <returns>列信息集合</returns>
-        public ColumnInfo[] AnalysisMappingModel() {
-            Type modelT = typeof(M);
-            if (!modelT.IsDefined(typeof(BasicTableAttribute), false)) {
-                return new ColumnInfo[] { };
-            }
-            List<ColumnInfo> colms = new List<ColumnInfo>();
-            PropertyInfo[] protertys = modelT.GetProperties();
-            foreach (PropertyInfo property in protertys) {
-                ColumnAttribute attr_column = ReflexHelp.AttributeFindOnly<ColumnAttribute>(property);
-                if (CheckData.IsObjectNull(attr_column)) {
-                    continue;
-                }
-                ExplainAttribute attr_explain = ExplainAttribute.Extract(property);
-                colms.Add(new ColumnInfo() {
-                    Name = property.Name,
-                    Property = property,
-                    Attribute = attr_column,
-                    Explain = attr_explain,
-                });
-            }
-            colms.Sort(ColumnInfo.SortMethod);
-            return colms.ToArray();
-        }
+        public AbsDAL() { }
 
         #region ====== using:IBasicDataAccess<M> ======
         /// <summary>
