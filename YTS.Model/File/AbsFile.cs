@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YTS.Model.File.Attribute;
 
 namespace YTS.Model.File
 {
     /// <summary>
     /// 抽象-文件基础模型
     /// </summary>
+    [Serializable]
+    [EntityFile]
     public abstract class AbsFile : AbsShineUpon, IFileInfo
     {
         /// <summary>

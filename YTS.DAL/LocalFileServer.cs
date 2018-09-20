@@ -1,5 +1,5 @@
 ﻿using System;
-using YTS.Engine.DataBase;
+using YTS.Engine.LocalFile;
 using YTS.Tools;
 
 namespace YTS.DAL
@@ -22,13 +22,13 @@ namespace YTS.DAL
         /// </summary>
         private readonly string _fileName_ = string.Empty;
 
-        ///// <summary>
-        ///// 列数据模型解析器
-        ///// </summary>
-        //public readonly ColumnModelParser<M> modelParser = null;
+        /// <summary>
+        /// 列数据模型解析器
+        /// </summary>
+        public readonly FieldModelParser<M> modelParser = null;
 
         public LocalFileServer() : base() {
-            //this.modelParser = new ColumnModelParser<M>();
+            this.modelParser = new FieldModelParser<M>();
 
             M model = ReflexHelp.CreateNewObject<M>();
             this._pathFolder_ = model.GetPathFolder();
@@ -53,7 +53,7 @@ namespace YTS.DAL
         }
         #endregion
 
-
+        #region ====== using:IBasicDataAccess<M> ======
         public override bool Insert(M model) {
             throw new NotImplementedException();
         }
@@ -77,5 +77,6 @@ namespace YTS.DAL
         public override int GetRecordCount(string where = null) {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

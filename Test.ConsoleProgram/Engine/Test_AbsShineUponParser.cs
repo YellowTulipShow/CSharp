@@ -136,29 +136,20 @@ namespace Test.ConsoleProgram.Engine
                     YTS.Engine.DataBase.ColumnModelParser<T> parser = new YTS.Engine.DataBase.ColumnModelParser<T>();
                     YTS.Model.KeyString[] keys = T.Answer_ColumnInfos();
                     YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetColumn_ALL();
-                    if (keys.Length != columns.Length) {
-                        Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", keys.Length, columns.Length);
-                        return false;
-                    }
 
-                    foreach (YTS.Model.KeyString item in keys) {
-                        bool isFind = false;
-                        foreach (YTS.Engine.DataBase.ColumnInfo info in columns) {
-                            if (item.Key == info.Name &&
+                    return IsIEnumerableEqual(keys, columns,
+                        func_isEquals: (item, info) => {
+                            return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
                                 item.Value == info.Explain.Text &&
-                                !YTS.Tools.CheckData.IsObjectNull(info.Attribute)) {
-                                isFind = true;
-                                break;
-                            }
-                        }
-                        if (!isFind) {
+                                !YTS.Tools.CheckData.IsObjectNull(info.Attribute);
+                        },
+                        func_lengthNotEquals: (len_key, len_column) => {
+                            Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", len_key, len_column);
+                        },
+                        func_notFindPrint: (item) => {
                             Console.WriteLine("Key: {0} Value: {1} 没找到", item.Key, item.Value);
-                            return false;
-                        }
-                    }
-
-                    return true;
+                        });
                 },
             };
         }
@@ -170,28 +161,19 @@ namespace Test.ConsoleProgram.Engine
                     YTS.Engine.LocalFile.FieldModelParser<F> parser = new YTS.Engine.LocalFile.FieldModelParser<F>();
                     YTS.Model.KeyString[] keys = F.Answer_FieldInfos();
                     YTS.Engine.LocalFile.FieldInfo[] columns = parser.GetColumn_ALL();
-                    if (keys.Length != columns.Length) {
-                        Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", keys.Length, columns.Length);
-                        return false;
-                    }
 
-                    foreach (YTS.Model.KeyString item in keys) {
-                        bool isFind = false;
-                        foreach (YTS.Engine.LocalFile.FieldInfo info in columns) {
-                            if (item.Key == info.Name &&
+                    return IsIEnumerableEqual(keys, columns,
+                        func_isEquals: (item, info) => {
+                            return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
-                                item.Value == info.Explain.Text) {
-                                isFind = true;
-                                break;
-                            }
-                        }
-                        if (!isFind) {
+                                item.Value == info.Explain.Text;
+                        },
+                        func_lengthNotEquals: (len_key, len_column) => {
+                            Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", len_key, len_column);
+                        },
+                        func_notFindPrint: (item) => {
                             Console.WriteLine("Key: {0} Value: {1} 没找到", item.Key, item.Value);
-                            return false;
-                        }
-                    }
-
-                    return true;
+                        });
                 },
             };
         }
