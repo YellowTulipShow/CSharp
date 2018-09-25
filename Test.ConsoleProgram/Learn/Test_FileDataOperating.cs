@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.Text;
-using YTS.Model.File;
+using YTS.Model;
 using YTS.Model.Attribute;
+using YTS.Model.File;
 using YTS.Model.File.Attribute;
 using YTS.Tools;
-using YTS.Model;
 
-namespace Test.ConsoleProgram.BLL
+namespace Test.ConsoleProgram.Learn
 {
-    public class Test_LocalFileServer : CaseModel
+    public class Test_FileDataOperating : CaseModel
     {
-        public YTS.BLL.LocalFileServer<YTS.DAL.LocalFileServer<TestModel>, TestModel> bll = null;
-        public readonly string ColumnName_IID = ReflexHelp.Name(() => new TestModel().IID);
-        public readonly string ColumnName_Name = ReflexHelp.Name(() => new TestModel().Name);
-        public readonly string ColumnName_TimeRelease = ReflexHelp.Name(() => new TestModel().TimeRelease);
-        public readonly string ColumnName_Sex = ReflexHelp.Name(() => new TestModel().Sex);
-
-        public Test_LocalFileServer() {
-            NameSign = @"本地文件";
+        public Test_FileDataOperating() {
+            NameSign = @"学习-操作文件";
             SonCases = new CaseModel[] {
                 //Func_Insert(),
                 //Func_Delete(),
                 //Func_Update(),
                 //Func_Select(),
             };
-
-            bll = new YTS.BLL.LocalFileServer<YTS.DAL.LocalFileServer<TestModel>, TestModel>();
         }
+
 
         #region === Model ===
         [EntityFile]
@@ -66,6 +61,7 @@ namespace Test.ConsoleProgram.BLL
             public DateTime TimeRelease { get { return _TimeRelease; } set { _TimeRelease = value; } }
             private DateTime _TimeRelease = DateTime.Now;
 
+
             public enum SexEnum
             {
                 /// <summary>
@@ -90,86 +86,71 @@ namespace Test.ConsoleProgram.BLL
             [Field]
             public SexEnum Sex { get { return _sex; } set { _sex = value; } }
             private SexEnum _sex = SexEnum.Secrecy;
-        }
 
-        public TestModel GetValue_Insert() {
-            return new TestModel() {
-                IID = 2324,
-                Name = @"润肤霜",
-                Sex = TestModel.SexEnum.Female,
-                TimeRelease = new DateTime(2015, 12, 4, 6, 33, 55, 123),
-            };
-        }
-        public TestModel GetValue_Update() {
-            return new TestModel() {
-                IID = 666,
-                Name = @"新说法",
-                Sex = TestModel.SexEnum.Male,
-                TimeRelease = new DateTime(3054, 3, 5, 4, 56, 11, 22),
-            };
+
         }
         #endregion
 
         public CaseModel Func_Insert() {
             return new CaseModel() {
-                NameSign = @"插入",
+                NameSign = @"插入数据",
                 ExeEvent = () => {
-                    return bll.Insert(GetValue_Insert());
+                    string folder_path = new TestModel().GetPathFolder();
+                    string file_name = new TestModel().GetFileName();
+                    List<TestModel> model_list = new List<TestModel>();
+                    for (int i = 0; i < RandomData.GetInt(10, 51); i++) {
+                        model_list.Add(new TestModel() {
+                            IID = i,
+                            Name = RandomData.GetChineseString(RandomData.GetInt(3, 5)),
+                            Sex = RandomData.Item(EnumInfo.GetALLItem<TestModel.SexEnum>()),
+                            TimeRelease = RandomData.GetDateTime(SqlDateTime.MinValue.Value, SqlDateTime.MaxValue.Value),
+                        });
+                    }
+
+                    Func<TestModel, string> get_formatprint = (model) => {
+                        return JSON.SerializeObject(model);
+                        //StringBuilder str = new StringBuilder();
+                        //return str.ToString();
+                    };
+                    
+
+                    string rel_address = string.Format("{0}/{1}.yts", folder_path, file_name);
+                    string abs_address = PathHelp.ToAbsolute(rel_address);
+                    
+                    foreach (TestModel model in model_list) {
+                        string text = get_formatprint(model);
+                        File.AppendAllText(abs_address, text + "\n", Encoding.UTF8);
+                    }
+                    
+                    return true;
                 },
             };
         }
+
 
         public CaseModel Func_Delete() {
             return new CaseModel() {
                 NameSign = @"删除",
                 ExeEvent = () => {
-                    string where = string.Empty;
-                    return bll.Delete(where);
+                    return true;
                 },
             };
         }
-
         public CaseModel Func_Update() {
             return new CaseModel() {
                 NameSign = @"更新",
                 ExeEvent = () => {
-                    TestModel update_model = GetValue_Update();
-                    string where = string.Empty;
-                    return bll.Update(new KeyString[] {
-                        new KeyString() { Key = ColumnName_IID, Value = update_model.IID.ToString() },
-                        new KeyString() { Key = ColumnName_Name, Value = update_model.Name.ToString() },
-                        new KeyString() { Key = ColumnName_Sex, Value = update_model.Sex.ToString() },
-                        new KeyString() { Key = ColumnName_TimeRelease, Value = update_model.TimeRelease.ToString() },
-                    }, where);
+                    return true;
                 },
             };
         }
-
         public CaseModel Func_Select() {
             return new CaseModel() {
-                NameSign = @"选择查询",
+                NameSign = @"查询",
                 ExeEvent = () => {
-                    string where = string.Empty;
-                    return bll.Delete(where);
+                    return true;
                 },
             };
-        }
-
-
-        public class Group : AbsBasicDataModel
-        {
-        }
-
-        public class Where : AbsBasicDataModel
-        {
-            public List<Expression> expression_list = new List<Expression>();
-        }
-
-        public class Expression : AbsBasicDataModel
-        {
-            public string key_name = string.Empty;
-            public string join_symbol = string.Empty;
-            public object content_value = string.Empty;
         }
     }
 }

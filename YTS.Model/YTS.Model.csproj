@@ -59,6 +59,7 @@
     <Compile Include="File\Attribute\FieldAttribute.cs" />
     <Compile Include="File\IFileName.cs" />
     <Compile Include="Key.cs" />
+    <Compile Include="KeyBoolean.cs" />
     <Compile Include="KeyObject.cs" />
     <Compile Include="KeyString.cs" />
     <Compile Include="Attribute\AbsBasicAttribute.cs" />

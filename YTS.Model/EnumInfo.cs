@@ -67,6 +67,27 @@ namespace YTS.Model
         }
 
         /// <summary>
+        /// 获取所有选项
+        /// </summary>
+        /// <typeparam name="E">枚举类型</typeparam>
+        /// <returns>枚举类型的所有选项</returns>
+        public static E[] GetALLItem<E>() where E : struct {
+            Type type = typeof(E);
+            if (!type.IsEnum) {
+                return new E[] { };
+            }
+            List<E> list = new List<E>();
+            foreach (int ival in Enum.GetValues(type)) {
+                string name = Enum.GetName(type, ival);
+                E v;
+                if (Enum.TryParse<E>(name, out v)) {
+                    list.Add(v);
+                }
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>
         /// 解析一种枚举的一个选项
         /// </summary>
         /// <typeparam name="E">枚举类型</typeparam>

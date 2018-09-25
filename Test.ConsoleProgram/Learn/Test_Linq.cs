@@ -9,7 +9,7 @@ namespace Test.ConsoleProgram.Learn
     public class Test_Linq : CaseModel
     {
         public Test_Linq() {
-            NameSign = @"学习Linq";
+            NameSign = @"学习-Linq";
             SonCases = new CaseModel[] {
                 Func_ListArray(),
             };

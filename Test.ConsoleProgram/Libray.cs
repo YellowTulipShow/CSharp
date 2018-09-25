@@ -31,24 +31,38 @@ namespace Test.ConsoleProgram
         }
         #endregion
 
+        /// <summary>
+        /// 常规测试
+        /// </summary>
         public CaseModel[] GetList_Normal() {
             return new CaseModel[] {
                 new Tools.Test_ReflexHelp(),
                 new Model.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new BLL.Test_LocalFileServer(),
+                new Tools.Test_PathHelp(),
             };
         }
 
+        /// <summary>
+        /// 数据库测试
+        /// </summary>
         public CaseModel[] GetList_NeedUseDataBase() {
+            return new CaseModel[] { };
             return new CaseModel[] {
                 new BLL.Test_MSSQLServer_StringID(),
             };
         }
 
+        /// <summary>
+        /// 学习测试
+        /// </summary>
         public CaseModel[] GetList_Learn() {
+            //return new CaseModel[] { };
             return new CaseModel[] {
                 new Learn.Test_Linq(),
+                new Learn.Test_FileDataOperating(),
+                new Learn.Test_Path(),
             };
         }
     }

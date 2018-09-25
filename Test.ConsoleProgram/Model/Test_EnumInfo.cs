@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram.Model
             this.SonCases = new CaseModel[] {
                 Func_AnalysisList(),
                 Func_AnalysisItem(),
+                Func_GetALLItem(),
             };
         }
 
@@ -105,6 +106,28 @@ namespace Test.ConsoleProgram.Model
                         return false;
                     }
                     return true;
+                },
+            };
+        }
+
+        public CaseModel Func_GetALLItem() {
+            return new CaseModel() {
+                NameSign = @"所有选项",
+                ExeEvent = () => {
+                    TestEnum[] answer = new TestEnum[] {
+                        TestEnum.Secrecy,
+                        TestEnum.Male,
+                        TestEnum.Female,
+                        TestEnum.Test,
+                    };
+                    TestEnum[] source = EnumInfo.GetALLItem<TestEnum>();
+                    return IsIEnumerableEqual(answer, source,
+                        func_isEquals: (a_item, s_item) => {
+                            return a_item.ToString() == s_item.ToString();
+                        },
+                        func_notFindPrint: (a_item) => {
+                            Console.WriteLine("answer item enum name: {0}", a_item.ToString());
+                        });
                 },
             };
         }

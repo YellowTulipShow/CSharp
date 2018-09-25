@@ -482,5 +482,24 @@ namespace YTS.Tools
             }
             return string.Format("\\u{0}", result_str);
         }
+
+        /// <summary>
+        /// 过滤禁用的字符
+        /// </summary>
+        /// <param name="source">需要处理的字符串</param>
+        /// <param name="disable_chars">禁用字符列表</param>
+        /// <returns>结果</returns>
+        public static string FilterDisableChars(string source, char[] disable_chars) {
+            if (CheckData.IsStringNull(source)) {
+                return string.Empty;
+            }
+            if (CheckData.IsSizeEmpty(disable_chars)) {
+                return source;
+            }
+            foreach (char c in disable_chars) {
+                source = source.Replace(c.ToString(), "");
+            }
+            return source;
+        }
     }
 }
