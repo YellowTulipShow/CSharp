@@ -61,8 +61,8 @@ namespace Test.ConsoleProgram
             //return new CaseModel[] { };
             return new CaseModel[] {
                 new Learn.Test_Linq(),
-                new Learn.Test_FileDataOperating(),
                 new Learn.Test_Path(),
+                new Learn.Test_FileDataOperating(),
             };
         }
     }

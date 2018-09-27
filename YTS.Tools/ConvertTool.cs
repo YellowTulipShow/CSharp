@@ -501,5 +501,16 @@ namespace YTS.Tools
             }
             return source;
         }
+
+        public static string FromASCIIByteArray(byte[] characters) {
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string constructedString = encoding.GetString(characters);
+            return (constructedString);
+        }
+        public static string FromUnicodeByteArray(byte[] characters) {
+            UnicodeEncoding encoding = new UnicodeEncoding();
+            string constructedString = encoding.GetString(characters);
+            return (constructedString);
+        }
     }
 }

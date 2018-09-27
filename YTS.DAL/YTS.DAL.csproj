@@ -41,12 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsDAL.cs" />
-    <Compile Include="AbsDAL_File.cs" />
+    <Compile Include="AbsFile.cs" />
     <Compile Include="IBasicDataAccess.cs" />
     <Compile Include="IDataBaseResult.cs" />
     <Compile Include="IDefaultRecord.cs" />
     <Compile Include="IRecordStringIDPrimaryKey.cs" />
     <Compile Include="IRecordIntIDPrimaryKey.cs" />
+    <Compile Include="IShineUponInsert.cs" />
+    <Compile Include="IShineUponQuery.cs" />
     <Compile Include="ISupplementaryStructure.cs" />
     <Compile Include="LocalFileServer.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />

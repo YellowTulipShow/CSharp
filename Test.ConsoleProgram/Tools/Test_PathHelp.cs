@@ -155,7 +155,7 @@ namespace Test.ConsoleProgram.Tools
                         },
                     };
                     foreach (KeyString item in paths) {
-                        string absfilepath = PathHelp.CreateUseFilePath(item.Key, item.Value);
+                        string absfilepath = PathHelp.CreateUseFilePath("/test_PathHelp/" + item.Key, item.Value);
                         if (CheckData.IsStringNull(absfilepath)) {
                             if (CheckData.IsStringNull(item.Key) || CheckData.IsStringNull(item.Value)) {
                                 continue;
