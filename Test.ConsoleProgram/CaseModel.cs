@@ -96,4 +96,17 @@ namespace Test.ConsoleProgram
         }
         #endregion
     }
+    /*
+     * 正则:
+     * \s*public\s?(virtual|abstract)? (.*) (\w+)\(.*\) \{\s*.*\s*\}
+     * 替换:
+     *  public CaseModel Func_$3() {
+            return new CaseModel() {
+                NameSign = @"",
+                ExeEvent = () => {
+                    return true;
+                },
+            };
+        }
+     */
 }

@@ -6,7 +6,7 @@ using YTS.Tools;
 
 namespace YTS.DAL
 {
-    public abstract class AbsFile<M> :
+    public class AbsFile<M> :
         IShineUponInsert<M>
         //where M : Model.AbsShineUpon
         where M : Model.File.AbsFile
@@ -50,13 +50,18 @@ namespace YTS.DAL
             return JSON.DeserializeToObject<M>(line);
         }
 
+        public void Clear() {
+            File.Delete(AbsFilePath);
+            File.Create(AbsFilePath).Close();
+        }
+
         public virtual bool Insert(M model) {
             return Insert(new M[] { model });
         }
 
         public virtual bool Insert(M[] models) {
             try {
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
+                using (FileStream fs = File.Open(AbsFilePath, FileMode.Append, FileAccess.Write, FileShare)) {
                     using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
                         foreach (M model in models) {
                             string line = ModelToString(model);
@@ -73,8 +78,7 @@ namespace YTS.DAL
 
         public virtual bool Delete(Func<M, bool> where) {
             if (CheckData.IsObjectNull(where)) {
-                File.Delete(AbsFilePath);
-                File.Create(AbsFilePath).Close();
+                Clear();
                 return true;
             }
             try {
@@ -95,8 +99,7 @@ namespace YTS.DAL
                         }
                     }
                 }
-                File.Delete(AbsFilePath);
-                File.Create(AbsFilePath).Close();
+                Clear();
                 using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
                     using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
                         foreach (string line in sava_lines) {
@@ -136,8 +139,7 @@ namespace YTS.DAL
                         }
                     }
                 }
-                File.Delete(AbsFilePath);
-                File.Create(AbsFilePath).Close();
+                Clear();
                 using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
                     using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
                         foreach (M model in sava_models) {

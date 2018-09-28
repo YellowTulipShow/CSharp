@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsBLL.cs" />
+    <Compile Include="AbsFile.cs" />
     <Compile Include="DB\User.cs" />
     <Compile Include="LocalFileServer.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />

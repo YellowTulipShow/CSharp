@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\Test_AbsFile.cs" />
     <Compile Include="BLL\Test_LocalFileServer.cs" />
     <Compile Include="BLL\Test_MSSQLServer_StringID.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
