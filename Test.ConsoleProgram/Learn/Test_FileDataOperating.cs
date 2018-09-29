@@ -24,7 +24,7 @@ namespace Test.ConsoleProgram.Learn
             };
         }
 
-
+        #region 增删改查
         #region === Model ===
         [EntityFile]
         public class TestModel : AbsFile
@@ -90,7 +90,6 @@ namespace Test.ConsoleProgram.Learn
 
         }
         #endregion
-
 
         public string Get_AbsFilePath() {
             TestModel defmodel = new TestModel();
@@ -198,11 +197,12 @@ namespace Test.ConsoleProgram.Learn
                 ExeEvent = () => {
                     string abs_file_path = Get_AbsFilePath();
                     string[] lines = ReaderLines(abs_file_path);
-                    foreach (string line in lines) {
-                        Console.WriteLine("line: {0}", line);
-                    }
-                    Console.WriteLine("lines.Length: {0}", lines.Length);
-                    return true;
+                    //foreach (string line in lines) {
+                    //    Console.WriteLine("line: {0}", line);
+                    //}
+                    //Console.WriteLine("lines.Length: {0}", lines.Length);
+                    //return true;
+                    return !CheckData.IsSizeEmpty(lines);
                 },
             };
         }
@@ -262,5 +262,9 @@ namespace Test.ConsoleProgram.Learn
                 }
             }
         }
+        #endregion
+
+        #region Speed 速度
+        #endregion
     }
 }

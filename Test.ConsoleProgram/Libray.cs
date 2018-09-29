@@ -59,7 +59,7 @@ namespace Test.ConsoleProgram
         /// 学习测试
         /// </summary>
         public CaseModel[] GetList_Learn() {
-            return new CaseModel[] { };
+            //return new CaseModel[] { };
             return new CaseModel[] {
                 new Learn.Test_Linq(),
                 new Learn.Test_Path(),
