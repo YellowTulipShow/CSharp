@@ -311,11 +311,11 @@ namespace Test.ConsoleProgram.BLL
             };
         }
         public CaseModel Func_Select_Pagination() {
+            int sum = RandomData.GetInt(300, 8001);
+            sum = RandomData.GetInt(56, 265); // 循环遍历内容太多次,百位是极限了
             return new CaseModel() {
-                NameSign = @"分页查询",
+                NameSign = string.Format("分页查询 数据总数: {0}", sum),
                 ExeEvent = () => {
-                    int sum = RandomData.GetInt(300, 8001);
-                    sum = 123; // 循环遍历内容太多次,百位是极限了
                     TestModel[] list = new TestModel[sum];
                     for (int i = 0; i < list.Length; i++) {
                         string name = string.Format("第{0}条 - ", i);
