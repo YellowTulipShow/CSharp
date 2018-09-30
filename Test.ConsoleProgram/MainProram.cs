@@ -81,13 +81,10 @@ namespace Test.ConsoleProgram
         }
 
         private static bool AnalyticCaseModelOneItem(CaseModel model, string name) {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start(); // 开始
-            bool isby = model.ExeEvent();
-            stopwatch.Stop(); // 结束
-            TimeSpan runtimeSpan = stopwatch.Elapsed;
-
-            double exe_time = runtimeSpan.TotalSeconds;
+            bool isby = false;
+            double exe_time = RunHelp.GetRunTime(() => {
+                isby = model.ExeEvent();
+            });
             if (isby) {
                 Console.WriteLine("[+] Name: [{0}] 成功 Success Time: {1}s", name, exe_time);
                 return true;

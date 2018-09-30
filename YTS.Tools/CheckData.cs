@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace YTS.Tools
 {
@@ -27,11 +28,18 @@ namespace YTS.Tools
         #endregion
 
         #region  ====== Is Size Empty ======
+        ///// <summary>
+        ///// 判断是否: ICollection 数据集合 大小 为 '空'
+        ///// </summary>
+        //public static bool IsSizeEmpty(this ICollection icoll) {
+        //    return IsObjectNull(icoll) || icoll.Count <= 0;
+        //}
+
         /// <summary>
-        /// 判断是否: ICollection 数据集合 大小 为 '空'
+        /// 判断是否: IList.T 泛型集合 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(this ICollection icoll) {
-            return IsObjectNull(icoll) || icoll.Count <= 0;
+        public static bool IsSizeEmpty<T>(this IList<T> list) {
+            return IsObjectNull(list) || list.Count <= 0;
         }
         /// <summary>
         /// 判断是否: DataSet 数据集 大小 为 '空'

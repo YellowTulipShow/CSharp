@@ -8,7 +8,6 @@ namespace YTS.DAL
 {
     public class AbsFile<M> :
         IShineUponInsert<M>
-        //where M : Model.AbsShineUpon
         where M : Model.File.AbsFile
     {
         /// <summary>
@@ -60,20 +59,8 @@ namespace YTS.DAL
         }
 
         public virtual bool Insert(M[] models) {
-            try {
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.Append, FileAccess.Write, FileShare)) {
-                    using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
-                        foreach (M model in models) {
-                            string line = ModelToString(model);
-                            sw.WriteLine(line);
-                        }
-                        sw.Flush();
-                    }
-                }
-                return true;
-            } catch (Exception) {
-                return false;
-            }
+            Write(models);
+            return true;
         }
 
         public virtual bool Delete(Func<M, bool> where) {
@@ -81,105 +68,61 @@ namespace YTS.DAL
                 Clear();
                 return true;
             }
-            try {
-                List<string> sava_lines = new List<string>();
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                    using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                        string line = string.Empty;
-                        while ((line = sr.ReadLine()) != null) {
-                            // 筛选符合规则的数据行
-                            M model = StringToModel(line);
-                            if (!CheckData.IsObjectNull(model)) {
-                                if (where(model)) { // true 表示同意删除
-                                    continue;
-                                }
-                            }
-                            // 否则所有数据还原
-                            sava_lines.Add(line);
-                        }
+            string[] sava_lines = Read<string>((line, rlen) => {
+                // 筛选符合规则的数据行
+                M model = StringToModel(line);
+                if (!CheckData.IsObjectNull(model)) {
+                    if (where(model)) { // true 表示同意删除
+                        return null;
                     }
                 }
-                Clear();
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
-                    using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
-                        foreach (string line in sava_lines) {
-                            sw.WriteLine(line);
-                        }
-                        sw.Flush();
-                    }
-                }
-                return true;
-            } catch (Exception) {
-                return false;
-            }
+                return line;
+            });
+            Clear();
+            Write(sava_lines);
+            return true;
         }
 
         public virtual bool Update(Func<M, M> where) {
             if (CheckData.IsObjectNull(where)) {
-                File.Delete(AbsFilePath);
-                File.Create(AbsFilePath).Close();
                 return true;
             }
-            try {
-                List<M> sava_models = new List<M>();
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                    using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                        string line = string.Empty;
-                        while ((line = sr.ReadLine()) != null) {
-                            // 筛选符合规则的数据行
-                            M model = StringToModel(line);
-                            if (CheckData.IsObjectNull(model)) {
-                                continue;
-                            }
-                            model = where(model);
-                            if (CheckData.IsObjectNull(model)) {
-                                continue;
-                            }
-                            sava_models.Add(model);
-                        }
-                    }
+
+            M[] sava_models = Read<M>((line, rlen) => {
+                // 筛选符合规则的数据行
+                M model = StringToModel(line);
+                if (CheckData.IsObjectNull(model)) {
+                    return null;
                 }
-                Clear();
-                using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
-                    using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
-                        foreach (M model in sava_models) {
-                            string line = ModelToString(model);
-                            sw.WriteLine(line);
-                        }
-                        sw.Flush();
-                    }
+                model = where(model);
+                if (CheckData.IsObjectNull(model)) {
+                    return null;
                 }
-                return true;
-            } catch (Exception) {
-                return false;
-            }
+                return model;
+            });
+            Clear();
+            Write(sava_models);
+            return true;
         }
 
         public virtual M[] Select(int top, Func<M, bool> where) {
             if (CheckData.IsObjectNull(where)) {
                 where = model => true;
             }
-            List<M> lines = new List<M>();
-            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                    string line = string.Empty;
-                    while ((line = sr.ReadLine()) != null) {
-                        if (top > 0 && lines.Count >= top) {
-                            break;
-                        }
-                        // 筛选符合规则的数据行
-                        M model = StringToModel(line);
-                        if (CheckData.IsObjectNull(model)) {
-                            continue;
-                        }
-                        if (!where(model)) { // false 表示不符合条件, 跳过
-                            continue;
-                        }
-                        lines.Add(model);
-                    }
+            return Read<M>((line, rlen) => {
+                if (top > 0 && rlen >= top) {
+                    throw new Exception();
                 }
-            }
-            return lines.ToArray();
+                // 筛选符合规则的数据行
+                M model = StringToModel(line);
+                if (CheckData.IsObjectNull(model)) {
+                    return null;
+                }
+                if (!where(model)) { // false 表示不符合条件, 跳过
+                    return null;
+                }
+                return model;
+            });
         }
 
         public virtual M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where) {
@@ -203,55 +146,91 @@ namespace YTS.DAL
             if (CheckData.IsObjectNull(where)) {
                 where = model => true;
             }
-            List<M> lines = new List<M>();
-            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                    string line = string.Empty;
-                    while ((line = sr.ReadLine()) != null) {
-                        // 筛选符合规则的数据行
-                        M model = StringToModel(line);
-                        if (CheckData.IsObjectNull(model)) {
-                            continue;
-                        }
-                        if (!where(model)) { // false 表示不符合条件, 跳过
-                            continue;
-                        }
-                        recordCount++;
-                        if (start_index <= recordCount && recordCount <= end_index) {
-                            lines.Add(model);
-                        }
-                    }
+
+            int arg_record_count = 0;
+            M[] result = Read<M>((line, rlen) => {
+                // 筛选符合规则的数据行
+                M model = StringToModel(line);
+                if (CheckData.IsObjectNull(model)) {
+                    return null;
                 }
-            }
-            return lines.ToArray();
+                if (!where(model)) { // false 表示不符合条件, 跳过
+                    return null;
+                }
+                arg_record_count++;
+                if (start_index <= arg_record_count && arg_record_count <= end_index) {
+                    return model;
+                }
+                return null;
+            });
+            recordCount = arg_record_count;
+            return result;
         }
 
         public virtual int GetRecordCount(Func<M, bool> where) {
-            int sum_count = 0;
-            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                    string line = string.Empty;
-                    while ((line = sr.ReadLine()) != null) {
-                        if (!CheckData.IsObjectNull(where)) {
-                            // 筛选符合规则的数据行
-                            M model = StringToModel(line);
-                            if (CheckData.IsObjectNull(model)) {
-                                continue;
-                            }
-                            if (!where(model)) { // false 表示不符合条件, 跳过
-                                continue;
-                            }
-                        }
-                        sum_count++;
+            return Read<string>((line, rlen) => {
+                if (!CheckData.IsObjectNull(where)) {
+                    // 筛选符合规则的数据行
+                    M model = StringToModel(line);
+                    if (CheckData.IsObjectNull(model)) {
+                        return null;
+                    }
+                    if (!where(model)) { // false 表示不符合条件, 跳过
+                        return null;
                     }
                 }
-            }
-            return sum_count;
+                return line;
+            }).Length;
         }
 
         public virtual M GetModel(Func<M, bool> where) {
             M[] list = Select(1, where);
             return (CheckData.IsSizeEmpty(list)) ? null : list[0];
+        }
+
+        public void Write(IList<M> models) {
+            Write<M>(models, ModelToString);
+        }
+        public void Write(IList<string> lines) {
+            Write<string>(lines, str => str);
+        }
+        public void Write<T>(IList<T> list, Func<T, string> tolineMethod) {
+            if (CheckData.IsSizeEmpty(list)) {
+                throw new Exception(@"写入内容为空");
+            }
+            if (CheckData.IsObjectNull(tolineMethod)) {
+                throw new Exception(@"转换方法为空");
+            }
+            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
+                    for (int i = 0; i < list.Count; i++) {
+                        string line = tolineMethod(list[i]);
+                        sw.WriteLine(line);
+                    }
+                    sw.Flush();
+                }
+            }
+        }
+        public T[] Read<T>(Func<string, int, T> where) {
+            List<T> list = new List<T>();
+            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
+                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                    string line = string.Empty;
+                    while ((line = sr.ReadLine()) != null) {
+                        T value = default(T);
+                        try {
+                            value = where(line, list.Count);
+                        } catch (Exception) {
+                            break;
+                        }
+                        if (CheckData.IsObjectNull(value)) {
+                            continue; // 剔除空值
+                        }
+                        list.Add(value);
+                    }
+                }
+            }
+            return list.ToArray();
         }
     }
 }

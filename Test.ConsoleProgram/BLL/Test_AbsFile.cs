@@ -101,6 +101,8 @@ namespace Test.ConsoleProgram.BLL
                 answer.TimeRelease == source.TimeRelease;
         }
 
+        public readonly int rewrite_sum = 1 * 10000;
+
         public CaseModel Func_Insert() {
             return new CaseModel() {
                 NameSign = @"添加",
@@ -129,9 +131,9 @@ namespace Test.ConsoleProgram.BLL
         }
         public CaseModel Func_Delete() {
             return new CaseModel() {
-                NameSign = @"删除",
+                NameSign = string.Format("删除 数据总数: {0}", rewrite_sum),
                 ExeEvent = () => {
-                    TestModel[] array = new TestModel[RandomData.GetInt(30, 81)];
+                    TestModel[] array = new TestModel[rewrite_sum];
                     for (int i = 0; i < array.Length; i++) {
                         string name = string.Format("第{0}条 - ", i);
                         array[i] = new TestModel() {
@@ -148,22 +150,29 @@ namespace Test.ConsoleProgram.BLL
                         return model.IID % 3 == 0;
                     };
 
-                    bll.Delete(delete_where);
+                    double runtime = RunHelp.GetRunTime(() => {
+                        bll.Delete(delete_where);
+                    });
+                    Console.WriteLine("Delete run time: {0}", runtime);
 
                     TestModel[] answer_array = ConvertTool.ListConvertType<TestModel, TestModel>(array, model => {
                         return delete_where(model) ? null : model;
                     }, null);
 
                     TestModel[] query_result = bll.Select(0, model => true);
-                    return this.IsIEnumerableEqual(answer_array, query_result, func_isEquals: TestModelIsEqual);
+                    return new VerifyIList<TestModel, TestModel>(VerifyIList<TestModel, TestModel>.CalcWay.Random) {
+                        Answer = answer_array,
+                        Source = query_result,
+                        Func_isEquals = TestModelIsEqual,
+                    }.Calc();
                 },
             };
         }
         public CaseModel Func_Update() {
             return new CaseModel() {
-                NameSign = @"更改",
+                NameSign = string.Format("更改 数据总数: {0}", rewrite_sum),
                 ExeEvent = () => {
-                    TestModel[] array = new TestModel[RandomData.GetInt(30, 81)];
+                    TestModel[] array = new TestModel[rewrite_sum];
                     for (int i = 0; i < array.Length; i++) {
                         string name = string.Format("第{0}条 - ", i);
                         array[i] = new TestModel() {
@@ -186,14 +195,21 @@ namespace Test.ConsoleProgram.BLL
                         return copy_model;
                     };
 
-                    bll.Update(update_where);
+                    double runtime = RunHelp.GetRunTime(() => {
+                        bll.Update(update_where);
+                    });
+                    Console.WriteLine("Update run time: {0}", runtime);
 
                     TestModel[] answer_array = ConvertTool.ListConvertType<TestModel, TestModel>(array, model => {
                         return update_where(model);
                     });
 
                     TestModel[] query_result = bll.Select(0, model => true);
-                    return this.IsIEnumerableEqual(answer_array, query_result, func_isEquals: TestModelIsEqual);
+                    return new VerifyIList<TestModel, TestModel>(VerifyIList<TestModel, TestModel>.CalcWay.Random) {
+                        Answer = answer_array,
+                        Source = query_result,
+                        Func_isEquals = TestModelIsEqual,
+                    }.Calc();
                 },
             };
         }
