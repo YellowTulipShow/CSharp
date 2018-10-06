@@ -15,6 +15,8 @@ namespace YTS.Engine.IOAccess
 
         public abstract bool Insert(M model);
 
+        public abstract bool Insert(M[] models);
+
         public abstract bool Delete(W where);
 
         public abstract bool Update(Model.KeyObject[] kos, W where);

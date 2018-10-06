@@ -71,6 +71,10 @@ namespace YTS.DAL
             }
             return CreateSQL.Insert(this.GetTableName(), fieldArr.ToArray(), valueArr.ToArray(), isResultID);
         }
+        public override bool Insert(M[] models) {
+            string[] sql_inserts = ConvertTool.ListConvertType(models, (model) => SQLInsert(model, false));
+            return Transaction(sql_inserts);
+        }
 
         public string ModelValueToDataBaseValue(object model_value) {
             if (CheckData.IsTypeValue<DateTime>(model_value)) {

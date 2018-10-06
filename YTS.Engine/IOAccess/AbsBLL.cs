@@ -18,6 +18,10 @@ namespace YTS.Engine.IOAccess
             return this.SelfDAL.Insert(model);
         }
 
+        public bool Insert(M[] models) {
+            return this.SelfDAL.Insert(models);
+        }
+
         public bool Delete(W where) {
             return this.SelfDAL.Delete(where);
         }

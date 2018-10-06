@@ -8,6 +8,8 @@ namespace YTS.Engine.IOAccess
     {
         bool Insert(M model);
 
+        bool Insert(M[] models);
+
         bool Delete(W where);
 
         bool Update(KeyObject[] kos, W where);

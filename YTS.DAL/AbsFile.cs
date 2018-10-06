@@ -6,8 +6,7 @@ using YTS.Tools;
 
 namespace YTS.DAL
 {
-    public class AbsFile<M> :
-        IShineUponInsert<M>
+    public class AbsFile<M>
         where M : Model.File.AbsFile
     {
         /// <summary>
@@ -30,6 +29,8 @@ namespace YTS.DAL
             this.FileShare = fileShare;
         }
 
+
+        #region === read / write ===
         public void Init() {
             this.AbsFilePath = CreateGetFilePaht();
         }
@@ -53,6 +54,52 @@ namespace YTS.DAL
             File.Delete(AbsFilePath);
             File.Create(AbsFilePath).Close();
         }
+
+        public void Write(IList<M> models) {
+            Write<M>(models, ModelToString);
+        }
+        public void Write(IList<string> lines) {
+            Write<string>(lines, str => str);
+        }
+        public void Write<T>(IList<T> list, Func<T, string> tolineMethod) {
+            if (CheckData.IsSizeEmpty(list)) {
+                throw new Exception(@"写入内容为空");
+            }
+            if (CheckData.IsObjectNull(tolineMethod)) {
+                throw new Exception(@"转换方法为空");
+            }
+            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
+                    for (int i = 0; i < list.Count; i++) {
+                        string line = tolineMethod(list[i]);
+                        sw.WriteLine(line);
+                    }
+                    sw.Flush();
+                }
+            }
+        }
+        public T[] Read<T>(Func<string, int, T> where) {
+            List<T> list = new List<T>();
+            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
+                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                    string line = string.Empty;
+                    while ((line = sr.ReadLine()) != null) {
+                        T value = default(T);
+                        try {
+                            value = where(line, list.Count);
+                        } catch (Exception) {
+                            break;
+                        }
+                        if (CheckData.IsObjectNull(value)) {
+                            continue; // 剔除空值
+                        }
+                        list.Add(value);
+                    }
+                }
+            }
+            return list.ToArray();
+        }
+        #endregion
 
         public virtual bool Insert(M model) {
             return Insert(new M[] { model });
@@ -185,51 +232,6 @@ namespace YTS.DAL
         public virtual M GetModel(Func<M, bool> where) {
             M[] list = Select(1, where);
             return (CheckData.IsSizeEmpty(list)) ? null : list[0];
-        }
-
-        public void Write(IList<M> models) {
-            Write<M>(models, ModelToString);
-        }
-        public void Write(IList<string> lines) {
-            Write<string>(lines, str => str);
-        }
-        public void Write<T>(IList<T> list, Func<T, string> tolineMethod) {
-            if (CheckData.IsSizeEmpty(list)) {
-                throw new Exception(@"写入内容为空");
-            }
-            if (CheckData.IsObjectNull(tolineMethod)) {
-                throw new Exception(@"转换方法为空");
-            }
-            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
-                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
-                    for (int i = 0; i < list.Count; i++) {
-                        string line = tolineMethod(list[i]);
-                        sw.WriteLine(line);
-                    }
-                    sw.Flush();
-                }
-            }
-        }
-        public T[] Read<T>(Func<string, int, T> where) {
-            List<T> list = new List<T>();
-            using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
-                    string line = string.Empty;
-                    while ((line = sr.ReadLine()) != null) {
-                        T value = default(T);
-                        try {
-                            value = where(line, list.Count);
-                        } catch (Exception) {
-                            break;
-                        }
-                        if (CheckData.IsObjectNull(value)) {
-                            continue; // 剔除空值
-                        }
-                        list.Add(value);
-                    }
-                }
-            }
-            return list.ToArray();
         }
     }
 }
