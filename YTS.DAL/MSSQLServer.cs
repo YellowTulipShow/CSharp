@@ -15,9 +15,10 @@ namespace YTS.DAL
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     public class MSSQLServer<M> :
-        AbsDAL<M>,
+        YTS.Engine.IOAccess.AbsDAL<M, string>,
         ITableName,
-        IDataBaseResult<M>
+        IDataBaseResult<M>,
+        ISupplementaryStructure
         where M : AbsTable
     {
         /// <summary>
@@ -49,11 +50,6 @@ namespace YTS.DAL
         #endregion
 
         #region ====== using:IBasicDataAccess<M> ======
-        /// <summary>
-        /// 插入一条数据
-        /// </summary>
-        /// <param name="model">数据来源</param>
-        /// <returns>是否成功</returns>
         public override bool Insert(M model) {
             string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
@@ -76,11 +72,6 @@ namespace YTS.DAL
             return CreateSQL.Insert(this.GetTableName(), fieldArr.ToArray(), valueArr.ToArray(), isResultID);
         }
 
-        /// <summary>
-        /// 将映射模型的值转为数据库识别的数据值
-        /// </summary>
-        /// <param name="model_value">需要转化的映射模型值</param>
-        /// <returns>数据库数据值</returns>
         public string ModelValueToDataBaseValue(object model_value) {
             if (CheckData.IsTypeValue<DateTime>(model_value)) {
                 return ((DateTime)model_value).ToString(Model.Const.Format.DATETIME_MILLISECOND);
@@ -91,11 +82,6 @@ namespace YTS.DAL
             return ConvertTool.ObjToString(model_value);
         }
 
-        /// <summary>
-        /// 删除数据
-        /// </summary>
-        /// <param name="where">删除条件</param>
-        /// <returns>是否成功</returns>
         public override bool Delete(string where) {
             if (CheckData.IsStringNull(where)) {
                 return false;
@@ -104,20 +90,15 @@ namespace YTS.DAL
             return CheckData.IsStringNull(sqldelete) ? false : DbHelperSQL.ExecuteSql(sqldelete) > 0;
         }
 
-        /// <summary>
-        /// 更新数据
-        /// </summary>
-        /// <param name="keyvaluedic">更新的内容和其值</param>
-        /// <param name="where">筛选更新的条件</param>
-        /// <returns>是否成功</returns>
-        public override bool Update(KeyString[] keyvaluedic, string where) {
-            if (CheckData.IsSizeEmpty(keyvaluedic) || CheckData.IsStringNull(where)) {
+        public override bool Update(KeyObject[] kos, string where) {
+            if (CheckData.IsSizeEmpty(kos) || CheckData.IsStringNull(where)) {
                 return false;
             }
-            string[] expressions = ConvertTool.ListConvertType(keyvaluedic, item => {
+            string[] expressions = ConvertTool.ListConvertType(kos, item => {
                 if (CheckData.IsStringNull(item.Key)) {
                     return null;
                 }
+                string str_value = ModelValueToDataBaseValue(item.Value);
                 return string.Format("{0} = '{1}'", item.Key, item.Value);
             }, null);
             string set_str = ConvertTool.IListToString(expressions, ',');
@@ -125,29 +106,15 @@ namespace YTS.DAL
             return CheckData.IsStringNull(sql_update) ? false : DbHelperSQL.ExecuteSql(sql_update) > 0;
         }
 
-        /// <summary>
-        /// 查询数据
-        /// </summary>
-        /// <param name="top">返回的记录数</param>
-        /// <param name="where">查询条件</param>
-        /// <param name="sort">排序条件</param>
-        /// <returns>映射数据模型列表</returns>
-        public override M[] Select(int top = 0, string where = null, string sort = null) {
-            DataSet ds = QueryRecords(top, where, sort);
+        public override M[] Select(int top, string where, KeyBoolean[] sorts) {
+            string sort_order = CreateSQL.OrderBySimp(sorts);
+            DataSet ds = QueryRecords(top, where, sort_order);
             return DataSetToModels(ds);
         }
 
-        /// <summary>
-        /// 分页查询数据
-        /// </summary>
-        /// <param name="pageCount">定义: 每页记录数</param>
-        /// <param name="pageIndex">定义: 浏览到第几页</param>
-        /// <param name="recordCount">得到: 总记录数</param>
-        /// <param name="where">定义: 查询条件</param>
-        /// <param name="sort">定义: 字段排序集合, true 为正序, false 倒序</param>
-        /// <returns>映射数据模型列表</returns>
-        public override M[] Select(int pageCount, int pageIndex, out int recordCount, string where = null, string sort = null) {
-            DataSet ds = QueryRecords(pageCount, pageIndex, out recordCount, where, sort);
+        public override M[] Select(int pageCount, int pageIndex, out int recordCount, string where, KeyBoolean[] sorts) {
+            string sort_order = CreateSQL.OrderBySimp(sorts);
+            DataSet ds = QueryRecords(pageCount, pageIndex, out recordCount, where, sort_order);
             return DataSetToModels(ds);
         }
 
@@ -271,13 +238,13 @@ namespace YTS.DAL
         /// 是否补全结构
         /// </summary>
         /// <returns>MSQLServer需要补全结构</returns>
-        public override bool IsNeedSupplementary() {
+        public virtual bool IsNeedSupplementary() {
             return true;
         }
         /// <summary>
         /// 执行补全
         /// </summary>
-        public override void ExecutionSupplementary() {
+        public virtual void ExecutionSupplementary() {
             // sql if 判断条件 判断表是否不存在
             string str_if_where = CreateSQL.NotExists(CreateSQL.MSSSysTable(GetTableName()));
             // sql 列的名称 和 数据类型格式 数据源集合

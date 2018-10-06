@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Reflection;
 using YTS.Model.Attribute;
+using YTS.Tools;
 
 namespace YTS.Engine
 {
     /// <summary>
     /// 抽象信息模型-映射解析
     /// </summary>
-    public abstract class AbsInfo_ShineUpon : Model.AbsBasicDataModel
+    public abstract class AbsInfo_ShineUpon : Tools.AbsBasicDataModel
     {
         /// <summary>
         /// 名称
@@ -18,8 +19,8 @@ namespace YTS.Engine
         /// <summary>
         /// 解释翻译信息
         /// </summary>
-        public Model.Attribute.ExplainAttribute Explain { get { return _explain; } set { _explain = value; } }
-        private Model.Attribute.ExplainAttribute _explain = null;
+        public ExplainAttribute Explain { get { return _explain; } set { _explain = value; } }
+        private ExplainAttribute _explain = null;
 
         /// <summary>
         /// 属性信息

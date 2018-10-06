@@ -1,7 +1,6 @@
 ﻿using System;
 using YTS.DAL;
 using YTS.Model;
-using YTS.Model.Table;
 using YTS.Tools;
 
 namespace YTS.BLL

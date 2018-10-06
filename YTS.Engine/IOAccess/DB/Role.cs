@@ -2,22 +2,23 @@
 using YTS.Model.Attribute;
 using YTS.Model.Table;
 using YTS.Model.Table.Attribute;
+using YTS.Tools;
 
 namespace YTS.Model.DB
 {
     /// <summary>
-    /// 数据模型类: 组别
+    /// 数据模型类: 角色
     /// </summary>
-    [Explain(@"组别")]
+    [Explain(@"角色")]
     [EntityTable]
-    public class Group : AbsTable_StringID
+    public class Role : AbsTable_StringID
     {
         public override Const.Enums.UseCodeMark GetUseCode() {
-            return Const.Enums.UseCodeMark.Group;
+            return Const.Enums.UseCodeMark.Role;
         }
 
         public override string GetTableName() {
-            return @"dt_Group";
+            return @"dt_Role";
         }
 
         #region === Model ===

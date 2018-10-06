@@ -46,7 +46,7 @@ namespace YTS.BLL
         /// <param name="keyvaluedic">更新的内容和其值</param>
         /// <param name="sid">ID条件</param>
         /// <returns>是否成功</returns>
-        public virtual bool IDUpdate(KeyString[] keyvaluedic, string sid) {
+        public virtual bool IDUpdate(KeyObject[] keyvaluedic, string sid) {
             return this.SelfDAL.IDUpdate(keyvaluedic, sid);
         }
 

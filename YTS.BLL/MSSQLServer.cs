@@ -14,7 +14,7 @@ namespace YTS.BLL
     /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
     public class MSSQLServer<D, M> :
-        AbsBLL<D, M>,
+        YTS.Engine.IOAccess.AbsBLL<M, D, string>,
         ITableName,
         DAL.IDataBaseResult<M>
         where D : DAL.MSSQLServer<M>

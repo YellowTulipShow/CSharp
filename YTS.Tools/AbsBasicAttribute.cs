@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.Attribute
+namespace YTS.Tools
 {
     /// <summary>
     /// 抽象-基础 '特性'

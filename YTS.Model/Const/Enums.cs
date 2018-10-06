@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YTS.Model.Attribute;
+using YTS.Tools;
 
 namespace YTS.Model.Const
 {

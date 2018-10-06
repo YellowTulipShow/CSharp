@@ -49,7 +49,7 @@ namespace Test.ConsoleProgram
         /// 数据库测试
         /// </summary>
         public CaseModel[] GetList_NeedUseDataBase() {
-            return new CaseModel[] { };
+            //return new CaseModel[] { };
             return new CaseModel[] {
                 new BLL.Test_MSSQLServer_StringID(),
             };

@@ -78,7 +78,7 @@ namespace Test.ConsoleProgram.Tools
                     };
 
                     // 执行克隆
-                    TestModel two = (TestModel)one.CloneModelData();
+                    TestModel two = ReflexHelp.CloneProperties(one);
                     
                     // 检查与原来是否一样
                     if (!two.id.Equals(one.id)) {

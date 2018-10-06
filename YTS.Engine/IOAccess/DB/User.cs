@@ -1,7 +1,9 @@
 ﻿using System;
+using YTS.Model;
 using YTS.Model.Attribute;
 using YTS.Model.Table;
 using YTS.Model.Table.Attribute;
+using YTS.Tools;
 
 namespace YTS.Model.DB
 {

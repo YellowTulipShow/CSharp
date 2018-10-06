@@ -31,7 +31,7 @@ namespace YTS.DAL
         /// <param name="keyvaluedic">更新的内容和其值</param>
         /// <param name="sid">ID条件</param>
         /// <returns>是否成功</returns>
-        bool IDUpdate(KeyString[] keyvaluedic, string sid);
+        bool IDUpdate(KeyObject[] keyvaluedic, string sid);
 
         /// <summary>
         /// 获取模型数据

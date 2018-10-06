@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using YTS.Model.Attribute;
 using YTS.Model.Const;
 using YTS.Model.Table.Attribute;
 using YTS.Tools;

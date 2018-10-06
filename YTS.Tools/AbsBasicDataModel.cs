@@ -1,7 +1,6 @@
 ﻿using System;
-using YTS.Tools;
 
-namespace YTS.Model
+namespace YTS.Tools
 {
     /// <summary>
     /// 基础数据模型
@@ -10,20 +9,6 @@ namespace YTS.Model
     public abstract class AbsBasicDataModel
     {
         public AbsBasicDataModel() { }
-
-        /// <summary>
-        /// 深度克隆一个数据模型对象
-        /// </summary>
-        public AbsBasicDataModel CloneModelData() {
-            return ReflexHelp.CloneProperties(this);
-        }
-
-        /// <summary>
-        /// 输出为 JSON 格式字符串数据
-        /// </summary>
-        public string ToJSONString() {
-            return JSON.SerializeObject(this);
-        }
 
         #region ====== Is Can Use Model ======
         /// <summary>

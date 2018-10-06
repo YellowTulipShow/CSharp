@@ -51,6 +51,34 @@
     <Compile Include="DataBase\MSQLServer\PagingHelper.cs" />
     <Compile Include="FileField\FieldInfo.cs" />
     <Compile Include="FileField\FieldModelParser.cs" />
+    <Compile Include="IOAccess\AbsBLL.cs" />
+    <Compile Include="IOAccess\AbsDAL.cs" />
+    <Compile Include="IOAccess\AbsShineUpon.cs" />
+    <Compile Include="IOAccess\Attribute\ShineUponModelAttribute.cs" />
+    <Compile Include="IOAccess\Attribute\ShineUponPropertyAttribute.cs" />
+    <Compile Include="IOAccess\DB\Article.cs" />
+    <Compile Include="IOAccess\DB\Group.cs" />
+    <Compile Include="IOAccess\DB\Permissions.cs" />
+    <Compile Include="IOAccess\DB\Role.cs" />
+    <Compile Include="IOAccess\DB\User.cs" />
+    <Compile Include="IOAccess\File\AbsFile.cs" />
+    <Compile Include="IOAccess\File\Attribute\EntityFileAttribute.cs" />
+    <Compile Include="IOAccess\File\Attribute\FieldAttribute.cs" />
+    <Compile Include="IOAccess\File\IFileName.cs" />
+    <Compile Include="IOAccess\IBLL.cs" />
+    <Compile Include="IOAccess\IDAL.cs" />
+    <Compile Include="IOAccess\IModel.cs" />
+    <Compile Include="IOAccess\IWhere.cs" />
+    <Compile Include="IOAccess\Table\AbsTable.cs" />
+    <Compile Include="IOAccess\Table\AbsTable_IntID.cs" />
+    <Compile Include="IOAccess\Table\AbsTable_Remark.cs" />
+    <Compile Include="IOAccess\Table\AbsTable_StringID.cs" />
+    <Compile Include="IOAccess\Table\AbsTable_TimeAdd.cs" />
+    <Compile Include="IOAccess\Table\Attribute\BasicTableAttribute.cs" />
+    <Compile Include="IOAccess\Table\Attribute\ColumnAttribute.cs" />
+    <Compile Include="IOAccess\Table\Attribute\EntityTableAttribute.cs" />
+    <Compile Include="IOAccess\Table\Attribute\ViewTableAttribute.cs" />
+    <Compile Include="IOAccess\Table\ITableName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

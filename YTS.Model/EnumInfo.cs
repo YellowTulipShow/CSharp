@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using YTS.Model.Attribute;
+using YTS.Tools;
 
 namespace YTS.Model
 {

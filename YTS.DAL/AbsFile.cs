@@ -87,7 +87,6 @@ namespace YTS.DAL
             if (CheckData.IsObjectNull(where)) {
                 return true;
             }
-
             M[] sava_models = Read<M>((line, rlen) => {
                 // 筛选符合规则的数据行
                 M model = StringToModel(line);

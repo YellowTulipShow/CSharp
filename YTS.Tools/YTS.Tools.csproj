@@ -46,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsBasicAttribute.cs" />
+    <Compile Include="AbsBasicDataModel.cs" />
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CheckData.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="ConvertTool.cs" />
+    <Compile Include="ExplainAttribute.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="JSON.cs" />
     <Compile Include="PathHelp.cs" />

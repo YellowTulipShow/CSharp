@@ -60,7 +60,7 @@ namespace YTS.DAL
         /// <param name="keyvaluedic">更新的内容和其值</param>
         /// <param name="id">ID条件</param>
         /// <returns>是否成功</returns>
-        public virtual bool IDUpdate(KeyString[] keyvaluedic, int id) {
+        public virtual bool IDUpdate(KeyObject[] keyvaluedic, int id) {
             return Update(keyvaluedic, CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
 
@@ -70,7 +70,7 @@ namespace YTS.DAL
         /// <param name="id">ID条件</param>
         /// <returns>映射数据模型</returns>
         public virtual M IDGetModel(int id) {
-            return GetModel(CreateSQL.WhereEqual(ColName_IID, id.ToString()));
+            return GetModel(CreateSQL.WhereEqual(ColName_IID, id.ToString()), null);
         }
         #endregion
     }

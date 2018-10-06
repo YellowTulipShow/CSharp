@@ -1,5 +1,5 @@
 ﻿using System;
-using YTS.Model.Attribute;
+using YTS.Tools;
 
 namespace YTS.Model.Const
 {

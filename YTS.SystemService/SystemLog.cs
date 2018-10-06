@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using YTS.Tools;
+using YTS.Model;
 
 namespace YTS.SystemService
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using YTS.Tools;
 
-namespace YTS.Model.Attribute
+namespace YTS.Tools
 {
     /// <summary>
     /// 解释特性 同一程序不能多个解释。

@@ -240,6 +240,20 @@ namespace YTS.Engine.DataBase.MSQLServer
             }
             return order.ToString().Trim(ORDERBY_INTERVALSYMBOL.ToCharArray()).ToString();
         }
+        /// <summary>
+        /// 排序语句(简洁版:适用于GetList): field asc
+        /// </summary>
+        public static string OrderBySimp(KeyBoolean[] kbs) {
+            if (CheckData.IsSizeEmpty(kbs)) {
+                return string.Empty;
+            }
+            StringBuilder order = new StringBuilder();
+            foreach (KeyBoolean item in kbs) {
+                order.Append(OrderBySimp(item.Key, item.Value));
+                order.Append(ORDERBY_INTERVALSYMBOL);
+            }
+            return order.ToString().Trim(ORDERBY_INTERVALSYMBOL.ToCharArray()).ToString();
+        }
         #endregion
 
         #region ====== Update Sentence Function ======

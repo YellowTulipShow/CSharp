@@ -9,7 +9,7 @@ namespace YTS.Model.Attribute
     /// 映射-属性-特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class ShineUponPropertyAttribute : AbsBasicAttribute
+    public class ShineUponPropertyAttribute : Tools.AbsBasicAttribute
     {
         /// <summary>
         /// 是否映射数据
