@@ -39,7 +39,6 @@ namespace Test.ConsoleProgram
                 new Tools.Test_ReflexHelp(),
                 new Model.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
-                new BLL.Test_LocalFileServer(),
                 new Tools.Test_PathHelp(),
                 new BLL.Test_AbsFile(),
             };

@@ -19,7 +19,7 @@ namespace YTS.Engine.IOAccess
 
         public abstract bool Update(Model.KeyObject[] kos, W where);
 
-        public abstract M[] Select(int top, W where, Model.KeyBoolean[] sorts);
+        public abstract M[] Select(int top, W where, Model.KeyBoolean[] sorts = null);
 
         public abstract M[] Select(int pageCount, int pageIndex, out int recordCount, W where, Model.KeyBoolean[] sorts);
 
