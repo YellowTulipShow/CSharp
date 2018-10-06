@@ -138,19 +138,22 @@ namespace Test.ConsoleProgram.Engine
                     YTS.Model.KeyString[] keys = T.Answer_ColumnInfos();
                     YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetColumn_ALL();
 
-                    return IsIEnumerableEqual(keys, columns,
-                        func_isEquals: (item, info) => {
+                    return new VerifyIList<YTS.Model.KeyString, YTS.Engine.DataBase.ColumnInfo>(CalcWayEnum.DoubleCycle) {
+                        Answer = keys,
+                        Source = columns,
+                        Func_isEquals = (item, info) => {
                             return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
                                 item.Value == info.Explain.Text &&
                                 !YTS.Tools.CheckData.IsObjectNull(info.Attribute);
                         },
-                        func_lengthNotEquals: (len_key, len_column) => {
+                        Func_lengthNotEquals = (len_key, len_column) => {
                             Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", len_key, len_column);
                         },
-                        func_notFindPrint: (item) => {
+                        Func_notFind = (item) => {
                             Console.WriteLine("Key: {0} Value: {1} 没找到", item.Key, item.Value);
-                        });
+                        },
+                    }.Calc();
                 },
             };
         }
@@ -163,18 +166,21 @@ namespace Test.ConsoleProgram.Engine
                     YTS.Model.KeyString[] keys = F.Answer_FieldInfos();
                     YTS.Engine.LocalFile.FieldInfo[] columns = parser.GetColumn_ALL();
 
-                    return IsIEnumerableEqual(keys, columns,
-                        func_isEquals: (item, info) => {
+                    return new VerifyIList<YTS.Model.KeyString, YTS.Engine.LocalFile.FieldInfo>(CalcWayEnum.DoubleCycle) {
+                        Answer = keys,
+                        Source = columns,
+                        Func_isEquals = (item, info) => {
                             return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
                                 item.Value == info.Explain.Text;
                         },
-                        func_lengthNotEquals: (len_key, len_column) => {
+                        Func_lengthNotEquals = (len_key, len_column) => {
                             Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", len_key, len_column);
                         },
-                        func_notFindPrint: (item) => {
+                        Func_notFind = (item) => {
                             Console.WriteLine("Key: {0} Value: {1} 没找到", item.Key, item.Value);
-                        });
+                        },
+                    }.Calc();
                 },
             };
         }

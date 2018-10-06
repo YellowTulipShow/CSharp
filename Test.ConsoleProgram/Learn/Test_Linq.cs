@@ -20,8 +20,9 @@ namespace Test.ConsoleProgram.Learn
                 NameSign = @"操作数列集合",
                 ExeEvent = () => {
                     IEnumerable<int> es = from i in new int[] { 525, 415, 63, 17, 95, 5, } where i > 100 select i;
+                    List<int> source = new List<int>(es);
                     int[] answer = new int[] { 525, 415 };
-                    if (!IsIEnumerableEqual(answer, es)) {
+                    if (!new VerifyIList<int, int>(CalcWayEnum.DoubleCycle, answer, source).Calc()) {
                         return false;
                     }
                     /*

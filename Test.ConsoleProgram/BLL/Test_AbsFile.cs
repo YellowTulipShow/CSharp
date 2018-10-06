@@ -125,7 +125,11 @@ namespace Test.ConsoleProgram.BLL
                     bll.Delete(null);
                     bll.Insert(array);
                     TestModel[] query_result = bll.Select(0, model => true);
-                    return this.IsIEnumerableEqual(array, query_result, func_isEquals: TestModelIsEqual);
+                    return new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
+                        Answer = array,
+                        Source = query_result,
+                        Func_isEquals = TestModelIsEqual,
+                    }.Calc();
                 },
             };
         }
@@ -160,7 +164,7 @@ namespace Test.ConsoleProgram.BLL
                     }, null);
 
                     TestModel[] query_result = bll.Select(0, model => true);
-                    return new VerifyIList<TestModel, TestModel>(VerifyIList<TestModel, TestModel>.CalcWay.Random) {
+                    return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                         Answer = answer_array,
                         Source = query_result,
                         Func_isEquals = TestModelIsEqual,
@@ -205,7 +209,7 @@ namespace Test.ConsoleProgram.BLL
                     });
 
                     TestModel[] query_result = bll.Select(0, model => true);
-                    return new VerifyIList<TestModel, TestModel>(VerifyIList<TestModel, TestModel>.CalcWay.Random) {
+                    return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                         Answer = answer_array,
                         Source = query_result,
                         Func_isEquals = TestModelIsEqual,
@@ -262,7 +266,12 @@ namespace Test.ConsoleProgram.BLL
                     bll.Delete(null);
                     bll.Insert(array);
 
-                    if (!this.IsIEnumerableEqual(array, bll.Select(0, null), func_isEquals: TestModelIsEqual)) {
+                    VerifyIList<TestModel, TestModel> verify = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle);
+                    verify.Func_isEquals = TestModelIsEqual;
+
+                    verify.Answer = array;
+                    verify.Source = bll.Select(0, null);
+                    if (!verify.Calc()) {
                         Console.WriteLine("0条, 空条件 : 错误");
                         return false;
                     }
@@ -273,7 +282,9 @@ namespace Test.ConsoleProgram.BLL
                     TestModel[] answer_array = ConvertTool.ListConvertType<TestModel, TestModel>(array, model => {
                         return query_where(model) ? model : null;
                     }, null);
-                    if (!this.IsIEnumerableEqual(answer_array, bll.Select(0, query_where), func_isEquals: TestModelIsEqual)) {
+                    verify.Answer = answer_array;
+                    verify.Source = bll.Select(0, query_where);
+                    if (!verify.Calc()) {
                         Console.WriteLine("0条, 有条件 : 错误");
                         return false;
                     }
@@ -282,8 +293,9 @@ namespace Test.ConsoleProgram.BLL
                     for (int i = 0; i < top_answer_array.Length; i++) {
                         top_answer_array[i] = answer_array[i];
                     }
-                    return this.IsIEnumerableEqual(top_answer_array, bll.Select(top_answer_array.Length, query_where),
-                        func_isEquals: TestModelIsEqual);
+                    verify.Answer = top_answer_array;
+                    verify.Source = bll.Select(top_answer_array.Length, query_where);
+                    return verify.Calc();
                 },
             };
         }
@@ -368,7 +380,11 @@ namespace Test.ConsoleProgram.BLL
                             int range_index = page_index * page_size;
                             TestModel[] answer_array = answer_list.GetRange(range_index, range_len).ToArray();
 
-                            bool isby = IsIEnumerableEqual(answer_array, result, func_isEquals: TestModelIsEqual);
+                            bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
+                                Answer = answer_array,
+                                Source = result,
+                                Func_isEquals = TestModelIsEqual,
+                            }.Calc();
                             if (!isby) {
                                 Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 出了问题!", page_size, page_index, record_count);
                                 return false;

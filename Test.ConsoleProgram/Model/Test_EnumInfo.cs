@@ -121,13 +121,16 @@ namespace Test.ConsoleProgram.Model
                         TestEnum.Test,
                     };
                     TestEnum[] source = EnumInfo.GetALLItem<TestEnum>();
-                    return IsIEnumerableEqual(answer, source,
-                        func_isEquals: (a_item, s_item) => {
+                    return new VerifyIList<TestEnum, TestEnum>(CalcWayEnum.DoubleCycle) {
+                        Answer = answer,
+                        Source = source,
+                        Func_isEquals = (a_item, s_item) => {
                             return a_item.ToString() == s_item.ToString();
                         },
-                        func_notFindPrint: (a_item) => {
+                        Func_notFind = (a_item) => {
                             Console.WriteLine("answer item enum name: {0}", a_item.ToString());
-                        });
+                        },
+                    }.Calc();
                 },
             };
         }

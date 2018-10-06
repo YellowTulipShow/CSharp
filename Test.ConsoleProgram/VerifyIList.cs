@@ -6,6 +6,25 @@ using YTS.Tools;
 namespace Test.ConsoleProgram
 {
     /// <summary>
+    /// 计算方法
+    /// </summary>
+    public enum CalcWayEnum
+    {
+        /// <summary>
+        /// 双循环遍历, 对比答案和数据源每一项
+        /// </summary>
+        DoubleCycle,
+        /// <summary>
+        /// 单循环遍历, 对比答案和数据源 Index 相同项
+        /// </summary>
+        SingleCycle,
+        /// <summary>
+        /// 随机对比几个, 第一个和最后一个一定对比
+        /// </summary>
+        Random,
+    }
+
+    /// <summary>
     /// 验证IList泛型列表记录
     /// </summary>
     public class VerifyIList<TA, TS> : AbsBasicDataModel
@@ -80,31 +99,19 @@ namespace Test.ConsoleProgram
         private Func_NotFindPrint<TA> _func_notFind = null;
 
         /// <summary>
-        /// 计算方法
-        /// </summary>
-        public enum CalcWay
-        {
-            /// <summary>
-            /// 双循环遍历, 对比答案和数据源每一项
-            /// </summary>
-            DoubleCycle,
-            /// <summary>
-            /// 单循环遍历, 对比答案和数据源 Index 相同项
-            /// </summary>
-            SingleCycle,
-            /// <summary>
-            /// 随机对比几个, 第一个和最后一个一定对比
-            /// </summary>
-            Random,
-        }
-        /// <summary>
         /// 计算方式
         /// </summary>
-        public CalcWay ArgCalcWay = CalcWay.DoubleCycle;
+        public CalcWayEnum ArgCalcWay = CalcWayEnum.DoubleCycle;
         #endregion
 
-        public VerifyIList(CalcWay calc_way) {
+        public VerifyIList(CalcWayEnum calc_way) {
             this.ArgCalcWay = calc_way;
+        }
+
+        public VerifyIList(CalcWayEnum calc_way, IList<TA> answer, IList<TS> source) {
+            this.ArgCalcWay = calc_way;
+            this.Answer = answer;
+            this.Source = source;
         }
 
         public bool Calc() {
@@ -127,7 +134,7 @@ namespace Test.ConsoleProgram
 
         public Func<bool> GetCalcWayExeMethod() {
             switch (ArgCalcWay) {
-                case CalcWay.DoubleCycle:
+                case CalcWayEnum.DoubleCycle:
                     return () => {
                         foreach (TA a in Answer) {
                             bool isfind = false;
@@ -144,7 +151,7 @@ namespace Test.ConsoleProgram
                         }
                         return true;
                     };
-                case CalcWay.SingleCycle:
+                case CalcWayEnum.SingleCycle:
                     return () => {
                         for (int i = 0; i < Answer.Count; i++) {
                             if (!Func_isEquals(Answer[i], Source[i])) {
@@ -154,7 +161,7 @@ namespace Test.ConsoleProgram
                         }
                         return true;
                     };
-                case CalcWay.Random:
+                case CalcWayEnum.Random:
                     return () => {
                         List<int> list = new List<int>();
                         list.Add(0);
