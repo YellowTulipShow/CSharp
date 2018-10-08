@@ -7,7 +7,6 @@ using System.Text;
 using YTS.Model;
 using YTS.Model.Attribute;
 using YTS.Model.File;
-using YTS.Model.File.Attribute;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Learn

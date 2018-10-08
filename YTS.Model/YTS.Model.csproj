@@ -54,8 +54,8 @@
     <Compile Include="DB\Table\Role.cs" />
     <Compile Include="DB\Table\User.cs" />
     <Compile Include="File\AbsFile.cs" />
-    <Compile Include="File\Attribute\EntityFileAttribute.cs" />
-    <Compile Include="File\Attribute\FieldAttribute.cs" />
+    <Compile Include="File\EntityFileAttribute.cs" />
+    <Compile Include="File\FieldAttribute.cs" />
     <Compile Include="File\IFileName.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyBoolean.cs" />

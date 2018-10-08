@@ -4,10 +4,9 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using YTS.Model;
-using YTS.Model.Attribute;
-using YTS.Model.File;
-using YTS.Model.File.Attribute;
+using YTS.Engine.IOAccess;
 using YTS.Tools;
+using YTS.Model.File;
 
 namespace Test.ConsoleProgram.BLL
 {
@@ -77,10 +76,10 @@ namespace Test.ConsoleProgram.BLL
         }
         #endregion
 
-        public YTS.BLL.AbsFile<TestModel, YTS.DAL.AbsFile<TestModel>> bll = null;
+        public BLL_LocalFile<TestModel, DAL_LocalFile<TestModel>> bll = null;
 
         public Test_AbsFile() {
-            bll = new YTS.BLL.AbsFile<TestModel, YTS.DAL.AbsFile<TestModel>>();
+            bll = new BLL_LocalFile<TestModel, DAL_LocalFile<TestModel>>();
 
             NameSign = @"文件DAL";
             SonCases = new CaseModel[] {
@@ -124,7 +123,7 @@ namespace Test.ConsoleProgram.BLL
 
                     bll.Delete(null);
                     bll.Insert(array);
-                    TestModel[] query_result = bll.Select(0, model => true);
+                    TestModel[] query_result = bll.Select(0, model => true, null);
                     return new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                         Answer = array,
                         Source = query_result,
@@ -163,7 +162,7 @@ namespace Test.ConsoleProgram.BLL
                         return delete_where(model) ? null : model;
                     }, null);
 
-                    TestModel[] query_result = bll.Select(0, model => true);
+                    TestModel[] query_result = bll.Select(0, model => true, null);
                     return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                         Answer = answer_array,
                         Source = query_result,
@@ -200,7 +199,16 @@ namespace Test.ConsoleProgram.BLL
                     };
 
                     double runtime = RunHelp.GetRunTime(() => {
-                        bll.Update(update_where);
+                        bll.Update(new KeyObject[] {
+                            new KeyObject() {
+                                Key = @"Name",
+                                Value = @"3的倍数IID名称和发布时间更改",
+                            },
+                            new KeyObject() {
+                                Key = @"TimeRelease",
+                                Value = release_time,
+                            },
+                        }, (model) => model.IID % 3 == 0);
                     });
                     Console.WriteLine("Update run time: {0}", runtime);
 
@@ -208,7 +216,7 @@ namespace Test.ConsoleProgram.BLL
                         return update_where(model);
                     });
 
-                    TestModel[] query_result = bll.Select(0, model => true);
+                    TestModel[] query_result = bll.Select(0, model => true, null);
                     return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                         Answer = answer_array,
                         Source = query_result,
@@ -270,7 +278,7 @@ namespace Test.ConsoleProgram.BLL
                     verify.Func_isEquals = TestModelIsEqual;
 
                     verify.Answer = array;
-                    verify.Source = bll.Select(0, null);
+                    verify.Source = bll.Select(0, null, null);
                     if (!verify.Calc()) {
                         Console.WriteLine("0条, 空条件 : 错误");
                         return false;
@@ -283,7 +291,7 @@ namespace Test.ConsoleProgram.BLL
                         return query_where(model) ? model : null;
                     }, null);
                     verify.Answer = answer_array;
-                    verify.Source = bll.Select(0, query_where);
+                    verify.Source = bll.Select(0, query_where, null);
                     if (!verify.Calc()) {
                         Console.WriteLine("0条, 有条件 : 错误");
                         return false;
@@ -294,7 +302,7 @@ namespace Test.ConsoleProgram.BLL
                         top_answer_array[i] = answer_array[i];
                     }
                     verify.Answer = top_answer_array;
-                    verify.Source = bll.Select(top_answer_array.Length, query_where);
+                    verify.Source = bll.Select(top_answer_array.Length, query_where, null);
                     return verify.Calc();
                 },
             };
@@ -316,7 +324,7 @@ namespace Test.ConsoleProgram.BLL
                     bll.Delete(null);
                     bll.Insert(array);
 
-                    TestModel result_model = bll.GetModel(null);
+                    TestModel result_model = bll.GetModel(null, null);
                     if (!TestModelIsEqual(array[0], result_model)) {
                         Console.WriteLine("空条件错误");
                         return false;
@@ -329,7 +337,7 @@ namespace Test.ConsoleProgram.BLL
                         return query_where(model) ? model : null;
                     }, null);
 
-                    result_model = bll.GetModel(query_where);
+                    result_model = bll.GetModel(query_where, null);
                     if (!TestModelIsEqual(answer_array[0], result_model)) {
                         Console.WriteLine("有条件错误");
                         return false;
@@ -371,7 +379,7 @@ namespace Test.ConsoleProgram.BLL
 
                         for (int page_index = 0; page_index < sum_page_num; page_index++) {
                             int record_count = 0;
-                            TestModel[] result = bll.Select(page_size, page_index + 1, out record_count, where);
+                            TestModel[] result = bll.Select(page_size, page_index + 1, out record_count, where, null);
 
                             int range_len = page_size;
                             if (page_index == sum_page_num - 1 && page_size > remainder_num && remainder_num != 0) {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.File.Attribute
+namespace YTS.Model.File
 {
     /// <summary>
     /// 文件字段特性  同一程序不能多个解释。无法继承此类。

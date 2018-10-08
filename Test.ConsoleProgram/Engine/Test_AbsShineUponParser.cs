@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YTS.Model.DB;
-using YTS.Model.File.Attribute;
+using YTS.Model.File;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Engine
