@@ -27,9 +27,6 @@ namespace YTS.Tools.Const
         /// </summary>
         public const string FileUrlsConfigPath = "Urlspath";
 
-        #region ====== Table DateTime Format ======
-        #endregion
-
         #region 以前的
         //系统版本
         /// <summary>

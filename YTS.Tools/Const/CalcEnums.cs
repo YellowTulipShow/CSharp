@@ -23,6 +23,12 @@ namespace YTS.Tools.Const
             /// </summary>
             [Explain("或(or)")]
             Or = 1,
+
+            /// <summary>
+            /// 非(not)
+            /// </summary>
+            [Explain("非(not)")]
+            Not = 2,
         }
 
         /// <summary>
