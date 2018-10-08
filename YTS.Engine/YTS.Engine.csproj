@@ -49,8 +49,8 @@
     <Compile Include="DataBase\MSQLServer\CreateSQL.cs" />
     <Compile Include="DataBase\MSQLServer\DbHelperSQL.cs" />
     <Compile Include="DataBase\MSQLServer\PagingHelper.cs" />
-    <Compile Include="FileField\FieldInfo.cs" />
-    <Compile Include="FileField\FieldModelParser.cs" />
+    <Compile Include="LocalFile\FieldInfo.cs" />
+    <Compile Include="LocalFile\FieldModelParser.cs" />
     <Compile Include="IOAccess\AbsBLL.cs" />
     <Compile Include="IOAccess\AbsDAL.cs" />
     <Compile Include="IOAccess\BLL_LocalFile.cs" />

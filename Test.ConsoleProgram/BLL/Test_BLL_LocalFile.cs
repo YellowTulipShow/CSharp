@@ -10,7 +10,7 @@ using YTS.Model.File;
 
 namespace Test.ConsoleProgram.BLL
 {
-    public class Test_AbsFile : CaseModel
+    public class Test_BLL_LocalFile : CaseModel
     {
 
         #region === Model ===
@@ -78,7 +78,7 @@ namespace Test.ConsoleProgram.BLL
 
         public BLL_LocalFile<TestModel, DAL_LocalFile<TestModel>> bll = null;
 
-        public Test_AbsFile() {
+        public Test_BLL_LocalFile() {
             bll = new BLL_LocalFile<TestModel, DAL_LocalFile<TestModel>>();
 
             NameSign = @"文件DAL";
@@ -192,7 +192,7 @@ namespace Test.ConsoleProgram.BLL
                     Func<TestModel, TestModel> update_where = (model) => {
                         TestModel copy_model = ReflexHelp.CloneProperties<TestModel>(model);
                         if (copy_model.IID % 3 == 0) {
-                            copy_model.Name = string.Format("第{0}条: 3的倍数IID名称和发布时间更改", model.IID);
+                            copy_model.Name = @"3的倍数IID名称和发布时间更改";
                             copy_model.TimeRelease = release_time;
                         }
                         return copy_model;

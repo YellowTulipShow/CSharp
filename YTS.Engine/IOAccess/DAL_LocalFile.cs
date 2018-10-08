@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using YTS.Engine.LocalFile;
+using YTS.Model;
 using YTS.Tools;
 
 namespace YTS.Engine.IOAccess
@@ -32,8 +34,11 @@ namespace YTS.Engine.IOAccess
         public FileShare FileShare { get { return _FileShare; } set { _FileShare = value; } }
         private FileShare _FileShare = FileShare.Read;
 
+        public FieldModelParser<M> Parser = null;
+
         public void Init() {
             this.AbsFilePath = CreateGetFilePaht();
+            this.Parser = new FieldModelParser<M>();
         }
 
         public string CreateGetFilePaht() {
@@ -102,8 +107,6 @@ namespace YTS.Engine.IOAccess
         }
         #endregion
 
-
-
         public override bool Insert(M model) {
             return Insert(new M[] { model });
         }
@@ -133,34 +136,33 @@ namespace YTS.Engine.IOAccess
             return true;
         }
 
-        public override bool Update(Model.KeyObject[] kos, Func<M, bool> where) {
-            if (CheckData.IsObjectNull(where)) {
+        public override bool Update(KeyObject[] kos, Func<M, bool> where) {
+            if (CheckData.IsSizeEmpty(kos) || CheckData.IsObjectNull(where)) {
                 return true;
             }
+
+            Dictionary<string, FieldInfo> dicinfos = Parser.GetAnalyticalResult();
             M[] sava_models = Read<M>((line, rlen) => {
                 // 筛选符合规则的数据行
                 M model = StringToModel(line);
                 if (CheckData.IsObjectNull(model)) {
                     return null;
                 }
-                if (!where(model)) {
-                    return null;
+                if (where(model)) {
+                    foreach (KeyObject ko in kos) {
+                        if (dicinfos.ContainsKey(ko.Key)) {
+                            Parser.SetModelValue(dicinfos[ko.Key], model, ko.Value);
+                        }
+                    }
                 }
-
-
-
-                //model = where(model);
-                //if (CheckData.IsObjectNull(model)) {
-                //    return null;
-                //}
-                //return model;
+                return model;
             });
             Clear();
             Write(sava_models);
             return true;
         }
 
-        public override M[] Select(int top, Func<M, bool> where, Model.KeyBoolean[] sorts = null) {
+        public override M[] Select(int top, Func<M, bool> where, KeyBoolean[] sorts = null) {
             if (CheckData.IsObjectNull(where)) {
                 where = model => true;
             }

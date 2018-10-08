@@ -208,7 +208,7 @@ namespace YTS.Engine.IOAccess
                 return null;
             }
             M model = ReflexHelp.CreateNewObject<M>();
-            ColumnInfo[] columninfos = this.modelParser.GetColumn_ALL();
+            ColumnInfo[] columninfos = this.modelParser.GetSortResult();
             foreach (ColumnInfo item in columninfos) {
                 if (CheckData.IsObjectNull(item)) {
                     continue;
@@ -265,7 +265,7 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnInfo item in this.modelParser.GetColumn_ALL()) {
+            foreach (ColumnInfo item in this.modelParser.GetSortResult()) {
                 string fieldName = item.Property.Name;
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;

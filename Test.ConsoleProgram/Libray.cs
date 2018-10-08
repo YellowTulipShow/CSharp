@@ -40,7 +40,7 @@ namespace Test.ConsoleProgram
                 new Model.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
-                new BLL.Test_AbsFile(),
+                new BLL.Test_BLL_LocalFile(),
             };
         }
 

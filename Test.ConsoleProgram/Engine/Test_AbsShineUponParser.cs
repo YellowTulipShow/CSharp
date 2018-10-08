@@ -137,7 +137,7 @@ namespace Test.ConsoleProgram.Engine
                 ExeEvent = () => {
                     YTS.Engine.DataBase.ColumnModelParser<T> parser = new YTS.Engine.DataBase.ColumnModelParser<T>();
                     YTS.Model.KeyString[] keys = T.Answer_ColumnInfos();
-                    YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetColumn_ALL();
+                    YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetSortResult();
 
                     return new VerifyIList<YTS.Model.KeyString, YTS.Engine.DataBase.ColumnInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
@@ -165,7 +165,7 @@ namespace Test.ConsoleProgram.Engine
                 ExeEvent = () => {
                     YTS.Engine.LocalFile.FieldModelParser<F> parser = new YTS.Engine.LocalFile.FieldModelParser<F>();
                     YTS.Model.KeyString[] keys = F.Answer_FieldInfos();
-                    YTS.Engine.LocalFile.FieldInfo[] columns = parser.GetColumn_ALL();
+                    YTS.Engine.LocalFile.FieldInfo[] columns = parser.GetSortResult();
 
                     return new VerifyIList<YTS.Model.KeyString, YTS.Engine.LocalFile.FieldInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,

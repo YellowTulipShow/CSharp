@@ -28,13 +28,6 @@ namespace YTS.Tools
         #endregion
 
         #region  ====== Is Size Empty ======
-        ///// <summary>
-        ///// 判断是否: ICollection 数据集合 大小 为 '空'
-        ///// </summary>
-        //public static bool IsSizeEmpty(this ICollection icoll) {
-        //    return IsObjectNull(icoll) || icoll.Count <= 0;
-        //}
-
         /// <summary>
         /// 判断是否: IList.T 泛型集合 大小 为 '空'
         /// </summary>
@@ -64,6 +57,12 @@ namespace YTS.Tools
         /// </summary>
         public static bool IsSizeEmpty(this XmlNodeList list) {
             return IsObjectNull(list) || list.Count <= 0;
+        }
+        /// <summary>
+        /// 判断是否: Dictionary 数据行 大小 为 '空'
+        /// </summary>
+        public static bool IsSizeEmpty<K, V>(this Dictionary<K, V> dic) {
+            return IsObjectNull(dic) || dic.Count <= 0;
         }
         #endregion
 

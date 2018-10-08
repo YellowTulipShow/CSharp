@@ -11,33 +11,27 @@ namespace YTS.Engine
     /// 抽象-映射分析器
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
-    /// <typeparam name="I"></typeparam>
-    public abstract class AbsParser_ShineUpon<M, I> where M : Model.AbsShineUpon where I: AbsInfo_ShineUpon
+    /// <typeparam name="I">信息结果类型</typeparam>
+    public abstract class AbsParser_ShineUpon<M, I>
+        where M : Model.AbsShineUpon
+        where I : AbsInfo_ShineUpon
     {
-        /// <summary>
-        /// 列字段列表数组
-        /// </summary>
-        private I[] __infos__ = null;
+        private Dictionary<string, I> info_dic = null;
+        private I[] info_sortAfter = null;
 
         public AbsParser_ShineUpon() {
-            this.__infos__ = Analytical();
-            if (IsNeedSort()) {
-                this.__infos__ = SortComparison(this.__infos__);
-            }
+            Analytical();
         }
 
         #region === Info ===
-        /// <summary>
-        /// 分析映射模型
-        /// </summary>
-        /// <returns>映射模型的列信息集合</returns>
-        public virtual I[] Analytical() {
+        public void Analytical() {
             Type modelT = typeof(M);
             ShineUponModelAttribute model_attr = ReflexHelp.AttributeFindOnly<ShineUponModelAttribute>(modelT, true);
             if (CheckData.IsObjectNull(model_attr)) {
-                return new I[] { };
+                return;
             }
-            List<I> colms = new List<I>();
+
+            Dictionary<string, I> dic = new Dictionary<string, I>();
             PropertyInfo[] protertys = modelT.GetProperties();
             foreach (PropertyInfo property in protertys) {
                 ShineUponPropertyAttribute spma = ReflexHelp.AttributeFindOnly<ShineUponPropertyAttribute>(property, true);
@@ -49,16 +43,36 @@ namespace YTS.Engine
                 info.Name = property.Name;
                 info.Property = property;
                 info.Explain = attr_explain;
-                colms.Add(info);
+
+                // 钩子: 子类处理解析内容
+                info = AnalyticalItem(info);
+                if (CheckData.IsObjectNull(info)) {
+                    continue;
+                }
+                dic.Add(info.Name, info);
             }
-            return colms.ToArray();
+            this.info_dic = dic;
+        }
+        public virtual I AnalyticalItem(I info) {
+            return info;
         }
 
-        /// <summary>
-        /// 获得列信息 全部
-        /// </summary>
-        public I[] GetColumn_ALL() {
-            return this.__infos__;
+        public Dictionary<string, I> GetAnalyticalResult() {
+            if (CheckData.IsSizeEmpty(this.info_dic)) {
+                this.info_dic = new Dictionary<string, I>();
+            }
+            return this.info_dic;
+        }
+        public I[] GetSortResult() {
+            if (!CheckData.IsSizeEmpty(this.info_sortAfter)) {
+                return this.info_sortAfter;
+            }
+            List<I> list = new List<I>(this.info_dic.Values);
+            if (IsNeedSort()) {
+                list = SortComparison(list);
+            }
+            this.info_sortAfter = list.ToArray();
+            return this.info_sortAfter;
         }
         #endregion
 
@@ -76,8 +90,8 @@ namespace YTS.Engine
         /// </summary>
         /// <param name="array">需要排序的信息模型列表</param>
         /// <returns>排序完成信息模型列表</returns>
-        public virtual I[] SortComparison(I[] array) {
-            return array;
+        public virtual List<I> SortComparison(List<I> list) {
+            return list;
         }
         #endregion
 
@@ -88,7 +102,7 @@ namespace YTS.Engine
         /// <param name="info">行信息</param>
         /// <param name="model">数据来源</param>
         /// <returns>键值数据</returns>
-        public virtual KeyObject GetModelValue(I info, M model) {
+        public KeyObject GetModelValue(I info, M model) {
             if (CheckData.IsObjectNull(info) || CheckData.IsObjectNull(model)) {
                 return null;
             }
@@ -106,7 +120,7 @@ namespace YTS.Engine
         /// <param name="targetModel">目标模型</param>
         /// <param name="value">数据</param>
         /// <returns>目标模型</returns>
-        public virtual M SetModelValue(I info, M targetModel, object value) {
+        public M SetModelValue(I info, M targetModel, object value) {
             if (!CheckData.IsObjectNull(value) && info.Property.CanWrite) {
                 info.Property.SetValue(targetModel, value, null);
             }
