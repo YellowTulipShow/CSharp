@@ -1,9 +1,10 @@
 ﻿using System;
 using YTS.Engine.DataBase;
+using YTS.Model.DB;
 using YTS.Tools;
 using YTS.Tools.Const;
 
-namespace YTS.Model.DB.Table
+namespace YTS.Model
 {
     /// <summary>
     /// 数据模型类: 组别

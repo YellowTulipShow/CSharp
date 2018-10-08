@@ -1,23 +1,24 @@
 ﻿using System;
 using YTS.Engine.DataBase;
+using YTS.Model.DB;
 using YTS.Tools;
 using YTS.Tools.Const;
 
-namespace YTS.Model.DB.Table
+namespace YTS.Model
 {
     /// <summary>
-    /// 数据模型类: 权限
+    /// 数据模型类: 角色
     /// </summary>
-    [Explain(@"权限")]
+    [Explain(@"角色")]
     [EntityTable]
-    public class Permissions : AbsTable_StringID
+    public class Role : AbsTable_StringID
     {
         public override Enums.UseCodeMark GetUseCode() {
-            return Enums.UseCodeMark.Permissions;
+            return Enums.UseCodeMark.Role;
         }
 
         public override string GetTableName() {
-            return @"dt_Permissions";
+            return @"dt_Role";
         }
 
         #region === Model ===
@@ -28,14 +29,6 @@ namespace YTS.Model.DB.Table
         [Column]
         public string Name { get { return _Name; } set { _Name = value; } }
         private string _Name = string.Empty;
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        [Explain(@"描述")]
-        [Column]
-        public string Description { get { return _Description; } set { _Description = value; } }
-        private string _Description = string.Empty;
         #endregion
     }
 }

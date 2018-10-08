@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
 using YTS.Engine.DataBase;
-using YTS.Engine.IOAccess;
 using YTS.Model.DB;
 using YTS.Tools;
 using YTS.Tools.Const;
@@ -75,7 +71,7 @@ namespace Test.ConsoleProgram.BLL
             return new CaseModel() {
                 NameSign = @"与ID相关的 插入方法",
                 ExeEvent = () => {
-                    BLL_MSSQLServer_StringID<DAL_MSSQLServer_StringID<TestArticle>, TestArticle> bll = new BLL_MSSQLServer_StringID<DAL_MSSQLServer_StringID<TestArticle>, TestArticle>();
+                    YTS.BLL.MSSQLServer_StringID<YTS.DAL.MSSQLServer_StringID<TestArticle>, TestArticle> bll = new YTS.BLL.MSSQLServer_StringID<YTS.DAL.MSSQLServer_StringID<TestArticle>, TestArticle>();
 
                     TestArticle model = new TestArticle() {
                         Content = RandomData.GetChineseString(600),

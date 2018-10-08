@@ -1,7 +1,7 @@
 ﻿using System;
 using YTS.Tools;
 
-namespace Test.ConsoleProgram.Model
+namespace Test.ConsoleProgram.Tools
 {
     public class Test_EnumInfo : CaseModel
     {

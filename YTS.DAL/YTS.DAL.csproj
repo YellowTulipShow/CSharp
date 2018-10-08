@@ -40,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL_MSSQLServer_IntID.cs">
+    <Compile Include="MSSQLServer_IntID.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DAL_MSSQLServer_StringID.cs">
+    <Compile Include="MSSQLServer_StringID.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,9 +62,7 @@
       <Name>YTS.Tools</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DB\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

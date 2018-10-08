@@ -37,7 +37,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_Normal() {
             return new CaseModel[] {
                 new Tools.Test_ReflexHelp(),
-                new Model.Test_EnumInfo(),
+                new Tools.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
                 new BLL.Test_BLL_LocalFile(),

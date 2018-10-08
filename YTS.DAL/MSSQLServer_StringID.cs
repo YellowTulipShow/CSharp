@@ -1,16 +1,17 @@
 ﻿using System;
 using YTS.Engine.DataBase.MSQLServer;
+using YTS.Engine.IOAccess;
 using YTS.Model.DB;
 using YTS.Tools;
 using YTS.Tools.Model;
 
-namespace YTS.Engine.IOAccess
+namespace YTS.DAL
 {
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-数据访问层(Data Access Layer) ID列版本
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class DAL_MSSQLServer_StringID<M> :
+    public class MSSQLServer_StringID<M> :
         DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, string>
         where M : AbsTable_StringID
@@ -18,7 +19,7 @@ namespace YTS.Engine.IOAccess
         public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
         public readonly string ColName_SID = ReflexHelp.Name(() => defmodel.SID);
 
-        public DAL_MSSQLServer_StringID() : base() { }
+        public MSSQLServer_StringID() : base() { }
 
         #region ====== using:IRecordIDPrimaryKey<M> ======
         /// <summary>

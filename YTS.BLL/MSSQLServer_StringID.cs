@@ -1,21 +1,23 @@
 ﻿using System;
+using YTS.DAL;
+using YTS.Engine.IOAccess;
 using YTS.Model.DB;
 using YTS.Tools.Model;
 
-namespace YTS.Engine.IOAccess
+namespace YTS.BLL
 {
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-业务逻辑层(Business Logic Layer) ID列版本
     /// </summary>
     /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class BLL_MSSQLServer_StringID<D, M> :
+    public class MSSQLServer_StringID<D, M> :
         BLL_MSSQLServer<D, M>,
         IRecordIDPrimaryKey<M, string>
-        where D : DAL_MSSQLServer_StringID<M>
+        where D : MSSQLServer_StringID<M>
         where M : AbsTable_StringID
     {
-        public BLL_MSSQLServer_StringID() : base() { }
+        public MSSQLServer_StringID() : base() { }
 
         #region ====== using:IRecordStringIDPrimaryKey<M> ======
         /// <summary>
