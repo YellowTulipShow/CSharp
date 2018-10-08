@@ -15,7 +15,7 @@ namespace YTS.DAL
     /// <typeparam name="M">数据映射模型</typeparam>
     public class MSSQLServer_IntID<M> :
         MSSQLServer<M>,
-        DAL.IRecordIntIDPrimaryKey<M>
+        IRecordIDPrimaryKey<M, int>
         where M : AbsTable_IntID
     {
         public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
@@ -23,7 +23,7 @@ namespace YTS.DAL
 
         public MSSQLServer_IntID() : base() { }
 
-        #region ====== using:IRecordIntIDPrimaryKey<M> ======
+        #region ====== using:IRecordIDPrimaryKey<M> ======
         /// <summary>
         /// 插入一条数据
         /// </summary>

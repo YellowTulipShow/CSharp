@@ -8,7 +8,7 @@ using YTS.Model.Table;
 namespace YTS.DAL
 {
     /// <summary>
-    /// 数据结果内容
+    /// 接口: 数据库结果
     /// </summary>
     public interface IDataBaseResult<M> where M : AbsTable
     {

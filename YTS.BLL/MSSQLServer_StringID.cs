@@ -14,7 +14,7 @@ namespace YTS.BLL
     /// <typeparam name="M">数据映射模型</typeparam>
     public class MSSQLServer_StringID<D, M> :
         MSSQLServer<D, M>,
-        DAL.IRecordStringIDPrimaryKey<M>
+        DAL.IRecordIDPrimaryKey<M, string>
         where D : DAL.MSSQLServer_StringID<M>
         where M : AbsTable_StringID
     {

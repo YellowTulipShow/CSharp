@@ -49,12 +49,12 @@ namespace YTS.DAL
         }
         #endregion
 
-        #region ====== using:IBasicDataAccess<M> ======
+        #region ====== using:AbsDAL<Model, Where> ======
         public override bool Insert(M model) {
             string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
-        protected string SQLInsert(M model, bool isResultID) {
+        public string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
             foreach (ColumnInfo item in this.modelParser.GetColumn_CanWrite()) {
@@ -138,7 +138,7 @@ namespace YTS.DAL
         }
         #endregion
 
-        #region ====== using:IDatathisResult<M> ======
+        #region ====== using:IDataBaseResult<M> ======
         /// <summary>
         /// 查询数据
         /// </summary>
@@ -219,10 +219,6 @@ namespace YTS.DAL
             return model;
         }
         #endregion
-
-
-
-
 
         /// <summary>
         /// 执行-SQL字符串事务处理
@@ -316,8 +312,6 @@ namespace YTS.DAL
             }
             return ConvertTool.IListToString(ifExists, @" ");
         }
-
-        /**/
         #endregion
     }
 }

@@ -7,8 +7,7 @@ using YTS.Tools;
 
 namespace YTS.BLL
 {
-    public class AbsFile<M, D> :
-        IShineUponInsert<M>
+    public class AbsFile<M, D>
         where M : Model.File.AbsFile
         where D : DAL.AbsFile<M>
     {

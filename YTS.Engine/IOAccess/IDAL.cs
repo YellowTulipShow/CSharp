@@ -4,7 +4,7 @@ using YTS.Model;
 namespace YTS.Engine.IOAccess
 {
     public interface IDAL<M, W>
-        where M : IModel
+        where M : AbsShineUpon
     {
         bool Insert(M model);
 

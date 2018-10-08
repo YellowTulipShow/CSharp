@@ -1,5 +1,4 @@
 ﻿using System;
-using YTS.Engine.IOAccess;
 using YTS.Model.Attribute;
 
 namespace YTS.Model
@@ -9,7 +8,7 @@ namespace YTS.Model
     /// </summary>
     [Serializable]
     [ShineUponModel]
-    public abstract class AbsShineUpon : Tools.AbsBasicDataModel, IModel
+    public abstract class AbsShineUpon : Tools.AbsBasicDataModel
     {
     }
 }
