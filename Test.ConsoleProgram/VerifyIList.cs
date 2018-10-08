@@ -43,33 +43,18 @@ namespace Test.ConsoleProgram
         /// <summary>
         /// 方法: 单个选项是否相等
         /// </summary>
-        /// <typeparam name="TA">答案数据类型</typeparam>
-        /// <typeparam name="TS">数据源数据类型</typeparam>
-        /// <param name="answer_item">答案选项</param>
-        /// <param name="source_item">数据源选项</param>
-        /// <returns>是否相等</returns>
-        public delegate bool Func_IsEquals<TA, TS>(TA answer_item, TS source_item);
-        /// <summary>
-        /// 方法: 单个选项是否相等
-        /// </summary>
-        public Func_IsEquals<TA, TS> Func_isEquals {
+        public Func<TA, TS, bool> Func_isEquals {
             get {
                 return !CheckData.IsObjectNull(_func_isEquals) ? _func_isEquals : (a, s) => a.Equals(s);
             }
             set { _func_isEquals = value; }
         }
-        private Func_IsEquals<TA, TS> _func_isEquals = null;
+        private Func<TA, TS, bool> _func_isEquals = null;
 
         /// <summary>
         /// 方法: 长度不相等时执行回调
         /// </summary>
-        /// <param name="answer_length">答案长度</param>
-        /// <param name="source_length">数据源长度</param>
-        public delegate void Func_LengthNotEquals(int answer_length, int source_length);
-        /// <summary>
-        /// 方法: 长度不相等时执行回调
-        /// </summary>
-        public Func_LengthNotEquals Func_lengthNotEquals {
+        public Action<int, int> Func_lengthNotEquals {
             get {
                 return !CheckData.IsObjectNull(_func_lengthNotEquals) ? _func_lengthNotEquals : (alen, slen) => {
                     Console.WriteLine("answer_length: {0} source_length: {1} 不相等", alen, slen);
@@ -77,18 +62,12 @@ namespace Test.ConsoleProgram
             }
             set { _func_lengthNotEquals = value; }
         }
-        private Func_LengthNotEquals _func_lengthNotEquals = null;
+        private Action<int, int> _func_lengthNotEquals = null;
 
         /// <summary>
         /// 方法: 查找失败时回调
         /// </summary>
-        /// <typeparam name="TA">答案类型</typeparam>
-        /// <param name="answer_item">答案选项</param>
-        public delegate void Func_NotFindPrint<TA>(TA answer_item);
-        /// <summary>
-        /// 方法: 查找失败时回调
-        /// </summary>
-        public Func_NotFindPrint<TA> Func_notFind {
+        public Action<TA> Func_notFind {
             get {
                 return !CheckData.IsObjectNull(_func_notFind) ? _func_notFind : a => {
                     Console.WriteLine("答案选项: {0} 没找到", JSON.SerializeObject(a));
@@ -96,7 +75,7 @@ namespace Test.ConsoleProgram
             }
             set { _func_notFind = value; }
         }
-        private Func_NotFindPrint<TA> _func_notFind = null;
+        private Action<TA> _func_notFind = null;
 
         /// <summary>
         /// 计算方式
