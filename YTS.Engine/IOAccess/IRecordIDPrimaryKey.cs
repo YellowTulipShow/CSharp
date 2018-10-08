@@ -1,8 +1,8 @@
 ﻿using System;
 using YTS.Model;
-using YTS.Model.Table;
+using YTS.Model.DB;
 
-namespace YTS.DAL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 接口 - 记录ID主键相应的方法

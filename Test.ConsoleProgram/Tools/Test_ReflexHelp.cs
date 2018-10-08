@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using YTS.Model;
-using YTS.Model.Attribute;
-using YTS.Model.Table.Attribute;
+using YTS.Model.DB;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Tools

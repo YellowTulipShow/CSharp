@@ -5,16 +5,16 @@ using System.Reflection;
 using YTS.Engine.DataBase;
 using YTS.Engine.DataBase.MSQLServer;
 using YTS.Model;
-using YTS.Model.Table;
+using YTS.Model.DB;
 using YTS.Tools;
 
-namespace YTS.DAL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-数据访问层(Data Access Layer)
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class MSSQLServer<M> :
+    public class DAL_MSSQLServer<M> :
         YTS.Engine.IOAccess.AbsDAL<M, string>,
         ITableName,
         IDataBaseResult<M>,
@@ -30,7 +30,7 @@ namespace YTS.DAL
         /// </summary>
         public readonly ColumnModelParser<M> modelParser = null;
 
-        public MSSQLServer() : base() {
+        public DAL_MSSQLServer() : base() {
             this.modelParser = new ColumnModelParser<M>();
             this._tableName_ = ReflexHelp.CreateNewObject<M>().GetTableName();
 
@@ -225,7 +225,7 @@ namespace YTS.DAL
         /// </summary>
         /// <param name="sqllist">SQL字符串列表</param>
         /// <returns>是否成功</returns>
-        public static bool Transaction(string[] sqllist) {
+        public bool Transaction(string[] sqllist) {
             if (CheckData.IsSizeEmpty(sqllist)) {
                 return false;
             }

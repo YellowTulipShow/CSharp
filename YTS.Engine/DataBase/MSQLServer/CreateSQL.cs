@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using YTS.Model;
-using YTS.Model.Table;
+using YTS.Model.DB;
 using YTS.Tools;
 
 namespace YTS.Engine.DataBase.MSQLServer

@@ -53,8 +53,20 @@
     <Compile Include="FileField\FieldModelParser.cs" />
     <Compile Include="IOAccess\AbsBLL.cs" />
     <Compile Include="IOAccess\AbsDAL.cs" />
+    <Compile Include="IOAccess\BLL_LocalFile.cs" />
+    <Compile Include="IOAccess\DAL_LocalFile.cs" />
     <Compile Include="IOAccess\IBLL.cs" />
     <Compile Include="IOAccess\IDAL.cs" />
+    <Compile Include="IOAccess\IDataBaseResult.cs" />
+    <Compile Include="IOAccess\IDefaultRecord.cs" />
+    <Compile Include="IOAccess\IRecordIDPrimaryKey.cs" />
+    <Compile Include="IOAccess\ISupplementaryStructure.cs" />
+    <Compile Include="IOAccess\DAL_MSSQLServer.cs" />
+    <Compile Include="IOAccess\DAL_MSSQLServer_IntID.cs" />
+    <Compile Include="IOAccess\DAL_MSSQLServer_StringID.cs" />
+    <Compile Include="IOAccess\BLL_MSSQLServer.cs" />
+    <Compile Include="IOAccess\BLL_MSSQLServer_IntID.cs" />
+    <Compile Include="IOAccess\BLL_MSSQLServer_StringID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

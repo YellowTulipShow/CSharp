@@ -2,7 +2,7 @@
 using System.Data.SqlTypes;
 using YTS.Model.Attribute;
 
-namespace YTS.Model.Table.Attribute
+namespace YTS.Model.DB
 {
     /// <summary>
     /// 数据表列特性  同一程序不能多个解释。无法继承此类。

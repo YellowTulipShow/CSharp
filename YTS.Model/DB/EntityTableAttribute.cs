@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.Table.Attribute
+namespace YTS.Model.DB
 {
     /// <summary>
     /// 实体数据库表

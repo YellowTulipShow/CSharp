@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.Table
+namespace YTS.Model.DB
 {
     /// <summary>
     /// 表-基础-模型

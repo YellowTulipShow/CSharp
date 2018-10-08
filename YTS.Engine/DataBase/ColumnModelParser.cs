@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using YTS.Model;
-using YTS.Model.Attribute;
-using YTS.Model.Table;
-using YTS.Model.Table.Attribute;
+using YTS.Model.DB;
 using YTS.Tools;
 
 namespace YTS.Engine.DataBase

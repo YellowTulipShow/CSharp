@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YTS.Model.Attribute;
+using YTS.Model.DB;
+using YTS.Model.File.Attribute;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Engine
@@ -18,13 +19,13 @@ namespace Test.ConsoleProgram.Engine
         }
 
         #region Test Model
-        public class T : YTS.Model.Table.AbsTable
+        public class T : YTS.Model.DB.AbsTable
         {
             /// <summary>
             /// 创建者用户SID
             /// </summary>
             [Explain(@"创建者用户SID")]
-            [YTS.Model.Table.Attribute.Column]
+            [Column]
             public string CreateUserSID { get { return _CreateUserSID; } set { _CreateUserSID = value; } }
             private string _CreateUserSID = string.Empty;
 
@@ -32,14 +33,14 @@ namespace Test.ConsoleProgram.Engine
             /// 名称
             /// </summary>
             [Explain(@"名称")]
-            [YTS.Model.Table.Attribute.Column]
+            [Column]
             public string Name { get { return _Name; } set { _Name = value; } }
             private string _Name = string.Empty;
 
             /// <summary>
             /// 发布时间
             /// </summary>
-            [YTS.Model.Table.Attribute.Column(IsShineUpon = false)]
+            [Column(IsShineUpon = false)]
             public DateTime TimeRelease { get { return _TimeRelease; } set { _TimeRelease = value; } }
             private DateTime _TimeRelease = DateTime.Now;
 
@@ -74,7 +75,7 @@ namespace Test.ConsoleProgram.Engine
             /// 创建者用户SID
             /// </summary>
             [Explain(@"创建者用户SID")]
-            [YTS.Model.File.Attribute.Field]
+            [Field]
             public string CreateUserSID { get { return _CreateUserSID; } set { _CreateUserSID = value; } }
             private string _CreateUserSID = string.Empty;
 
@@ -88,7 +89,7 @@ namespace Test.ConsoleProgram.Engine
             /// <summary>
             /// 发布时间
             /// </summary>
-            [YTS.Model.File.Attribute.Field(IsShineUpon = false)]
+            [Field(IsShineUpon = false)]
             public DateTime TimeRelease { get { return _TimeRelease; } set { _TimeRelease = value; } }
             private DateTime _TimeRelease = DateTime.Now;
 
@@ -96,7 +97,7 @@ namespace Test.ConsoleProgram.Engine
             /// 描述
             /// </summary>
             [Explain(@"描述")]
-            [YTS.Model.File.Attribute.Field]
+            [Field]
             public string Description { get { return _Description; } set { _Description = value; } }
             private string _Description = string.Empty;
 

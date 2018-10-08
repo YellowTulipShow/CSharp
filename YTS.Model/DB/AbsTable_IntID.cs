@@ -1,9 +1,7 @@
 ﻿using System;
-using YTS.Model.Attribute;
-using YTS.Model.Table.Attribute;
 using YTS.Tools;
 
-namespace YTS.Model.Table
+namespace YTS.Model.DB
 {
     /// <summary>
     /// 表-基础-模型 记录ID

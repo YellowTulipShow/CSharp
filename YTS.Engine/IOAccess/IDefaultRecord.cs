@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.DAL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 接口 - 默认数据映射模型

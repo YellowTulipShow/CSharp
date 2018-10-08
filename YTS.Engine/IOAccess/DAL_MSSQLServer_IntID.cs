@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using YTS.Engine.DataBase.MSQLServer;
 using YTS.Model;
-using YTS.Model.Table;
+using YTS.Model.DB;
 using YTS.Tools;
 
-namespace YTS.DAL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-数据访问层(Data Access Layer) ID列版本
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class MSSQLServer_IntID<M> :
-        MSSQLServer<M>,
+    public class DAL_MSSQLServer_IntID<M> :
+        DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, int>
         where M : AbsTable_IntID
     {
         public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
         public readonly string ColName_IID = ReflexHelp.Name(() => defmodel.IID);
 
-        public MSSQLServer_IntID() : base() { }
+        public DAL_MSSQLServer_IntID() : base() { }
 
         #region ====== using:IRecordIDPrimaryKey<M> ======
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using YTS.Model.Attribute;
 
-namespace YTS.Model.Table.Attribute
+namespace YTS.Model.DB
 {
     /// <summary>
     /// 基础数据库表

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.DAL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 用于补全数据结构(常用于数据库表,列的补全)

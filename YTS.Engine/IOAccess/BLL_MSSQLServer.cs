@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using YTS.DAL;
-using YTS.Model.Table;
+using YTS.Model.DB;
 
-namespace YTS.BLL
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-业务逻辑层(Business Logic Layer)
     /// </summary>
     /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class MSSQLServer<D, M> :
+    public class BLL_MSSQLServer<D, M> :
         YTS.Engine.IOAccess.AbsBLL<M, D, string>,
         ITableName,
-        DAL.IDataBaseResult<M>
-        where D : DAL.MSSQLServer<M>
+        IDataBaseResult<M>
+        where D : DAL_MSSQLServer<M>
         where M : AbsTable
     {
-        public MSSQLServer() : base() { }
+        public BLL_MSSQLServer() : base() { }
 
         #region ====== using:ITableName ======
         public string GetTableName() {

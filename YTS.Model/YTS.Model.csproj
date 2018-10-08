@@ -48,11 +48,11 @@
     <Compile Include="Const\Enums.cs" />
     <Compile Include="Const\Format.cs" />
     <Compile Include="Const\Names.cs" />
-    <Compile Include="DB\Article.cs" />
-    <Compile Include="DB\Group.cs" />
-    <Compile Include="DB\Permissions.cs" />
-    <Compile Include="DB\Role.cs" />
-    <Compile Include="DB\User.cs" />
+    <Compile Include="DB\Table\Article.cs" />
+    <Compile Include="DB\Table\Group.cs" />
+    <Compile Include="DB\Table\Permissions.cs" />
+    <Compile Include="DB\Table\Role.cs" />
+    <Compile Include="DB\Table\User.cs" />
     <Compile Include="File\AbsFile.cs" />
     <Compile Include="File\Attribute\EntityFileAttribute.cs" />
     <Compile Include="File\Attribute\FieldAttribute.cs" />
@@ -62,16 +62,16 @@
     <Compile Include="KeyObject.cs" />
     <Compile Include="KeyString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Table\AbsTable.cs" />
-    <Compile Include="Table\AbsTable_IntID.cs" />
-    <Compile Include="Table\AbsTable_Remark.cs" />
-    <Compile Include="Table\AbsTable_StringID.cs" />
-    <Compile Include="Table\AbsTable_TimeAdd.cs" />
-    <Compile Include="Table\Attribute\BasicTableAttribute.cs" />
-    <Compile Include="Table\Attribute\ColumnAttribute.cs" />
-    <Compile Include="Table\Attribute\EntityTableAttribute.cs" />
-    <Compile Include="Table\Attribute\ViewTableAttribute.cs" />
-    <Compile Include="Table\ITableName.cs" />
+    <Compile Include="DB\AbsTable.cs" />
+    <Compile Include="DB\AbsTable_IntID.cs" />
+    <Compile Include="DB\AbsTable_Remark.cs" />
+    <Compile Include="DB\AbsTable_StringID.cs" />
+    <Compile Include="DB\AbsTable_TimeAdd.cs" />
+    <Compile Include="DB\BasicTableAttribute.cs" />
+    <Compile Include="DB\ColumnAttribute.cs" />
+    <Compile Include="DB\EntityTableAttribute.cs" />
+    <Compile Include="DB\ViewTableAttribute.cs" />
+    <Compile Include="DB\ITableName.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
@@ -79,7 +79,9 @@
       <Name>YTS.Tools</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DB\View\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
