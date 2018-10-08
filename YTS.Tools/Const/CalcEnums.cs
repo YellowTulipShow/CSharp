@@ -1,7 +1,6 @@
 ﻿using System;
-using YTS.Tools;
 
-namespace YTS.Model.Const
+namespace YTS.Tools.Const
 {
     /// <summary>
     /// 计算枚举

@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsFile.cs" />
-    <Compile Include="DB\User.cs" />
+    <Compile Include="BLL_MSSQLServer_IntID.cs" />
+    <Compile Include="BLL_MSSQLServer_StringID.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

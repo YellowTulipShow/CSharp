@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Reflection;
-using YTS.Model.Attribute;
 using YTS.Tools;
 
-namespace YTS.Engine
+namespace YTS.Engine.ShineUpon
 {
     /// <summary>
-    /// 抽象信息模型-映射解析
+    /// 映射解析信息模型
     /// </summary>
-    public abstract class AbsInfo_ShineUpon : Tools.AbsBasicDataModel
+    public class ShineUponInfo : Tools.AbsBasicDataModel
     {
         /// <summary>
         /// 名称

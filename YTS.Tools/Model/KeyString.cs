@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model
+namespace YTS.Tools.Model
 {
     /// <summary>
     /// '键':'值' 数据模型

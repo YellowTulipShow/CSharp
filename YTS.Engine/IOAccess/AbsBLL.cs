@@ -1,12 +1,15 @@
 ﻿using System;
-using YTS.Model;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
-    public abstract class AbsBLL<M, D, W> : IBLL<M, D, W>
+    public abstract class AbsBLL<M, D, W, P, PI> : IBLL<M, D, W, P, PI>
         where M : AbsShineUpon
-        where D : AbsDAL<M, W>
+        where D : AbsDAL<M, W, P, PI>
+        where P : ShineUponParser<M, PI>
+        where PI : ShineUponInfo
     {
         public D SelfDAL = null;
 
@@ -26,15 +29,15 @@ namespace YTS.Engine.IOAccess
             return this.SelfDAL.Delete(where);
         }
 
-        public bool Update(Model.KeyObject[] kos, W where) {
+        public bool Update(KeyObject[] kos, W where) {
             return this.SelfDAL.Update(kos, where);
         }
 
-        public M[] Select(int top, W where, Model.KeyBoolean[] sorts) {
+        public M[] Select(int top, W where, KeyBoolean[] sorts) {
             return this.SelfDAL.Select(top, where, sorts);
         }
 
-        public M[] Select(int pageCount, int pageIndex, out int recordCount, W where, Model.KeyBoolean[] sorts) {
+        public M[] Select(int pageCount, int pageIndex, out int recordCount, W where, KeyBoolean[] sorts) {
             return this.SelfDAL.Select(pageCount, pageIndex, out recordCount, where, sorts);
         }
 
@@ -42,7 +45,7 @@ namespace YTS.Engine.IOAccess
             return this.SelfDAL.GetRecordCount(where);
         }
 
-        public M GetModel(W where, Model.KeyBoolean[] sorts) {
+        public M GetModel(W where, KeyBoolean[] sorts) {
             return this.SelfDAL.GetModel(where, sorts);
         }
     }

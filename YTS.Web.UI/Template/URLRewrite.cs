@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Xml;
 using YTS.Tools;
+using YTS.Tools.Const;
 
 namespace YTS.Web.UI.Template
 {
@@ -167,7 +168,7 @@ namespace YTS.Web.UI.Template
         {
             try
             {
-                string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+                string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
                 XmlDocument doc = new XmlDocument();
                 doc.Load(filePath);
                 XmlNode xn = doc.SelectSingleNode("urls");
@@ -215,7 +216,7 @@ namespace YTS.Web.UI.Template
         /// </summary>
         public bool Edit(UrlRewriteModel model)
         {
-            string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+            string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             XmlNode xn = doc.SelectSingleNode("urls");
@@ -292,7 +293,7 @@ namespace YTS.Web.UI.Template
         /// </summary>
         public bool Remove(string attrName, string attrValue)
         {
-            string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+            string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             XmlNode xn = doc.SelectSingleNode("urls");
@@ -320,7 +321,7 @@ namespace YTS.Web.UI.Template
         {
             try
             {
-                string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+                string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
                 XmlDocument doc = new XmlDocument();
                 doc.Load(filePath);
                 XmlNode xn = doc.SelectSingleNode("urls");
@@ -351,7 +352,7 @@ namespace YTS.Web.UI.Template
         {
             try
             {
-                string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+                string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
                 XmlDocument doc = new XmlDocument();
                 doc.Load(filePath);
                 XmlNode xn = doc.SelectSingleNode("urls");
@@ -384,7 +385,7 @@ namespace YTS.Web.UI.Template
         public UrlRewriteModel GetInfo(string attrValue)
         {
             UrlRewriteModel model = new UrlRewriteModel();
-            string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+            string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             XmlNode xn = doc.SelectSingleNode("urls");
@@ -441,7 +442,7 @@ namespace YTS.Web.UI.Template
         public UrlRewriteModel GetInfoModel_RequestPagePath(string path)
         {
             UrlRewriteModel model = new UrlRewriteModel();
-            string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+            string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             XmlNode xn = doc.SelectSingleNode("urls");
@@ -518,7 +519,7 @@ namespace YTS.Web.UI.Template
         public List<UrlRewriteModel> GetList(string channel)
         {
             List<UrlRewriteModel> ls = new List<UrlRewriteModel>();
-            string filePath = Utils.GetXmlMapPath(Model.Const.Names.FILE_URL_XML_CONFING);
+            string filePath = Utils.GetXmlMapPath(Names.FILE_URL_XML_CONFING);
             XmlDocument doc = new XmlDocument();
             doc.Load(filePath);
             XmlNode xn = doc.SelectSingleNode("urls");

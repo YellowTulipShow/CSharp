@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using YTS.Model.DB;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
 
 namespace YTS.Engine.DataBase
@@ -8,7 +8,7 @@ namespace YTS.Engine.DataBase
     /// <summary>
     /// 列信息模型
     /// </summary>
-    public class ColumnInfo : AbsInfo_ShineUpon
+    public class ColumnInfo : ShineUponInfo
     {
         /// <summary>
         /// 数据列特性

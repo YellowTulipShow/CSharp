@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using YTS.Tools;
 
-namespace YTS.Model
+namespace YTS.Tools
 {
     /// <summary>
     /// 解析枚举表示其指标值数据模型

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using YTS.Tools;
 
-namespace YTS.Model.Attribute
+namespace YTS.Engine.ShineUpon
 {
     /// <summary>
     /// 映射-属性-特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class ShineUponPropertyAttribute : Tools.AbsBasicAttribute
+    public class ShineUponPropertyAttribute : AbsBasicAttribute
     {
         /// <summary>
         /// 是否映射数据

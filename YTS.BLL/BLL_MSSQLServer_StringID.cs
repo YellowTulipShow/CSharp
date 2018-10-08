@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YTS.Model;
 using YTS.Model.DB;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {

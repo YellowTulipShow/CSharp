@@ -1,5 +1,7 @@
 ﻿using System;
+using YTS.Engine.DataBase;
 using YTS.Tools;
+using YTS.Tools.Const;
 
 namespace YTS.Model.DB.Table
 {
@@ -10,8 +12,8 @@ namespace YTS.Model.DB.Table
     [EntityTable]
     public class Article : AbsTable_StringID
     {
-        public override Const.Enums.UseCodeMark GetUseCode() {
-            return Const.Enums.UseCodeMark.Article;
+        public override Enums.UseCodeMark GetUseCode() {
+            return Enums.UseCodeMark.Article;
         }
 
         public override string GetTableName() {

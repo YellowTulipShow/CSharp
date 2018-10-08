@@ -1,4 +1,5 @@
 ﻿using System;
+using YTS.Engine.DataBase;
 using YTS.Tools;
 
 namespace YTS.Model.DB

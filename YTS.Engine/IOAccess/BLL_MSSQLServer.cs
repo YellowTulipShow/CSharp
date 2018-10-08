@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using YTS.Model.DB;
+using YTS.Engine.DataBase;
+using YTS.Engine.ShineUpon;
 
 namespace YTS.Engine.IOAccess
 {
@@ -13,11 +11,11 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
     public class BLL_MSSQLServer<D, M> :
-        YTS.Engine.IOAccess.AbsBLL<M, D, string>,
+        AbsBLL<M, D, string, ColumnModelParser<M>, ColumnInfo>,
         ITableName,
         IDataBaseResult<M>
         where D : DAL_MSSQLServer<M>
-        where M : AbsTable
+        where M : AbsShineUpon, ITableName
     {
         public BLL_MSSQLServer() : base() { }
 

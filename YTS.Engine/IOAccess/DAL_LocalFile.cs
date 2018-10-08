@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using YTS.Engine.LocalFile;
-using YTS.Model;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
-    public class DAL_LocalFile<M> : AbsDAL<M, Func<M, bool>>
-        where M : Model.File.AbsFile
+    public class DAL_LocalFile<M> :
+        AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
+        IFileInfo
+        where M : AbsShineUpon, IFileInfo
     {
         public DAL_LocalFile()
             : base() {
@@ -34,11 +36,11 @@ namespace YTS.Engine.IOAccess
         public FileShare FileShare { get { return _FileShare; } set { _FileShare = value; } }
         private FileShare _FileShare = FileShare.Read;
 
-        public FieldModelParser<M> Parser = null;
+        public ShineUponParser<M, ShineUponInfo> Parser = null;
 
         public void Init() {
             this.AbsFilePath = CreateGetFilePaht();
-            this.Parser = new FieldModelParser<M>();
+            this.Parser = new ShineUponParser<M, ShineUponInfo>();
         }
 
         public string CreateGetFilePaht() {
@@ -107,6 +109,17 @@ namespace YTS.Engine.IOAccess
         }
         #endregion
 
+        #region ====== using:IFileInfo ======
+        public string GetPathFolder() {
+            return this.DefaultModel.GetPathFolder();
+        }
+
+        public string GetFileName() {
+            return this.DefaultModel.GetFileName();
+        }
+        #endregion
+
+        #region ====== using:AbsDAL<Model, Where, Parser, ParserInfo> ======
         public override bool Insert(M model) {
             return Insert(new M[] { model });
         }
@@ -140,8 +153,7 @@ namespace YTS.Engine.IOAccess
             if (CheckData.IsSizeEmpty(kos) || CheckData.IsObjectNull(where)) {
                 return true;
             }
-
-            Dictionary<string, FieldInfo> dicinfos = Parser.GetAnalyticalResult();
+            Dictionary<string, ShineUponInfo> dicinfos = Parser.GetAnalyticalResult();
             M[] sava_models = Read<M>((line, rlen) => {
                 // 筛选符合规则的数据行
                 M model = StringToModel(line);
@@ -182,7 +194,7 @@ namespace YTS.Engine.IOAccess
             });
         }
 
-        public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, Model.KeyBoolean[] sorts) {
+        public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, KeyBoolean[] sorts) {
             /*
                 10条 1页 开始: 1 结束: 10
 
@@ -239,5 +251,6 @@ namespace YTS.Engine.IOAccess
                 return line;
             }).Length;
         }
+        #endregion
     }
 }

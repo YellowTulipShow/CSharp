@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using YTS.Model;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace Test.ConsoleProgram.Tools
 {

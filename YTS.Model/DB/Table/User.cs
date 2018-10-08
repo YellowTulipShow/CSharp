@@ -1,5 +1,7 @@
 ﻿using System;
+using YTS.Engine.DataBase;
 using YTS.Tools;
+using YTS.Tools.Const;
 
 namespace YTS.Model.DB.Table
 {
@@ -10,12 +12,12 @@ namespace YTS.Model.DB.Table
     [EntityTable]
     public class User : AbsTable_StringID
     {
-        public override string GetTableName() {
-            return @"dt_User";
+        public override Enums.UseCodeMark GetUseCode() {
+            return Enums.UseCodeMark.User;
         }
 
-        public override Const.Enums.UseCodeMark GetUseCode() {
-            return Const.Enums.UseCodeMark.User;
+        public override string GetTableName() {
+            return @"dt_User";
         }
 
         #region === Model ===
@@ -72,8 +74,8 @@ namespace YTS.Model.DB.Table
         /// </summary>
         [Explain(@"性别")]
         [Column]
-        public Const.Enums.SexEnum Sex { get { return _sex; } set { _sex = value; } }
-        private Const.Enums.SexEnum _sex = Const.Enums.SexEnum.Secrecy;
+        public Enums.SexEnum Sex { get { return _sex; } set { _sex = value; } }
+        private Enums.SexEnum _sex = Enums.SexEnum.Secrecy;
 
         /// <summary>
         /// 生日

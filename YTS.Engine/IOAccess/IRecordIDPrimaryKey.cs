@@ -1,6 +1,6 @@
 ﻿using System;
-using YTS.Model;
-using YTS.Model.DB;
+using YTS.Engine.ShineUpon;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
@@ -9,7 +9,7 @@ namespace YTS.Engine.IOAccess
     /// </summary>
     /// <typeparam name="M">数据模型</typeparam>
     /// <typeparam name="T">ID键的数据类型</typeparam>
-    public interface IRecordIDPrimaryKey<M, T> where M : AbsTable
+    public interface IRecordIDPrimaryKey<M, T> where M : AbsShineUpon
     {
         /// <summary>
         /// 插入一条数据

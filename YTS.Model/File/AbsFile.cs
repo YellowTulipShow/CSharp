@@ -1,4 +1,6 @@
 ﻿using System;
+using YTS.Engine.IOAccess;
+using YTS.Engine.ShineUpon;
 
 namespace YTS.Model.File
 {
@@ -6,7 +8,7 @@ namespace YTS.Model.File
     /// 抽象-文件基础模型
     /// </summary>
     [Serializable]
-    [EntityFile]
+    [ShineUponModel]
     public abstract class AbsFile : AbsShineUpon, IFileInfo
     {
         /// <summary>

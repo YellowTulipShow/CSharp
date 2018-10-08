@@ -1,7 +1,7 @@
 ﻿using System;
-using YTS.Model.Attribute;
+using YTS.Engine.ShineUpon;
 
-namespace YTS.Model.DB
+namespace YTS.Engine.DataBase
 {
     /// <summary>
     /// 基础数据库表

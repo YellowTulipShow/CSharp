@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YTS.Model;
-using YTS.Model.Attribute;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Model

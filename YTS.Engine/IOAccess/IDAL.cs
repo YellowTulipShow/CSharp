@@ -1,10 +1,13 @@
 ﻿using System;
-using YTS.Model;
+using YTS.Tools.Model;
+using YTS.Engine.ShineUpon;
 
 namespace YTS.Engine.IOAccess
 {
-    public interface IDAL<M, W>
+    public interface IDAL<M, W, P, PI>
         where M : AbsShineUpon
+        where P : ShineUponParser<M, PI>
+        where PI : ShineUponInfo
     {
         bool Insert(M model);
 

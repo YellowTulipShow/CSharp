@@ -4,9 +4,9 @@ using System.Data;
 using System.Reflection;
 using YTS.Engine.DataBase;
 using YTS.Engine.DataBase.MSQLServer;
-using YTS.Model;
-using YTS.Model.DB;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
@@ -15,25 +15,13 @@ namespace YTS.Engine.IOAccess
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     public class DAL_MSSQLServer<M> :
-        YTS.Engine.IOAccess.AbsDAL<M, string>,
+        AbsDAL<M, string, ColumnModelParser<M>, ColumnInfo>,
         ITableName,
         IDataBaseResult<M>,
         ISupplementaryStructure
-        where M : AbsTable
+        where M : AbsShineUpon, ITableName
     {
-        /// <summary>
-        /// 字段: 表名
-        /// </summary>
-        private readonly string _tableName_ = string.Empty;
-        /// <summary>
-        /// 列数据模型解析器
-        /// </summary>
-        public readonly ColumnModelParser<M> modelParser = null;
-
         public DAL_MSSQLServer() : base() {
-            this.modelParser = new ColumnModelParser<M>();
-            this._tableName_ = ReflexHelp.CreateNewObject<M>().GetTableName();
-
             // 执行补全
             if (IsNeedSupplementary()) {
                 ExecutionSupplementary();
@@ -45,7 +33,7 @@ namespace YTS.Engine.IOAccess
         /// 获得当前表 全名 名称
         /// </summary>
         public string GetTableName() {
-            return this._tableName_;
+            return this.DefaultModel.GetTableName();
         }
         #endregion
 
@@ -57,8 +45,8 @@ namespace YTS.Engine.IOAccess
         public string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
-            foreach (ColumnInfo item in this.modelParser.GetColumn_CanWrite()) {
-                KeyObject im = this.modelParser.GetModelValue(item, model);
+            foreach (ColumnInfo item in this.Parser.GetColumn_CanWrite()) {
+                KeyObject im = this.Parser.GetModelValue(item, model);
                 if (CheckData.IsObjectNull(im) || CheckData.IsStringNull(im.Key)) {
                     continue;
                 }
@@ -78,7 +66,7 @@ namespace YTS.Engine.IOAccess
 
         public string ModelValueToDataBaseValue(object model_value) {
             if (CheckData.IsTypeValue<DateTime>(model_value)) {
-                return ((DateTime)model_value).ToString(Model.Const.Format.DATETIME_MILLISECOND);
+                return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
             }
             if (CheckData.IsTypeValue<Enum>(model_value)) {
                 return ((int)model_value).ToString();
@@ -208,13 +196,13 @@ namespace YTS.Engine.IOAccess
                 return null;
             }
             M model = ReflexHelp.CreateNewObject<M>();
-            ColumnInfo[] columninfos = this.modelParser.GetSortResult();
+            ColumnInfo[] columninfos = this.Parser.GetSortResult();
             foreach (ColumnInfo item in columninfos) {
                 if (CheckData.IsObjectNull(item)) {
                     continue;
                 }
                 object value = row[item.Property.Name];
-                model = this.modelParser.SetModelValue(item, model, value);
+                model = this.Parser.SetModelValue(item, model, value);
             }
             return model;
         }
@@ -265,7 +253,7 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnInfo item in this.modelParser.GetSortResult()) {
+            foreach (ColumnInfo item in this.Parser.GetSortResult()) {
                 string fieldName = item.Property.Name;
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;

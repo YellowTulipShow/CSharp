@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YTS.Tools;
 
-namespace YTS.Model
+namespace YTS.Tools.Model
 {
     /// <summary>
     /// 含有 '键' 属性数据模型

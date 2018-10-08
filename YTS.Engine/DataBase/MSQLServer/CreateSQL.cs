@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using YTS.Model;
-using YTS.Model.DB;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.DataBase.MSQLServer
 {

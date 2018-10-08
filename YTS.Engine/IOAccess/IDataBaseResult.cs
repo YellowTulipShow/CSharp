@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data;
-using YTS.Model.DB;
+using YTS.Engine.ShineUpon;
 
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 接口: 数据库结果
     /// </summary>
-    public interface IDataBaseResult<M> where M : AbsTable
+    public interface IDataBaseResult<M> where M : AbsShineUpon
     {
         /// <summary>
         /// 查询数据

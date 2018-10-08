@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using YTS.Model;
+using YTS.Engine.DataBase.MSQLServer;
 using YTS.Model.DB;
+using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// Microsoft SQL Server 2008 数据库-业务逻辑层(Business Logic Layer) ID列版本
+    /// Microsoft SQL Server 2008 数据库-数据访问层(Data Access Layer) ID列版本
     /// </summary>
-    /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class BLL_MSSQLServer_IntID<D, M> :
-        BLL_MSSQLServer<D, M>,
+    public class DAL_MSSQLServer_IntID<M> :
+        DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, int>
-        where D : DAL_MSSQLServer_IntID<M>
         where M : AbsTable_IntID
     {
-        public BLL_MSSQLServer_IntID() : base() { }
+        public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
+        public readonly string ColName_IID = ReflexHelp.Name(() => defmodel.IID);
 
-        #region ====== using:IRecordIntIDPrimaryKey<M> ======
+        public DAL_MSSQLServer_IntID() : base() { }
+
+        #region ====== using:IRecordIDPrimaryKey<M> ======
         /// <summary>
         /// 插入一条数据
         /// </summary>
@@ -28,7 +28,15 @@ namespace YTS.Engine.IOAccess
         /// <param name="id">插入成功后需要返回的ID值</param>
         /// <returns>是否成功</returns>
         public virtual bool IDInsert(M model, out int id) {
-            return this.SelfDAL.IDInsert(model, out id);
+            const int defid = AbsTable_IntID.ERROR_DEFAULT_INT_VALUE;
+            id = defid;
+            string sqlinsert = SQLInsert(model, true);
+            if (CheckData.IsStringNull(sqlinsert)) {
+                return false;
+            }
+            object obj = DbHelperSQL.GetSingle(sqlinsert);
+            id = CheckData.IsObjectNull(obj) ? defid : ConvertTool.ObjToInt(obj, defid);
+            return id != defid;
         }
 
         /// <summary>
@@ -37,7 +45,10 @@ namespace YTS.Engine.IOAccess
         /// <param name="id">ID条件</param>
         /// <returns>是否成功</returns>
         public virtual bool IDDelete(int id) {
-            return this.SelfDAL.IDDelete(id);
+            if (id <= AbsTable_IntID.ERROR_DEFAULT_INT_VALUE) {
+                return true; // 没有错误数据不用删除
+            }
+            return Delete(CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
 
         /// <summary>
@@ -47,7 +58,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="id">ID条件</param>
         /// <returns>是否成功</returns>
         public virtual bool IDUpdate(KeyObject[] keyvaluedic, int id) {
-            return this.SelfDAL.IDUpdate(keyvaluedic, id);
+            return Update(keyvaluedic, CreateSQL.WhereEqual(ColName_IID, id.ToString()));
         }
 
         /// <summary>
@@ -56,7 +67,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="id">ID条件</param>
         /// <returns>映射数据模型</returns>
         public virtual M IDGetModel(int id) {
-            return this.SelfDAL.IDGetModel(id);
+            return GetModel(CreateSQL.WhereEqual(ColName_IID, id.ToString()), null);
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.DB
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 提供表名接口

@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using YTS.Model;
-using YTS.Model.Attribute;
 using YTS.Tools;
+using YTS.Tools.Model;
 
-namespace YTS.Engine
+namespace YTS.Engine.ShineUpon
 {
     /// <summary>
     /// 抽象-映射分析器
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="I">信息结果类型</typeparam>
-    public abstract class AbsParser_ShineUpon<M, I>
-        where M : Model.AbsShineUpon
-        where I : AbsInfo_ShineUpon
+    public class ShineUponParser<M, I>
+        where M : AbsShineUpon
+        where I : ShineUponInfo
     {
         private Dictionary<string, I> info_dic = null;
         private I[] info_sortAfter = null;
 
-        public AbsParser_ShineUpon() {
+        public ShineUponParser() {
             Analytical();
         }
 

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using YTS.Engine.DataBase.MSQLServer;
-using YTS.Model;
 using YTS.Model.DB;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {

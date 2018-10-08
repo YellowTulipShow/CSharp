@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.SqlTypes;
-using YTS.Model.Attribute;
+using YTS.Engine.ShineUpon;
 
-namespace YTS.Model.DB
+namespace YTS.Engine.DataBase
 {
     /// <summary>
     /// 数据表列特性  同一程序不能多个解释。无法继承此类。

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YTS.Engine.DataBase;
+using YTS.Engine.ShineUpon;
 using YTS.Model.DB;
 using YTS.Model.File;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace Test.ConsoleProgram.Engine
 {
@@ -51,13 +54,13 @@ namespace Test.ConsoleProgram.Engine
             public string Content { get { return _Content; } set { _Content = value; } }
             private string _Content = string.Empty;
 
-            public static YTS.Model.KeyString[] Answer_ColumnInfos() {
-                return new YTS.Model.KeyString[] {
-                    new YTS.Model.KeyString() {
+            public static KeyString[] Answer_ColumnInfos() {
+                return new KeyString[] {
+                    new KeyString() {
                         Key = @"CreateUserSID",
                         Value = @"创建者用户SID",
                     },
-                    new YTS.Model.KeyString() {
+                    new KeyString() {
                         Key = @"Name",
                         Value = @"名称",
                     },
@@ -75,7 +78,7 @@ namespace Test.ConsoleProgram.Engine
             /// 创建者用户SID
             /// </summary>
             [Explain(@"创建者用户SID")]
-            [Field]
+            [ShineUponProperty]
             public string CreateUserSID { get { return _CreateUserSID; } set { _CreateUserSID = value; } }
             private string _CreateUserSID = string.Empty;
 
@@ -89,7 +92,7 @@ namespace Test.ConsoleProgram.Engine
             /// <summary>
             /// 发布时间
             /// </summary>
-            [Field(IsShineUpon = false)]
+            [ShineUponProperty(IsShineUpon = false)]
             public DateTime TimeRelease { get { return _TimeRelease; } set { _TimeRelease = value; } }
             private DateTime _TimeRelease = DateTime.Now;
 
@@ -97,7 +100,7 @@ namespace Test.ConsoleProgram.Engine
             /// 描述
             /// </summary>
             [Explain(@"描述")]
-            [Field]
+            [ShineUponProperty]
             public string Description { get { return _Description; } set { _Description = value; } }
             private string _Description = string.Empty;
 
@@ -108,13 +111,13 @@ namespace Test.ConsoleProgram.Engine
             public string Content { get { return _Content; } set { _Content = value; } }
             private string _Content = string.Empty;
 
-            public static YTS.Model.KeyString[] Answer_FieldInfos() {
-                return new YTS.Model.KeyString[] {
-                    new YTS.Model.KeyString() {
+            public static KeyString[] Answer_FieldInfos() {
+                return new KeyString[] {
+                    new KeyString() {
                         Key = @"CreateUserSID",
                         Value = @"创建者用户SID",
                     },
-                    new YTS.Model.KeyString() {
+                    new KeyString() {
                         Key = @"Description",
                         Value = @"描述",
                     },
@@ -136,10 +139,10 @@ namespace Test.ConsoleProgram.Engine
                 NameSign = @"列",
                 ExeEvent = () => {
                     YTS.Engine.DataBase.ColumnModelParser<T> parser = new YTS.Engine.DataBase.ColumnModelParser<T>();
-                    YTS.Model.KeyString[] keys = T.Answer_ColumnInfos();
+                    YTS.Tools.Model.KeyString[] keys = T.Answer_ColumnInfos();
                     YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetSortResult();
 
-                    return new VerifyIList<YTS.Model.KeyString, YTS.Engine.DataBase.ColumnInfo>(CalcWayEnum.DoubleCycle) {
+                    return new VerifyIList<YTS.Tools.Model.KeyString, YTS.Engine.DataBase.ColumnInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
                         Source = columns,
                         Func_isEquals = (item, info) => {
@@ -163,11 +166,11 @@ namespace Test.ConsoleProgram.Engine
             return new CaseModel() {
                 NameSign = @"字段",
                 ExeEvent = () => {
-                    YTS.Engine.LocalFile.FieldModelParser<F> parser = new YTS.Engine.LocalFile.FieldModelParser<F>();
-                    YTS.Model.KeyString[] keys = F.Answer_FieldInfos();
-                    YTS.Engine.LocalFile.FieldInfo[] columns = parser.GetSortResult();
+                    ShineUponParser<F, ShineUponInfo> parser = new ShineUponParser<F, ShineUponInfo>();
+                    KeyString[] keys = F.Answer_FieldInfos();
+                    ShineUponInfo[] columns = parser.GetSortResult();
 
-                    return new VerifyIList<YTS.Model.KeyString, YTS.Engine.LocalFile.FieldInfo>(CalcWayEnum.DoubleCycle) {
+                    return new VerifyIList<YTS.Tools.Model.KeyString, ShineUponInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
                         Source = columns,
                         Func_isEquals = (item, info) => {

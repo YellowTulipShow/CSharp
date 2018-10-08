@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using YTS.Model.DB;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
 
 namespace YTS.Engine.DataBase
@@ -10,7 +10,8 @@ namespace YTS.Engine.DataBase
     /// 映射结果信息-数据表列
     /// </summary>
     /// <typeparam name="M">数据表映射模型</typeparam>
-    public class ColumnModelParser<M> : AbsParser_ShineUpon<M, ColumnInfo> where M : AbsTable
+    public class ColumnModelParser<M> : ShineUponParser<M, ColumnInfo>
+        where M : AbsShineUpon
     {
         public ColumnModelParser() : base() { }
 

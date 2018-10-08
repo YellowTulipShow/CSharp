@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using YTS.Tools;
 using YTS.Model;
+using YTS.Tools.Const;
 
 namespace YTS.SystemService
 {
@@ -91,7 +92,7 @@ namespace YTS.SystemService
             StringBuilder cont = new StringBuilder();
             cont.Append(String.Format("#Software: YellowTulipShow System {0}", CONST_NEW_LINE_SYMBOL));
             cont.Append(String.Format("#Version: 1.0 {0}", CONST_NEW_LINE_SYMBOL));
-            cont.Append(String.Format("#Date: {0} {1}", DateTime.Now.ToString(Model.Const.Format.DATETIME_SECOND), CONST_NEW_LINE_SYMBOL));
+            cont.Append(String.Format("#Date: {0} {1}", DateTime.Now.ToString(Format.DATETIME_SECOND), CONST_NEW_LINE_SYMBOL));
             cont.Append(String.Format("#Fields: {0}  {1}  {2}  {3}", n_time, n_type, n_postion, n_msg));
             cont.Append(CONST_NEW_LINE_SYMBOL);
             return cont.ToString();
@@ -101,7 +102,7 @@ namespace YTS.SystemService
         /// </summary>
         private static String SetContentFormat(LogModel lgModel) {
             StringBuilder reStr = new StringBuilder();
-            reStr.Append(FourSpace(lgModel.AddTime.ToString(Model.Const.Format.DATETIME_MILLISECOND)));
+            reStr.Append(FourSpace(lgModel.AddTime.ToString(Format.DATETIME_MILLISECOND)));
             reStr.Append(FourSpace(lgModel.Type.ToString()));
             reStr.Append(FourSpace(lgModel.Position));
             reStr.Append(FourSpace(lgModel.Message));

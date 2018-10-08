@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.IO;
-using System.Linq;
 using System.Text;
-using YTS.Model;
-using YTS.Model.Attribute;
+using YTS.Engine.ShineUpon;
 using YTS.Model.File;
 using YTS.Tools;
 
@@ -25,7 +23,7 @@ namespace Test.ConsoleProgram.Learn
 
         #region 增删改查
         #region === Model ===
-        [EntityFile]
+        [ShineUponModel]
         public class TestModel : AbsFile
         {
             public override string GetPathFolder() {
@@ -40,7 +38,7 @@ namespace Test.ConsoleProgram.Learn
             /// Int类型ID值
             /// </summary>
             [Explain(@"Int类型ID值")]
-            [Field]
+            [ShineUponProperty]
             public int IID { get { return _IID; } set { _IID = value; } }
             private int _IID = 0;
 
@@ -48,7 +46,7 @@ namespace Test.ConsoleProgram.Learn
             /// 名称
             /// </summary>
             [Explain(@"名称")]
-            [Field]
+            [ShineUponProperty]
             public string Name { get { return _Name; } set { _Name = value; } }
             private string _Name = string.Empty;
 
@@ -56,7 +54,7 @@ namespace Test.ConsoleProgram.Learn
             /// 发布时间
             /// </summary>
             [Explain(@"发布时间")]
-            [Field]
+            [ShineUponProperty]
             public DateTime TimeRelease { get { return _TimeRelease; } set { _TimeRelease = value; } }
             private DateTime _TimeRelease = DateTime.Now;
 
@@ -82,7 +80,7 @@ namespace Test.ConsoleProgram.Learn
             /// 性别
             /// </summary>
             [Explain(@"性别")]
-            [Field]
+            [ShineUponProperty]
             public SexEnum Sex { get { return _sex; } set { _sex = value; } }
             private SexEnum _sex = SexEnum.Secrecy;
 

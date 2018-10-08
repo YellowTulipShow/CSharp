@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.Const
+namespace YTS.Tools.Const
 {
     /// <summary>
     /// 类库方法中: 常量组: 键名

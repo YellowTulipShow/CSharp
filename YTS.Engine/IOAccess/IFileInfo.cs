@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.File
+namespace YTS.Engine.IOAccess
 {
     /// <summary>
     /// 文件名称

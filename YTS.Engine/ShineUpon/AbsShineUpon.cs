@@ -1,7 +1,6 @@
 ﻿using System;
-using YTS.Model.Attribute;
 
-namespace YTS.Model
+namespace YTS.Engine.ShineUpon
 {
     /// <summary>
     /// 可以进行映射处理的模型

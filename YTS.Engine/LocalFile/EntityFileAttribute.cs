@@ -1,7 +1,7 @@
 ﻿using System;
-using YTS.Model.Attribute;
+using YTS.Engine.ShineUpon;
 
-namespace YTS.Model.File
+namespace YTS.Engine.LocalFile
 {
     /// <summary>
     /// 实体文件特性

@@ -1,5 +1,7 @@
 ﻿using System;
+using YTS.Engine.DataBase;
 using YTS.Tools;
+using YTS.Tools.Const;
 
 namespace YTS.Model.DB.Table
 {
@@ -10,8 +12,8 @@ namespace YTS.Model.DB.Table
     [EntityTable]
     public class Group : AbsTable_StringID
     {
-        public override Const.Enums.UseCodeMark GetUseCode() {
-            return Const.Enums.UseCodeMark.Group;
+        public override Enums.UseCodeMark GetUseCode() {
+            return Enums.UseCodeMark.Group;
         }
 
         public override string GetTableName() {

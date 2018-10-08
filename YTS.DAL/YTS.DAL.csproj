@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsFile.cs" />
+    <Compile Include="DAL_MSSQLServer_IntID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DAL_MSSQLServer_StringID.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

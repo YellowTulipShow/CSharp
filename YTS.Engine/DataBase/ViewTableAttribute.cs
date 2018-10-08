@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YTS.Model.DB
+namespace YTS.Engine.DataBase
 {
     /// <summary>
     /// 视图数据库表

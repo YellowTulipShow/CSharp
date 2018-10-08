@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
+using YTS.Engine.DataBase;
 using YTS.Engine.IOAccess;
 using YTS.Model.DB;
 using YTS.Tools;
+using YTS.Tools.Const;
 
 namespace Test.ConsoleProgram.BLL
 {
@@ -25,8 +27,8 @@ namespace Test.ConsoleProgram.BLL
         [EntityTable]
         public class TestArticle : AbsTable_StringID
         {
-            public override YTS.Model.Const.Enums.UseCodeMark GetUseCode() {
-                return YTS.Model.Const.Enums.UseCodeMark.Article;
+            public override Enums.UseCodeMark GetUseCode() {
+                return Enums.UseCodeMark.Article;
             }
 
             public override string GetTableName() {
@@ -111,7 +113,7 @@ namespace Test.ConsoleProgram.BLL
                         Console.WriteLine("名称 错误!");
                         return false;
                     }
-                    const string TF = YTS.Model.Const.Format.DATETIME_SECOND;
+                    const string TF = Format.DATETIME_SECOND;
                     if (r_model.TimeRelease.ToString(TF) != model.TimeRelease.ToString(TF)) {
                         Console.WriteLine("发布时间 错误!");
                         return false;
