@@ -51,7 +51,11 @@
     <Compile Include="DataBase\MSQLServer\DbHelperSQL.cs" />
     <Compile Include="DataBase\MSQLServer\PagingHelper.cs" />
     <Compile Include="DataBase\ViewTableAttribute.cs" />
+    <Compile Include="IOAccess\AbsBLL_OnlyQuery.cs" />
+    <Compile Include="IOAccess\BLL_MSSQLServer_OnlyQuery.cs" />
     <Compile Include="IOAccess\IFileInfo.cs" />
+    <Compile Include="IOAccess\IBLL_OnlyQuery.cs" />
+    <Compile Include="IOAccess\IDAL_OnlyQuery.cs" />
     <Compile Include="IOAccess\ITableName.cs" />
     <Compile Include="IOAccess\AbsBLL.cs" />
     <Compile Include="IOAccess\AbsDAL.cs" />
