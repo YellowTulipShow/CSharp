@@ -23,18 +23,39 @@ namespace YTS.Engine.IOAccess
     {
         public AbsBLL() : base() { }
 
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public bool Insert(M model) {
             return this.SelfDAL.Insert(model);
         }
 
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="models">数据映射模型多条记录</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public bool Insert(M[] models) {
             return this.SelfDAL.Insert(models);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public bool Delete(W where) {
             return this.SelfDAL.Delete(where);
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="kos">需要更新的键值</param>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public bool Update(KeyObject[] kos, W where) {
             return this.SelfDAL.Update(kos, where);
         }

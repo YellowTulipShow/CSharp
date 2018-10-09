@@ -20,6 +20,9 @@ namespace YTS.Engine.IOAccess
         public BLL_MSSQLServer_OnlyQuery() : base() { }
 
         #region ====== using:ITableName ======
+        /// <summary>
+        /// 获得当前表 全名 名称
+        /// </summary>
         public string GetTableName() {
             return this.SelfDAL.GetTableName();
         }

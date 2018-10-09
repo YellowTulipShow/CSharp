@@ -7,6 +7,10 @@ namespace YTS.Engine.IOAccess
     /// </summary>
     public interface ITableName
     {
+        /// <summary>
+        /// 获取表名
+        /// </summary>
+        /// <returns></returns>
         string GetTableName();
     }
 }

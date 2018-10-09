@@ -21,12 +21,33 @@ namespace YTS.Engine.IOAccess
     {
         public AbsDAL() : base() { }
 
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public abstract bool Insert(M model);
 
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="models">数据映射模型多条记录</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public abstract bool Insert(M[] models);
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public abstract bool Delete(W where);
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="kos">需要更新的键值</param>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public abstract bool Update(KeyObject[] kos, W where);
     }
 }

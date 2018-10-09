@@ -21,7 +21,8 @@ namespace YTS.Engine.IOAccess
         ISupplementaryStructure
         where M : AbsShineUpon, ITableName
     {
-        public DAL_MSSQLServer() : base() {
+        public DAL_MSSQLServer()
+            : base() {
             // 执行补全
             if (IsNeedSupplementary()) {
                 ExecutionSupplementary();
@@ -37,11 +38,23 @@ namespace YTS.Engine.IOAccess
         }
         #endregion
 
-        #region ====== using:AbsDAL<Model, Where> ======
+        #region ====== using:AbsDAL<Model, Where, Parser, ParserInfo> ======
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
             string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
+
+        /// <summary>
+        /// 数据映射模型 - 转 - SQL插入语句
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <param name="isResultID">是否需要结果ID值</param>
+        /// <returns>SQL插入语句</returns>
         public string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
@@ -59,11 +72,22 @@ namespace YTS.Engine.IOAccess
             }
             return CreateSQL.Insert(this.GetTableName(), fieldArr.ToArray(), valueArr.ToArray(), isResultID);
         }
+
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="models">数据映射模型多条记录</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M[] models) {
             string[] sql_inserts = ConvertTool.ListConvertType(models, (model) => SQLInsert(model, false));
             return Transaction(sql_inserts);
         }
 
+        /// <summary>
+        /// 数据映射模型值 - 转 - 数据库可用类型值
+        /// </summary>
+        /// <param name="model_value">数据映射模型值</param>
+        /// <returns>数据库可用类型值</returns>
         public string ModelValueToDataBaseValue(object model_value) {
             if (CheckData.IsTypeValue<DateTime>(model_value)) {
                 return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
@@ -74,6 +98,11 @@ namespace YTS.Engine.IOAccess
             return ConvertTool.ObjToString(model_value);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Delete(string where) {
             if (CheckData.IsStringNull(where)) {
                 return false;
@@ -82,6 +111,12 @@ namespace YTS.Engine.IOAccess
             return CheckData.IsStringNull(sqldelete) ? false : DbHelperSQL.ExecuteSql(sqldelete) > 0;
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="kos">需要更新的键值</param>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Update(KeyObject[] kos, string where) {
             if (CheckData.IsSizeEmpty(kos) || CheckData.IsStringNull(where)) {
                 return false;
@@ -98,12 +133,28 @@ namespace YTS.Engine.IOAccess
             return CheckData.IsStringNull(sql_update) ? false : DbHelperSQL.ExecuteSql(sql_update) > 0;
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="top">查询记录数目</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="sorts">结果排序键值集合</param>
+        /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int top, string where, KeyBoolean[] sorts) {
             string sort_order = CreateSQL.OrderBySimp(sorts);
             DataSet ds = QueryRecords(top, where, sort_order);
             return DataSetToModels(ds);
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="pageCount">每页展现记录数</param>
+        /// <param name="pageIndex">浏览页面索引</param>
+        /// <param name="recordCount">查询结果总记录数</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="sorts">结果排序键值集合</param>
+        /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, string where, KeyBoolean[] sorts) {
             string sort_order = CreateSQL.OrderBySimp(sorts);
             DataSet ds = QueryRecords(pageCount, pageIndex, out recordCount, where, sort_order);
@@ -111,7 +162,7 @@ namespace YTS.Engine.IOAccess
         }
 
         /// <summary>
-        /// 统计符合查询条件的记录总数
+        /// 获取记录数量
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns>记录总数</returns>
@@ -229,6 +280,7 @@ namespace YTS.Engine.IOAccess
         public virtual bool IsNeedSupplementary() {
             return true;
         }
+
         /// <summary>
         /// 执行补全
         /// </summary>
@@ -248,6 +300,7 @@ namespace YTS.Engine.IOAccess
             string sql = CreateSQL.If(str_if_where, SQL_CreateTable, SQL_AlterColumns);
             DbHelperSQL.GetSingle(sql);
         }
+
         /// <summary>
         /// 获得列信息
         /// </summary>
@@ -270,6 +323,12 @@ namespace YTS.Engine.IOAccess
             }
             return resuDic;
         }
+
+        /// <summary>
+        /// 获取 数据映射模型元素(属性) 的 数据库对应数据类型
+        /// </summary>
+        /// <param name="info">数据映射模型元素(属性)</param>
+        /// <returns>数据库对应数据类型</returns>
         private string GetMemberInfoMSQLServerDataType(ColumnInfo info) {
             Type detype = info.Property.PropertyType;
             if (CheckData.IsTypeEqual<int>(detype)) {
@@ -288,6 +347,7 @@ namespace YTS.Engine.IOAccess
             string str = string.Format("nvarchar({0})", charlen);
             return str;
         }
+
         /// <summary>
         /// 获得补全表列信息
         /// </summary>

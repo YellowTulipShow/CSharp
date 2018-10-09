@@ -7,7 +7,7 @@ using YTS.Tools.Model;
 namespace YTS.Engine.ShineUpon
 {
     /// <summary>
-    /// 抽象-映射分析器
+    /// 映射分析器
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="I">信息结果类型</typeparam>

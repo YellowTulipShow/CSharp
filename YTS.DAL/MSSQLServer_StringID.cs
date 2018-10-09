@@ -16,10 +16,12 @@ namespace YTS.DAL
         IRecordIDPrimaryKey<M, string>
         where M : AbsTable_StringID
     {
-        public static readonly M defmodel = ReflexHelp.CreateNewObject<M>();
-        public readonly string ColName_SID = ReflexHelp.Name(() => defmodel.SID);
+        public readonly string ColName_SID;
 
-        public MSSQLServer_StringID() : base() { }
+        public MSSQLServer_StringID()
+            : base() {
+            this.ColName_SID = ReflexHelp.Name(() => this.DefaultModel.SID);
+        }
 
         #region ====== using:IRecordIDPrimaryKey<M> ======
         /// <summary>

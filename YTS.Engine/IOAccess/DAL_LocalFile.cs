@@ -8,6 +8,10 @@ using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
+    /// <summary>
+    /// 本地文件-数据访问层(Data Access Layer)
+    /// </summary>
+    /// <typeparam name="M">数据映射模型</typeparam>
     public class DAL_LocalFile<M> :
         AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
         IFileInfo
@@ -36,11 +40,18 @@ namespace YTS.Engine.IOAccess
         public FileShare FileShare { get { return _FileShare; } set { _FileShare = value; } }
         private FileShare _FileShare = FileShare.Read;
 
+        /// <summary>
+        /// 初始化当前对象信息
+        /// </summary>
         public void Init() {
-            this.AbsFilePath = CreateGetFilePaht();
+            this.AbsFilePath = CreateGetFilePath();
         }
 
-        public string CreateGetFilePaht() {
+        /// <summary>
+        /// 创建并获取文件路径
+        /// </summary>
+        /// <returns>文件的绝对路径</returns>
+        public string CreateGetFilePath() {
             M model = ReflexHelp.CreateNewObject<M>();
             string rel_directory = model.GetPathFolder();
             string rel_filename = string.Format("{0}.ytsdb", model.GetFileName());
@@ -48,24 +59,52 @@ namespace YTS.Engine.IOAccess
             return abs_file_path;
         }
 
+        /// <summary>
+        /// 数据映射模型 - 转 - 文件行字符串内容
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <returns>文件行字符串内容</returns>
         public string ModelToString(M model) {
             return JSON.SerializeObject(model);
         }
+
+        /// <summary>
+        /// 文件行字符串内容 - 转 - 数据映射模型
+        /// </summary>
+        /// <param name="line">文件行字符串内容</param>
+        /// <returns>数据映射模型</returns>
         public M StringToModel(string line) {
             return JSON.DeserializeToObject<M>(line);
         }
 
+        /// <summary>
+        /// 清空文件的所有内容
+        /// </summary>
         public void Clear() {
             File.Delete(AbsFilePath);
             File.Create(AbsFilePath).Close();
         }
 
+        /// <summary>
+        /// 写
+        /// </summary>
+        /// <param name="models">数据映射模型集合内容</param>
         public void Write(IList<M> models) {
             Write<M>(models, ModelToString);
         }
+        /// <summary>
+        /// 写
+        /// </summary>
+        /// <param name="lines">文件行字符串内容集合</param>
         public void Write(IList<string> lines) {
             Write<string>(lines, str => str);
         }
+        /// <summary>
+        /// 写
+        /// </summary>
+        /// <typeparam name="T">内容集合类型</typeparam>
+        /// <param name="list">内容集合</param>
+        /// <param name="tolineMethod">内容 - 转 - 文件行内容 委托执行方法</param>
         public void Write<T>(IList<T> list, Func<T, string> tolineMethod) {
             if (CheckData.IsSizeEmpty(list)) {
                 throw new Exception(@"写入内容为空");
@@ -83,6 +122,12 @@ namespace YTS.Engine.IOAccess
                 }
             }
         }
+        /// <summary>
+        /// 读
+        /// </summary>
+        /// <typeparam name="T">内容类型</typeparam>
+        /// <param name="where">文件行内容 - 转 - 内容-委托方法(文件行内容, 已查出结果数量)</param>
+        /// <returns>内容集合</returns>
         public T[] Read<T>(Func<string, int, T> where) {
             List<T> list = new List<T>();
             using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
@@ -107,25 +152,48 @@ namespace YTS.Engine.IOAccess
         #endregion
 
         #region ====== using:IFileInfo ======
+        /// <summary>
+        /// 获取 /(根目录) 相对路径文件夹 格式: /xxx/xxx
+        /// </summary>
+        /// <returns>相对路径</returns>
         public string GetPathFolder() {
             return this.DefaultModel.GetPathFolder();
         }
 
+        /// <summary>
+        /// 获取文件名称 (只是名称, 不需要后缀)
+        /// </summary>
+        /// <returns>文件名</returns>
         public string GetFileName() {
             return this.DefaultModel.GetFileName();
         }
         #endregion
 
         #region ====== using:AbsDAL<Model, Where, Parser, ParserInfo> ======
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="model">数据映射模型</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
             return Insert(new M[] { model });
         }
 
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="models">数据映射模型多条记录</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M[] models) {
             Write(models);
             return true;
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Delete(Func<M, bool> where) {
             if (CheckData.IsObjectNull(where)) {
                 Clear();
@@ -146,6 +214,12 @@ namespace YTS.Engine.IOAccess
             return true;
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="kos">需要更新的键值</param>
+        /// <param name="where">查询条件</param>
+        /// <returns>是否成功 是:True 否:False</returns>
         public override bool Update(KeyObject[] kos, Func<M, bool> where) {
             if (CheckData.IsSizeEmpty(kos) || CheckData.IsObjectNull(where)) {
                 return true;
@@ -171,6 +245,13 @@ namespace YTS.Engine.IOAccess
             return true;
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="top">查询记录数目</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="sorts">结果排序键值集合</param>
+        /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int top, Func<M, bool> where, KeyBoolean[] sorts = null) {
             if (CheckData.IsObjectNull(where)) {
                 where = model => true;
@@ -191,6 +272,15 @@ namespace YTS.Engine.IOAccess
             });
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="pageCount">每页展现记录数</param>
+        /// <param name="pageIndex">浏览页面索引</param>
+        /// <param name="recordCount">查询结果总记录数</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="sorts">结果排序键值集合</param>
+        /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, KeyBoolean[] sorts) {
             /*
                 10条 1页 开始: 1 结束: 10
@@ -233,6 +323,11 @@ namespace YTS.Engine.IOAccess
             return result;
         }
 
+        /// <summary>
+        /// 获取记录数量
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <returns>记录总数</returns>
         public override int GetRecordCount(Func<M, bool> where) {
             return Read<string>((line, rlen) => {
                 if (!CheckData.IsObjectNull(where)) {
