@@ -12,7 +12,9 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="W">查询条件</typeparam>
     /// <typeparam name="P">解析器</typeparam>
     /// <typeparam name="PI">解析信息数据模型</typeparam>
-    public abstract class AbsDAL<M, W, P, PI> : AbsDAL_OnlyQuery<M, W, P, PI>, IDAL<M, W, P, PI>
+    public abstract class AbsDAL<M, W, P, PI> :
+        AbsDAL_OnlyQuery<M, W, P, PI>,
+        IDAL<M, W, P, PI>
         where M : AbsShineUpon
         where P : ShineUponParser<M, PI>
         where PI : ShineUponInfo

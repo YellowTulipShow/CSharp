@@ -4,7 +4,7 @@ using YTS.Engine.ShineUpon;
 
 namespace YTS.Engine.IOAccess
 {
-    public interface IDAL<M, W, P, PI>:
+    public interface IDAL<M, W, P, PI> :
         IDAL_OnlyQuery<M, W, P, PI>
         where M : AbsShineUpon
         where P : ShineUponParser<M, PI>
