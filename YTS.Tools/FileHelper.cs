@@ -56,9 +56,8 @@ namespace YTS.Tools
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
                 return true;
             }
         }
@@ -88,9 +87,8 @@ namespace YTS.Tools
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
                 return false;
             }
         }
@@ -119,9 +117,8 @@ namespace YTS.Tools
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
                 return false;
             }
         }

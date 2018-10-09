@@ -158,7 +158,7 @@ namespace YTS.Engine.DataBase.MSQLServer
                         }
                         sqlbulkcopy.WriteToServer(dt);
                         return true;
-                    } catch (System.Exception ex) {
+                    } catch (Exception) {
                         return false;
                     }
                 }
@@ -767,7 +767,7 @@ namespace YTS.Engine.DataBase.MSQLServer
                         }
                         trans.Commit();
                         return count;
-                    } catch (Exception ex) {
+                    } catch (Exception) {
                         trans.Rollback();
                         throw;
                     }

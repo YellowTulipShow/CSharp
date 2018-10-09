@@ -115,7 +115,7 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns>记录总数</returns>
-        public override int GetRecordCount(string where = null) {
+        public override int GetRecordCount(string where) {
             const int errorint = 0;
             string sql_select = CreateSQL.Select_Count(this.GetTableName(), where);
             if (CheckData.IsStringNull(sql_select)) {
@@ -134,7 +134,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="sql_where">查询条件</param>
         /// <param name="sql_order">排序条件</param>
         /// <returns>结果数据表</returns>
-        public DataSet QueryRecords(int top = 0, string sql_where = null, string sql_order = null) {
+        public DataSet QueryRecords(int top, string sql_where, string sql_order) {
             string sql_select = CreateSQL.Select(this.GetTableName(), top, sql_where, sql_order);
             if (CheckData.IsStringNull(sql_select)) {
                 return new DataSet();
@@ -152,7 +152,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="sql_where">定义: 查询条件</param>
         /// <param name="sql_order">定义: 字段排序集合, true 为正序, false 倒序</param>
         /// <returns>结果数据表</returns>
-        public DataSet QueryRecords(int pageCount, int pageIndex, out int recordCount, string sql_where = null, string sql_order = null) {
+        public DataSet QueryRecords(int pageCount, int pageIndex, out int recordCount, string sql_where, string sql_order) {
             recordCount = GetRecordCount(sql_where);
             string sql_paging = PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, sql_where, sql_order);
             if (CheckData.IsStringNull(sql_paging)) {

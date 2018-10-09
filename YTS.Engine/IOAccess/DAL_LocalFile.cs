@@ -36,11 +36,8 @@ namespace YTS.Engine.IOAccess
         public FileShare FileShare { get { return _FileShare; } set { _FileShare = value; } }
         private FileShare _FileShare = FileShare.Read;
 
-        public ShineUponParser<M, ShineUponInfo> Parser = null;
-
         public void Init() {
             this.AbsFilePath = CreateGetFilePaht();
-            this.Parser = new ShineUponParser<M, ShineUponInfo>();
         }
 
         public string CreateGetFilePaht() {

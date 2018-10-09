@@ -16,7 +16,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="sql_where">查询条件</param>
         /// <param name="sql_order">排序条件</param>
         /// <returns>结果数据表</returns>
-        DataSet QueryRecords(int top = 0, string sql_where = null, string sql_order = null);
+        DataSet QueryRecords(int top, string sql_where, string sql_order);
 
         /// <summary>
         /// 分页查询数据
@@ -27,7 +27,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="sql_where">定义: 查询条件</param>
         /// <param name="sql_order">定义: 字段排序集合, true 为正序, false 倒序</param>
         /// <returns>结果数据表</returns>
-        DataSet QueryRecords(int pageCount, int pageIndex, out int recordCount, string sql_where = null, string sql_order = null);
+        DataSet QueryRecords(int pageCount, int pageIndex, out int recordCount, string sql_where, string sql_order);
 
         /// <summary>
         /// 数据集 转为 模型列表
