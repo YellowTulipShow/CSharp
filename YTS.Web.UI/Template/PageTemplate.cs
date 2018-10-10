@@ -162,7 +162,7 @@ namespace YTS.Web.UI.Template
                         "<%@ Import namespace=\"System.Collections.Generic\" %>\r\n" +
                         "<%@ Import namespace=\"System.Text\" %>\r\n" +
                         "<%@ Import namespace=\"System.Data\" %>\r\n" +
-                        "<%@ Import namespace=\"CSharp.LibrayFunction\" %>{1}\r\n\r\n" +
+                        "<%@ Import namespace=\"YTS.Tools\" %>{1}\r\n\r\n" +
                         "<script runat=\"server\">\r\noverride protected void OnInit(EventArgs e)\r\n" +
                         "{{\r\n\r\n\t/* \r\n\t\tThis page was created by DTcms Template Engine at {2}.\r\n\t\t" +
                         "本页面代码借由DTcms模板引擎生成于 {2}. \r\n\t*/\r\n\r\n\tbase.OnInit(e);\r\n\t" +

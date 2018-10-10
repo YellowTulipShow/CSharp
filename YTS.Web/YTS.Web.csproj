@@ -197,7 +197,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="xmlconfig\site.config" />
-    <Content Include="xmlconfig\urls.config" />
+    <Content Include="xmlconfig\urls.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="xmlconfig\user.config" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +218,10 @@
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
       <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>
       <Name>YTS.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Web.UI\YTS.Web.UI.csproj">
+      <Project>{d38d9e9b-740d-4e04-ae10-5e21f19465fc}</Project>
+      <Name>YTS.Web.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

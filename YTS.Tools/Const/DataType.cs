@@ -4,7 +4,7 @@ namespace YTS.Tools.Const
 {
     public class DataType
     {
-        public enum CSHarp
+        public enum CSharp
         {
             /// <summary>
             /// 基础数据类型(bool, byte, char, DateTime, decimal, double, short, int, long, sbyte, float, string, ushort, uint, ulong, enum)
