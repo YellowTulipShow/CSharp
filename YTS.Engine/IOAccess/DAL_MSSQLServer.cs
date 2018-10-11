@@ -89,10 +89,10 @@ namespace YTS.Engine.IOAccess
         /// <param name="model_value">数据映射模型值</param>
         /// <returns>数据库可用类型值</returns>
         public string ModelValueToDataBaseValue(object model_value) {
-            if (CheckData.IsTypeValue<DateTime>(model_value)) {
+            if (CheckData.IsTypeValue<DateTime>(model_value, true)) {
                 return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
             }
-            if (CheckData.IsTypeValue<Enum>(model_value)) {
+            if (CheckData.IsTypeValue<Enum>(model_value, true)) {
                 return ((int)model_value).ToString();
             }
             return ConvertTool.ObjToString(model_value);
@@ -104,10 +104,13 @@ namespace YTS.Engine.IOAccess
         /// <param name="where">查询条件</param>
         /// <returns>是否成功 是:True 否:False</returns>
         public override bool Delete(string where) {
+            string sqldelete;
             if (CheckData.IsStringNull(where)) {
-                return false;
+                //sqldelete = CreateSQL.DropTable(this.GetTableName()); // ALL Clear
+                sqldelete = CreateSQL.TruncateTable(this.GetTableName()); // only delete all data
+            } else {
+                sqldelete = CreateSQL.Delete(this.GetTableName(), where);
             }
-            string sqldelete = CreateSQL.Delete(this.GetTableName(), where);
             return CheckData.IsStringNull(sqldelete) ? false : DbHelperSQL.ExecuteSql(sqldelete) > 0;
         }
 
@@ -141,10 +144,23 @@ namespace YTS.Engine.IOAccess
         /// <param name="sorts">结果排序键值集合</param>
         /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int top, string where, KeyBoolean[] sorts) {
+            if (CheckData.IsSizeEmpty(sorts)) {
+                sorts = GetDefaultSortWhere();
+            }
             string sort_order = CreateSQL.OrderBySimp(sorts);
             DataSet ds = QueryRecords(top, where, sort_order);
             return DataSetToModels(ds);
         }
+
+        public KeyBoolean[] GetDefaultSortWhere() {
+            return new KeyBoolean[] {
+                new KeyBoolean() {
+                    Key = this.Parser.GetSortResult()[0].Name,
+                    Value = false,
+                },
+            };
+        }
+
 
         /// <summary>
         /// 查询
@@ -156,6 +172,9 @@ namespace YTS.Engine.IOAccess
         /// <param name="sorts">结果排序键值集合</param>
         /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, string where, KeyBoolean[] sorts) {
+            if (CheckData.IsSizeEmpty(sorts)) {
+                sorts = GetDefaultSortWhere();
+            }
             string sort_order = CreateSQL.OrderBySimp(sorts);
             DataSet ds = QueryRecords(pageCount, pageIndex, out recordCount, where, sort_order);
             return DataSetToModels(ds);
@@ -204,8 +223,12 @@ namespace YTS.Engine.IOAccess
         /// <param name="sql_order">定义: 字段排序集合, true 为正序, false 倒序</param>
         /// <returns>结果数据表</returns>
         public DataSet QueryRecords(int pageCount, int pageIndex, out int recordCount, string sql_where, string sql_order) {
+            if (CheckData.IsStringNull(sql_order)) {
+                throw new Exception(@"分页查询 排序条件必须存在!");
+            }
             recordCount = GetRecordCount(sql_where);
-            string sql_paging = PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, sql_where, sql_order);
+            string sql_select = CreateSQL.Select(this.GetTableName(), 0, sql_where, sql_order);
+            string sql_paging = PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, sql_select, sql_order);
             if (CheckData.IsStringNull(sql_paging)) {
                 return new DataSet();
             }
@@ -331,7 +354,7 @@ namespace YTS.Engine.IOAccess
         /// <returns>数据库对应数据类型</returns>
         private string GetMemberInfoMSQLServerDataType(ColumnInfo info) {
             Type detype = info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype)) {
+            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
                 return @"int";
             }
             if (CheckData.IsTypeEqual<float>(detype)) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using YTS.Engine.ShineUpon;
 using YTS.Tools;
+using YTS.Tools.Model;
 
 namespace YTS.Engine.DataBase
 {

@@ -63,9 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Test_BLL_LocalFile.cs" />
-    <Compile Include="BLL\Test_IDAL_IBLL.cs" />
-    <Compile Include="BLL\Test_MSSQLServer_StringID.cs" />
+    <Compile Include="BLL\Test_IBLL_IDAL.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
     <Compile Include="Learn\Test_FileDataOperating.cs" />
     <Compile Include="Learn\Test_HttpContext.cs" />

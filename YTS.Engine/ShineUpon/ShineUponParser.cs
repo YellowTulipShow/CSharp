@@ -90,6 +90,9 @@ namespace YTS.Engine.ShineUpon
         /// <param name="array">需要排序的信息模型列表</param>
         /// <returns>排序完成信息模型列表</returns>
         public virtual List<I> SortComparison(List<I> list) {
+            if (CheckData.IsSizeEmpty(list)) {
+                return new List<I>();
+            }
             return list;
         }
         #endregion

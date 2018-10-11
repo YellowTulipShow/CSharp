@@ -226,7 +226,7 @@ namespace YTS.Engine.DataBase.MSQLServer
             } else {
                 symbol = ORDERBY_DESC;
             }
-            return field + "" + symbol;
+            return field + " " + symbol;
         }
         /// <summary>
         /// 排序语句(简洁版:适用于GetList): field asc

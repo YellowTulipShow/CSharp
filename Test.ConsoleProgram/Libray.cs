@@ -40,7 +40,8 @@ namespace Test.ConsoleProgram
                 new Tools.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
-                new BLL.Test_BLL_LocalFile(),
+                //new BLL.Test_BLL_LocalFile(),
+                new BLL.Test_IDAL_IDAL(),
             };
         }
 
@@ -50,7 +51,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_NeedUseDataBase() {
             //return new CaseModel[] { };
             return new CaseModel[] {
-                new BLL.Test_MSSQLServer_StringID(),
+                //new BLL.Test_MSSQLServer_StringID(),
             };
         }
 

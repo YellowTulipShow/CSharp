@@ -10,7 +10,8 @@ namespace YTS.Tools.Const
         /// <summary>
         /// 时间格式 精确至: 毫秒 (取前三位)
         /// </summary>
-        public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.fff";
+        //public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.fff";
+        public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.ff";
         /// <summary>
         /// 时间格式 精确至: 秒
         /// </summary>
