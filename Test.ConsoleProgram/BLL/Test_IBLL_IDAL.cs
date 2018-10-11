@@ -216,6 +216,14 @@ namespace Test.ConsoleProgram.BLL
             #endregion
 
             /// <summary>
+            /// 记录索引
+            /// </summary>
+            [Explain(@"记录索引")]
+            [Column(SortIndex = 1)]
+            public int RecordIndex { get { return _RecordIndex; } set { _RecordIndex = value; } }
+            private int _RecordIndex = 0;
+
+            /// <summary>
             /// 名称
             /// </summary>
             [Explain(@"名称")]
@@ -270,8 +278,8 @@ namespace Test.ConsoleProgram.BLL
             Test_WhereIDAL<TestModel, string, ColumnModelParser<TestModel>, ColumnInfo> mdoel = new Test_WhereIDAL<TestModel, string, ColumnModelParser<TestModel>, ColumnInfo>() {
                 NameSign = @"微软数据库",
                 iDAL = new YTS.Engine.IOAccess.DAL_MSSQLServer<TestModel>(),
-                w_dal = @"Age % 3 = 0",
-                w_model = (model) => model.Age % 3 == 0,
+                w_dal = @"RecordIndex % 3 = 0",
+                w_model = (model) => model.RecordIndex % 3 == 0,
                 update_content_dal = new KeyObject[] {
                     new KeyObject() { Key = @"Name", Value = @"3的倍数名称" },
                 },
@@ -279,12 +287,15 @@ namespace Test.ConsoleProgram.BLL
                     model.Name = @"3的倍数名称";
                     return model;
                 },
+                sorts = new KeyBoolean[] {
+                    new KeyBoolean() { Key = @"RecordIndex", Value = true },
+                },
             };
             return mdoel;
         }
 
         public CaseModel LocalFile() {
-            Func<TestModel, bool> where = (model) => model.Age % 3 == 0;
+            Func<TestModel, bool> where = (model) => model.RecordIndex % 3 == 0;
             Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>() {
                 NameSign = @"行文本文件",
                 iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalFile<TestModel>(),
@@ -295,7 +306,7 @@ namespace Test.ConsoleProgram.BLL
         }
 
         public CaseModel LocalXML() {
-            Func<TestModel, bool> where = (model) => model.Age % 3 == 0;
+            Func<TestModel, bool> where = (model) => model.RecordIndex % 3 == 0;
             Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>() {
                 NameSign = @"XML格式文件",
                 iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalXML<TestModel>(),
@@ -323,31 +334,42 @@ namespace Test.ConsoleProgram.BLL
                     Func_Insert(),
                     Func_Insert_List(),
                     Func_Delete(),
-                    //Func_Update(),
-                    //Func_GetRecordCount(),
-                    //Func_GetModel(),
-                    //Func_Select(),
-                    //Func_Select_Pagination(),
+                    Func_Update(),
+                    Func_GetRecordCount(),
+                    Func_GetModel(),
+                    Func_Select(),
+                    Func_Select_Pagination(),
                 };
             }
 
             public bool TestModelIsEqual(TestModel answer, TestModel source) {
+                if (answer.RecordIndex != source.RecordIndex) {
+                    //ErrorValuePrint(answer, source, @"RecordIndex", m => m.RecordIndex);
+                    return false;
+                }
                 if (answer.Age != source.Age) {
+                    //ErrorValuePrint(answer, source, @"Age", m => m.Age);
                     return false;
                 }
                 if (answer.Name != source.Name) {
+                    //ErrorValuePrint(answer, source, @"Name", m => m.Name);
                     return false;
                 }
                 if (answer.Sex != source.Sex) {
+                    //ErrorValuePrint(answer, source, @"Sex", m => m.Sex);
                     return false;
                 }
 
                 string a_dt = answer.DateOfBirth.ToString(Format.DATETIME_MILLISECOND);
                 string s_dt = source.DateOfBirth.ToString(Format.DATETIME_MILLISECOND);
                 if (a_dt != s_dt) {
+                    //ErrorValuePrint(answer, source, @"DateOfBirth", m => m.DateOfBirth.ToString(Format.DATETIME_MILLISECOND));
                     return false;
                 }
                 return true;
+            }
+            public void ErrorValuePrint(TestModel answer, TestModel source, string name, Func<TestModel, object> getvalue) {
+                Console.WriteLine("ValueError: {0} answer={1} source={2}", name, getvalue(answer), getvalue(source));
             }
 
             public TestModel[] GetRandomDatas(int rewrite_sum = 0) {
@@ -358,6 +380,7 @@ namespace Test.ConsoleProgram.BLL
                 for (int i = 0; i < array.Length; i++) {
                     string name = string.Format("第{0}条 - ", i);
                     array[i] = new TestModel() {
+                        RecordIndex = i,
                         Age = RandomData.GetInt(7828, 546822),
                         DateOfBirth = RandomData.GetDateTime(SqlDateTime.MinValue.Value, SqlDateTime.MaxValue.Value),
                         Name = name + RandomData.GetChineseString(RandomData.GetInt(3, 5)),
@@ -375,7 +398,7 @@ namespace Test.ConsoleProgram.BLL
 
                         iDAL.Delete(null);
                         iDAL.Insert((M)array[0]);
-                        TestModel[] query_result = iDAL.Select(0, null, null);
+                        TestModel[] query_result = iDAL.Select(0, null, sorts);
                         return new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                             Answer = array,
                             Source = query_result,
@@ -396,7 +419,7 @@ namespace Test.ConsoleProgram.BLL
 
                         iDAL.Delete(null);
                         iDAL.Insert((M[])array);
-                        TestModel[] query_result = iDAL.Select(0, null, null);
+                        TestModel[] query_result = iDAL.Select(0, null, sorts);
                         return new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                             Answer = array,
                             Source = query_result,
@@ -422,7 +445,7 @@ namespace Test.ConsoleProgram.BLL
                             return w_model(model) ? null : model;
                         }, null);
 
-                        TestModel[] query_result = iDAL.Select(0, null, null);
+                        TestModel[] query_result = iDAL.Select(0, null, sorts);
                         return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                             Answer = answer_array,
                             Source = query_result,
@@ -451,7 +474,7 @@ namespace Test.ConsoleProgram.BLL
                             return model;
                         }, null);
 
-                        TestModel[] query_result = iDAL.Select(0, null, null);
+                        TestModel[] query_result = iDAL.Select(0, null, sorts);
                         return new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                             Answer = answer_array,
                             Source = query_result,
@@ -487,7 +510,7 @@ namespace Test.ConsoleProgram.BLL
                         iDAL.Delete(null);
                         iDAL.Insert((M[])array);
 
-                        TestModel result_model = iDAL.GetModel(null, null);
+                        TestModel result_model = iDAL.GetModel(null, sorts);
                         if (!TestModelIsEqual(array[0], result_model)) {
                             Console.WriteLine("空条件错误");
                             return false;
@@ -497,7 +520,7 @@ namespace Test.ConsoleProgram.BLL
                             return w_model(model) ? model : null;
                         }, null);
 
-                        result_model = iDAL.GetModel(w_dal, null);
+                        result_model = iDAL.GetModel(w_dal, sorts);
                         if (!TestModelIsEqual(answer_array[0], result_model)) {
                             Console.WriteLine("有条件错误");
                             return false;
@@ -518,7 +541,7 @@ namespace Test.ConsoleProgram.BLL
                         verify.Func_isEquals = TestModelIsEqual;
 
                         verify.Answer = array;
-                        verify.Source = iDAL.Select(0, null, null);
+                        verify.Source = iDAL.Select(0, null, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("0条, 空条件 : 错误");
                             return false;
@@ -528,7 +551,7 @@ namespace Test.ConsoleProgram.BLL
                             return w_model(model) ? model : null;
                         }, null);
                         verify.Answer = answer_array;
-                        verify.Source = iDAL.Select(0, w_dal, null);
+                        verify.Source = iDAL.Select(0, w_dal, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("0条, 有条件 : 错误");
                             return false;
@@ -539,7 +562,7 @@ namespace Test.ConsoleProgram.BLL
                             top_answer_array[i] = answer_array[i];
                         }
                         verify.Answer = top_answer_array;
-                        verify.Source = iDAL.Select(top_answer_array.Length, w_dal, null);
+                        verify.Source = iDAL.Select(top_answer_array.Length, w_dal, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("{0}条, 有条件 : 错误", top_answer_array.Length);
                             return false;
@@ -571,7 +594,7 @@ namespace Test.ConsoleProgram.BLL
 
                             for (int page_index = 0; page_index < sum_page_num; page_index++) {
                                 int record_count = 0;
-                                TestModel[] result = iDAL.Select(page_size, page_index + 1, out record_count, w_dal, null);
+                                TestModel[] result = iDAL.Select(page_size, page_index + 1, out record_count, w_dal, sorts);
 
                                 int range_len = page_size;
                                 if (page_index == sum_page_num - 1 && page_size > remainder_num && remainder_num != 0) {

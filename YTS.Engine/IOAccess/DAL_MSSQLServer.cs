@@ -227,7 +227,7 @@ namespace YTS.Engine.IOAccess
                 throw new Exception(@"分页查询 排序条件必须存在!");
             }
             recordCount = GetRecordCount(sql_where);
-            string sql_select = CreateSQL.Select(this.GetTableName(), 0, sql_where, sql_order);
+            string sql_select = CreateSQL.Select(this.GetTableName(), 0, sql_where, string.Empty);
             string sql_paging = PagingHelper.CreatePagingSql(recordCount, pageCount, pageIndex, sql_select, sql_order);
             if (CheckData.IsStringNull(sql_paging)) {
                 return new DataSet();

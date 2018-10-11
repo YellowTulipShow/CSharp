@@ -66,7 +66,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="sorts">数据映射模型集合结果</param>
         /// <returns>单个记录数据映射模型</returns>
         public virtual M GetModel(W where, KeyBoolean[] sorts) {
-            M[] list = Select(1, where, null);
+            M[] list = Select(1, where, sorts);
             return (CheckData.IsSizeEmpty(list)) ? null : list[0];
         }
     }
