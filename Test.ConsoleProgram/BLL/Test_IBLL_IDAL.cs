@@ -18,7 +18,7 @@ namespace Test.ConsoleProgram.BLL
             NameSign = @"接口: IDALorIDAL";
             SonCases = new CaseModel[] {
                 MSSQLServer(),
-                //LocalFile(),
+                LocalFile(),
                 //LocalXML(),
             };
         }
@@ -301,6 +301,13 @@ namespace Test.ConsoleProgram.BLL
                 iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalFile<TestModel>(),
                 w_dal = where,
                 w_model = where,
+                update_content_dal = new KeyObject[] {
+                    new KeyObject() { Key = @"Name", Value = @"3的倍数名称" },
+                },
+                update_content_model = (model) => {
+                    model.Name = @"3的倍数名称";
+                    return model;
+                },
             };
             return mdoel;
         }
@@ -312,6 +319,13 @@ namespace Test.ConsoleProgram.BLL
                 iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalXML<TestModel>(),
                 w_dal = where,
                 w_model = where,
+                update_content_dal = new KeyObject[] {
+                    new KeyObject() { Key = @"Name", Value = @"3的倍数名称" },
+                },
+                update_content_model = (model) => {
+                    model.Name = @"3的倍数名称";
+                    return model;
+                },
             };
             return mdoel;
         }

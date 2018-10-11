@@ -14,6 +14,9 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetALLCases() {
             List<CaseModel> list = new List<CaseModel>();
 
+            // 学习测试
+            list.AddRange(GetList_Learn());
+
             // 常规测试
             list.AddRange(GetList_Normal());
 
@@ -23,9 +26,6 @@ namespace Test.ConsoleProgram
             } else {
                 Console.WriteLine("[-] 家用电脑数据库不支持, 不能测试!");
             }
-
-            // 学习测试
-            list.AddRange(GetList_Learn());
 
             return list.ToArray();
         }
@@ -51,7 +51,6 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_NeedUseDataBase() {
             //return new CaseModel[] { };
             return new CaseModel[] {
-                //new BLL.Test_MSSQLServer_StringID(),
             };
         }
 
