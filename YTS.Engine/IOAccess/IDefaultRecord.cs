@@ -4,7 +4,7 @@ using YTS.Engine.ShineUpon;
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// 接口 - 默认数据映射模型
+    /// 接口: 默认数据映射模型
     /// </summary>
     public interface IDefaultRecord<M> where M : AbsShineUpon
     {

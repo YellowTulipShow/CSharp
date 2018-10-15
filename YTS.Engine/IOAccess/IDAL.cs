@@ -5,7 +5,7 @@ using YTS.Engine.ShineUpon;
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// 接口-数据访问层(Data Access Layer)
+    /// 接口: 数据访问层(Data Access Layer)
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="W">查询条件</typeparam>

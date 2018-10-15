@@ -2,28 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using CSharp.LibrayFunction;
+using System.IO;
+using System.Text;
+using YTS.Tools;
 
-namespace Test.ConsoleProgram.Case.SonTests
+namespace Test.ConsoleProgram.Tools
 {
     public class Test_ConvertTool : CaseModel
     {
         public Test_ConvertTool() {
-            base.NameSign = @"测试 转化工具类";
-            base.ExeEvent = () => { };
+            base.NameSign = @"转化工具";
             base.SonCases = new CaseModel[] {
-                //DataTypeConvert(),
-                //EnumTypeValue(),
-                Event_Test_Unicode_Format_String(),
+                Func_GetIListRange(),
             };
         }
 
+        #region old method
         #region === DataTypeConvert ===
         public CaseModel DataTypeConvert() {
             return new CaseModel() {
                 NameSign = @"数据类型转换",
                 ExeEvent = () => {
                     Print.WriteLine(@"ConvertTool 的类型转化工具");
+                    return true;
                 },
                 SonCases = new CaseModel[] {
                     new StringToInt(),
@@ -49,11 +50,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0));
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
         public class StringToInt_ErrorValue : CaseModel
@@ -63,11 +65,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
 
@@ -78,11 +81,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s);
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
         public class StringToString_ErrorValue : CaseModel
@@ -92,11 +96,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s, "0");
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
 
@@ -107,11 +112,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 float[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
         public class StringToDecimal : CaseModel
@@ -121,11 +127,12 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = Srource();
                 Print.WriteLine("SourceData: {0}", str);
                 decimal[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
                 Print.WriteLine("Result: {0}", array.ToJson());
+                return true;
             }
         }
         public class StringToBoolean : CaseModel
@@ -135,7 +142,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 string str = @"true,false,flsea,0,1,sliw,trus";
 
                 Print.WriteLine("SourceData: {0}", str);
@@ -144,6 +151,7 @@ namespace Test.ConsoleProgram.Case.SonTests
 
                 bool[] array_2 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, false));
                 Print.WriteLine("Default: false Result: {0}", array_2.ToJson());
+                return true;
             }
         }
         public class DataTableToString : CaseModel
@@ -153,7 +161,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 DataTable dt = DataTableSource(new Dictionary<string, string>() {
                     { "捐赠人姓名", "name:sjifwjelifjwief" },
                     { "捐赠人电话", "telephone:2349873941" },
@@ -165,6 +173,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 foreach (string k in tels) {
                     Print.WriteLine("tels Array: {0}", k);
                 }
+                return true;
             }
             private DataTable DataTableSource(Dictionary<string, string> dic) {
                 List<Dictionary<String, String>> dbSource = new List<Dictionary<String, String>>();
@@ -199,7 +208,7 @@ namespace Test.ConsoleProgram.Case.SonTests
                 base.ExeEvent = Method;
             }
 
-            public void Method() {
+            public bool Method() {
                 Dictionary<string, int> dic = new Dictionary<string, int>() {
                     { "key1", 343 },
                     { "key2_ss", 41243 },
@@ -209,36 +218,10 @@ namespace Test.ConsoleProgram.Case.SonTests
                 foreach (string k in keys) {
                     Print.WriteLine("Key Array: {0}", k);
                 }
+                return true;
             }
         }
         #endregion
-        #endregion
-
-        #region === Enum Type Value ===
-        private CaseModel EnumTypeValue() {
-            return new CaseModel() {
-                NameSign = @"枚举类型-相关测试",
-                ExeEvent = () => { },
-                SonCases = new CaseModel[] {
-                    new CaseModel() {
-                        NameSign = @"输出枚举int值",
-                        ExeEvent = () => {
-                            foreach (int item in ConvertTool.EnumToInts<TestEnum>()) {
-                                Print.WriteLine(item);
-                            }
-                        },
-                    },
-                    new CaseModel() {
-                        NameSign = @"输出枚举所有个项",
-                        ExeEvent = () => {
-                            foreach (TestEnum item in ConvertTool.EnumForeachArray<TestEnum>()) {
-                                Print.WriteLine(string.Format("Name: {0}  Value: {1}", item.GetName(), item.GetIntValue()));
-                            }
-                        },
-                    },
-                },
-            };
-        }
         #endregion
 
         public CaseModel Event_Test_Unicode_Format_String() {
@@ -257,6 +240,37 @@ namespace Test.ConsoleProgram.Case.SonTests
                         string unicode = ConvertTool.UnicodeFormatString(repl);
                         Print.WriteLine("{0} : {1} : {2}", item, repl, unicode);
                     }
+                    return true;
+                },
+            };
+        }
+        #endregion
+
+        public CaseModel Func_GetIListRange() {
+            return new CaseModel() {
+                NameSign = @"获取列表范围",
+                ExeEvent = () => {
+                    int sumcount = RandomData.GetInt(35, 57);
+                    string[] source = new string[sumcount];
+                    for (int i = 0; i < source.Length; i++) {
+                        source[i] = string.Format("第{0}项", i);
+                    }
+                    
+                    string absfile = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_GetIListRange.txt");
+                    using (FileStream fileshream = new FileStream(absfile, FileMode.OpenOrCreate)) {
+                        using (StreamWriter writer = new StreamWriter(fileshream, Encoding.UTF8)) {
+                            for (int count = 9; count <= 11; count++) {
+                                for (int index = -1; index < 11; index++) {
+                                    string[] result = ConvertTool.GetIListRange(source, index, count);
+                                    writer.WriteLine("sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, index, count, JSON.SerializeObject(result));
+                                }
+                                writer.WriteLine();
+                            }
+                            writer.Flush();
+                        }
+                    }
+                    Console.WriteLine("结果已写入文件: {0}", absfile);
+                    return true;
                 },
             };
         }

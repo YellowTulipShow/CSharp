@@ -55,6 +55,7 @@
     <Compile Include="IOAccess\AbsDAL_OnlyQuery.cs" />
     <Compile Include="IOAccess\BLL_MSSQLServer_OnlyQuery.cs" />
     <Compile Include="IOAccess\DAL_LocalXML.cs" />
+    <Compile Include="IOAccess\IXMLInfo.cs" />
     <Compile Include="IOAccess\IFileInfo.cs" />
     <Compile Include="IOAccess\IBLL_OnlyQuery.cs" />
     <Compile Include="IOAccess\IDAL_OnlyQuery.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="IOAccess\ISupplementaryStructure.cs" />
     <Compile Include="IOAccess\DAL_MSSQLServer.cs" />
     <Compile Include="IOAccess\BLL_MSSQLServer.cs" />
+    <Compile Include="IOAccess\StringWhere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShineUpon\AbsShineUpon.cs" />
     <Compile Include="ShineUpon\ShineUponInfo.cs" />

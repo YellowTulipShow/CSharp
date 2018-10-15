@@ -80,10 +80,11 @@ namespace YTS.Tools
             string abs_filename = FilterDisableFileNameChar(filename);
             abs_filename = string.Format("{0}\\{1}", abs_directory, abs_filename);
             if (!File.Exists(abs_filename)) {
-                FileStream fs = File.Create(abs_filename);
-                // 关闭连接
-                fs.Dispose();
-                fs.Close();
+                using (FileStream fs = File.Create(abs_filename)) {
+                    // 关闭连接
+                    fs.Dispose();
+                    fs.Close();
+                }
             }
             return abs_filename;
         }

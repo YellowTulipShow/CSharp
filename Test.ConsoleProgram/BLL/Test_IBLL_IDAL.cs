@@ -19,7 +19,7 @@ namespace Test.ConsoleProgram.BLL
             SonCases = new CaseModel[] {
                 MSSQLServer(),
                 LocalFile(),
-                //LocalXML(),
+                LocalXML(),
             };
         }
 
@@ -199,7 +199,7 @@ namespace Test.ConsoleProgram.BLL
 
         #region === test model ===
         [EntityTable]
-        public class TestModel : AbsShineUpon, ITableName, IFileInfo
+        public class TestModel : AbsShineUpon, ITableName, IFileInfo, IXMLInfo
         {
             #region === interface ===
             public string GetTableName() {
@@ -212,6 +212,10 @@ namespace Test.ConsoleProgram.BLL
 
             public string GetFileName() {
                 return @"TestModel.file";
+            }
+
+            public string GetRootNodeName() {
+                return @"TestRoot";
             }
             #endregion
 
@@ -544,10 +548,10 @@ namespace Test.ConsoleProgram.BLL
                 };
             }
             public CaseModel Func_Select() {
+                TestModel[] array = GetRandomDatas(RandomData.GetInt(30, 81));
                 return new CaseModel() {
-                    NameSign = @"查询",
+                    NameSign = string.Format("查询 数据总数: {0}", array.Length),
                     ExeEvent = () => {
-                        TestModel[] array = GetRandomDatas(RandomData.GetInt(30, 81));
                         iDAL.Delete(null);
                         iDAL.Insert((M[])array);
 
@@ -606,7 +610,7 @@ namespace Test.ConsoleProgram.BLL
                                 sum_page_num++;
                             }
 
-                            for (int page_index = 0; page_index < sum_page_num; page_index++) {
+                            for (int page_index = 1; page_index <= sum_page_num; page_index++) {
                                 int record_count = 0;
                                 TestModel[] result = iDAL.Select(page_size, page_index + 1, out record_count, w_dal, sorts);
 
@@ -622,8 +626,9 @@ namespace Test.ConsoleProgram.BLL
                                     Source = result,
                                     Func_isEquals = TestModelIsEqual,
                                 }.Calc();
+
+                                Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 是否成功: {3}", page_size, page_index, record_count, isby);
                                 if (!isby) {
-                                    Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 出了问题!", page_size, page_index, record_count);
                                     return false;
                                 }
                             }

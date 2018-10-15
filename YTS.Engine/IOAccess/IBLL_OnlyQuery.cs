@@ -5,7 +5,7 @@ using YTS.Tools.Model;
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// 接口-业务逻辑层(Business Logic Layer)-只提供查询功能
+    /// 接口: 业务逻辑层(Business Logic Layer)-只提供查询功能
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="D">接口-数据访问层(Data Access Layer)</typeparam>

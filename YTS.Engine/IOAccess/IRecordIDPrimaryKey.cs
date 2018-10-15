@@ -5,7 +5,7 @@ using YTS.Tools.Model;
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// 接口 - 记录ID主键相应的方法
+    /// 接口: 记录ID主键相应的方法
     /// </summary>
     /// <typeparam name="M">数据模型</typeparam>
     /// <typeparam name="T">ID键的数据类型</typeparam>

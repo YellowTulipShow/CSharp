@@ -3,7 +3,7 @@
 namespace YTS.Engine.IOAccess
 {
     /// <summary>
-    /// 文件名称
+    /// 接口: 文件名称
     /// </summary>
     public interface IFileInfo
     {

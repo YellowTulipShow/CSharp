@@ -104,6 +104,32 @@ namespace YTS.Tools
             }
             return RL.ToArray();
         }
+
+        /// <summary>
+        /// 获取列表范围
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="source">数据源</param>
+        /// <param name="count">每页数量</param>
+        /// <param name="index">页面索引</param>
+        /// <returns>获取 </returns>
+        public static T[] GetIListRange<T>(IList<T> source, int index, int count) {
+            index = index < 1 ? 1 : index;
+            count = count <= 1 ? 10 : count;
+
+            int max_index = source.Count / count;
+
+            int startindex = index;
+            int rangecount = count;
+            if (index >= max_index + 1) {
+                startindex = max_index * count;
+                rangecount = source.Count % count;
+            }
+
+            List<T> list = new List<T>(source);
+            return list.GetRange(startindex, rangecount).ToArray();
+            return list.GetRange(0, count).ToArray();
+        }
         #endregion
 
         #region === Type Convert ===
@@ -368,32 +394,6 @@ namespace YTS.Tools
 
 
         /// <summary>
-        /// 获取枚举类型所有Int值
-        /// </summary>
-        /// <typeparam name="E">枚举类型</typeparam>
-        public static int[] EnumToInts<E>() {
-            try {
-                Array arr = Enum.GetValues(typeof(E));
-                return arr.Cast<int>().ToArray();
-            } catch (Exception) {
-                return new int[] { };
-            }
-        }
-        /// <summary>
-        /// 枚举遍历所有枚举值
-        /// </summary>
-        /// <typeparam name="E">枚举类型</typeparam>
-        public static E[] EnumForeachArray<E>() where E : struct {
-            try {
-                Array arr = Enum.GetValues(typeof(E));
-                return arr.Cast<E>().ToArray();
-            } catch (Exception) {
-                return new E[] { };
-            }
-        }
-
-
-        /// <summary>
         /// 汉字转换为Unicode编码 (网络代码)
         /// </summary>
         /// <param name="gb2312_str">要编码的汉字字符串</param>
@@ -404,7 +404,8 @@ namespace YTS.Tools
             }
             byte[] bts = Encoding.Unicode.GetBytes(gb2312_str);
             string r = "";
-            for (int i = 0; i < bts.Length; i += 2) r += "\\u" + bts[i + 1].ToString("x").PadLeft(2, '0') + bts[i].ToString("x").PadLeft(2, '0');
+            for (int i = 0; i < bts.Length; i += 2)
+                r += "\\u" + bts[i + 1].ToString("x").PadLeft(2, '0') + bts[i].ToString("x").PadLeft(2, '0');
             return r;
         }
         /// <summary>

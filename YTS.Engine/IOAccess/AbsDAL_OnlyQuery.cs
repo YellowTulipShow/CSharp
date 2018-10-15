@@ -69,5 +69,37 @@ namespace YTS.Engine.IOAccess
             M[] list = Select(1, where, sorts);
             return (CheckData.IsSizeEmpty(list)) ? null : list[0];
         }
+
+        /// <summary>
+        /// 数据映射模型值 - 转 - 数据库可用类型值
+        /// </summary>
+        /// <param name="model_value">数据映射模型值</param>
+        /// <returns>数据库可用类型值</returns>
+        public string ModelValueToDataBaseValue(object model_value) {
+            if (CheckData.IsTypeValue<DateTime>(model_value, true)) {
+                return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
+            }
+            if (CheckData.IsTypeValue<Enum>(model_value, true)) {
+                return ((int)model_value).ToString();
+            }
+            return ConvertTool.ObjToString(model_value);
+        }
+
+        public object DataBaseValueToModelValue(PI parser_info, string field_value) {
+            Type detype = parser_info.Property.PropertyType;
+            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
+                return ConvertTool.ObjToInt(field_value, default(int));
+            }
+            if (CheckData.IsTypeEqual<float>(detype) || CheckData.IsTypeEqual<double>(detype)) {
+                return ConvertTool.ObjToFloat(field_value, default(float));
+            }
+            if (CheckData.IsTypeEqual<DateTime>(detype)) {
+                return ConvertTool.ObjToDateTime(field_value, default(DateTime));
+            }
+            if (CheckData.IsTypeEqual<DateTime>(detype)) {
+                return ConvertTool.ObjToBool(field_value, default(bool));
+            }
+            return field_value;
+        }
     }
 }
