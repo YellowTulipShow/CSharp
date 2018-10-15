@@ -246,17 +246,128 @@ namespace Test.ConsoleProgram.Tools
         }
         #endregion
 
+        public class GetIListRangeItem
+        {
+            public int index = 1;
+            public int count = 10;
+            public string[] result = new string[] { };
+
+            public static int DataSumCount = 47;
+            public static GetIListRangeItem[] ResultAnswer() {
+                return new GetIListRangeItem[] {
+                    new GetIListRangeItem() {
+                        index = -1,
+                        count = 10,
+                        result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 0,
+                        count = 10,
+                        result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 1,
+                        count = 10,
+                        result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 2,
+                        count = 10,
+                        result = new string[] { "第10项","第11项","第12项","第13项","第14项","第15项","第16项","第17项","第18项","第19项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 3,
+                        count = 10,
+                        result = new string[] { "第20项","第21项","第22项","第23项","第24项","第25项","第26项","第27项","第28项","第29项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 5,
+                        count = 10,
+                        result = new string[] { "第40项","第41项","第42项","第43项","第44项","第45项","第46项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 6,
+                        count = 10,
+                        result = new string[] {  },
+                    },
+                    new GetIListRangeItem() {
+                        index = 7,
+                        count = 10,
+                        result = new string[] {  },
+                    },
+                    new GetIListRangeItem() {
+                        index = 8,
+                        count = 10,
+                        result = new string[] {  },
+                    },
+                    new GetIListRangeItem() {
+                        index = 2,
+                        count = 11,
+                        result = new string[] { "第11项","第12项","第13项","第14项","第15项","第16项","第17项","第18项","第19项","第20项","第21项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 3,
+                        count = 11,
+                        result = new string[] { "第22项","第23项","第24项","第25项","第26项","第27项","第28项","第29项","第30项","第31项","第32项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 4,
+                        count = 11,
+                        result = new string[] { "第33项","第34项","第35项","第36项","第37项","第38项","第39项","第40项","第41项","第42项","第43项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 6,
+                        count = 11,
+                        result = new string[] {  },
+                    },
+                    new GetIListRangeItem() {
+                        index = 2,
+                        count = 9,
+                        result = new string[] { "第9项","第10项","第11项","第12项","第13项","第14项","第15项","第16项","第17项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 3,
+                        count = 9,
+                        result = new string[] { "第18项","第19项","第20项","第21项","第22项","第23项","第24项","第25项","第26项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 5,
+                        count = 9,
+                        result = new string[] { "第36项","第37项","第38项","第39项","第40项","第41项","第42项","第43项","第44项" },
+                    },
+                    new GetIListRangeItem() {
+                        index = 6,
+                        count = 9,
+                        result = new string[] { "第45项","第46项" },
+                    },
+                };
+            }
+        }
+
         public CaseModel Func_GetIListRange() {
             return new CaseModel() {
                 NameSign = @"获取列表范围",
                 ExeEvent = () => {
-                    int sumcount = RandomData.GetInt(35, 57);
+                    int sumcount = GetIListRangeItem.DataSumCount;
                     string[] source = new string[sumcount];
                     for (int i = 0; i < source.Length; i++) {
                         source[i] = string.Format("第{0}项", i);
                     }
-                    
+
+                    // auto 规则测试
+                    VerifyIList<string, string> verify = new VerifyIList<string, string>(CalcWayEnum.DoubleCycle);
+                    foreach (GetIListRangeItem item in GetIListRangeItem.ResultAnswer()) {
+                        verify.Answer = item.result;
+                        verify.Source = ConvertTool.GetIListRange(source, item.index, item.count);
+                        if (!verify.Calc()) {
+                            Console.WriteLine("Error: sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, item.index, item.count, JSON.SerializeObject(item.result));
+                        }
+                    }
+                    Console.WriteLine("自动化程序测试结果成功!");
+
+                    // old 生成结果数据
                     string absfile = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_GetIListRange.txt");
+                    File.Delete(absfile);
                     using (FileStream fileshream = new FileStream(absfile, FileMode.OpenOrCreate)) {
                         using (StreamWriter writer = new StreamWriter(fileshream, Encoding.UTF8)) {
                             for (int count = 9; count <= 11; count++) {
@@ -269,7 +380,7 @@ namespace Test.ConsoleProgram.Tools
                             writer.Flush();
                         }
                     }
-                    Console.WriteLine("结果已写入文件: {0}", absfile);
+                    Console.WriteLine("生成结果数据: {0}", absfile);
                     return true;
                 },
             };

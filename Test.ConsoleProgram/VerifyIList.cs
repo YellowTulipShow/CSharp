@@ -93,6 +93,10 @@ namespace Test.ConsoleProgram
             this.Source = source;
         }
 
+        /// <summary>
+        /// 批量比较计算 答案和数据源 选项是否都相等
+        /// </summary>
+        /// <returns>都相等: True, 有错误or其中有一个不相等: False</returns>
         public bool Calc() {
             if (CheckData.IsObjectNull(Answer)) {
                 Console.WriteLine("Answer 答案为空");

@@ -110,25 +110,26 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
-        /// <param name="count">每页数量</param>
+        /// <param name="length">每页数量</param>
         /// <param name="index">页面索引</param>
         /// <returns>获取 </returns>
-        public static T[] GetIListRange<T>(IList<T> source, int index, int count) {
-            index = index < 1 ? 1 : index;
-            count = count <= 1 ? 10 : count;
-
-            int max_index = source.Count / count;
-
-            int startindex = index;
-            int rangecount = count;
-            if (index >= max_index + 1) {
-                startindex = max_index * count;
-                rangecount = source.Count % count;
+        public static T[] GetIListRange<T>(IList<T> source, int index, int length) {
+            length = length <= 1 ? 10 : length;
+            int max_index = source.Count / length;
+            int superfluous_count = source.Count % length;
+            int exe_index = index < 1 ? 1 : index;
+            int exe_count = length;
+            if (exe_index == max_index + 1) {
+                exe_count = superfluous_count;
+            } else if (exe_index > max_index + 1) {
+                exe_count = 0;
+            } else {
+                exe_count = length;
             }
+            int startpoint = exe_count <= 0 ? 0 : (exe_index - 1) * length;
 
             List<T> list = new List<T>(source);
-            return list.GetRange(startindex, rangecount).ToArray();
-            return list.GetRange(0, count).ToArray();
+            return list.GetRange(startpoint, exe_count).ToArray();
         }
         #endregion
 
