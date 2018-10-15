@@ -600,26 +600,15 @@ namespace Test.ConsoleProgram.BLL
                         iDAL.Insert((M[])array);
 
                         Func<int, bool> method = (page_size) => {
-                            List<TestModel> answer_list = new List<TestModel>(ConvertTool.ListConvertType(array, model => {
+                            TestModel[] answer_list = ConvertTool.ListConvertType(array, model => {
                                 return w_model(model) ? model : null;
-                            }, null));
+                            }, null);
 
-                            int remainder_num = answer_list.Count % page_size;
-                            int sum_page_num = answer_list.Count / page_size;
-                            if (remainder_num > 0) {
-                                sum_page_num++;
-                            }
-
-                            for (int page_index = 1; page_index <= sum_page_num; page_index++) {
+                            for (int page_index = 1; page_index <= answer_list.Length / page_size + 1; page_index++) {
                                 int record_count = 0;
-                                TestModel[] result = iDAL.Select(page_size, page_index + 1, out record_count, w_dal, sorts);
+                                TestModel[] result = iDAL.Select(page_size, page_index, out record_count, w_dal, sorts);
 
-                                int range_len = page_size;
-                                if (page_index == sum_page_num - 1 && page_size > remainder_num && remainder_num != 0) {
-                                    range_len = remainder_num;
-                                }
-                                int range_index = page_index * page_size;
-                                TestModel[] answer_array = answer_list.GetRange(range_index, range_len).ToArray();
+                                TestModel[] answer_array = ConvertTool.GetIListRange(answer_list, page_index, page_size);
 
                                 bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                                     Answer = answer_array,
@@ -627,7 +616,7 @@ namespace Test.ConsoleProgram.BLL
                                     Func_isEquals = TestModelIsEqual,
                                 }.Calc();
 
-                                Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 是否成功: {3}", page_size, page_index, record_count, isby);
+                                //Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 是否成功: {3}", page_size, page_index, record_count, isby);
                                 if (!isby) {
                                     return false;
                                 }

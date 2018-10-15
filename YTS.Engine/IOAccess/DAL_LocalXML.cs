@@ -185,17 +185,7 @@ namespace YTS.Engine.IOAccess
             if (CheckData.IsSizeEmpty(list)) {
                 return new M[] { };
             }
-            int remainder_num = list.Count % pageCount;
-            int sum_page_num = list.Count / pageCount;
-            if (remainder_num > 0) {
-                sum_page_num++;
-            }
-            int range_len = pageCount;
-            if (pageIndex == sum_page_num - 1 && pageCount > remainder_num && remainder_num != 0) {
-                range_len = remainder_num;
-            }
-            int range_index = pageIndex * pageCount;
-            return list.GetRange(range_index, range_len).ToArray();
+            return ConvertTool.GetIListRange<M>(list, pageIndex, pageCount);
         }
 
         public override int GetRecordCount(Func<M, bool> where) {

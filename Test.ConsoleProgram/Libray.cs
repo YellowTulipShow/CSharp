@@ -49,11 +49,11 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_Normal() {
             return new CaseModel[] {
                 new Tools.Test_ConvertTool(),
-                //new Tools.Test_ReflexHelp(),
-                //new Tools.Test_EnumInfo(),
-                //new Engine.Test_AbsShineUponParser(),
-                //new Tools.Test_PathHelp(),
-                //new BLL.Test_IDAL_IDAL(),
+                new Tools.Test_ReflexHelp(),
+                new Tools.Test_EnumInfo(),
+                new Engine.Test_AbsShineUponParser(),
+                new Tools.Test_PathHelp(),
+                new BLL.Test_IDAL_IDAL(),
             };
         }
 
