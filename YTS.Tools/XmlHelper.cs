@@ -28,12 +28,12 @@ namespace YTS.Tools
         /// <returns></returns>
         public static XmlDocument GetDocument(string fileAbsPath, string defaultRootName = ROOT_NODE_NAME) {
             if (!File.Exists(fileAbsPath)) {
-                return XmlHelper.CreateNewDocument(defaultRootName);
+                return CreateNewDocument(defaultRootName);
             }
             try {
-                return XmlHelper.ReadExistDocument(fileAbsPath);
+                return ReadExistDocument(fileAbsPath);
             } catch (Exception) {
-                return XmlHelper.CreateNewDocument(defaultRootName);
+                return CreateNewDocument(defaultRootName);
             }
         }
         public static XmlDocument ReadExistDocument(string fileAbsPath) {

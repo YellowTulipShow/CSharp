@@ -69,8 +69,10 @@
     <Compile Include="Learn\Test_HttpContext.cs" />
     <Compile Include="Learn\Test_Linq.cs" />
     <Compile Include="Learn\Test_Path.cs" />
+    <Compile Include="Learn\Test_XML.cs" />
     <Compile Include="Tools\Test_ConvertTool.cs" />
     <Compile Include="Tools\Test_EnumInfo.cs" />
+    <Compile Include="Tools\Test_SerializerDeserialize.cs" />
     <Compile Include="Tools\Test_PathHelp.cs" />
     <Compile Include="Tools\Test_ReflexHelp.cs">
       <SubType>Code</SubType>

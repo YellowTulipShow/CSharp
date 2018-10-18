@@ -217,6 +217,10 @@ namespace Test.ConsoleProgram.BLL
             public string GetRootNodeName() {
                 return @"TestRoot";
             }
+
+            public string GetModelName() {
+                return @"Item";
+            }
             #endregion
 
             /// <summary>
@@ -275,7 +279,29 @@ namespace Test.ConsoleProgram.BLL
             [Column]
             public SexEnum Sex { get { return _sex; } set { _sex = value; } }
             private SexEnum _sex = SexEnum.Secrecy;
+
+            /// <summary>
+            /// 出生日期
+            /// </summary>
+            [Explain(@"出生日期")]
+            [ShineUponProperty]
+            public SonModel Release { get { return _Release; } set { _Release = value; } }
+            private SonModel _Release = new SonModel() {
+                ReleaseTime = DateTime.Now,
+            };
         }
+
+        public class SonModel : AbsShineUpon
+        {
+            /// <summary>
+            /// 发布日期
+            /// </summary>
+            [Explain(@"发布日期")]
+            [Column]
+            public DateTime ReleaseTime { get { return _ReleaseTime; } set { _ReleaseTime = value; } }
+            private DateTime _ReleaseTime = DateTime.Now;
+        }
+
         #endregion
 
         public CaseModel MSSQLServer() {
@@ -351,8 +377,8 @@ namespace Test.ConsoleProgram.BLL
                 SonCases = new CaseModel[] {
                     Func_Insert(),
                     Func_Insert_List(),
-                    Func_Delete(),
                     Func_Update(),
+                    Func_Delete(),
                     Func_GetRecordCount(),
                     Func_GetModel(),
                     Func_Select(),

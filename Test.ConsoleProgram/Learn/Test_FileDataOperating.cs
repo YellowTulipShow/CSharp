@@ -113,7 +113,7 @@ namespace Test.ConsoleProgram.Learn
                     }
 
                     Func<TestModel, string> get_formatprint = (model) => {
-                        return JSON.SerializeObject(model);
+                        return JSON.Serializer(model);
                     };
 
                     List<string> lines = new List<string>();
@@ -141,7 +141,7 @@ namespace Test.ConsoleProgram.Learn
                         if (CheckData.IsStringNull(line)) {
                             return null;
                         }
-                        TestModel model = JSON.DeserializeToObject<TestModel>(line);
+                        TestModel model = JSON.Deserialize<TestModel>(line);
                         if (CheckData.IsObjectNull(model) || model.IID <= 5) {
                             return null;
                         }
@@ -166,14 +166,14 @@ namespace Test.ConsoleProgram.Learn
                         if (CheckData.IsStringNull(line)) {
                             return null;
                         }
-                        TestModel model = JSON.DeserializeToObject<TestModel>(line);
+                        TestModel model = JSON.Deserialize<TestModel>(line);
                         if (CheckData.IsObjectNull(model)) {
                             return null;
                         }
 
                         if (model.IID % 2 == 0) {
                             model.Name = @"正常名称";
-                            return JSON.SerializeObject(model);
+                            return JSON.Serializer(model);
                         }
 
                         return line;

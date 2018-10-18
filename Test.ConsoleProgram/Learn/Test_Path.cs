@@ -19,8 +19,8 @@ namespace Test.ConsoleProgram.Learn
                 ExeEvent = () => {
                     char[] file_name_err_chars = Path.GetInvalidFileNameChars();
                     char[] path_err_chars = Path.GetInvalidPathChars();
-                    Console.WriteLine("file_err_chars: {0}", JSON.SerializeObject(file_name_err_chars));
-                    Console.WriteLine("path_err_chars: {0}", JSON.SerializeObject(path_err_chars));
+                    Console.WriteLine("file_err_chars: {0}", JSON.Serializer(file_name_err_chars));
+                    Console.WriteLine("path_err_chars: {0}", JSON.Serializer(path_err_chars));
                     string path = Path.Combine(new string[] {
                         //AppDomain.CurrentDomain.BaseDirectory,
                         "C:\\SSS\\",

@@ -15,7 +15,7 @@ namespace YTS.Tools
         /// </summary>
         /// <param name="obj">对象</param>
         /// <returns>json字符串</returns>
-        public static String SerializeObject(Object obj) {
+        public static String Serializer(Object obj) {
             return JsonConvert.SerializeObject(obj);
         }
 
@@ -25,7 +25,7 @@ namespace YTS.Tools
         /// <typeparam name="T">对象类型 可以是数据</typeparam>
         /// <param name="json">json字符串(eg.{"ID":"112","Name":"石子儿"})</param>
         /// <returns>对象实体</returns>
-        public static T DeserializeToObject<T>(String json) where T : class {
+        public static T Deserialize<T>(String json) where T : class {
             JsonSerializer serializer = new JsonSerializer();
             StringReader sr = new StringReader(json);
             object o = serializer.Deserialize(new JsonTextReader(sr), typeof(T));
@@ -40,7 +40,7 @@ namespace YTS.Tools
         /// <param name="json">json字符串</param>
         /// <param name="anonymousTypeObject">匿名对象</param>
         /// <returns>匿名对象</returns>
-        public static T DeserializeAnonymousType<T>(String json, T anonymousTypeObject) {
+        public static T Deserialize<T>(String json, T anonymousTypeObject) {
             T t = JsonConvert.DeserializeAnonymousType(json, anonymousTypeObject);
             return t;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using YTS.Engine.ShineUpon;
 using YTS.Tools;
 using YTS.Tools.Model;
@@ -36,6 +37,10 @@ namespace YTS.Engine.IOAccess
             return this.DefaultModel.GetRootNodeName();
         }
 
+        public string GetModelName() {
+            return this.DefaultModel.GetModelName();
+        }
+
         /// <summary>
         /// 创建并获取文件路径
         /// </summary>
@@ -43,19 +48,23 @@ namespace YTS.Engine.IOAccess
         public string CreateGetFilePath() {
             M model = ReflexHelp.CreateNewObject<M>();
             string rel_directory = model.GetPathFolder();
-            string rel_filename = string.Format("{0}.ytsxml", model.GetFileName());
+            string rel_filename = string.Format("{0}.xml", model.GetFileName());
             string abs_file_path = PathHelp.CreateUseFilePath(rel_directory, rel_filename);
             return abs_file_path;
         }
         #endregion
 
         public XmlNode ModelToXmlNode(M model, XmlDocument doc) {
-            XmlElement element = doc.CreateElement(@"model");
+            XmlElement element = doc.CreateElement(this.GetModelName());
             foreach (ShineUponInfo info in this.Parser.GetSortResult()) {
-                KeyObject ko = this.Parser.GetModelValue(info, model);
-                XmlElement item = doc.CreateElement(ko.Key);
-                item.InnerText = ModelValueToDataBaseValue(ko.Value);
-                element.AppendChild(item);
+                if (CheckData.IsTypeEqual<AbsShineUpon>(info.Property)) {
+                    ShineUponParser<AbsShineUpon, ShineUponInfo> sonparser = new ShineUponParser<AbsShineUpon, ShineUponInfo>();
+                } else {
+                    KeyObject ko = this.Parser.GetModelValue(info, model);
+                    XmlElement item = doc.CreateElement(ko.Key);
+                    item.InnerText = ModelValueToDataBaseValue(ko.Value);
+                    element.AppendChild(item);
+                }
             }
             return element;
         }

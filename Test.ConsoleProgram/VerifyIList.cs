@@ -70,7 +70,7 @@ namespace Test.ConsoleProgram
         public Action<TA> Func_notFind {
             get {
                 return !CheckData.IsObjectNull(_func_notFind) ? _func_notFind : a => {
-                    Console.WriteLine("答案选项: {0} 没找到", JSON.SerializeObject(a));
+                    Console.WriteLine("答案选项: {0} 没找到", JSON.Serializer(a));
                 };
             }
             set { _func_notFind = value; }

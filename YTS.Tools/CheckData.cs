@@ -121,7 +121,7 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="T">要检查的类型</typeparam>
         /// <param name="v_object">要检查的数据</param>
-        public static bool IsTypeValue<T>(object v_object) {
+        public static bool IsTypeEqual<T>(object v_object) {
             return IsTypeEqual(typeof(T), v_object.GetType());
         }
         /// <summary>
@@ -129,9 +129,9 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="T">要检查的类型</typeparam>
         /// <param name="v_object">要检查的数据</param>
-        public static bool IsTypeValue<T>(object v_object, bool isDepth) {
+        public static bool IsTypeEqual<T>(object v_object, bool isDepth) {
             if (!isDepth) {
-                return IsTypeValue<T>(v_object);
+                return IsTypeEqual<T>(v_object);
             }
             return IsTypeEqual<T>(v_object.GetType(), true);
         }

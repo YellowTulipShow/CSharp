@@ -65,7 +65,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="model">数据映射模型</param>
         /// <returns>文件行字符串内容</returns>
         public virtual string ModelToString(M model) {
-            return JSON.SerializeObject(model);
+            return JSON.Serializer(model);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="line">文件行字符串内容</param>
         /// <returns>数据映射模型</returns>
         public virtual M StringToModel(string line) {
-            return JSON.DeserializeToObject<M>(line);
+            return JSON.Deserialize<M>(line);
         }
 
         /// <summary>

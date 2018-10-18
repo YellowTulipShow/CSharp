@@ -76,10 +76,10 @@ namespace YTS.Engine.IOAccess
         /// <param name="model_value">数据映射模型值</param>
         /// <returns>数据库可用类型值</returns>
         public string ModelValueToDataBaseValue(object model_value) {
-            if (CheckData.IsTypeValue<DateTime>(model_value, true)) {
+            if (CheckData.IsTypeEqual<DateTime>(model_value, true)) {
                 return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
             }
-            if (CheckData.IsTypeValue<Enum>(model_value, true)) {
+            if (CheckData.IsTypeEqual<Enum>(model_value, true)) {
                 return ((int)model_value).ToString();
             }
             return ConvertTool.ObjToString(model_value);

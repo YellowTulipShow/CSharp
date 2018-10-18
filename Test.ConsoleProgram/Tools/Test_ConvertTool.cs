@@ -360,7 +360,7 @@ namespace Test.ConsoleProgram.Tools
                         verify.Answer = item.result;
                         verify.Source = ConvertTool.GetIListRange(source, item.index, item.count);
                         if (!verify.Calc()) {
-                            Console.WriteLine("Error: sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, item.index, item.count, JSON.SerializeObject(item.result));
+                            Console.WriteLine("Error: sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, item.index, item.count, JSON.Serializer(item.result));
                         }
                     }
                     Console.WriteLine("自动化程序测试结果成功!");
@@ -373,7 +373,7 @@ namespace Test.ConsoleProgram.Tools
                             for (int count = 9; count <= 11; count++) {
                                 for (int index = -1; index < 11; index++) {
                                     string[] result = ConvertTool.GetIListRange(source, index, count);
-                                    writer.WriteLine("sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, index, count, JSON.SerializeObject(result));
+                                    writer.WriteLine("sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, index, count, JSON.Serializer(result));
                                 }
                                 writer.WriteLine();
                             }

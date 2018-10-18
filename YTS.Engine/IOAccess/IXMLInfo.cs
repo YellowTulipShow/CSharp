@@ -12,5 +12,11 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         /// <returns>名称</returns>
         string GetRootNodeName();
+
+        /// <summary>
+        /// 获取模型的名称
+        /// </summary>
+        /// <returns>名称</returns>
+        string GetModelName();
     }
 }

@@ -20,13 +20,6 @@ namespace Test.ConsoleProgram
             // 常规测试
             list.AddRange(GetList_Normal());
 
-            // 早8:00 - 晚7:00才能执行数据库测试
-            if (8 <= DateTime.Now.Hour && DateTime.Now.Hour <= 19) {
-                list.AddRange(GetList_NeedUseDataBase());
-            } else {
-                Console.WriteLine("[-] 家用电脑数据库不支持, 不能测试!");
-            }
-
             return list.ToArray();
         }
         #endregion
@@ -40,6 +33,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_Linq(),
                 new Learn.Test_Path(),
                 new Learn.Test_FileDataOperating(),
+                new Learn.Test_XML(),
             };
         }
 
@@ -53,16 +47,8 @@ namespace Test.ConsoleProgram
                 new Tools.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
-                new BLL.Test_IDAL_IDAL(),
-            };
-        }
-
-        /// <summary>
-        /// 数据库测试
-        /// </summary>
-        public CaseModel[] GetList_NeedUseDataBase() {
-            //return new CaseModel[] { };
-            return new CaseModel[] {
+                //new BLL.Test_IDAL_IDAL(),
+                new Tools.Test_SerializerDeserialize(),
             };
         }
     }

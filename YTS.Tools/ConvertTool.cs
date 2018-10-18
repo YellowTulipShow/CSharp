@@ -209,7 +209,7 @@ namespace YTS.Tools
         /// <param name="obj">数据源</param>
         /// <returns>Json 字符串</returns>
         public static string ToJson(this object obj) {
-            return JSON.SerializeObject(obj);
+            return JSON.Serializer(obj);
         }
 
 
