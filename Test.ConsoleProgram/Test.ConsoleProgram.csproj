@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{91B75C09-6224-44BF-93BF-BDC0D9DD756A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Test.ConsoleProgram</RootNamespace>
+    <AssemblyName>Test.ConsoleProgram</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Test.ConsoleProgram.MainProram</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Test_IBLL_IDAL.cs" />
+    <Compile Include="Engine\Test_AbsShineUponParser.cs" />
+    <Compile Include="Learn\Test_FileDataOperating.cs" />
+    <Compile Include="Learn\Test_HttpContext.cs" />
+    <Compile Include="BLL\Test_ini.cs" />
+    <Compile Include="Learn\Test_Linq.cs" />
+    <Compile Include="Learn\Test_Path.cs" />
+    <Compile Include="Learn\Test_XML.cs" />
+    <Compile Include="Tools\Test_ConvertTool.cs" />
+    <Compile Include="Tools\Test_EnumInfo.cs" />
+    <Compile Include="Tools\Test_SerializerDeserialize.cs" />
+    <Compile Include="Tools\Test_PathHelp.cs" />
+    <Compile Include="Tools\Test_ReflexHelp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CaseModel.cs" />
+    <Compile Include="MainProram.cs" />
+    <Compile Include="Print.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Libray.cs" />
+    <Compile Include="VerifyIList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">
+      <Project>{346d3cee-6a41-4bc2-b3f6-83c1034f9c94}</Project>
+      <Name>YTS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.DAL\YTS.DAL.csproj">
+      <Project>{81a59759-9224-448e-8f13-d62834cec868}</Project>
+      <Name>YTS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Engine\YTS.Engine.csproj">
+      <Project>{ee4a7884-3078-49fd-9c7a-479c468346d2}</Project>
+      <Name>YTS.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Model\YTS.Model.csproj">
+      <Project>{1a4a8952-e523-48e7-9a13-25921df9ba3e}</Project>
+      <Name>YTS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.SystemService\YTS.SystemService.csproj">
+      <Project>{8ceb1fe6-a10c-42d8-b54d-81e94ac86bc3}</Project>
+      <Name>YTS.SystemService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
+      <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>
+      <Name>YTS.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Web.UI\YTS.Web.UI.csproj">
+      <Project>{d38d9e9b-740d-4e04-ae10-5e21f19465fc}</Project>
+      <Name>YTS.Web.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Case.Learn\" />
+    <Folder Include="Case.Topic\" />
+    <Folder Include="Model\" />
+    <Folder Include="Module\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

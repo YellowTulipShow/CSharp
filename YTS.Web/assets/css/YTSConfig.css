@@ -1,0 +1,388 @@
+﻿@charset "utf-8";
+/*
+    YTSConfig.css
+    2017/06/01 创建 作者: YellowTulipShow
+    以下为YellowTulipShow书写全局样式 (有借鉴和拷贝)
+*/
+
+* { /* ALL Settings ~~~ */
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "微软雅黑",Arial,Helvetica,STHeiTi,sans-serif;
+    white-space: initial;
+}   /* Global Settings ~~~ */
+    html { -webkit-text-size-adjust: none; overflow-y: scroll; }
+    a { text-decoration: none; }
+    a:active { filter: alpha(opacity=70); -moz-opacity: .7; opacity: .7; }
+    a:hover { filter: alpha(opacity=70); -moz-opacity: .7; opacity: .7; }
+    img { max-width: 100%; }
+    h1,h2,h3,h4,h5,h6 { font-size: 100%; font-weight: 500; }
+    li,ol,ul { list-style: none; }
+    em,i { font-style: normal; }
+    del { text-decoration: line-through; }
+    input,select,textarea { font-size: 100%; vertical-align: middle; }
+    input,button,select,textarea { outline: 0; }
+    input { width: 100%; border: 0 none; }
+    textarea { resize: none; }
+    table { border-collapse: collapse; border-spacing: 0; }
+    caption,th { text-align: left; }
+    address,caption,cite,code,dfn,em,th,var { font-style: normal; font-weight: 500; }
+    html { font-size: 50px; }
+    body { font-size: 24px; }
+
+    @media screen and (max-width: 320px) { html { font-size: 21.33px; } body { font-size: 12.00px; } }
+    @media screen and (min-width: 320px) { html { font-size: 21.33px; } body { font-size: 12.00px; } }
+    @media screen and (min-width: 360px) { html { font-size: 24.00px; } body { font-size: 12.00px; } }
+    @media screen and (min-width: 375px) { html { font-size: 25.00px; } body { font-size: 12.00px; } }
+    @media screen and (min-width: 384px) { html { font-size: 25.60px; } body { font-size: 14.00px; } }
+    @media screen and (min-width: 400px) { html { font-size: 26.67px; } body { font-size: 14.00px; } }
+    @media screen and (min-width: 414px) { html { font-size: 27.60px; } body { font-size: 14.00px; } }
+    @media screen and (min-width: 424px) { html { font-size: 28.27px; } body { font-size: 14.00px; } }
+    @media screen and (min-width: 480px) { html { font-size: 32.00px; } body { font-size: 15.36px; } }
+    @media screen and (min-width: 540px) { html { font-size: 36.00px; } body { font-size: 17.28px; } }
+    @media screen and (min-width: 720px) { html { font-size: 48.00px; } body { font-size: 23.04px; } }
+    @media screen and (min-width: 750px) { html { font-size: 50.00px; } body { font-size: 24.00px; } }
+
+    html, body {
+        background-color: #01060a;
+    }
+
+/* text ~~~ */
+    /*文字居左显示*/
+    .text-align-left { text-align: left !important; }
+    /*文字居右显示*/
+    .text-align-right { text-align: right !important; }
+    /*文字居中显示*/
+    .text-align-center { text-align: center !important; }
+
+    /*下划线*/
+    .text-decoration-underline { text-decoration: underline !important; }
+    /*顶划线*/
+    .text-decoration-overline { text-decoration: overline !important; }
+    /*删除线*/
+    .text-decoration-line-through { text-decoration: line-through !important; }
+    /*闪烁*/
+    .text-decoration-blink { text-decoration: blink !important; }
+
+    /*字体阴影*/
+    .text-shadow { text-shadow: 1px 1px 1px #000; }
+
+    /*文字内容不可被选中*/
+    /*.text-noneSelect { -moz-user-select: none; -moz-user-select: -moz-none; -moz-user-select: -moz-all; -webkit-user-select: none; }*/
+    .text-noneSelect { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+    .text-hide {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+
+        filter: alpha(opacity=0) !important;
+        -moz-opacity: 0 !important;
+        opacity: 0 !important;
+    }
+
+/* font word ~~~ */
+    /*显示字体的地方让其多余字体隐藏起来*/
+    .font-hide span,
+    .font-hide strong,
+    .font-hide p,
+    .font-hide b,
+    .font-hide a,
+    .font-hide input {
+        word-break: keep-all;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    /*当文字超出限制的时候隐藏多余文字*/
+    .wbox-flex {
+        -webkit-flex: 1 !important;
+        -webkit-box-flex: 1;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    /*字体颜色红色*/
+    .font-color-red { color: #f23030 !important; }
+    /*字体颜色黄色*/
+    .font-color-yellow { color: #fdb03e !important; }
+    /*字体颜色白色*/
+    .font-color-white { color: #fff !important; }
+    /*字体颜色黑色*/
+    .font-color-black { color: #000 !important; }
+    /*字体颜色浅灰*/
+    .font-color-gray { color: #999 !important; }
+
+/* background ~~~ */
+    /*背景透明*/
+    .bgc-transparent { background-color: transparent !important; }
+    /*背景橙色*/
+    .bgc-orange { background-color: #fdb03e !important; }
+    /*淡黄色*/
+    .bgc-yellowy { background-color: #faecca !important; }
+    /*背景红色*/
+    .bgc-red { background-color: #f23030 !important; }
+    /*背景绿色*/
+    .bgc-green { background-color: #60c81b !important; }
+    /*背景蓝色*/
+    .bgc-blue { background-color: #00BFFF !important; }
+    /*背景白色*/
+    .bgc-white { background-color: #fff !important; }
+    /*背景黑色*/
+    .bgc-black { background-color: #000 !important; }
+    /*背景灰色,背景色*/
+    .bgc-gray-f2 { background-color: #f2f2f2 !important; }
+    /*背景浅灰*/
+    .bgc-gray-d { background-color: #ddd !important; }
+    /*背景浅灰*/
+    .bgc-gray-e { background-color: #eee !important; }
+    /*背景浅灰*/
+    .bgc-gray-9 { background-color: #999 !important; }
+    /*背景灰色*/
+    .bgc-gray { background-color: #bbb !important; }
+
+/* width height ~~~ */
+    /*宽度设为自动*/
+    .width-auto { width: auto !important; }
+    /*宽度设为0*/
+    .width-0 { width: 0 !important; }
+    /*宽度设为100%*/
+    .width-100 { width: 100% !important; }
+
+    /*高度设为自动*/
+    .height-auto { height: auto !important; }
+    /*高度设为0*/
+    .height-0 { height: 0 !important; }
+    /*高度设为100%*/
+    .height-100 { height: 100% !important; }
+
+/* margin padding ~~~ */
+    /*外边距-居中*/
+    .margin-center { margin: 0 auto !important; }
+    /*外边距-全部为0*/
+    .margin-0 {     margin: 0 !important; }
+    /*外边距-全部为自动*/
+    .margin-auto { margin: auto !important; }
+
+    /*内边距-全部为0*/
+    .padding-0 {     padding: 0 !important; }
+    /*内边距-全部为自动*/
+    .padding-auto { padding: auto !important; }
+
+/* border ~~~ */
+    /*50%圆角*/
+    .border-radius-50 { -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; }
+
+/* box ~~~ */
+    /*使盒子在计算宽度、高度、外边距和内边距的时候最大值根据宽度和高度计算：
+    将外边距和内边距包含在宽度和高度里*/
+    *, *:after, *:before {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .box-sizing-border-box {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .box-sizing-content-box {
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+    .box-sizing-inherit {
+        -moz-box-sizing: inherit;
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+
+    /*盒子阴影*/
+    .box-shadow {
+        -moz-box-shadow: 0px 0px 4px #888888;
+        box-shadow: 0px 0px 4px #888888;
+    }
+    .box-shadow-hover:hover {
+        -moz-box-shadow: 0px 0px 4px #888888;
+        box-shadow: 0px 0px 4px #888888;
+    }
+
+/* display ~~~ */
+    /*显示元素,默认为block(块级元素)*/
+    .display-block { display: block !important; }
+    /*系那是元素,设置为行内元素*/
+    .display-inline { display: inline !important; }
+    /*隐藏元素*/
+    .display-none { display: none !important; }
+    /*弹性布局盒子类型*/
+    .display-flex {
+        display: -webkit-flex !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+    }
+    .display-flex-center {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+/* float ~~~ */
+    /*左浮动*/
+    .fl,.float-left { float: left !important; }
+    /*右浮动*/
+    .fr,.float-right { float: right !important; }
+
+/* overflow ~~~ */
+    /*overflow-y 属性规定是否对内容的上/下边缘进行裁剪 - 如果溢出元素内容区域的话，则应该提供滚动机制。*/
+    .overtouch { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    /*盒子内容溢出时: 不进行处理*/
+    .overflow-visible { overflow: visible !important; }
+    /*盒子内容溢出时: 全部隐藏*/
+    .overflow-hidden { overflow: hidden !important; }
+
+/* position ~~~ */
+    /*固定定位*/
+    .fixed { position: fixed !important; }
+    /*绝对定位*/
+    .absolute { position: absolute !important; }
+    /*相对定位*/
+    .relative { position: relative !important; }
+
+    /*上,左为0*/
+    .top-left-0 { left: 0 !important; right: auto !important; top: 0 !important; bottom: auto !important; }
+    /*上,右为0*/
+    .top-right-0 { left: auto !important; right: 0 !important; top: 0 !important; bottom: auto !important; }
+    /*下,左为0*/
+    .bottom-left-0 { left: auto !important; right: 0 !important; top: auto !important; bottom: 0 !important; }
+    /*下,右为0*/
+    .bottom-right-0 { left: 0 !important; right: auto !important; top: auto !important; bottom: 0 !important; }
+
+/* z-index ~~~ */
+    .zix-min, .zix-f1 { z-index: -1 !important; }
+    .zix-max, .zix-999 { z-index: 999 !important; }
+    .zix-0 { z-index: 0 !important; }
+    .zix-1 { z-index: 1 !important; }
+    .zix-2 { z-index: 2 !important; }
+    .zix-3 { z-index: 3 !important; }
+    .zix-4 { z-index: 4 !important; }
+    .zix-5 { z-index: 5 !important; }
+    .zix-6 { z-index: 6 !important; }
+    .zix-7 { z-index: 7 !important; }
+    .zix-8 { z-index: 8 !important; }
+    .zix-9 { z-index: 9 !important; }
+    .zix-10 { z-index: 10 !important; }
+    .zix-11 { z-index: 11 !important; }
+    .zix-12 { z-index: 12 !important; }
+    .zix-13 { z-index: 13 !important; }
+    .zix-14 { z-index: 14 !important; }
+    .zix-15 { z-index: 15 !important; }
+    .zix-16 { z-index: 16 !important; }
+    .zix-17 { z-index: 17 !important; }
+    .zix-18 { z-index: 18 !important; }
+    .zix-19 { z-index: 19 !important; }
+
+/* opacity ~~~ */
+    /*透明度*/
+    .opacity-0 { filter: alpha(opacity=0); -moz-opacity: 0; opacity: 0; }
+    .opacity-1 { filter: alpha(opacity=10); -moz-opacity: .1; opacity: .1; }
+    .opacity-2 { filter: alpha(opacity=20); -moz-opacity: .2; opacity: .2; }
+    .opacity-3 { filter: alpha(opacity=30); -moz-opacity: .3; opacity: .3; }
+    .opacity-4 { filter: alpha(opacity=40); -moz-opacity: .4; opacity: .4; }
+    .opacity-5 { filter: alpha(opacity=50); -moz-opacity: .5; opacity: .5; }
+    .opacity-6 { filter: alpha(opacity=60); -moz-opacity: .6; opacity: .6; }
+    .opacity-7 { filter: alpha(opacity=70); -moz-opacity: .7; opacity: .7; }
+    .opacity-8 { filter: alpha(opacity=80); -moz-opacity: .8; opacity: .8; }
+    .opacity-9 { filter: alpha(opacity=90); -moz-opacity: .9; opacity: .9; }
+    .opacity-10 { filter: alpha(opacity=100); -moz-opacity: 1; opacity: 1; }
+
+/* transition ~~~ */
+    /*过渡样式*/
+    .transition {
+        -webkit-transition: all .2s ease-in-out 0s;
+        -moz-transition: all .2s ease-in-out 0s;
+        -ms-transition: all .2s ease-in-out 0s;
+        -o-transition: all .2s ease-in-out 0s;
+        transition: all .2s ease-in-out 0s;
+    }
+/* transform ~~~ */
+    /*旋转*/
+    .rotate-0 {
+        -ms-transform:rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -webkit-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+    .rotate-90 {
+        -ms-transform:rotate(90deg);
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        -o-transform:rotate(90deg);
+        transform:rotate(90deg);
+    }
+    .rotate-180 {
+        -ms-transform:rotate(180deg);
+        -moz-transform:rotate(180deg);
+        -webkit-transform:rotate(180deg);
+        -o-transform:rotate(180deg);
+        transform:rotate(180deg);
+    }
+    .rotate-270 {
+        -ms-transform:rotate(270deg);
+        -moz-transform:rotate(270deg);
+        -webkit-transform:rotate(270deg);
+        -o-transform:rotate(270deg);
+        transform:rotate(270deg);
+    }
+    .rotate-360 {
+        -ms-transform:rotate(360deg);
+        -moz-transform:rotate(360deg);
+        -webkit-transform:rotate(360deg);
+        -o-transform:rotate(360deg);
+        transform:rotate(360deg);
+    }
+
+    /*水平翻转*/
+    .flipx {
+        -moz-transform:scaleX(-1);
+        -webkit-transform:scaleX(-1);
+        -o-transform:scaleX(-1);
+        transform:scaleX(-1);
+        /*IE*/
+        filter:FlipH;
+    }
+    /*垂直翻转*/
+    .flipy {
+        -moz-transform:scaleY(-1);
+        -webkit-transform:scaleY(-1);
+        -o-transform:scaleY(-1);
+        transform:scaleY(-1);
+        /*IE*/
+        filter:FlipV;
+    }
+
+/* Public Style ~~~ */
+    .ShadyWhite,
+    .ShadyBlack { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: -1; }
+    /*黑幕-黑色*/
+    .ShadyBlack { background-color: rgb(0,0,0); }
+    /*黑幕-白色*/
+    .ShadyWhite { background-color: rgb(255,255,255); }
+
+    /* 英寸大小 (照片) */
+    .inch-1 { width: 100px !important; height: 137px !important; }
+    .inch-2 { width: 200px !important; height: 274px !important; }
+
+/*<!--//====================================以上都是自定义全局样式=================================//-->

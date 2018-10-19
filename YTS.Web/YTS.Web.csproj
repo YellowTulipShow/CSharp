@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1A16C435-C10F-466A-9D77-B47A8AF10C60}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YTS.Web</RootNamespace>
+    <AssemblyName>YTS.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\DetailNavigation.css" />
+    <Content Include="assets\css\Main.css" />
+    <Content Include="assets\css\test_default_style.css" />
+    <Content Include="assets\css\YTSConfig.css" />
+    <Content Include="assets\css\YTSImgLibray.css" />
+    <Content Include="assets\css\YTSMainPage.css" />
+    <Content Include="assets\css\YTSStyle.css" />
+    <Content Include="assets\icons\icons.png" />
+    <Content Include="assets\icons\leftrightBtn - 副本.png" />
+    <Content Include="assets\icons\leftrightBtn.png" />
+    <Content Include="assets\icon\demo.css" />
+    <Content Include="assets\icon\demo_fontclass.html" />
+    <Content Include="assets\icon\demo_symbol.html" />
+    <Content Include="assets\icon\demo_unicode.html" />
+    <Content Include="assets\icon\iconfont.css" />
+    <Content Include="assets\icon\iconfont.js" />
+    <Content Include="assets\icon\iconfont.svg" />
+    <Content Include="assets\images\5huizhang.png" />
+    <Content Include="assets\images\activebgimg.jpg" />
+    <Content Include="assets\images\banner1.jpg" />
+    <Content Include="assets\images\bgimg_1.jpg" />
+    <Content Include="assets\images\bgimg_2.jpg" />
+    <Content Include="assets\images\bgimg_3.jpg" />
+    <Content Include="assets\images\bgimg_4.jpg" />
+    <Content Include="assets\images\bgimg_5.jpg" />
+    <Content Include="assets\images\bgimg_6.jpg" />
+    <Content Include="assets\images\BingWallpaper-2017-10-08.jpg" />
+    <Content Include="assets\images\BingWallpaper-2017-10-09.jpg" />
+    <Content Include="assets\images\BingWallpaper-2017-10-26.jpg" />
+    <Content Include="assets\images\gif\Programmer%27s Day.gif" />
+    <Content Include="assets\images\hover_left.png" />
+    <Content Include="assets\images\hua.png" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_2.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_3.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_4.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_5.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_6.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_7.jpg" />
+    <Content Include="assets\images\lol\170701kaitelinPiFu\bg_array.jpg" />
+    <Content Include="assets\images\minev.net.png" />
+    <Content Include="assets\images\Star_Triangle_img.png" />
+    <Content Include="assets\images\TopHead.jpg" />
+    <Content Include="assets\images\touxiang.jpg" />
+    <Content Include="assets\js\AdaptiveHeightOfBoxBasedOnWidth.js" />
+    <Content Include="assets\js\DetailNavigation.js" />
+    <Content Include="assets\js\inputValidator.js" />
+    <Content Include="assets\js\Main.js" />
+    <Content Include="assets\js\MainSelectDisplayOption.js" />
+    <Content Include="assets\js\ModulePage.js" />
+    <Content Include="assets\js\PagePub.js" />
+    <Content Include="assets\js\SideNavigationBar.js" />
+    <Content Include="assets\js\ZRQWindow.js" />
+    <Content Include="assets\scripts\Aplayer\APlayer.min.css" />
+    <Content Include="assets\scripts\Aplayer\APlayer.min.js" />
+    <Content Include="assets\scripts\Aplayer\default.jpg" />
+    <Content Include="assets\scripts\Aplayer\font\aplayer-fontello.svg" />
+    <Content Include="assets\scripts\artdialog\dialog-min.js" />
+    <Content Include="assets\scripts\artdialog\dialog-plus-min.js" />
+    <Content Include="assets\scripts\artdialog\ui-dialog.css" />
+    <Content Include="assets\scripts\ckplayer\ckplayer.js" />
+    <Content Include="assets\scripts\ckplayer\ckplayer.swf" />
+    <Content Include="assets\scripts\ckplayer\ckplayer.xml" />
+    <Content Include="assets\scripts\ckplayer\language.xml" />
+    <Content Include="assets\scripts\ckplayer\related.xml" />
+    <Content Include="assets\scripts\ckplayer\share.xml" />
+    <Content Include="assets\scripts\ckplayer\share\feixin.png" />
+    <Content Include="assets\scripts\ckplayer\share\google.png" />
+    <Content Include="assets\scripts\ckplayer\share\kaixin001.png" />
+    <Content Include="assets\scripts\ckplayer\share\msn.png" />
+    <Content Include="assets\scripts\ckplayer\share\qq.png" />
+    <Content Include="assets\scripts\ckplayer\share\qq2.png" />
+    <Content Include="assets\scripts\ckplayer\share\qzone.png" />
+    <Content Include="assets\scripts\ckplayer\share\rr.png" />
+    <Content Include="assets\scripts\ckplayer\share\sina.png" />
+    <Content Include="assets\scripts\ckplayer\share\sohu.png" />
+    <Content Include="assets\scripts\ckplayer\share\tianya.png" />
+    <Content Include="assets\scripts\ckplayer\style.swf" />
+    <Content Include="assets\scripts\datepicker\calendar.js" />
+    <Content Include="assets\scripts\datepicker\lang\en.js" />
+    <Content Include="assets\scripts\datepicker\lang\zh-cn.js" />
+    <Content Include="assets\scripts\datepicker\lang\zh-tw.js" />
+    <Content Include="assets\scripts\datepicker\skin\datePicker.gif" />
+    <Content Include="assets\scripts\datepicker\skin\default\datepicker.css" />
+    <Content Include="assets\scripts\datepicker\skin\default\img.gif" />
+    <Content Include="assets\scripts\datepicker\skin\WdatePicker.css" />
+    <Content Include="assets\scripts\datepicker\skin\whyGreen\bg.jpg" />
+    <Content Include="assets\scripts\datepicker\skin\whyGreen\datepicker.css" />
+    <Content Include="assets\scripts\datepicker\skin\whyGreen\img.gif" />
+    <Content Include="assets\scripts\datepicker\WdatePicker.js" />
+    <Content Include="assets\scripts\jquery\jquery-1.11.2.min.js" />
+    <Content Include="assets\scripts\jquery\jquery.form.min.js" />
+    <Content Include="assets\scripts\jquery\jquery.jcrop.min.js" />
+    <Content Include="assets\scripts\jquery\jquery.jqzoom.js" />
+    <Content Include="assets\scripts\jquery\jquery.lazyload.min.js" />
+    <Content Include="assets\scripts\jquery\jquery.nicescroll.js" />
+    <Content Include="assets\scripts\jquery\jquery.pagination.js" />
+    <Content Include="assets\scripts\jquery\PCASClass.js" />
+    <Content Include="assets\scripts\jquery\Validform_v5.3.2_min.js" />
+    <Content Include="assets\scripts\SpecialEffects\canvas-particle.js" />
+    <Content Include="assets\scripts\webuploader\uploader.swf" />
+    <Content Include="assets\scripts\webuploader\webuploader.min.js" />
+    <Content Include="assets\scripts\zepto\alertBox.js" />
+    <Content Include="assets\scripts\zepto\zepto.min.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="index.aspx" />
+    <Content Include="templets\YTSTemp\configFolder\_headConfigInfo.html" />
+    <Content Include="templets\YTSTemp\index.html" />
+    <Content Include="templets\YTSTemp\Main_Arena.html" />
+    <Content Include="templets\YTSTemp\Main_Module.html" />
+    <Content Include="templets\YTSTemp\Page_Article.html" />
+    <Content Include="templets\YTSTemp\PeopleProfile.html" />
+    <Content Include="templets\YTSTemp\PublicModelPage\AnimationBackground_Img.html" />
+    <Content Include="templets\YTSTemp\PublicModelPage\AnimationBackground_Particle.html" />
+    <Content Include="templets\YTSTemp\PublicModelPage\DetailNavigationInfo.html" />
+    <Content Include="templets\YTSTemp\PublicModelPage\EmbossedPattern.html" />
+    <Content Include="templets\YTSTemp\Questionnaire.html" />
+    <Content Include="Web.config" />
+    <Content Include="xmlconfig\UrlArray.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\icon\iconfont.eot" />
+    <Content Include="assets\icon\iconfont.ttf" />
+    <Content Include="assets\icon\iconfont.woff" />
+    <Content Include="assets\scripts\Aplayer\font\aplayer-fontello.eot" />
+    <Content Include="assets\scripts\Aplayer\font\aplayer-fontello.ttf" />
+    <Content Include="assets\scripts\Aplayer\font\aplayer-fontello.woff" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="xmlconfig\site.config" />
+    <Content Include="xmlconfig\urls.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="xmlconfig\user.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">
+      <Project>{346d3cee-6a41-4bc2-b3f6-83c1034f9c94}</Project>
+      <Name>YTS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.DAL\YTS.DAL.csproj">
+      <Project>{81a59759-9224-448e-8f13-d62834cec868}</Project>
+      <Name>YTS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Model\YTS.Model.csproj">
+      <Project>{1a4a8952-e523-48e7-9a13-25921df9ba3e}</Project>
+      <Name>YTS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
+      <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>
+      <Name>YTS.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.Web.UI\YTS.Web.UI.csproj">
+      <Project>{d38d9e9b-740d-4e04-ae10-5e21f19465fc}</Project>
+      <Name>YTS.Web.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>10058</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:10058/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
