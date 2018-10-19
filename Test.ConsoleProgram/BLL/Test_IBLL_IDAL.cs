@@ -199,7 +199,7 @@ namespace Test.ConsoleProgram.BLL
 
         #region === test model ===
         [EntityTable]
-        public class TestModel : AbsShineUpon, ITableName, IFileInfo, IXMLInfo
+        public class TestModel : AbsShineUpon, ITableName, IFileInfo
         {
             #region === interface ===
             public string GetTableName() {
@@ -212,14 +212,6 @@ namespace Test.ConsoleProgram.BLL
 
             public string GetFileName() {
                 return @"TestModel.file";
-            }
-
-            public string GetRootNodeName() {
-                return @"TestRoot";
-            }
-
-            public string GetModelName() {
-                return @"Item";
             }
             #endregion
 
@@ -281,9 +273,9 @@ namespace Test.ConsoleProgram.BLL
             private SexEnum _sex = SexEnum.Secrecy;
 
             /// <summary>
-            /// 出生日期
+            /// 发布
             /// </summary>
-            [Explain(@"出生日期")]
+            [Explain(@"发布")]
             [ShineUponProperty]
             public SonModel Release { get { return _Release; } set { _Release = value; } }
             private SonModel _Release = new SonModel() {
@@ -633,16 +625,19 @@ namespace Test.ConsoleProgram.BLL
                             for (int page_index = 1; page_index <= answer_list.Length / page_size + 1; page_index++) {
                                 int record_count = 0;
                                 TestModel[] result = iDAL.Select(page_size, page_index, out record_count, w_dal, sorts);
-
                                 TestModel[] answer_array = ConvertTool.GetIListRange(answer_list, page_index, page_size);
 
                                 bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                                     Answer = answer_array,
                                     Source = result,
                                     Func_isEquals = TestModelIsEqual,
+                                    Func_lengthNotEquals = (al, sl) => {
+                                        Console.WriteLine("page_size: {0}, page_index: {1}  列表长度不一样:  answer.Length: {2}, source.Length: {2}", page_size, page_index, al, sl);
+                                    },
+                                    Func_notFind = am => {
+                                        Console.WriteLine("page_size: {0}, page_index: {1} answer model: {0}", page_size, page_index, JSON.Serializer(am));
+                                    },
                                 }.Calc();
-
-                                //Console.WriteLine("每页{0}条 第{1}页 记录总数:{2} 是否成功: {3}", page_size, page_index, record_count, isby);
                                 if (!isby) {
                                     return false;
                                 }

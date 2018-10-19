@@ -67,6 +67,7 @@
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
     <Compile Include="Learn\Test_FileDataOperating.cs" />
     <Compile Include="Learn\Test_HttpContext.cs" />
+    <Compile Include="BLL\Test_ini.cs" />
     <Compile Include="Learn\Test_Linq.cs" />
     <Compile Include="Learn\Test_Path.cs" />
     <Compile Include="Learn\Test_XML.cs" />

@@ -31,7 +31,7 @@ namespace Test.ConsoleProgram.Tools
 
         public CaseModel Obj_JSON() {
             return new CaseModel() {
-                NameSign = @"json",
+                NameSign = @"JSON",
                 ExeEvent = () => {
                     return CalcMethod(JSON.Serializer, JSON.Deserialize<Person[]>);
                 },
@@ -40,7 +40,7 @@ namespace Test.ConsoleProgram.Tools
 
         public CaseModel Obj_XML() {
             return new CaseModel() {
-                NameSign = @"xml",
+                NameSign = @"JSON",
                 ExeEvent = () => {
                     return CalcMethod(XML.Serializer<Person[]>, XML.Deserialize<Person[]>);
                 },

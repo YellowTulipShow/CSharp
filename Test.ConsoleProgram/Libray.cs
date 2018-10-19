@@ -14,18 +14,18 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetALLCases() {
             List<CaseModel> list = new List<CaseModel>();
 
-            // 学习测试
             list.AddRange(GetList_Learn());
 
-            // 常规测试
-            list.AddRange(GetList_Normal());
+            list.AddRange(GetList_Tools());
+
+            list.AddRange(GetList_Data());
 
             return list.ToArray();
         }
         #endregion
 
         /// <summary>
-        /// 学习测试
+        /// 学习
         /// </summary>
         public CaseModel[] GetList_Learn() {
             //return new CaseModel[] { };
@@ -38,17 +38,28 @@ namespace Test.ConsoleProgram
         }
 
         /// <summary>
-        /// 常规测试
+        /// 工具
         /// </summary>
-        public CaseModel[] GetList_Normal() {
+        public CaseModel[] GetList_Tools() {
+            //return new CaseModel[] { };
             return new CaseModel[] {
                 new Tools.Test_ConvertTool(),
                 new Tools.Test_ReflexHelp(),
                 new Tools.Test_EnumInfo(),
                 new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
-                //new BLL.Test_IDAL_IDAL(),
                 new Tools.Test_SerializerDeserialize(),
+            };
+        }
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public CaseModel[] GetList_Data() {
+            //return new CaseModel[] { };
+            return new CaseModel[] {
+                new BLL.Test_ini(),
+                new BLL.Test_IDAL_IDAL(),
             };
         }
     }

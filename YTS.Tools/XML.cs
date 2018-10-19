@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace YTS.Tools
@@ -18,6 +19,13 @@ namespace YTS.Tools
                 XmlSerializer xmldes = new XmlSerializer(type);
                 return xmldes.Deserialize(sr);
             }
+        }
+        public static T Deserialize<T>(XmlReader reader) {
+            return (T)Deserialize(reader, typeof(T));
+        }
+        public static object Deserialize(XmlReader reader, Type type) {
+            XmlSerializer xmldes = new XmlSerializer(type);
+            return xmldes.Deserialize(reader);
         }
 
         public static string Serializer<T>(T obj) {

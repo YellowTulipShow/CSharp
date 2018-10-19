@@ -55,6 +55,7 @@
     <Compile Include="IOAccess\AbsDAL_OnlyQuery.cs" />
     <Compile Include="IOAccess\BLL_MSSQLServer_OnlyQuery.cs" />
     <Compile Include="IOAccess\DAL_LocalXML.cs" />
+    <Compile Include="IOAccess\IniFile.cs" />
     <Compile Include="IOAccess\IXMLInfo.cs" />
     <Compile Include="IOAccess\IFileInfo.cs" />
     <Compile Include="IOAccess\IBLL_OnlyQuery.cs" />

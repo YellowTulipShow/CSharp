@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using YTS.Engine.ShineUpon;
@@ -10,14 +12,20 @@ namespace YTS.Engine.IOAccess
 {
     public class DAL_LocalXML<M> :
         AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
-        IXMLInfo
-        where M : AbsShineUpon, IXMLInfo
+        IFileInfo
+        where M : AbsShineUpon, IFileInfo
     {
         /// <summary>
         /// 绝对文件路径
         /// </summary>
         public string AbsFilePath { get { return _AbsFilePath; } set { _AbsFilePath = value; } }
         private string _AbsFilePath = string.Empty;
+
+        /// <summary>
+        /// 用于控制其他 System.IO.FileStream 对象对同一文件可以具有的访问类型的常数
+        /// </summary>
+        public FileShare FileShare { get { return _FileShare; } set { _FileShare = value; } }
+        private FileShare _FileShare = FileShare.Read;
 
         public DAL_LocalXML()
             : base() {
@@ -33,14 +41,6 @@ namespace YTS.Engine.IOAccess
             return this.DefaultModel.GetPathFolder();
         }
 
-        public string GetRootNodeName() {
-            return this.DefaultModel.GetRootNodeName();
-        }
-
-        public string GetModelName() {
-            return this.DefaultModel.GetModelName();
-        }
-
         /// <summary>
         /// 创建并获取文件路径
         /// </summary>
@@ -54,36 +54,72 @@ namespace YTS.Engine.IOAccess
         }
         #endregion
 
-        public XmlNode ModelToXmlNode(M model, XmlDocument doc) {
-            XmlElement element = doc.CreateElement(this.GetModelName());
-            foreach (ShineUponInfo info in this.Parser.GetSortResult()) {
-                if (CheckData.IsTypeEqual<AbsShineUpon>(info.Property)) {
-                    ShineUponParser<AbsShineUpon, ShineUponInfo> sonparser = new ShineUponParser<AbsShineUpon, ShineUponInfo>();
-                } else {
-                    KeyObject ko = this.Parser.GetModelValue(info, model);
-                    XmlElement item = doc.CreateElement(ko.Key);
-                    item.InnerText = ModelValueToDataBaseValue(ko.Value);
-                    element.AppendChild(item);
-                }
-            }
-            return element;
+        public XmlWriterSettings Global_XmlWriterSettings() {
+            return new XmlWriterSettings() {
+                CheckCharacters = true,
+                CloseOutput = true,
+                ConformanceLevel = ConformanceLevel.Document,
+                Encoding = System.Text.Encoding.UTF8,
+                Indent = true,
+                IndentChars = @"    ",
+                NamespaceHandling = NamespaceHandling.Default,
+                NewLineOnAttributes = true, // NewLineChars = @"\n", 不要设置, 设置也只能设置为: \r\n
+                NewLineHandling = NewLineHandling.Replace,
+                OmitXmlDeclaration = false,
+            };
         }
 
-        public M XmlNodeToModel(XmlNode node) {
-            if (CheckData.IsObjectNull(node)) {
-                return null;
+        public XmlReaderSettings Global_XmlReaderSettings() {
+            return new XmlReaderSettings() {
+                IgnoreComments = true,
+                IgnoreWhitespace = true,
+                CloseInput = true,
+            };
+        }
+
+        public bool Insert(M[] models, bool isOverride) {
+            if (CheckData.IsSizeEmpty(models)) {
+                models = new M[] { };
             }
-            M model = ReflexHelp.CreateNewObject<M>();
-            Dictionary<string, ShineUponInfo> dic = this.Parser.GetAnalyticalResult();
-            foreach (XmlNode item in node.ChildNodes) {
-                if (!dic.ContainsKey(item.Name)) {
-                    continue;
+            if (isOverride) {
+                File.Delete(this.AbsFilePath);
+            }
+            XmlSerializer xs = new XmlSerializer(typeof(M[]));
+            using (FileStream fs = File.Open(this.AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, this.FileShare)) {
+                using (XmlWriter sw = XmlWriter.Create(fs, Global_XmlWriterSettings())) {
+                    xs.Serialize(sw, models);
+                    sw.Flush();
                 }
-                ShineUponInfo info = dic[item.Name];
-                object convert_value = DataBaseValueToModelValue(info, item.InnerText);
-                model = this.Parser.SetModelValue(info, model, convert_value);
             }
-            return model;
+            return true;
+        }
+
+        public M[] Select(int top, Func<M, bool> where) {
+            if (CheckData.IsObjectNull(where)) {
+                where = model => true;
+            }
+            if (!File.Exists(this.AbsFilePath)) {
+                return new M[] { };
+            }
+            using (FileStream fs = File.Open(this.AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, this.FileShare)) {
+                fs.Position = 0;
+                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                    using (XmlReader reader = XmlReader.Create(sr, Global_XmlReaderSettings())) {
+                        XmlSerializer xs = new XmlSerializer(typeof(M[]));
+                        M[] list = (M[])xs.Deserialize(reader);
+                        List<M> results = new List<M>();
+                        foreach (M model in list) {
+                            if (where(model)) {
+                                results.Add(model);
+                            }
+                            if (top > 0 && results.Count >= top) {
+                                break;
+                            }
+                        }
+                        return results.ToArray();
+                    }
+                }
+            }
         }
 
         #region ====== using:AbsDAL<Model, Where, Parser, ParserInfo> ======
@@ -92,100 +128,50 @@ namespace YTS.Engine.IOAccess
         }
 
         public override bool Insert(M[] models) {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(this.AbsFilePath);
-            XmlNode root = doc.SelectSingleNode(GetRootNodeName());
-            foreach (M model in models) {
-                XmlNode node = ModelToXmlNode(model, doc);
-                if (CheckData.IsObjectNull(node)) {
-                    continue;
-                }
-                root.AppendChild(node);
-            }
-            doc.Save(this.AbsFilePath);
-            return true;
+            return Insert(models, false);
         }
 
         public override bool Delete(Func<M, bool> where) {
-            XmlDocument doc = new XmlDocument();
+            List<M> nowlist = null;
             if (CheckData.IsObjectNull(where)) {
-                doc.LoadXml(NullRootNodeXML());
-                doc.Save(this.AbsFilePath);
-                return true;
+                nowlist = new List<M>();
+            } else {
+                nowlist = new List<M>(this.Select(0, null, null));
             }
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.IgnoreComments = true; // 忽略文档里面的注释
-            using (XmlReader reader = XmlReader.Create(this.AbsFilePath, settings)) {
-                doc.Load(reader);
-                XmlNode root = doc.SelectSingleNode(GetRootNodeName());
-                for (int i = 0; i < root.ChildNodes.Count; i++) {
-                    XmlNode node = root.ChildNodes[i];
-                    M model = XmlNodeToModel(node);
-                    if (CheckData.IsObjectNull(node) || !where(model)) {
-                        continue;
-                    }
-                    root.RemoveChild(node);
+            for (var i = nowlist.Count - 1; i >= 0; i--) {
+                M model = nowlist[i];
+                if (where(model)) {
+                    nowlist.Remove(model);
                 }
             }
-            doc.Save(this.AbsFilePath);
-            return true;
-        }
-
-        public string NullRootNodeXML() {
-            return string.Format("<{0}></{0}>", GetRootNodeName());
+            return this.Insert(nowlist.ToArray(), true);
         }
 
         public override bool Update(KeyObject[] kos, Func<M, bool> where) {
-            XmlDocument doc = new XmlDocument();
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.IgnoreComments = true; // 忽略文档里面的注释
-            using (XmlReader reader = XmlReader.Create(this.AbsFilePath, settings)) {
-                doc.Load(reader);
-                XmlNode root = doc.SelectSingleNode(GetRootNodeName());
-                for (int i = 0; i < root.ChildNodes.Count; i++) {
-                    XmlNode oldnode = root.ChildNodes[i];
-                    M model = XmlNodeToModel(oldnode);
-                    if (!CheckData.IsObjectNull(where)) {
-                        if (!where(model)) {
-                            continue;
+            if (CheckData.IsSizeEmpty(kos)) {
+                return true;
+            }
+            List<M> nowlist = new List<M>(Select(0, null, null));
+            if (CheckData.IsObjectNull(where)) {
+                where = model => true;
+            }
+            Dictionary<string, ShineUponInfo> dic = this.Parser.GetAnalyticalResult();
+            for (var i = nowlist.Count - 1; i >= 0; i--) {
+                M model = nowlist[i];
+                if (where(model)) {
+                    foreach (KeyObject item in kos) {
+                        if (!CheckData.IsStringNull(item.Key) && dic.ContainsKey(item.Key)) {
+                            model = this.Parser.SetModelValue(dic[item.Key], model, item.Value);
                         }
                     }
-                    foreach (KeyObject ko in kos) {
-                        XmlNode itemnode = oldnode.SelectSingleNode(ko.Key);
-                        itemnode.InnerText = ModelValueToDataBaseValue(ko.Value);
-                    }
+                    nowlist[i] = model;
                 }
             }
-            doc.Save(this.AbsFilePath);
-            return true;
+            return this.Insert(nowlist.ToArray(), true);
         }
 
         public override M[] Select(int top, Func<M, bool> where, KeyBoolean[] sorts) {
-            XmlDocument doc = new XmlDocument();
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.IgnoreComments = true; // 忽略文档里面的注释
-
-            List<M> list = new List<M>();
-            using (XmlReader reader = XmlReader.Create(this.AbsFilePath, settings)) {
-                doc.Load(reader);
-                XmlNode root = doc.SelectSingleNode(GetRootNodeName());
-                foreach (XmlNode node in root.ChildNodes) {
-                    M model = XmlNodeToModel(node);
-                    if (CheckData.IsObjectNull(model)) {
-                        continue;
-                    }
-                    if (!CheckData.IsObjectNull(where)) {
-                        if (!where(model)) {
-                            continue;
-                        }
-                    }
-                    list.Add(model);
-                    if (top > 0 && list.Count >= top) {
-                        break;
-                    }
-                }
-            }
-            return list.ToArray();
+            return this.Select(top, where);
         }
 
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, KeyBoolean[] sorts) {
