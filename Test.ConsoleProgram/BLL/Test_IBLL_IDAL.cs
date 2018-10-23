@@ -52,7 +52,7 @@ namespace Test.ConsoleProgram.BLL
                 string[] sqls = new string[] { };
 
                 // BLL
-                YTS.BLL.MSSQLServer_IntID<YTS.DAL.MSSQLServer_IntID<TestID>, TestID> bll = new YTS.BLL.MSSQLServer_IntID<YTS.DAL.MSSQLServer_IntID<TestID>, TestID>();
+                YTS.BLL.MSSQLServer_IntID<TestID, YTS.DAL.MSSQLServer_IntID<TestID>> bll = new YTS.BLL.MSSQLServer_IntID<TestID, YTS.DAL.MSSQLServer_IntID<TestID>>();
                 bll.Insert(model);
                 bll.Insert(models);
                 bll.Delete(where);
@@ -71,7 +71,7 @@ namespace Test.ConsoleProgram.BLL
                 bll.IDUpdate(kos, id);
                 bll.IDGetModel(id);
 
-                BLL_MSSQLServer<YTS.DAL.MSSQLServer_IntID<TestID>, TestID> ms_bll = bll;
+                BLL_MSSQLServer<TestID, YTS.DAL.MSSQLServer_IntID<TestID>> ms_bll = bll;
                 ms_bll.Insert(model);
                 ms_bll.Insert(models);
                 ms_bll.Delete(where);
