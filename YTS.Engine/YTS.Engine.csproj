@@ -53,6 +53,7 @@
     <Compile Include="DataBase\ViewTableAttribute.cs" />
     <Compile Include="IOAccess\AbsBLL_OnlyQuery.cs" />
     <Compile Include="IOAccess\AbsDAL_OnlyQuery.cs" />
+    <Compile Include="IOAccess\BLL_LocalXML.cs" />
     <Compile Include="IOAccess\BLL_MSSQLServer_OnlyQuery.cs" />
     <Compile Include="IOAccess\DAL_LocalXML.cs" />
     <Compile Include="IOAccess\IniFile.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="ShineUpon\ShineUponModelAttribute.cs" />
     <Compile Include="ShineUpon\ShineUponParser.cs" />
     <Compile Include="ShineUpon\ShineUponPropertyAttribute.cs" />
+    <Compile Include="Template\HTMLToAspx.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">

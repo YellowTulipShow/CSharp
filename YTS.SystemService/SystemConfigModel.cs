@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YTS.Model;
 using YTS.Tools;
 
 namespace YTS.SystemService
@@ -13,10 +12,20 @@ namespace YTS.SystemService
     [Serializable]
     public class SystemConfigModel : AbsBasicDataModel
     {
+        public SystemConfigModel() {
+        }
+
         /// <summary>
         /// 是否 启用调试
         /// </summary>
-        public bool IsDeBug { get { return _isDeBug; } set { _isDeBug = value; } }
+        public bool IsDeBug {
+            get {
+                return _isDeBug;
+            }
+            set {
+                _isDeBug = value;
+            }
+        }
         private bool _isDeBug = true;
     }
 }

@@ -22,10 +22,23 @@ namespace YTS.Engine.IOAccess
         /// <summary>
         /// 当前-数据访问层(Data Access Layer)对象
         /// </summary>
-        public D SelfDAL = null;
+        public D SelfDAL {
+            get {
+                if (CheckData.IsObjectNull(_selfdal)) {
+                    _selfdal = InitCreateDAL();
+                }
+                return _selfdal;
+            }
+        }
+        private D _selfdal = null;
 
-        public AbsBLL_OnlyQuery() {
-            this.SelfDAL = ReflexHelp.CreateNewObject<D>();
+        public AbsBLL_OnlyQuery() { }
+
+        /// <summary>
+        /// 初始化创建 数据访问层DAL 对象
+        /// </summary>
+        public virtual D InitCreateDAL() {
+            return ReflexHelp.CreateNewObject<D>();
         }
 
         /// <summary>

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.IO;
+using System.Web;
+using YTS.Engine;
+using YTS.Engine.IOAccess;
+using YTS.SystemService;
 using YTS.Tools;
 
 namespace YTS.Web.UI
@@ -14,62 +14,73 @@ namespace YTS.Web.UI
     /// </summary>
     public class HttpModule : System.Web.IHttpModule
     {
-        #region Extends System.Web.IHttpModule InterfaceFunction
+        #region Extends System.Web.IHttpModule 扩展实现接口方法
         public void Dispose() { }
-        public void Init(HttpApplication context)
-        {
-            context.BeginRequest += new EventHandler(FunctionPageRequest);
+        public void Init(HttpApplication context) {
+            context.BeginRequest += BeginRequest;
         }
         #endregion
 
-        #region InitFunctionCodeRegion
-        private void FunctionPageRequest(object sender, EventArgs e)
+        /// <summary>
+        /// 第一个事件执行
+        /// </summary>
+        private void BeginRequest(object sender, EventArgs e)
         {
             HttpContext context = ((HttpApplication)sender).Context;
 
             // 获得请求页面路径页面(含目录)
-            string str_requestPagePath = context.Request.Path.ToLower();
+            string request_path = context.Request.Path.ToLower();
+
+            SystemLog.Write("HttpModule.BeginRequest", string.Format("request_path: {0}", request_path));
+            return;
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
-            //if (FileHelper.IsExistFile(str_requestPagePath)) { return; }
+            string request_absfilepath = ConvertTool.ObjToString(PathHelp.ToAbsolute(request_path));
+            if (File.Exists(request_absfilepath)) {
+                return;
+            }
 
-            // 获取重写对象
-            Template.UrlRewriteDAL urlReDAl = new Template.UrlRewriteDAL();
-            Template.UrlRewriteModel urlReModel = urlReDAl.GetInfoModel_RequestPagePath(str_requestPagePath);
-
+            string SiteName = string.Empty; // 表示根目录一个
+            BLL.URLReWriter bllurl = new BLL.URLReWriter(SiteName);
+            Model.URLReWriter urlmodel = bllurl.GetModel(model => model.Name == request_path, null);
             // 判断是否需要生成模板文件
-            if (IsNeedGenerateTemplate(urlReModel)) {
+            if (IsNeedGenerateTemplate(urlmodel)) {
                 // 生成模板
-                Template.PageTemplate.GetTemplate(urlReModel);
+                Template.PageTemplate.GetTemplate(urlmodel);
             }
         }
-        #endregion
 
-        #region CustomFunctionCodeRegion
         /// <summary>
         /// 是否需要生成模板文件
         /// </summary>
-        /// <param name="urlReModel"></param>
-        /// <returns></returns>
-        private bool IsNeedGenerateTemplate(Template.UrlRewriteModel urlReModel)
-        {
-            if (urlReModel==null) { return false; } // 当得到的对象 为空的时候,证明没有此数据内容,当然也就不用生成了
-
-            string tempPath = HttpRuntime.AppDomainAppPath + "\\" + LibrayConfigKey.FolderName_Template + "\\" + LibrayConfigKey.FolderName_MainSite + "\\" + urlReModel.templet;
-            string pagePath = HttpRuntime.AppDomainAppPath+"\\" + LibrayConfigKey.FolderName_VisitPage + "\\" + LibrayConfigKey.FolderName_MainSite + "\\" + urlReModel.page;
-            
-            if (!FileHelper.IsExistFile(tempPath)) // 模板文件都不存在的话，就不用生成了
+        private bool IsNeedGenerateTemplate(Model.URLReWriter model) {
+            GlobalSystemService Gsys = GlobalSystemService.GetInstance();
+            if (CheckData.IsObjectNull(model)) {
+                // 当得到的对象 为空的时候,证明没有此数据内容,当然也就不用生成了
                 return false;
-            if (!FileHelper.IsExistFile(pagePath)) // 生成的访问文件不存在，需要生成
+	        }
+
+            string tempPath = PathHelp.ToAbsolute(model.Templet);
+            if (!FileHelper.IsExistFile(tempPath)) {
+                // 模板文件都不存在的话，就不用生成了
+                return false;
+            }
+
+            if (Gsys.Config.IsDeBug) {
+                // 调试状态, 每一次访问都生成 
                 return true;
+            }
+
+            string pagePath = PathHelp.ToAbsolute(model.Page);;
+            if (!FileHelper.IsExistFile(pagePath)) {
+                // 生成的访问文件不存在，需要生成
+                return true;
+            }
 
             FileInfo tempFif = new FileInfo(tempPath);
             FileInfo pageFif = new FileInfo(pagePath);
-            if (tempFif.LastWriteTime > pageFif.LastWriteTime)
-                return true;
-
-            return true;
+            // 比较文件的修改时间
+            return tempFif.LastWriteTime > pageFif.LastWriteTime;
         }
-        #endregion
     }
 }

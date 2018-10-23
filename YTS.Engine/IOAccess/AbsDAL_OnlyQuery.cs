@@ -20,16 +20,43 @@ namespace YTS.Engine.IOAccess
         /// <summary>
         /// 初始化自动生成默认数据映射模型
         /// </summary>
-        public readonly M DefaultModel = null;
+        public M DefaultModel {
+            get {
+                if (CheckData.IsObjectNull(_default_model)) {
+                    _default_model = InitCreateModel();
+                }
+                return _default_model;
+            }
+        }
+        private M _default_model = null;
 
         /// <summary>
         /// 数据映射模型解析器
         /// </summary>
-        public readonly P Parser = null;
+        public P Parser {
+            get {
+                if (CheckData.IsObjectNull(_parser)) {
+                    _parser = InitCreateParser();
+                }
+                return _parser;
+            }
+        }
+        private P _parser = null;
 
-        public AbsDAL_OnlyQuery() {
-            this.DefaultModel = ReflexHelp.CreateNewObject<M>();
-            this.Parser = ReflexHelp.CreateNewObject<P>();
+        public AbsDAL_OnlyQuery() { }
+
+        /// <summary>
+        /// 初始化创建 默认数据模型Model 对象
+        /// </summary>
+        public virtual M InitCreateModel() {
+            return ReflexHelp.CreateNewObject<M>();
+        }
+
+        /// <summary>
+        /// 初始化创建 解析器Parser 对象
+        /// </summary>
+        public virtual P InitCreateParser() {
+            return ReflexHelp.CreateNewObject<P>();
         }
 
         /// <summary>

@@ -40,6 +40,7 @@ namespace YTS.Web.UI.Page
 
             return returnstring;
         }
+
         /// <summary>
         /// 返回一个当前日期加1000以内的随机数的字符串
         /// [主要用于引用文件的强制不进行缓存]

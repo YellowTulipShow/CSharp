@@ -8,10 +8,6 @@ using YTS.Tools.Const;
 
 namespace YTS.Web.UI.Template
 {
-    #region 完成使用UrlRewrite重写方法类
-    //public class UrlRewrite { }
-    #endregion
-
     #region 实体类组合===========================
     /// <summary>
     /// URL字典实体类

@@ -25,14 +25,14 @@ namespace YTS.SystemService
         
         private GlobalSystemService() {
             // 获得配置信息
-            _configModel = CreateSystemConfigModel();
+            this._config = CreateSystemConfigModel();
         }
 
         /// <summary>
         /// 配置 数据 模型
         /// </summary>
-        public SystemConfigModel ConfigModel { get { return _configModel; } }
-        private SystemConfigModel _configModel;
+        public SystemConfigModel Config { get { return _config; } }
+        private SystemConfigModel _config;
 
         /// <summary>
         /// 创建系统配置模型参数内容

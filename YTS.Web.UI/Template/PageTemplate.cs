@@ -66,11 +66,21 @@ namespace YTS.Web.UI.Template
         /// <summary>
         /// 根据模板信息模型生成对应的模板
         /// </summary>
-        /// <param name="urlReModel"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public static string GetTemplate(UrlRewriteModel urlReModel)
+        public static string GetTemplate(Model.URLReWriter model)
         {
-            return GetTemplate("/", LibrayConfigKey.FolderName_Template, LibrayConfigKey.FolderName_MainSite, urlReModel.templet, urlReModel.page, urlReModel.inherit, LibrayConfigKey.FolderName_MainSite, urlReModel.channel, urlReModel.pagesize, 1);
+            string sitePath = @"/";
+            string tempPath = "templets";
+            string skinName = "YTSTemp";
+            string templet = model.Templet;
+            string fromPage = model.Page;
+            string inherit = model.Inherit;
+            string buildPath = "YTSTemp";
+            string channelName = model.Channel;
+            string pageSize = model.PageSize;
+            int nest = 1;
+            return GetTemplate(sitePath, tempPath, skinName, templet, fromPage, inherit, buildPath, channelName, pageSize, nest);
         }
 
         /// <summary>

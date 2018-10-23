@@ -10,6 +10,10 @@ using YTS.Tools.Model;
 
 namespace YTS.Engine.IOAccess
 {
+    /// <summary>
+    /// 本地XML文件-数据访问层(Data Access Layer)
+    /// </summary>
+    /// <typeparam name="M">数据映射模型</typeparam>
     public class DAL_LocalXML<M> :
         AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
         IFileInfo
@@ -33,11 +37,11 @@ namespace YTS.Engine.IOAccess
         }
 
         #region ====== using:IFileInfo ======
-        public string GetPathFolder() {
+        public virtual string GetPathFolder() {
             return this.DefaultModel.GetPathFolder();
         }
 
-        public string GetFileName() {
+        public virtual string GetFileName() {
             return this.DefaultModel.GetPathFolder();
         }
 

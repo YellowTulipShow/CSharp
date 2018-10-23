@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpModule.cs" />
-    <Compile Include="LibrayConfig.cs" />
+    <Compile Include="LibrayConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Page\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -70,9 +72,17 @@
       <Project>{81a59759-9224-448e-8f13-d62834cec868}</Project>
       <Name>YTS.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YTS.Engine\YTS.Engine.csproj">
+      <Project>{ee4a7884-3078-49fd-9c7a-479c468346d2}</Project>
+      <Name>YTS.Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YTS.Model\YTS.Model.csproj">
       <Project>{1a4a8952-e523-48e7-9a13-25921df9ba3e}</Project>
       <Name>YTS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.SystemService\YTS.SystemService.csproj">
+      <Project>{8ceb1fe6-a10c-42d8-b54d-81e94ac86bc3}</Project>
+      <Name>YTS.SystemService</Name>
     </ProjectReference>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
       <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>

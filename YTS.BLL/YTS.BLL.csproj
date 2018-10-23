@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="MSSQLServer_IntID.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />
+    <Compile Include="URLReWriter.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
