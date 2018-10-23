@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YTS.Engine.IOAccess;
+using YTS.Tools;
 
 namespace YTS.SystemService
 {
@@ -25,21 +27,13 @@ namespace YTS.SystemService
         
         private GlobalSystemService() {
             // 获得配置信息
-            this._config = CreateSystemConfigModel();
+            this._config = new SystemConfig();
         }
 
         /// <summary>
         /// 配置 数据 模型
         /// </summary>
-        public SystemConfigModel Config { get { return _config; } }
-        private SystemConfigModel _config;
-
-        /// <summary>
-        /// 创建系统配置模型参数内容
-        /// </summary>
-        private SystemConfigModel CreateSystemConfigModel() {
-            // 根据 Config.xml 文件内容 构造 ConfigModel 数据模型
-            return new SystemConfigModel();
-        }
+        public SystemConfig Config { get { return _config; } }
+        private SystemConfig _config;
     }
 }

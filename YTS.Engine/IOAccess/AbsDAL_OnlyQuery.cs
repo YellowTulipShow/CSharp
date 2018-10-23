@@ -111,22 +111,5 @@ namespace YTS.Engine.IOAccess
             }
             return ConvertTool.ObjToString(model_value);
         }
-
-        public object DataBaseValueToModelValue(PI parser_info, string field_value) {
-            Type detype = parser_info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
-                return ConvertTool.ObjToInt(field_value, default(int));
-            }
-            if (CheckData.IsTypeEqual<float>(detype) || CheckData.IsTypeEqual<double>(detype)) {
-                return ConvertTool.ObjToFloat(field_value, default(float));
-            }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return ConvertTool.ObjToDateTime(field_value, default(DateTime));
-            }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return ConvertTool.ObjToBool(field_value, default(bool));
-            }
-            return field_value;
-        }
     }
 }

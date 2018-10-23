@@ -129,5 +129,29 @@ namespace YTS.Engine.ShineUpon
             return targetModel;
         }
         #endregion
+
+        /// <summary>
+        /// 数据基础转化
+        /// </summary>
+        /// <param name="parser_info"></param>
+        /// <param name="field_value"></param>
+        /// <returns></returns>
+        public object DataBasicConvert(I parser_info, string field_value) {
+            field_value = ConvertTool.ObjToString(field_value);
+            Type detype = parser_info.Property.PropertyType;
+            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
+                return ConvertTool.ObjToInt(field_value, default(int));
+            }
+            if (CheckData.IsTypeEqual<float>(detype) || CheckData.IsTypeEqual<double>(detype)) {
+                return ConvertTool.ObjToFloat(field_value, default(float));
+            }
+            if (CheckData.IsTypeEqual<DateTime>(detype)) {
+                return ConvertTool.ObjToDateTime(field_value, default(DateTime));
+            }
+            if (CheckData.IsTypeEqual<bool>(detype)) {
+                return ConvertTool.ObjToBool(field_value, default(bool));
+            }
+            return field_value;
+        }
     }
 }
