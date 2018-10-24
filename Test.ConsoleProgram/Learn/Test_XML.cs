@@ -16,8 +16,6 @@ namespace Test.ConsoleProgram.Learn
             SonCases = new CaseModel[] {
                 Func_XmlSerializer(),
             };
-
-            //XmlSerializer xmlser = XmlSerializerFactory
         }
 
         public class Person
@@ -46,9 +44,6 @@ namespace Test.ConsoleProgram.Learn
                     }
 
                     string absfile = PathHelp.CreateUseFilePath("/auto/XML/XmlSerializer", "testmodel.xml");
-                    XmlDocument xmldoc = new XmlDocument();
-                    xmldoc.Load(absfile);
-
                     XmlWriterSettings settings = new XmlWriterSettings() {
                         CheckCharacters = true,
                         CloseOutput = true,

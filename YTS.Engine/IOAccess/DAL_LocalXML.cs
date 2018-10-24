@@ -52,9 +52,8 @@ namespace YTS.Engine.IOAccess
         public string CreateGetFilePath() {
             M model = ReflexHelp.CreateNewObject<M>();
             string rel_directory = model.GetPathFolder();
-            string rel_filename = string.Format("{0}.xml", model.GetFileName());
-            string abs_file_path = PathHelp.CreateUseFilePath(rel_directory, rel_filename);
-            return abs_file_path;
+            string rel_filename = model.GetFileName();
+            return PathHelp.CreateUseFilePath(rel_directory, rel_filename);
         }
         #endregion
 

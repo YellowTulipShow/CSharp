@@ -59,6 +59,10 @@
       <Project>{ee4a7884-3078-49fd-9c7a-479c468346d2}</Project>
       <Name>YTS.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YTS.SystemService\YTS.SystemService.csproj">
+      <Project>{8ceb1fe6-a10c-42d8-b54d-81e94ac86bc3}</Project>
+      <Name>YTS.SystemService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
       <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>
       <Name>YTS.Tools</Name>

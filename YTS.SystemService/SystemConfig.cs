@@ -35,5 +35,11 @@ namespace YTS.SystemService
         /// </summary>
         public bool IsDeBug { get { return _isDeBug; } set { _isDeBug = value; } }
         private bool _isDeBug = true;
+
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public string Version { get { return _version; } set { _version = value; } }
+        private string _version = @"v1.0.0.0";
     }
 }

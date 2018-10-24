@@ -36,7 +36,7 @@ namespace YTS.Web.UI.Page
             Template.UrlRewriteModel urlReModel = new Template.UrlRewriteDAL().GetInfo(_key);
             if (urlReModel==null) { return ""; }
 
-            returnstring = "/" + LibrayConfigKey.FolderName_VisitPage + "/" + LibrayConfigKey.FolderName_MainSite + "/" + urlReModel.page;
+            returnstring = "/aspx/YTSTemp/" + urlReModel.page;
 
             return returnstring;
         }

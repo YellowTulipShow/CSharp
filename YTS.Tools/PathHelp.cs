@@ -23,7 +23,7 @@ namespace YTS.Tools
             if (IsAbsolute(relative)) {
                 return relative;
             }
-            if (HttpContext.Current != null) {
+            if (!CheckData.IsObjectNull(HttpContext.Current)) {
                 return HttpContext.Current.Server.MapPath(relative);
             }
             relative = relative.TrimStart('/');
@@ -78,15 +78,25 @@ namespace YTS.Tools
                 Directory.CreateDirectory(abs_directory);
             }
             string abs_filename = FilterDisableFileNameChar(filename);
-            abs_filename = string.Format("{0}\\{1}", abs_directory, abs_filename);
-            if (!File.Exists(abs_filename)) {
-                using (FileStream fs = File.Create(abs_filename)) {
-                    // 关闭连接
-                    fs.Dispose();
-                    fs.Close();
-                }
+            return string.Format("{0}\\{1}", abs_directory, abs_filename);
+        }
+
+        /// <summary>
+        /// 创建文件, 保证文件存在
+        /// </summary>
+        /// <param name="absfilepath">文件绝对路径</param>
+        public static void CreateFileExists(string absfilepath) {
+            if (!IsAbsolute(absfilepath)) {
+                return;
             }
-            return abs_filename;
+            if (File.Exists(absfilepath)) {
+                return;
+            }
+            using (FileStream fs = File.Create(absfilepath)) {
+                // 关闭连接
+                fs.Dispose();
+                fs.Close();
+            }
         }
     }
 }

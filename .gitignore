@@ -4,11 +4,11 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-Sensitive-info-file
+*/auto/*
 */Web.config
 */App.config
 
 # User-specific files
-CSharp.Web/aspx/*
 SqlBackup/*
 *.suo
 *.user

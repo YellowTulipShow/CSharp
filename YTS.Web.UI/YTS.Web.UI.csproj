@@ -44,9 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpModule.cs" />
-    <Compile Include="LibrayConfig.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Page\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

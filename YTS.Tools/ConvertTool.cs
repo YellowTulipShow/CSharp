@@ -167,13 +167,13 @@ namespace YTS.Tools
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, Converter<ST, RT> convertMethod) {
+        public static RT[] ListConvertType<RT, ST>(IList<ST> sourceList, Converter<ST, RT> convertMethod) {
             return ListConvertType(sourceList, convertMethod, false);
         }
         /// <summary>
         /// 'ST'类型数组 转 'RT'类型数据结果 排除指定的错误项
         /// </summary>
-        public static RT[] ListConvertType<RT, ST>(ST[] sourceList, Converter<ST, RT> convertMethod, RT errorValue) {
+        public static RT[] ListConvertType<RT, ST>(IList<ST> sourceList, Converter<ST, RT> convertMethod, RT errorValue) {
             return ListConvertType(sourceList, convertMethod, true, errorValue: errorValue);
         }
         /// <summary>

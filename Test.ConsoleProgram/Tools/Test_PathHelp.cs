@@ -168,6 +168,7 @@ namespace Test.ConsoleProgram.Tools
                                 return false;
                             }
                         }
+                        PathHelp.CreateFileExists(absfilepath);
                         if (!File.Exists(absfilepath)) {
                             Console.WriteLine("文件并没有被创建", item.Key);
                             Console.WriteLine("directory: {0}", item.Key);

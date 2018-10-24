@@ -447,7 +447,7 @@ namespace YTS.Web.UI.Template
             {
                 foreach (XmlElement xe in xnList)
                 {
-                    string panduan = "/" + LibrayConfigKey.FolderName_VisitPage + "/" + LibrayConfigKey.FolderName_MainSite + "/" + xe.Attributes["page"].Value.ToLower();
+                    string panduan = "/aspx/YTSTemp/" + xe.Attributes["page"].Value.ToLower();
                     if (panduan.ToLower() == path.ToLower())
                     {
                         if (xe.Attributes["name"] != null)

@@ -31,8 +31,12 @@ namespace YTS.Web.UI
             // 获得请求页面路径页面(含目录)
             string request_path = context.Request.Path.ToLower();
 
-            SystemLog.Write("HttpModule.BeginRequest", string.Format("request_path: {0}", request_path));
-            return;
+            SystemLog log = new SystemLog() {
+                Position = "HttpModule.BeginRequest",
+            };
+            log.Message = string.Format("request_path: {0}", request_path);
+            log.Message = log.Write();
+            log.Write();
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
             string request_absfilepath = ConvertTool.ObjToString(PathHelp.ToAbsolute(request_path));

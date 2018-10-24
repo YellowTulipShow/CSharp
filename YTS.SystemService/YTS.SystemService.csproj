@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="GlobalSystemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemConfigModel.cs" />
+    <Compile Include="SystemConfig.cs" />
     <Compile Include="SystemLog.cs" />
   </ItemGroup>
   <ItemGroup>
