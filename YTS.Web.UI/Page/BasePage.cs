@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Data;
-using System.Web;
 using YTS.Tools;
 
 namespace YTS.Web.UI.Page
@@ -11,9 +6,8 @@ namespace YTS.Web.UI.Page
     /// <summary>
     /// 模板中的页面基础类文件
     /// </summary>
-    public partial class BasePage : System.Web.UI.Page
+    public class BasePage : System.Web.UI.Page
     {
-        #region ****************PageInitFunction****************
         public BasePage()
         {
             ShowPage();
@@ -22,9 +16,8 @@ namespace YTS.Web.UI.Page
         /// <summary>
         /// ShowPage Virtual Method
         /// </summary>
-        protected virtual void ShowPage() { }
-        #endregion
-        /*===================================================================================*/
+        public virtual void ShowPage() { }
+
         #region 页面通用方法==========================================
         /// <summary>
         /// 返回URL重写统一链接地址

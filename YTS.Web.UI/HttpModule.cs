@@ -24,8 +24,7 @@ namespace YTS.Web.UI
         /// <summary>
         /// 第一个事件执行
         /// </summary>
-        private void BeginRequest(object sender, EventArgs e)
-        {
+        private void BeginRequest(object sender, EventArgs e) {
             HttpContext context = ((HttpApplication)sender).Context;
 
             // 获得请求页面路径页面(含目录)

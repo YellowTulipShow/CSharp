@@ -7,7 +7,7 @@ namespace YTS.Web.UI.Page
 {
     public class Main: BasePage
     {
-        protected override void ShowPage()
+        public override void ShowPage()
         {
 
         }

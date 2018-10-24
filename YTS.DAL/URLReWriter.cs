@@ -17,8 +17,7 @@ namespace YTS.DAL
 
         public override string GetPathFolder() {
             GlobalSystemService Gsys = GlobalSystemService.GetInstance();
-            string temp_folder = @"Template"; // Gsys.Config.
-            return string.Format("/{0}/{1}", temp_folder, this.SiteName.ToString().Trim('/'));
+            return string.Format("/{0}/{1}", Gsys.Config.Path_Template, this.SiteName.ToString().Trim('/'));
         }
     }
 }

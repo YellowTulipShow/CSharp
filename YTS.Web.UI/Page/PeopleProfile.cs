@@ -7,7 +7,7 @@ namespace YTS.Web.UI.Page
 {
     public class PeopleProfile : BasePage
     {
-        protected override void ShowPage()
+        public override void ShowPage()
         {
 
         }

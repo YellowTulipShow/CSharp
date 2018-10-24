@@ -16,5 +16,27 @@ namespace YTS.BLL
         public override DAL.URLReWriter InitCreateDAL() {
             return new DAL.URLReWriter(this.SiteName);
         }
+
+        public override bool IsNeedDefaultRecord() {
+            return true;
+        }
+
+        public override Model.URLReWriter[] GetDefaultRecordGather() {
+            return new Model.URLReWriter[] {
+                new Model.URLReWriter() {
+                    Name = @"index",
+                    Type = @"index",
+                    Inherit = typeof(System.Web.UI.Page).FullName,
+                    Page = @"index.aspx",
+                    Templet = @"index.html",
+                    Items = new Model.URLReWriter.Item[] {
+                        new Model.URLReWriter.Item() {
+                            Path = @"index.aspx",
+                            Pattern = @"index.aspx",
+                        },
+                    },
+                },
+            };
+        }
     }
 }

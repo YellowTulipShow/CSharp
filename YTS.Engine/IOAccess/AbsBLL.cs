@@ -15,13 +15,19 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="PI">解析信息数据模型</typeparam>
     public abstract class AbsBLL<M, D, W, P, PI> :
         AbsBLL_OnlyQuery<M, D, W, P, PI>,
-        IBLL<M, D, W, P, PI>
+        IBLL<M, D, W, P, PI>,
+        IDefaultRecord<M>
         where M : AbsShineUpon
         where D : AbsDAL<M, W, P, PI>
         where P : ShineUponParser<M, PI>
         where PI : ShineUponInfo
     {
-        public AbsBLL() : base() { }
+        public AbsBLL()
+            : base() {
+            if (IsNeedDefaultRecord()) {
+                FillDefaultRecordGather();
+            }
+        }
 
         /// <summary>
         /// 插入
@@ -58,6 +64,33 @@ namespace YTS.Engine.IOAccess
         /// <returns>是否成功 是:True 否:False</returns>
         public bool Update(KeyObject[] kos, W where) {
             return this.SelfDAL.Update(kos, where);
+        }
+
+        /// <summary>
+        /// 是否需要默认记录
+        /// </summary>
+        /// <returns>是(True), 否(False)</returns>
+        public virtual bool IsNeedDefaultRecord() {
+            return false;
+        }
+
+        /// <summary>
+        /// 获取固定的默认记录集合
+        /// </summary>
+        /// <returns>映射数据模型列表</returns>
+        public virtual M[] GetDefaultRecordGather() {
+            return new M[] { };
+        }
+
+        /// <summary>
+        /// 填充默认记录集合
+        /// </summary>
+        public void FillDefaultRecordGather() {
+            M[] list = GetDefaultRecordGather();
+            if (CheckData.IsSizeEmpty(list)) {
+                return;
+            }
+            Insert(list);
         }
     }
 }

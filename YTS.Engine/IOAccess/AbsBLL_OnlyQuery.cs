@@ -13,7 +13,8 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="W">查询条件</typeparam>
     /// <typeparam name="P">解析器</typeparam>
     /// <typeparam name="PI">解析信息数据模型</typeparam>
-    public abstract class AbsBLL_OnlyQuery<M, D, W, P, PI> : IBLL_OnlyQuery<M, D, W, P, PI>
+    public abstract class AbsBLL_OnlyQuery<M, D, W, P, PI> :
+        IBLL_OnlyQuery<M, D, W, P, PI>
         where M : AbsShineUpon
         where D : AbsDAL<M, W, P, PI>
         where P : ShineUponParser<M, PI>
