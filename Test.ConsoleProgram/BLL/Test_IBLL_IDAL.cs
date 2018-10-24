@@ -17,9 +17,10 @@ namespace Test.ConsoleProgram.BLL
         public Test_IDAL_IDAL() {
             NameSign = @"接口: IDALorIDAL";
             SonCases = new CaseModel[] {
-                MSSQLServer(),
-                LocalFile(),
-                LocalXML(),
+                //MSSQLServer(),
+                //LocalFile(),
+                //LocalXML(),
+                ErrorReShow(),
             };
         }
 
@@ -632,10 +633,10 @@ namespace Test.ConsoleProgram.BLL
                                     Source = result,
                                     Func_isEquals = TestModelIsEqual,
                                     Func_lengthNotEquals = (al, sl) => {
-                                        Console.WriteLine("page_size: {0}, page_index: {1}  列表长度不一样:  answer.Length: {2}, source.Length: {2}", page_size, page_index, al, sl);
+                                        Console.WriteLine("page_size: {0}, page_index: {1}  列表长度不一样:  answer.Length: {2}, source.Length: {3}", page_size, page_index, al, sl);
                                     },
                                     Func_notFind = am => {
-                                        Console.WriteLine("page_size: {0}, page_index: {1} answer model: {0}", page_size, page_index, JSON.Serializer(am));
+                                        Console.WriteLine("page_size: {0}, page_index: {1} answer model: {2}", page_size, page_index, JSON.Serializer(am));
                                     },
                                 }.Calc();
                                 if (!isby) {
@@ -656,6 +657,23 @@ namespace Test.ConsoleProgram.BLL
                     },
                 };
             }
+        }
+
+        public CaseModel ErrorReShow() {
+            return new CaseModel() {
+                NameSign = @"错误重现",
+                ExeEvent = () => {
+                    DAL_MSSQLServer<TestModel> dal = new DAL_MSSQLServer<TestModel>();
+                    int sumcount = 0;
+                    int page_size = 11;
+                    int page_index = 9;
+                    TestModel[] list = dal.Select(page_size, page_index, out sumcount, @"RecordIndex % 3 = 0", null);
+                    if (CheckData.IsSizeEmpty(list)) {
+                        return false;
+                    }
+                    return list.Length == page_size;
+                },
+            };
         }
     }
 }

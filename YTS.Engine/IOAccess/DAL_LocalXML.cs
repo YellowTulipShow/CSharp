@@ -42,7 +42,7 @@ namespace YTS.Engine.IOAccess
         }
 
         public virtual string GetFileName() {
-            return this.DefaultModel.GetPathFolder();
+            return this.DefaultModel.GetFileName();
         }
 
         /// <summary>
@@ -50,9 +50,8 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         /// <returns>文件的绝对路径</returns>
         public string CreateGetFilePath() {
-            M model = ReflexHelp.CreateNewObject<M>();
-            string rel_directory = model.GetPathFolder();
-            string rel_filename = model.GetFileName();
+            string rel_directory = GetPathFolder();
+            string rel_filename = GetFileName();
             return PathHelp.CreateUseFilePath(rel_directory, rel_filename);
         }
         #endregion

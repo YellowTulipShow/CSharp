@@ -18,6 +18,8 @@ namespace Test.ConsoleProgram
 
             list.AddRange(GetList_Tools());
 
+            list.AddRange(GetList_SystemService());
+
             list.AddRange(GetList_Data());
 
             return list.ToArray();
@@ -60,6 +62,16 @@ namespace Test.ConsoleProgram
             return new CaseModel[] {
                 new BLL.Test_ini(),
                 new BLL.Test_IDAL_IDAL(),
+            };
+        }
+
+        /// <summary>
+        /// 系统服务
+        /// </summary>
+        public CaseModel[] GetList_SystemService() {
+            //return new CaseModel[] { };
+            return new CaseModel[] {
+                new SystemService.Test_GlobalSystemService(),
             };
         }
     }

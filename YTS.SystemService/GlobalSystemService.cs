@@ -34,6 +34,6 @@ namespace YTS.SystemService
         /// 配置 数据 模型
         /// </summary>
         public SystemConfig Config { get { return _config; } }
-        private SystemConfig _config;
+        private SystemConfig _config = null;
     }
 }

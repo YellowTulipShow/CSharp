@@ -52,11 +52,9 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         /// <returns>文件的绝对路径</returns>
         public string CreateGetFilePath() {
-            M model = ReflexHelp.CreateNewObject<M>();
-            string rel_directory = model.GetPathFolder();
-            string rel_filename = string.Format("{0}.ytsdb", model.GetFileName());
-            string abs_file_path = PathHelp.CreateUseFilePath(rel_directory, rel_filename);
-            return abs_file_path;
+            string rel_directory = GetPathFolder();
+            string rel_filename = GetFileName();
+            return PathHelp.CreateUseFilePath(rel_directory, rel_filename);
         }
 
         /// <summary>
@@ -156,7 +154,7 @@ namespace YTS.Engine.IOAccess
         /// 获取 /(根目录) 相对路径文件夹 格式: /xxx/xxx
         /// </summary>
         /// <returns>相对路径</returns>
-        public string GetPathFolder() {
+        public virtual string GetPathFolder() {
             return this.DefaultModel.GetPathFolder();
         }
 
@@ -164,7 +162,7 @@ namespace YTS.Engine.IOAccess
         /// 获取文件名称 (只是名称, 不需要后缀)
         /// </summary>
         /// <returns>文件名</returns>
-        public string GetFileName() {
+        public virtual string GetFileName() {
             return this.DefaultModel.GetFileName();
         }
         #endregion
