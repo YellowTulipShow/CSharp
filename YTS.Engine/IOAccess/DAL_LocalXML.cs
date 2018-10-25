@@ -177,12 +177,12 @@ namespace YTS.Engine.IOAccess
         }
 
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, KeyBoolean[] sorts) {
-            List<M> list = new List<M>(Select(0, where, null));
-            recordCount = list.Count;
-            if (CheckData.IsSizeEmpty(list)) {
+            M[] array = Select(0, where, sorts);
+            recordCount = array.Length;
+            if (CheckData.IsSizeEmpty(array)) {
                 return new M[] { };
             }
-            return ConvertTool.GetIListRange<M>(list, pageIndex, pageCount);
+            return ConvertTool.GetIListRange<M>(array, pageIndex, pageCount);
         }
 
         public override int GetRecordCount(Func<M, bool> where) {

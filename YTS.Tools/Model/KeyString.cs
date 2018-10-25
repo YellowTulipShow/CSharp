@@ -8,6 +8,11 @@ namespace YTS.Tools.Model
     public class KeyString : KeyBasic
     {
         public KeyString() : base() { }
+        public KeyString(string key, string value)
+            : base() {
+            this.Key = key;
+            this.Value = value;
+        }
 
         /// <summary>
         /// String 类型值:

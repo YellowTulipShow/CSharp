@@ -42,21 +42,20 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="_safeSql">SQL查询语句</param>
         /// <param name="_orderField">排序字段，多个则用“,”隔开</param>
         /// <returns>分页SQL语句</returns>
-        public static string CreatePagingSql(int _recordCount, int _pageSize, int _pageIndex, string _safeSql, string _orderField)
-        {
+        public static string CreatePagingSql(int _recordCount, int _pageSize, int _pageIndex, string _safeSql, string _orderField) {
             //计算总页数
             _pageSize = _pageSize == 0 ? _recordCount : _pageSize;
             int pageCount = (_recordCount + _pageSize - 1) / _pageSize;
 
             //检查当前页数
-            if (_pageIndex < 1)
-            {
+            if (_pageIndex < 1) {
                 _pageIndex = 1;
             }
-            else if (_pageIndex > pageCount)
-            {
-                _pageIndex = pageCount;
-            }
+            //else if (_pageIndex > pageCount) {
+            //    // 这里如果大于不应该获取到值了, 比如: 总数 88条, 每页11 9页  9页被被改成了8页
+            //    _pageIndex = pageCount;
+            //}
+
             //拼接SQL字符串，加上ROW_NUMBER函数进行分页
             StringBuilder newSafeSql = new StringBuilder();
             newSafeSql.AppendFormat("SELECT ROW_NUMBER() OVER(ORDER BY {0}) as row_number,", _orderField);
@@ -77,8 +76,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// </summary>
         /// <param name="_safeSql">SQL查询语句</param>
         /// <returns>记录总数SQL语句</returns>
-        public static string CreateCountingSql(string _safeSql)
-        {
+        public static string CreateCountingSql(string _safeSql) {
             return string.Format(" SELECT COUNT(1) AS RecordCount FROM ({0}) AS T ", _safeSql);
         }
     }

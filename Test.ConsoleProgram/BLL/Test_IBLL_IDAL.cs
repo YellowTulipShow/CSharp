@@ -17,10 +17,10 @@ namespace Test.ConsoleProgram.BLL
         public Test_IDAL_IDAL() {
             NameSign = @"接口: IDALorIDAL";
             SonCases = new CaseModel[] {
-                //MSSQLServer(),
-                //LocalFile(),
-                //LocalXML(),
-                ErrorReShow(),
+                MSSQLServer(),
+                LocalFile(),
+                LocalXML(),
+                //ErrorReShow(),
             };
         }
 
@@ -610,7 +610,7 @@ namespace Test.ConsoleProgram.BLL
             }
             public CaseModel Func_Select_Pagination() {
                 int sum = RandomData.GetInt(300, 8001);
-                sum = RandomData.GetInt(56, 265); // 循环遍历内容太多次,百位是极限了
+                sum = RandomData.GetInt(116, 265); // 循环遍历内容太多次,百位是极限了
                 TestModel[] array = GetRandomDatas(sum);
                 return new CaseModel() {
                     NameSign = string.Format("分页查询 数据总数: {0}", sum),
@@ -623,7 +623,7 @@ namespace Test.ConsoleProgram.BLL
                                 return w_model(model) ? model : null;
                             }, null);
 
-                            for (int page_index = 1; page_index <= answer_list.Length / page_size + 1; page_index++) {
+                            for (int page_index = -2; page_index <= answer_list.Length / page_size + 3; page_index++) {
                                 int record_count = 0;
                                 TestModel[] result = iDAL.Select(page_size, page_index, out record_count, w_dal, sorts);
                                 TestModel[] answer_array = ConvertTool.GetIListRange(answer_list, page_index, page_size);
@@ -665,13 +665,14 @@ namespace Test.ConsoleProgram.BLL
                 ExeEvent = () => {
                     DAL_MSSQLServer<TestModel> dal = new DAL_MSSQLServer<TestModel>();
                     int sumcount = 0;
-                    int page_size = 11;
+                    int page_size = 10;
                     int page_index = 9;
                     TestModel[] list = dal.Select(page_size, page_index, out sumcount, @"RecordIndex % 3 = 0", null);
-                    if (CheckData.IsSizeEmpty(list)) {
+                    if (list.Length > 0 && list.Length != page_size) {
+                        Console.WriteLine("list.Length: {0}  page_size: {1}", list.Length, page_size);
                         return false;
                     }
-                    return list.Length == page_size;
+                    return true;
                 },
             };
         }

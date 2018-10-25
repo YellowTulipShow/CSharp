@@ -114,6 +114,20 @@ namespace YTS.Tools
         /// <param name="index">页面索引</param>
         /// <returns>获取 </returns>
         public static T[] GetIListRange<T>(IList<T> source, int index, int length) {
+            /*
+                10条 1页 开始: 1 结束: 10
+
+                10条 2页 开始: 11 结束: 20
+
+                10条 3页 开始: 21 结束: 30
+
+                x条 n页 开始: (n-1)*x + 1 结束 n*x
+
+                8条 1页 开始: 1 结束: 8
+
+                8条 2页 开始: 9 结束: 16
+             */
+
             length = length <= 1 ? 10 : length;
             int max_index = source.Count / length;
             int superfluous_count = source.Count % length;

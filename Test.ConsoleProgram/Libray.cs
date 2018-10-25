@@ -7,7 +7,6 @@ namespace Test.ConsoleProgram
     {
         public Libray() { }
 
-        #region === Rule ===
         /// <summary>
         /// 在这里面手动设置要测试的实例
         /// </summary>
@@ -24,7 +23,8 @@ namespace Test.ConsoleProgram
 
             return list.ToArray();
         }
-        #endregion
+
+        /* ================================== ~华丽的间隔线~ ================================== */
 
         /// <summary>
         /// 学习
@@ -55,6 +55,16 @@ namespace Test.ConsoleProgram
         }
 
         /// <summary>
+        /// 系统服务
+        /// </summary>
+        public CaseModel[] GetList_SystemService() {
+            //return new CaseModel[] { };
+            return new CaseModel[] {
+                new SystemService.Test_GlobalSystemService(),
+            };
+        }
+
+        /// <summary>
         /// 数据
         /// </summary>
         public CaseModel[] GetList_Data() {
@@ -62,16 +72,7 @@ namespace Test.ConsoleProgram
             return new CaseModel[] {
                 new BLL.Test_ini(),
                 new BLL.Test_IDAL_IDAL(),
-            };
-        }
-
-        /// <summary>
-        /// 系统服务
-        /// </summary>
-        public CaseModel[] GetList_SystemService() {
-            //return new CaseModel[] { };
-            return new CaseModel[] {
-                new SystemService.Test_GlobalSystemService(),
+                new BLL.Test_URLReWriter(),
             };
         }
     }

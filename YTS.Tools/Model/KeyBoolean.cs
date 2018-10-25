@@ -8,6 +8,11 @@ namespace YTS.Tools.Model
     public class KeyBoolean : KeyBasic
     {
         public KeyBoolean() : base() { }
+        public KeyBoolean(string key, bool value)
+            : base() {
+            this.Key = key;
+            this.Value = value;
+        }
 
         /// <summary>
         /// Boolean 类型值:

@@ -61,7 +61,7 @@
     <Compile Include="ExplainAttribute.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="JSON.cs" />
-    <Compile Include="Model\Key.cs" />
+    <Compile Include="Model\KeyBasic.cs" />
     <Compile Include="Model\KeyBoolean.cs" />
     <Compile Include="Model\KeyObject.cs" />
     <Compile Include="Model\KeyString.cs" />

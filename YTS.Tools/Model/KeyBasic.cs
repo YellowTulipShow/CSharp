@@ -8,6 +8,10 @@ namespace YTS.Tools.Model
     public class KeyBasic : AbsBasicDataModel
     {
         public KeyBasic() : base() { }
+        public KeyBasic(string key)
+            : base() {
+            this.Key = key;
+        }
 
         /// <summary>
         /// 键:

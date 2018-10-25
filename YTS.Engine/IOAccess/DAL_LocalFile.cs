@@ -280,45 +280,12 @@ namespace YTS.Engine.IOAccess
         /// <param name="sorts">结果排序键值集合</param>
         /// <returns>数据映射模型集合结果</returns>
         public override M[] Select(int pageCount, int pageIndex, out int recordCount, Func<M, bool> where, KeyBoolean[] sorts) {
-            /*
-                10条 1页 开始: 1 结束: 10
-
-                10条 2页 开始: 11 结束: 20
-
-                10条 3页 开始: 21 结束: 30
-
-                x条 n页 开始: (n-1)*x + 1 结束 n*x
-
-                8条 1页 开始: 1 结束: 8
-
-                8条 2页 开始: 9 结束: 16
-             */
-
-            recordCount = 0;
-            int start_index = (pageIndex - 1) * pageCount + 1;
-            int end_index = pageIndex * pageCount;
-            if (CheckData.IsObjectNull(where)) {
-                where = model => true;
+            M[] array = Select(0, where, sorts);
+            recordCount = array.Length;
+            if (CheckData.IsSizeEmpty(array)) {
+                return new M[] { };
             }
-
-            int arg_record_count = 0;
-            M[] result = Read<M>((line, rlen) => {
-                // 筛选符合规则的数据行
-                M model = StringToModel(line);
-                if (CheckData.IsObjectNull(model)) {
-                    return null;
-                }
-                if (!where(model)) { // false 表示不符合条件, 跳过
-                    return null;
-                }
-                arg_record_count++;
-                if (start_index <= arg_record_count && arg_record_count <= end_index) {
-                    return model;
-                }
-                return null;
-            });
-            recordCount = arg_record_count;
-            return result;
+            return ConvertTool.GetIListRange<M>(array, pageIndex, pageCount);
         }
 
         /// <summary>

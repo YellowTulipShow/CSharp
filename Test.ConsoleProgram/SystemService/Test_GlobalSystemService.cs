@@ -21,6 +21,7 @@ namespace Test.ConsoleProgram.SystemService
                 ExeEvent = () => {
                     GlobalSystemService Gsys = GlobalSystemService.GetInstance();
                     //Gsys.Config;
+                    Console.WriteLine(typeof(System.Collections.Generic.IList<string>).FullName);
                     return true;
                 },
             };

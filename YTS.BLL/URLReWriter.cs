@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using YTS.Engine.IOAccess;
 using YTS.Tools;
 
@@ -37,6 +38,12 @@ namespace YTS.BLL
                     },
                 },
             };
+        }
+
+        public static string GetURLSiteName(string url) {
+            url = ConvertTool.ObjToString(url);
+            Regex re = new Regex(@"/(\w*)/?.*");
+            return re.Match(url).Groups[0].Value.ToString().Trim();
         }
     }
 }
