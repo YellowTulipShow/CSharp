@@ -18,7 +18,7 @@ namespace Test.ConsoleProgram.BLL
             NameSign = @"接口: IDALorIDAL";
             SonCases = new CaseModel[] {
                 MSSQLServer(),
-                LocalFile(),
+                LocalTXT(),
                 LocalXML(),
                 //ErrorReShow(),
             };
@@ -317,11 +317,11 @@ namespace Test.ConsoleProgram.BLL
             return mdoel;
         }
 
-        public CaseModel LocalFile() {
+        public CaseModel LocalTXT() {
             Func<TestModel, bool> where = (model) => model.RecordIndex % 3 == 0;
             Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>() {
                 NameSign = @"行文本文件",
-                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalFile<TestModel>(),
+                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalTXT<TestModel>(),
                 w_dal = where,
                 w_model = where,
                 update_content_dal = new KeyObject[] {

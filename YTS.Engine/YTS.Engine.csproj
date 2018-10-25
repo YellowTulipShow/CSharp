@@ -56,6 +56,7 @@
     <Compile Include="IOAccess\AbsDAL_OnlyQuery.cs" />
     <Compile Include="IOAccess\BLL_LocalXML.cs" />
     <Compile Include="IOAccess\BLL_MSSQLServer_OnlyQuery.cs" />
+    <Compile Include="IOAccess\DAL_LocalFile.cs" />
     <Compile Include="IOAccess\DAL_LocalXML.cs" />
     <Compile Include="IOAccess\IniFile.cs" />
     <Compile Include="IOAccess\IXMLInfo.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="IOAccess\AbsBLL.cs" />
     <Compile Include="IOAccess\AbsDAL.cs" />
     <Compile Include="IOAccess\BLL_LocalFile.cs" />
-    <Compile Include="IOAccess\DAL_LocalFile.cs" />
+    <Compile Include="IOAccess\DAL_LocalTXT.cs" />
     <Compile Include="IOAccess\IBLL.cs" />
     <Compile Include="IOAccess\IDAL.cs" />
     <Compile Include="IOAccess\IDataBaseResult.cs" />
