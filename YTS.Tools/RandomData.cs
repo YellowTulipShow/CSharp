@@ -72,16 +72,33 @@ namespace YTS.Tools
         /// <summary>
         /// 随机获取 Int 值
         /// </summary>
-        /// <param name="minval">最小值, 默认为 [int.MinValue + 1]</param>
-        /// <param name="maxval">最大值, 默认为 [int.MaxValue] 计算时不取其值</param>
-        /// <returns></returns>
-        public static int GetInt(int minval = int.MinValue + 1, int maxval = int.MaxValue) {
-            if (minval > maxval) {
-                int zhong = minval;
-                minval = maxval;
-                maxval = zhong;
+        /// <returns>取自: int.MinValue+1 和 int.MaxValue-1 并包括</returns>
+        public static int GetInt() {
+            return GetInt(int.MinValue + 1, int.MaxValue);
+        }
+
+        /// <summary>
+        /// 随机获取 Int 值
+        /// </summary>
+        /// <param name="max">最大值(不取该上界值)</param>
+        /// <returns>取自: 0 和 max-1 并包括</returns>
+        public static int GetInt(int max) {
+            return GetInt(0, max);
+        }
+
+        /// <summary>
+        /// 随机获取 Int 值
+        /// </summary>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值(不取该上界值)</param>
+        /// <returns>取自: min 和 max-1 并包括</returns>
+        public static int GetInt(int min, int max) {
+            if (min > max) {
+                int zhong = min;
+                min = max;
+                max = zhong;
             }
-            return R.Next(minval, maxval);
+            return R.Next(min, max);
         }
 
         /// <summary>
