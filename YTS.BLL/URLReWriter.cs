@@ -5,7 +5,7 @@ using YTS.Tools;
 
 namespace YTS.BLL
 {
-    public class URLReWriter : BLL_LocalXML<Model.URLReWriter, DAL.URLReWriter>
+    public class URLReWriter : BLL_LocalFile<Model.URLReWriter, DAL.URLReWriter>
     {
         public readonly string SiteName = string.Empty;
 

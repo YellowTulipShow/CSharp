@@ -13,7 +13,7 @@ namespace YTS.Engine.IOAccess
         AbsBLL<M, D, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
         IFileInfo
         where M : AbsShineUpon, IFileInfo
-        where D : DAL_LocalTXT<M>
+        where D : DAL_LocalFile<M>
     {
         public BLL_LocalFile() : base() { }
         public BLL_LocalFile(FileShare fileShare)
