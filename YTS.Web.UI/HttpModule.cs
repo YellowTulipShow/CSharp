@@ -44,8 +44,8 @@ namespace YTS.Web.UI
                 return;
             }
 
-            string SiteName = BLL.URLReWriter.GetURLSiteName(request_path); // 表示根目录一个
-            BLL.URLReWriter bllurl = new BLL.URLReWriter(SiteName);
+            string siteName = BLL.URLReWriter.GetURLSiteName(request_path); // 表示根目录一个
+            BLL.URLReWriter bllurl = new BLL.URLReWriter(siteName);
             Model.URLReWriter urlmodel = bllurl.GetModel(model => model.Name == request_path, null);
             // 判断是否需要生成模板文件
             if (IsNeedGenerateTemplate(urlmodel)) {

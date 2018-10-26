@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YTS.Engine.Template
+namespace YTS.Web.UI.Template
 {
     /// <summary>
     /// HTML 页面内容 转 Aspx 文件输出
@@ -19,9 +19,8 @@ namespace YTS.Engine.Template
         /// </summary>
         public readonly string AbsFilePath_Apsx = string.Empty;
 
-        public HtmlToAspx(string afp_html, string afp_aspx) {
-            this.AbsFilePath_Html = afp_html;
-            this.AbsFilePath_Apsx = afp_aspx;
+        public HtmlToAspx(Model.URLReWriter urlreWriter) {
+
         }
 
         /// <summary>

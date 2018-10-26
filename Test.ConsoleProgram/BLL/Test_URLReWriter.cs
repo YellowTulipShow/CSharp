@@ -11,7 +11,7 @@ namespace Test.ConsoleProgram.BLL
         public Test_URLReWriter() {
             this.NameSign = @"URL重写";
             this.SonCases = new CaseModel[] {
-                //Func_GetURLSiteName(),
+                Func_GetURLSiteName(),
             };
         }
 
@@ -20,12 +20,21 @@ namespace Test.ConsoleProgram.BLL
                 NameSign = @"获取 url 站点名",
                 ExeEvent = () => {
                     KeyString[] kss = new KeyString[] {
-                        new KeyString(@"/Admin/index.aspx", @"Admin"),
-                        new KeyString(@"/Admin/", @"Admin"),
-                        new KeyString(@"/Admin", @"Admin"),
-                        new KeyString(@"http://www.baidu.com/Admin/index.aspx", @"Admin"),
-                        new KeyString(@"http://www.baidu.com/Admin/", @"Admin"),
-                        new KeyString(@"http://www.baidu.com/Admin", @"Admin"),
+                        new KeyString(@"/TS-Admin/index.aspx", @"Admin"),
+                        new KeyString(@"/TS-Admin/", @"Admin"),
+                        new KeyString(@"/TS-Admin", @"Admin"),
+                        new KeyString(@"http://www.baidu.com/TS-Admin/index.aspx", @"Admin"),
+                        new KeyString(@"http://www.baidu.com/TS-Admin/", @"Admin"),
+                        new KeyString(@"http://www.baidu.com/TS-Admin", @"Admin"),
+                        new KeyString(@"TS-Admin/index.aspx", @"Admin"),
+                        new KeyString(@"TS-Admin/", @"Admin"),
+                        new KeyString(@"TS-Admin", @"Admin"),
+                        new KeyString(@"/Admin/index.aspx", @""),
+                        new KeyString(@"/Admin/", @""),
+                        new KeyString(@"/Admin", @""),
+                        new KeyString(@"http://www.baidu.com/Admin/index.aspx", @""),
+                        new KeyString(@"http://www.baidu.com/Admin/", @""),
+                        new KeyString(@"http://www.baidu.com/Admin", @""),
                         new KeyString(@"Admin/index.aspx", @""),
                         new KeyString(@"Admin/", @""),
                         new KeyString(@"Admin", @""),

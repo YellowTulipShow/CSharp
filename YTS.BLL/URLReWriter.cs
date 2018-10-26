@@ -42,8 +42,14 @@ namespace YTS.BLL
 
         public static string GetURLSiteName(string url) {
             url = ConvertTool.ObjToString(url);
-            Regex re = new Regex(@"/(\w*)/?.*");
+            Regex re = new Regex(@"/?TS-(\w*)/?.*");
             return re.Match(url).Groups[1].Value.ToString().Trim();
+        }
+
+        public static string SetURLSiteName(string sitename, string url) {
+            sitename = ConvertTool.ObjToString(sitename);
+            url = ConvertTool.ObjToString(url);
+            return string.Format("/TS-{0}/{1}", sitename, url.Trim('/'));
         }
     }
 }

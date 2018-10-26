@@ -44,6 +44,10 @@
     <Compile Include="MSSQLServer_IntID.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />
     <Compile Include="URLReWriter.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="Article.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
