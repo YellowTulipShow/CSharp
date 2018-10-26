@@ -17,9 +17,11 @@ namespace Test.ConsoleProgram
 
             list.AddRange(GetList_Tools());
 
+            list.AddRange(GetList_Engine());
+
             list.AddRange(GetList_SystemService());
 
-            list.AddRange(GetList_Data());
+            list.AddRange(GetList_BLL());
 
             return list.ToArray();
         }
@@ -36,6 +38,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_Path(),
                 new Learn.Test_FileDataOperating(),
                 new Learn.Test_XML(),
+                new Learn.Test_RegularExpression(),
             };
         }
 
@@ -48,9 +51,20 @@ namespace Test.ConsoleProgram
                 new Tools.Test_ConvertTool(),
                 new Tools.Test_ReflexHelp(),
                 new Tools.Test_EnumInfo(),
-                new Engine.Test_AbsShineUponParser(),
                 new Tools.Test_PathHelp(),
                 new Tools.Test_SerializerDeserialize(),
+            };
+        }
+
+        /// <summary>
+        /// 引擎
+        /// </summary>
+        public CaseModel[] GetList_Engine() {
+            //return new CaseModel[] { };
+            return new CaseModel[] {
+                new Engine.Test_AbsShineUponParser(),
+                new Engine.Test_ini(),
+                new Engine.Test_IDAL_IDAL(),
             };
         }
 
@@ -65,13 +79,11 @@ namespace Test.ConsoleProgram
         }
 
         /// <summary>
-        /// 数据
+        /// 业务逻辑层
         /// </summary>
-        public CaseModel[] GetList_Data() {
+        public CaseModel[] GetList_BLL() {
             //return new CaseModel[] { };
             return new CaseModel[] {
-                new BLL.Test_ini(),
-                new BLL.Test_IDAL_IDAL(),
                 new BLL.Test_URLReWriter(),
             };
         }

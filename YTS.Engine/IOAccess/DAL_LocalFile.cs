@@ -31,17 +31,24 @@ namespace YTS.Engine.IOAccess
 
         public DAL_LocalFile()
             : base() {
-            Init();
+            ReCreateAbsFilePath();
         }
         public DAL_LocalFile(FileShare fileShare)
             : base() {
-            Init();
+            ReCreateAbsFilePath();
             this.FileShare = fileShare;
         }
 
-        public void Init() {
-            this.AbsFilePath = CreateGetFilePath();
+        /// <summary>
+        /// 重新创建绝对文件路径
+        /// </summary>
+        public void ReCreateAbsFilePath() {
+            string rel_directory = GetPathFolder();
+            string rel_filename = GetFileName();
+            this.AbsFilePath = PathHelp.CreateUseFilePath(rel_directory, rel_filename);
         }
+
+        /* ================================== ~华丽的间隔线~ ================================== */
 
         #region ====== using:IFileInfo ======
         public virtual string GetPathFolder() {
@@ -51,17 +58,9 @@ namespace YTS.Engine.IOAccess
         public virtual string GetFileName() {
             return this.DefaultModel.GetFileName();
         }
-
-        /// <summary>
-        /// 创建并获取文件路径
-        /// </summary>
-        /// <returns>文件的绝对路径</returns>
-        public string CreateGetFilePath() {
-            string rel_directory = GetPathFolder();
-            string rel_filename = GetFileName();
-            return PathHelp.CreateUseFilePath(rel_directory, rel_filename);
-        }
         #endregion
+
+        /* ================================== ~华丽的间隔线~ ================================== */
 
         /// <summary>
         /// 插入

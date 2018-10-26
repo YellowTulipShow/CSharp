@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using YTS.Engine.ShineUpon;
 using YTS.SystemService;
+using YTS.Tools.Model;
 
 namespace Test.ConsoleProgram.SystemService
 {
@@ -20,8 +19,12 @@ namespace Test.ConsoleProgram.SystemService
                 NameSign = @"系统配置",
                 ExeEvent = () => {
                     GlobalSystemService Gsys = GlobalSystemService.GetInstance();
-                    //Gsys.Config;
-                    Console.WriteLine(typeof(System.Collections.Generic.IList<string>).FullName);
+                    Console.WriteLine("Config:");
+                    ShineUponParser<SystemConfig, ShineUponInfo> parser = new ShineUponParser<SystemConfig, ShineUponInfo>();
+                    foreach (ShineUponInfo info in parser.GetSortResult()) {
+                        KeyObject ko = parser.GetModelValue(info, Gsys.Config);
+                        Console.WriteLine("info.Name: {0}  ko.Key: {1}  ko.Value: {2}", info.Name, ko.Key, ko.Value);
+                    }
                     return true;
                 },
             };

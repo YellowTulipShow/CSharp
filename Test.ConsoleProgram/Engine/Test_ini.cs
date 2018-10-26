@@ -8,7 +8,7 @@ using YTS.Engine.IOAccess;
 using YTS.Tools;
 using YTS.Tools.Model;
 
-namespace Test.ConsoleProgram.BLL
+namespace Test.ConsoleProgram.Engine
 {
     public class Test_ini : CaseModel
     {
@@ -157,7 +157,7 @@ namespace Test.ConsoleProgram.BLL
 
         public CaseModel Func_ClearSection() {
             return new CaseModel() {
-                NameSign = @"写入",
+                NameSign = @"清空 Section 部分(待)",
                 ExeEvent = () => {
                     return true;
                 },
@@ -166,7 +166,7 @@ namespace Test.ConsoleProgram.BLL
 
         public CaseModel Func_DeleteKey() {
             return new CaseModel() {
-                NameSign = @"写入",
+                NameSign = @"删除键(待)",
                 ExeEvent = () => {
                     return true;
                 },
@@ -175,7 +175,7 @@ namespace Test.ConsoleProgram.BLL
 
         public CaseModel Func_IsExistsValue() {
             return new CaseModel() {
-                NameSign = @"写入",
+                NameSign = @"是否存在值(待)",
                 ExeEvent = () => {
                     return true;
                 },

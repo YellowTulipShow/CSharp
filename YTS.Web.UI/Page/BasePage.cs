@@ -8,8 +8,15 @@ namespace YTS.Web.UI.Page
     /// </summary>
     public class BasePage : System.Web.UI.Page
     {
-        public BasePage()
-        {
+        /// <summary>
+        /// 站点名称
+        /// </summary>
+        public string SiteName = null;
+
+        public readonly BLL.URLReWriter bllurl = null;
+
+        public BasePage() {
+            this.bllurl = new BLL.URLReWriter(this.SiteName);
             ShowPage();
         }
 
@@ -22,12 +29,11 @@ namespace YTS.Web.UI.Page
         /// <summary>
         /// 返回URL重写统一链接地址
         /// </summary>
-        public string linkurl(string _key, params object[] _params)
-        {
+        public string linkurl(string key, params object[] paramslist) {
             string returnstring = "";
 
-            Template.UrlRewriteModel urlReModel = new Template.UrlRewriteDAL().GetInfo(_key);
-            if (urlReModel==null) { return ""; }
+            Template.UrlRewriteModel urlReModel = new Template.UrlRewriteDAL().GetInfo(key);
+            if (urlReModel == null) { return ""; }
 
             returnstring = "/aspx/YTSTemp/" + urlReModel.page;
 
@@ -39,9 +45,9 @@ namespace YTS.Web.UI.Page
         /// [主要用于引用文件的强制不进行缓存]
         /// </summary>
         /// <returns>结果</returns>
-        public string GetStringDatePlusRandom()
-        {
-            return ConvertTool.CombinationContent(DateTime.Now.Year, DateTime.Now.Second, new Random().Next(DateTime.Now.Millisecond));
+        public string GetStringDatePlusRandom() {
+            DateTime now = DateTime.Now;
+            return ConvertTool.CombinationContent(now.Year, now.Second, RandomData.GetInt(now.Millisecond));
         }
         #endregion
     }

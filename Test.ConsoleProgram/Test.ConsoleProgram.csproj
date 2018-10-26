@@ -62,14 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Test_IBLL_IDAL.cs" />
+    <Compile Include="Engine\Test_IBLL_IDAL.cs" />
     <Compile Include="BLL\Test_URLReWriter.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
     <Compile Include="Learn\Test_FileDataOperating.cs" />
     <Compile Include="Learn\Test_HttpContext.cs" />
-    <Compile Include="BLL\Test_ini.cs" />
+    <Compile Include="Engine\Test_ini.cs" />
     <Compile Include="Learn\Test_Linq.cs" />
     <Compile Include="Learn\Test_Path.cs" />
+    <Compile Include="Learn\Test_RegularExpression.cs" />
     <Compile Include="Learn\Test_XML.cs" />
     <Compile Include="SystemService\Test_GlobalSystemService.cs" />
     <Compile Include="Tools\Test_ConvertTool.cs" />

@@ -43,7 +43,7 @@ namespace YTS.BLL
         public static string GetURLSiteName(string url) {
             url = ConvertTool.ObjToString(url);
             Regex re = new Regex(@"/(\w*)/?.*");
-            return re.Match(url).Groups[0].Value.ToString().Trim();
+            return re.Match(url).Groups[1].Value.ToString().Trim();
         }
     }
 }

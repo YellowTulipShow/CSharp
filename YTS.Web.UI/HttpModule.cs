@@ -38,12 +38,13 @@ namespace YTS.Web.UI
             log.Write();
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
-            string request_absfilepath = ConvertTool.ObjToString(PathHelp.ToAbsolute(request_path));
+            string request_absfilepath = PathHelp.ToAbsolute(request_path);
+            request_absfilepath = ConvertTool.ObjToString(request_absfilepath);
             if (File.Exists(request_absfilepath)) {
                 return;
             }
 
-            string SiteName = string.Empty; // 表示根目录一个
+            string SiteName = BLL.URLReWriter.GetURLSiteName(request_path); // 表示根目录一个
             BLL.URLReWriter bllurl = new BLL.URLReWriter(SiteName);
             Model.URLReWriter urlmodel = bllurl.GetModel(model => model.Name == request_path, null);
             // 判断是否需要生成模板文件

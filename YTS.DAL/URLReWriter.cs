@@ -15,6 +15,9 @@ namespace YTS.DAL
             this.SiteName = ConvertTool.ObjToString(sitename);
         }
 
+        public void ReSetSiteName(string sitename) {
+        }
+
         public override string GetPathFolder() {
             GlobalSystemService Gsys = GlobalSystemService.GetInstance();
             return string.Format("/{0}/{1}", Gsys.Config.Path_Template, this.SiteName.ToString().Trim('/'));

@@ -10,7 +10,7 @@ using YTS.Tools;
 using YTS.Tools.Const;
 using YTS.Tools.Model;
 
-namespace Test.ConsoleProgram.BLL
+namespace Test.ConsoleProgram.Engine
 {
     public class Test_IDAL_IDAL : CaseModel
     {
