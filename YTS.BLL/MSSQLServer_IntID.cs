@@ -14,8 +14,8 @@ namespace YTS.BLL
     public class MSSQLServer_IntID<M, D> :
         BLL_MSSQLServer<M, D>,
         IRecordIDPrimaryKey<M, int>
-        where D : MSSQLServer_IntID<M>
-        where M : AbsTable_IntID
+        where M : AbsTable_IntID, new()
+        where D : MSSQLServer_IntID<M>, new()
     {
         public MSSQLServer_IntID() : base() { }
 

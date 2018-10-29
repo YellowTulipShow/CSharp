@@ -14,8 +14,8 @@ namespace YTS.Engine.IOAccess
         AbsBLL<M, D, string, ColumnModelParser<M>, ColumnInfo>,
         ITableName,
         IDataBaseResult<M>
-        where D : DAL_MSSQLServer<M>
-        where M : AbsShineUpon, ITableName
+        where M : AbsShineUpon, ITableName, new()
+        where D : DAL_MSSQLServer<M>, new()
     {
         public BLL_MSSQLServer() : base() { }
 

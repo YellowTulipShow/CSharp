@@ -10,6 +10,8 @@ namespace YTS.SystemService
     /// </summary>
     public class SystemLog : AbsBasicDataModel
     {
+        public SystemLog() { }
+
         #region === Model ===
         /// <summary>
         /// 日志类型 (默认为 LogEnum.Error 错误 )

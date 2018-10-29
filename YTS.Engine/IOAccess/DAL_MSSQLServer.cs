@@ -19,7 +19,7 @@ namespace YTS.Engine.IOAccess
         ITableName,
         IDataBaseResult<M>,
         ISupplementaryStructure
-        where M : AbsShineUpon, ITableName
+        where M : AbsShineUpon, ITableName, new()
     {
         public DAL_MSSQLServer()
             : base() {

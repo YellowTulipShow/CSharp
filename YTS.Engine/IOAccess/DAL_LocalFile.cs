@@ -15,7 +15,7 @@ namespace YTS.Engine.IOAccess
     public abstract class DAL_LocalFile<M> :
         AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
         IFileInfo
-        where M : AbsShineUpon, IFileInfo
+        where M : AbsShineUpon, IFileInfo, new()
     {
         /// <summary>
         /// 绝对文件路径

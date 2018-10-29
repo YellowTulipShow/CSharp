@@ -12,9 +12,10 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="W">查询条件</typeparam>
     /// <typeparam name="P">解析器</typeparam>
     /// <typeparam name="PI">解析信息数据模型</typeparam>
-    public abstract class AbsDAL_OnlyQuery<M, W, P, PI> : IDAL_OnlyQuery<M, W, P, PI>
-        where M : AbsShineUpon
-        where P : ShineUponParser<M, PI>
+    public abstract class AbsDAL_OnlyQuery<M, W, P, PI> :
+        IDAL_OnlyQuery<M, W, P, PI>
+        where M : AbsShineUpon, new()
+        where P : ShineUponParser<M, PI>, new()
         where PI : ShineUponInfo
     {
         /// <summary>
@@ -49,6 +50,7 @@ namespace YTS.Engine.IOAccess
         /// 初始化创建 默认数据模型Model 对象
         /// </summary>
         public virtual M InitCreateModel() {
+            return new M();
             return ReflexHelp.CreateNewObject<M>();
         }
 

@@ -15,9 +15,9 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="PI">解析信息数据模型</typeparam>
     public abstract class AbsBLL_OnlyQuery<M, D, W, P, PI> :
         IBLL_OnlyQuery<M, D, W, P, PI>
-        where M : AbsShineUpon
-        where D : AbsDAL<M, W, P, PI>
-        where P : ShineUponParser<M, PI>
+        where M : AbsShineUpon, new()
+        where D : AbsDAL<M, W, P, PI>, new()
+        where P : ShineUponParser<M, PI>, new()
         where PI : ShineUponInfo
     {
         /// <summary>

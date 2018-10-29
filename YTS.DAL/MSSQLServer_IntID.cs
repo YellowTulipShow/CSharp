@@ -14,7 +14,7 @@ namespace YTS.DAL
     public class MSSQLServer_IntID<M> :
         DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, int>
-        where M : AbsTable_IntID
+        where M : AbsTable_IntID, new()
     {
         public readonly string ColName_IID;
 

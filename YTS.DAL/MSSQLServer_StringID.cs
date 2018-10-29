@@ -14,7 +14,7 @@ namespace YTS.DAL
     public class MSSQLServer_StringID<M> :
         DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, string>
-        where M : AbsTable_StringID
+        where M : AbsTable_StringID, new()
     {
         public readonly string ColName_SID;
 

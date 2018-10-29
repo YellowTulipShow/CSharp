@@ -17,9 +17,9 @@ namespace YTS.Engine.IOAccess
         AbsBLL_OnlyQuery<M, D, W, P, PI>,
         IBLL<M, D, W, P, PI>,
         IDefaultRecord<M>
-        where M : AbsShineUpon
-        where D : AbsDAL<M, W, P, PI>
-        where P : ShineUponParser<M, PI>
+        where M : AbsShineUpon, new()
+        where D : AbsDAL<M, W, P, PI>, new()
+        where P : ShineUponParser<M, PI>, new()
         where PI : ShineUponInfo
     {
         public AbsBLL()

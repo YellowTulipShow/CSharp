@@ -16,7 +16,7 @@ namespace YTS.Engine.IOAccess
     public class DAL_LocalXML<M> :
         DAL_LocalFile<M>,
         IFileInfo
-        where M : AbsShineUpon, IFileInfo
+        where M : AbsShineUpon, IFileInfo, new()
     {
         public DAL_LocalXML() : base() { }
         public DAL_LocalXML(FileShare fileShare) : base(fileShare) { }

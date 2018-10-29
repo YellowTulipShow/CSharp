@@ -14,8 +14,8 @@ namespace YTS.BLL
     public class MSSQLServer_StringID<M, D> :
         BLL_MSSQLServer<M, D>,
         IRecordIDPrimaryKey<M, string>
-        where D : MSSQLServer_StringID<M>
-        where M : AbsTable_StringID
+        where M : AbsTable_StringID, new()
+        where D : MSSQLServer_StringID<M>, new()
     {
         public MSSQLServer_StringID() : base() { }
 
