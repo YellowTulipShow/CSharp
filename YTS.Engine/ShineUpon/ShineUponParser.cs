@@ -118,7 +118,7 @@ namespace YTS.Engine.ShineUpon
                 return null;
             }
             object ov = info.Property.GetValue(model, null);
-            string sv = ConvertTool.ObjectToString(ov);
+            string sv = ConvertTool.ToString(ov);
             return new KeyString(info.Property.Name, sv);
         }
 
@@ -132,7 +132,7 @@ namespace YTS.Engine.ShineUpon
         public M SetValue_Object(I info, M target_model, object ov) {
             if (!CheckData.IsObjectNull(ov) && info.Property.CanWrite) {
                 Type itype = info.Property.PropertyType;
-                object oo = ConvertTool.ObjectToObject(itype, ov);
+                object oo = ConvertTool.ToObject(itype, ov);
                 info.Property.SetValue(target_model, oo, null);
             }
             return target_model;

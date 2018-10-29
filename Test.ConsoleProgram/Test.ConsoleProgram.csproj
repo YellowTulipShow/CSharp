@@ -72,6 +72,7 @@
     <Compile Include="Learn\Test_Linq.cs" />
     <Compile Include="Learn\Test_Path.cs" />
     <Compile Include="Learn\Test_RegularExpression.cs" />
+    <Compile Include="Learn\Test_URL_or_URI.cs" />
     <Compile Include="Learn\Test_XML.cs" />
     <Compile Include="SystemService\Test_GlobalSystemService.cs" />
     <Compile Include="Tools\Test_CheckData.cs" />

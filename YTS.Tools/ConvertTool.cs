@@ -21,59 +21,12 @@ namespace YTS.Tools
         public static string CombinationContent(params object[] objs) {
             StringBuilder returnString = new StringBuilder();
             foreach (object obj in objs) {
-                returnString.Append(ObjectToString(obj));
+                returnString.Append(ToString(obj));
             }
             return returnString.ToString();
         }
 
         #region === List Array String Convert ===
-        /// <summary>
-        /// 数组列表转字符串
-        /// </summary>
-        /// <param name="list">需要合并的字符串数组</param>
-        /// <param name="symbolSign">用于间隔内容的间隔符号</param>
-        public static string IListToString(IList list, IConvertible symbolSign) {
-            try {
-                if (CheckData.IsObjectNull(list) || CheckData.IsObjectNull(symbolSign))
-                    return string.Empty;
-                StringBuilder strs = new StringBuilder();
-                int firstSign = 0;
-                bool isHavefirstValue = false;
-                for (int i = firstSign; i < list.Count; i++) {
-                    if (CheckData.IsObjectNull(list[i]) || CheckData.IsStringNull(list[i].ToString())) {
-                        if (!isHavefirstValue) {
-                            firstSign = i + 1;
-                        }
-                        continue;
-                    }
-                    if (i > firstSign) {
-                        strs.Append(symbolSign.ToString());
-                    } else {
-                        isHavefirstValue = true;
-                    }
-                    strs.Append(list[i].ToString());
-                }
-                return strs.ToString();
-            } catch (Exception) {
-                return string.Empty;
-            }
-        }
-        /// <summary>
-        /// 字符串转字符串数组
-        /// </summary>
-        /// <param name="strValue">要转化的字符串</param>
-        /// <param name="Symbol">用于分隔的间隔符号</param>
-        public static string[] ToArrayList(string strValue, IConvertible symbolSign) {
-            try {
-                if (CheckData.IsStringNull(strValue) || CheckData.IsObjectNull(symbolSign))
-                    throw new Exception();
-                string[] strarr = strValue.Split(symbolSign.ToString().ToCharArray());
-                return strarr;
-            } catch (Exception) {
-                return new string[] { };
-            }
-        }
-
         /// <summary>
         /// 获取列表范围
         /// </summary>
@@ -82,7 +35,7 @@ namespace YTS.Tools
         /// <param name="length">每页数量</param>
         /// <param name="index">页面索引</param>
         /// <returns>获取 </returns>
-        public static T[] GetIListRange<T>(IList<T> source, int index, int length) {
+        public static T[] ToRangeList<T>(IList<T> source, int index, int length) {
             /*
                 10条 1页 开始: 1 结束: 10
 
@@ -185,14 +138,13 @@ namespace YTS.Tools
         }
         #endregion
 
-        #region === Data Type Convert ===
         /// <summary>
         /// 将 不确定类型数据 转换为 指定数据类型值
         /// </summary>
         /// <param name="type">指定数据类型</param>
         /// <param name="ov">不确定类型数据</param>
         /// <returns>确定类型数据</returns>
-        public static object ObjectToObject(Type type, object ov) {
+        public static object ToObject(Type type, object ov) {
             if (CheckData.IsObjectNull(type)) {
                 return ov;
             }
@@ -201,26 +153,26 @@ namespace YTS.Tools
             }
 
             if (CheckData.IsTypeEqualDepth(type, typeof(int), true)) {
-                return ObjectToInt(ov, default(int));
+                return ToInt(ov, default(int));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(Enum), true)) {
                 if (ov.GetType().IsEnum) {
                     return (int)ov;
                 } else {
-                    return ObjectToInt(ov, default(int));
+                    return ToInt(ov, default(int));
                 }
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(float), true)) {
-                return ObjectToFloat(ov, default(float));
+                return ToFloat(ov, default(float));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(double), true)) {
-                return ObjectToDouble(ov, default(double));
+                return ToDouble(ov, default(double));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(DateTime), true)) {
-                return ObjectToDateTime(ov, default(DateTime));
+                return ToDateTime(ov, default(DateTime));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(bool), true)) {
-                return ObjectToBool(ov, default(bool));
+                return ToBool(ov, default(bool));
             }
             return ov;
         }
@@ -232,7 +184,7 @@ namespace YTS.Tools
         /// </summary>
         /// <param name="ov">通用object对象数据</param>
         /// <returns>格式化/ToString得到的string结果</returns>
-        public static string ObjectToString(object ov) {
+        public static string ToString(object ov) {
             if (CheckData.IsObjectNull(ov)) {
                 return string.Empty;
             }
@@ -241,20 +193,69 @@ namespace YTS.Tools
                 return ov.ToString();
             }
             if (CheckData.IsTypeEqualDepth(vt, typeof(DateTime), true)) {
-                return ((DateTime)ov).ToString(Tools.Const.Format.DATETIME_SECOND);
+                return ((DateTime)ov).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
             }
             if (vt.IsEnum || CheckData.IsTypeEqualDepth(vt, typeof(Enum), true)) {
                 return ((int)ov).ToString();
             }
             return ov.ToString();
         }
+        public static string ToString(string sv) {
+            return CheckData.IsStringNull(sv) ? string.Empty : sv.ToString();
+        }
         /// <summary>
         /// 将字符串去除前后多余空格
         /// </summary>
-        public static string StringToStringTrim(string source) {
-            return CheckData.IsStringNull(source) ? string.Empty : source.Trim();
+        public static string ToStringTrim(string sv) {
+            return ToString(sv).Trim();
+        }
+        /// <summary>
+        /// 数组列表转字符串
+        /// </summary>
+        /// <param name="list">需要合并的字符串数组</param>
+        /// <param name="symbolSign">用于间隔内容的间隔符号</param>
+        public static string ToString<T>(IList<T> list, IConvertible symbolSign) {
+            try {
+                if (CheckData.IsObjectNull(list) || CheckData.IsObjectNull(symbolSign))
+                    return string.Empty;
+                StringBuilder strs = new StringBuilder();
+                int firstSign = 0;
+                bool isHavefirstValue = false;
+                for (int i = firstSign; i < list.Count; i++) {
+                    if (CheckData.IsObjectNull(list[i]) || CheckData.IsStringNull(list[i].ToString())) {
+                        if (!isHavefirstValue) {
+                            firstSign = i + 1;
+                        }
+                        continue;
+                    }
+                    if (i > firstSign) {
+                        strs.Append(symbolSign.ToString());
+                    } else {
+                        isHavefirstValue = true;
+                    }
+                    strs.Append(list[i].ToString());
+                }
+                return strs.ToString();
+            } catch (Exception) {
+                return string.Empty;
+            }
         }
 
+        /// <summary>
+        /// 字符串转字符串数组
+        /// </summary>
+        /// <param name="strValue">要转化的字符串</param>
+        /// <param name="Symbol">用于分隔的间隔符号</param>
+        public static string[] ToArrayList(string strValue, IConvertible symbolSign) {
+            try {
+                if (CheckData.IsStringNull(strValue) || CheckData.IsObjectNull(symbolSign))
+                    throw new Exception();
+                string[] strarr = strValue.Split(symbolSign.ToString().ToCharArray());
+                return strarr;
+            } catch (Exception) {
+                return new string[] { };
+            }
+        }
 
         /// <summary>
         /// 将对象转换为Int32类型
@@ -262,9 +263,9 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的int类型结果</returns>
-        public static int ObjectToInt(object expression, int defValue) {
+        public static int ToInt(object expression, int defValue) {
             if (!CheckData.IsObjectNull(expression))
-                return StringToInt(expression.ToString(), defValue);
+                return ToInt(expression.ToString(), defValue);
             return defValue;
         }
         /// <summary>
@@ -273,7 +274,7 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的int类型结果</returns>
-        public static int StringToInt(String expression, int defValue) {
+        public static int ToInt(string expression, int defValue) {
             if (String.IsNullOrEmpty(expression) || expression.Trim().Length >= 11 || !Regex.IsMatch(expression.Trim(), @"^([-]|[0-9])[0-9]*(\.\w*)?$"))
                 return defValue;
 
@@ -281,7 +282,7 @@ namespace YTS.Tools
             if (Int32.TryParse(expression, out rv))
                 return rv;
 
-            return Convert.ToInt32(StringToFloat(expression, defValue));
+            return Convert.ToInt32(ToFloat(expression, defValue));
         }
 
 
@@ -291,9 +292,9 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的decimal类型结果</returns>
-        public static decimal ObjectToDecimal(object expression, decimal defValue) {
+        public static decimal ToDecimal(object expression, decimal defValue) {
             if (expression != null)
-                return StringToDecimal(expression.ToString(), defValue);
+                return ToDecimal(expression.ToString(), defValue);
 
             return defValue;
         }
@@ -303,7 +304,7 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的decimal类型结果</returns>
-        public static decimal StringToDecimal(String expression, decimal defValue) {
+        public static decimal ToDecimal(string expression, decimal defValue) {
             if ((expression == null) || (expression.Length > 10))
                 return defValue;
 
@@ -323,9 +324,9 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的float类型结果</returns>
-        public static float ObjectToFloat(object expression, float defValue) {
+        public static float ToFloat(object expression, float defValue) {
             if (expression != null)
-                return StringToFloat(expression.ToString(), defValue);
+                return ToFloat(expression.ToString(), defValue);
 
             return defValue;
         }
@@ -335,7 +336,7 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的float类型结果</returns>
-        public static float StringToFloat(String expression, float defValue) {
+        public static float ToFloat(string expression, float defValue) {
             if ((expression == null) || (expression.Length > 10))
                 return defValue;
 
@@ -355,9 +356,9 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defvalue">缺省值</param>
         /// <returns>转换后的double类型结果</returns>
-        public static double ObjectToDouble(object expression, double defvalue) {
-            string s = ObjectToString(expression);
-            return StringToDouble(s, defvalue);
+        public static double ToDouble(object expression, double defvalue) {
+            string s = ToString(expression);
+            return ToDouble(s, defvalue);
         }
         /// <summary>
         /// string型转换为double型
@@ -365,7 +366,7 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defvalue">缺省值</param>
         /// <returns>转换后的double类型结果</returns>
-        public static double StringToDouble(string expression, double defvalue) {
+        public static double ToDouble(string expression, double defvalue) {
             if (CheckData.IsStringNull(expression)) {
                 return defvalue;
             }
@@ -380,9 +381,9 @@ namespace YTS.Tools
         /// <param name="expression">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的bool类型结果</returns>
-        public static bool ObjectToBool(object expression, bool defValue) {
+        public static bool ToBool(object expression, bool defValue) {
             if (expression != null)
-                return StringToBool(expression.ToString(), defValue);
+                return ToBool(expression.ToString(), defValue);
             return defValue;
         }
         /// <summary>
@@ -391,7 +392,7 @@ namespace YTS.Tools
         /// <param name="strValue">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns>转换后的bool类型结果</returns>
-        public static bool StringToBool(String strValue, bool defValue) {
+        public static bool ToBool(String strValue, bool defValue) {
             if (strValue != null) {
                 if (String.Compare(strValue, "true", true) == 0)
                     return true;
@@ -421,7 +422,7 @@ namespace YTS.Tools
         /// <param name="obj">要转换的对象</param>
         /// <param name="defValue">缺省值</param>
         /// <returns></returns>
-        public static DateTime ObjectToDateTime(object obj, DateTime defValue) {
+        public static DateTime ToDateTime(object obj, DateTime defValue) {
             if (CheckData.IsObjectNull(obj)) {
                 return defValue;
             }
@@ -442,9 +443,9 @@ namespace YTS.Tools
         /// <param name="obj">要转换的字符串</param>
         /// <param name="defValue">缺省值</param>
         /// <returns></returns>
-        public static SqlDateTime ObjectToSqlDateTime(object obj, SqlDateTime defValue) {
+        public static SqlDateTime ToSqlDateTime(object obj, SqlDateTime defValue) {
             DateTime defTime = defValue.Value;
-            DateTime resuTime = ObjectToDateTime(obj, defTime);
+            DateTime resuTime = ToDateTime(obj, defTime);
             if (resuTime < SqlDateTime.MinValue.Value)
                 return SqlDateTime.MinValue;
             else if (SqlDateTime.MaxValue.Value < resuTime)
@@ -520,7 +521,7 @@ namespace YTS.Tools
             }
             return Int32.Parse(hexadecimal_string, System.Globalization.NumberStyles.HexNumber);
         }
-        #endregion
+
 
         /// <summary>
         /// 十六进制值转为Unicode格式字符串

@@ -18,7 +18,7 @@ namespace Test.ConsoleProgram.Learn
                 ExeEvent = () => {
                     object s = 10.0;
                     //object r = 10.0;
-                    object r = ConvertTool.ObjectToDouble(10, 666.666);
+                    object r = ConvertTool.ToDouble(10, 666.666);
                     Console.WriteLine("s:{0}  r:{1}  s != r : {2}", s, r, s != r);
                     Console.WriteLine("s:{0}  r:{1}  s.Equals(r) : {2}", s, r, s.Equals(r));
                     return s != r;

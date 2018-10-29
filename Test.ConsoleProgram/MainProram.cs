@@ -62,7 +62,7 @@ namespace Test.ConsoleProgram
         /// <param name="upper_layer_name">上层级名称</param>
         /// <returns>是否成功</returns>
         private static bool AnalyticCaseModel(CaseModel[] cases, string upper_layer_name) {
-            upper_layer_name = ConvertTool.ObjectToString(upper_layer_name);
+            upper_layer_name = ConvertTool.ToString(upper_layer_name);
             foreach (CaseModel model in cases) {
                 // 获取名称
                 string name = model.NameSign;

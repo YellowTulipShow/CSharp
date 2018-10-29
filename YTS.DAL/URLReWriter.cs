@@ -26,7 +26,7 @@ namespace YTS.DAL
         /* ================================== ~华丽的间隔线~ ================================== */
 
         public void SetSiteName(string sitename) {
-            this._siteName = ConvertTool.ObjectToString(sitename);
+            this._siteName = ConvertTool.ToString(sitename);
             this.ReCreateAbsFilePath();
         }
 

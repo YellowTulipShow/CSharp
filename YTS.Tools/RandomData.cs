@@ -241,7 +241,7 @@ namespace YTS.Tools
             for (int i = 0; i < 4; i++) {
                 list.Add(GetInt(0, 255 + 1));
             }
-            return ConvertTool.IListToString(list, '.');
+            return ConvertTool.ToString(list, '.');
         }
         #endregion
 

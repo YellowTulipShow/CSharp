@@ -38,7 +38,7 @@ namespace YTS.DAL
                 return false;
             }
             object obj = DbHelperSQL.GetSingle(sqlinsert);
-            id = CheckData.IsObjectNull(obj) ? defid : ConvertTool.ObjectToInt(obj, defid);
+            id = CheckData.IsObjectNull(obj) ? defid : ConvertTool.ToInt(obj, defid);
             return id != defid;
         }
 

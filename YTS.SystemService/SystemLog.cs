@@ -87,7 +87,7 @@ namespace YTS.SystemService
                 this.Position,
                 this.Message,
             };
-            return ConvertTool.IListToString(content, @"  >>  ") + "\r\n";
+            return ConvertTool.ToString(content, @"  >>  ") + "\r\n";
         }
         #endregion
     }

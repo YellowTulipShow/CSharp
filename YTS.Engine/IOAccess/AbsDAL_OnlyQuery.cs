@@ -58,7 +58,7 @@ namespace YTS.Engine.IOAccess
         /// 初始化创建 解析器Parser 对象
         /// </summary>
         public virtual P InitCreateParser() {
-            return ReflexHelp.CreateNewObject<P>();
+            return new P();
         }
 
         /// <summary>

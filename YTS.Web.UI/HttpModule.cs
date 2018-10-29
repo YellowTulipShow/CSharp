@@ -39,14 +39,14 @@ namespace YTS.Web.UI
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
             string request_absfilepath = PathHelp.ToAbsolute(request_path);
-            request_absfilepath = ConvertTool.ObjectToString(request_absfilepath);
+            request_absfilepath = ConvertTool.ToString(request_absfilepath);
             if (File.Exists(request_absfilepath)) {
                 return;
             }
 
             string siteName = BLL.URLReWriter.GetURLSiteName(request_path); // 表示根目录一个
             BLL.URLReWriter bllurl = new BLL.URLReWriter(siteName);
-            Model.URLReWriter urlmodel = bllurl.GetModel(model => model.Name == request_path, null);
+            Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(context.Request.Url);
             // 判断是否需要生成模板文件
             if (IsNeedGenerateTemplate(urlmodel)) {
                 // 生成模板
@@ -58,11 +58,10 @@ namespace YTS.Web.UI
         /// 是否需要生成模板文件
         /// </summary>
         private bool IsNeedGenerateTemplate(Model.URLReWriter model) {
-            GlobalSystemService Gsys = GlobalSystemService.GetInstance();
             if (CheckData.IsObjectNull(model)) {
                 // 当得到的对象 为空的时候,证明没有此数据内容,当然也就不用生成了
                 return false;
-	        }
+            }
 
             string tempPath = PathHelp.ToAbsolute(model.Templet);
             if (!FileHelper.IsExistFile(tempPath)) {
@@ -70,12 +69,13 @@ namespace YTS.Web.UI
                 return false;
             }
 
+            GlobalSystemService Gsys = GlobalSystemService.GetInstance();
             if (Gsys.Config.IsDeBug) {
                 // 调试状态, 每一次访问都生成 
                 return true;
             }
 
-            string pagePath = PathHelp.ToAbsolute(model.Page);;
+            string pagePath = PathHelp.ToAbsolute(model.Page);
             if (!FileHelper.IsExistFile(pagePath)) {
                 // 生成的访问文件不存在，需要生成
                 return true;

@@ -39,7 +39,7 @@ namespace YTS.Engine.IOAccess
         /// 初始化创建 数据访问层DAL 对象
         /// </summary>
         public virtual D InitCreateDAL() {
-            return ReflexHelp.CreateNewObject<D>();
+            return new D();
         }
 
         /// <summary>

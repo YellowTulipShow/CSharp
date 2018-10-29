@@ -64,11 +64,11 @@ namespace YTS.Tools
         /// <param name="filename">文件名称</param>
         /// <returns>绝对路径的文件路径</returns>
         public static string CreateUseFilePath(string directory, string filename) {
-            directory = ConvertTool.ObjectToString(directory);
+            directory = ConvertTool.ToString(directory);
             if (CheckData.IsStringNull(directory)) {
                 directory = @"/";
             }
-            filename = ConvertTool.ObjectToString(filename);
+            filename = ConvertTool.ToString(filename);
             if (CheckData.IsStringNull(filename)) {
                 return string.Empty;
             }

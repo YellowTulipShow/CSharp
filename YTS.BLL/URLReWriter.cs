@@ -6,6 +6,9 @@ using YTS.Tools;
 
 namespace YTS.BLL
 {
+    /// <summary>
+    /// URL重写
+    /// </summary>
     public class URLReWriter : BLL_LocalFile<Model.URLReWriter, DAL.URLReWriter>
     {
         public URLReWriter()
@@ -47,15 +50,23 @@ namespace YTS.BLL
         /* ================================== ~华丽的间隔线~ ================================== */
 
         public static string GetURLSiteName(string url) {
-            url = ConvertTool.ObjectToString(url);
+            url = ConvertTool.ToString(url);
             Regex re = new Regex(@"/?TS-(\w*)/?.*");
             return re.Match(url).Groups[1].Value.ToString().Trim();
         }
 
         public static string SetURLSiteName(string sitename, string url) {
-            sitename = ConvertTool.ObjectToString(sitename);
-            url = ConvertTool.ObjectToString(url);
+            sitename = ConvertTool.ToString(sitename);
+            url = ConvertTool.ToString(url);
             return string.Format("/TS-{0}/{1}", sitename, url.Trim('/'));
+        }
+
+        public Model.URLReWriter GetItem_RequestURI(Uri uri) {
+            if (CheckData.IsObjectNull(uri)) {
+                return null;
+            }
+            string site_name = uri.AbsolutePath;
+            return null;
         }
     }
 }

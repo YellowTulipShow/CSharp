@@ -45,7 +45,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="model">数据映射模型</param>
         /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
-            string sqlinsert = ConvertTool.StringToStringTrim(SQLInsert(model, false));
+            string sqlinsert = ConvertTool.ToStringTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
 
@@ -112,10 +112,10 @@ namespace YTS.Engine.IOAccess
                 if (CheckData.IsStringNull(item.Key)) {
                     return null;
                 }
-                string str_value = ConvertTool.ObjectToString(item.Value);
+                string str_value = ConvertTool.ToString(item.Value);
                 return string.Format("{0} = '{1}'", item.Key, item.Value);
             }, null);
-            string set_str = ConvertTool.IListToString(expressions, ',');
+            string set_str = ConvertTool.ToString(expressions, ',');
             string sql_update = CreateSQL.Update(this.GetTableName(), set_str, where);
             return CheckData.IsStringNull(sql_update) ? false : DbHelperSQL.ExecuteSql(sql_update) > 0;
         }
@@ -175,7 +175,7 @@ namespace YTS.Engine.IOAccess
                 return errorint;
             }
             object value = DbHelperSQL.GetSingle(sql_select);
-            return ConvertTool.ObjectToInt(value, errorint);
+            return ConvertTool.ToInt(value, errorint);
         }
         #endregion
 
@@ -325,7 +325,7 @@ namespace YTS.Engine.IOAccess
                     !item.Attribute.IsCanBeNull ? @"not null" : null,
                     item.Attribute.IsIDentity ? @"identity(1,1)" : null,
                 };
-                resuDic[fieldName] = ConvertTool.IListToString(vals, @" ");
+                resuDic[fieldName] = ConvertTool.ToString(vals, @" ");
             }
             return resuDic;
         }
@@ -365,7 +365,7 @@ namespace YTS.Engine.IOAccess
                 string sql = CreateSQL.If(if_where, CreateSQL.AlterColumn(GetTableName(), item.Value));
                 ifExists.Add(sql);
             }
-            return ConvertTool.IListToString(ifExists, @" ");
+            return ConvertTool.ToString(ifExists, @" ");
         }
         #endregion
     }

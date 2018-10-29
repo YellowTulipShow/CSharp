@@ -40,6 +40,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_FileDataOperating(),
                 new Learn.Test_XML(),
                 new Learn.Test_RegularExpression(),
+                new Learn.Test_URL_or_URI(),
             };
         }
 
