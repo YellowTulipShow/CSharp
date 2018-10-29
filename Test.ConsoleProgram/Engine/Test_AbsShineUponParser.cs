@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using YTS.Engine.DataBase;
@@ -18,6 +19,7 @@ namespace Test.ConsoleProgram.Engine
             SonCases = new CaseModel[] {
                 Func_ColumnModelParser(),
                 Func_FieldModelParser(),
+                Func_GetValue_SetValue(),
             };
         }
 
@@ -132,6 +134,67 @@ namespace Test.ConsoleProgram.Engine
                 return @"F_model";
             }
         }
+
+        public class GS : AbsShineUpon
+        {
+            /// <summary>
+            /// 价格(人贩子(-_^)嘿嘿..)
+            /// </summary>
+            [Explain(@"价格")]
+            [Column]
+            public double Price { get { return _Price; } set { _Price = value; } }
+            private double _Price = 0;
+
+            /// <summary>
+            /// 名称
+            /// </summary>
+            [Explain(@"名称")]
+            [Column]
+            public string Name { get { return _Name; } set { _Name = value; } }
+            private string _Name = string.Empty;
+
+            /// <summary>
+            /// 年龄
+            /// </summary>
+            [Explain(@"年龄")]
+            [Column]
+            public int Age { get { return _Age; } set { _Age = value; } }
+            private int _Age = 0;
+
+            /// <summary>
+            /// 出生日期
+            /// </summary>
+            [Explain(@"出生日期")]
+            [Column]
+            public DateTime DateOfBirth { get { return _DateOfBirth; } set { _DateOfBirth = value; } }
+            private DateTime _DateOfBirth = DateTime.Now;
+
+            public enum SexEnum
+            {
+                /// <summary>
+                /// 保密
+                /// </summary>
+                [Explain(@"保密")]
+                Secrecy,
+                /// <summary>
+                /// 男
+                /// </summary>
+                Male = 1,
+                /// <summary>
+                /// 女
+                /// </summary>
+                [Explain(@"女")]
+                Female = 81,
+            }
+            /// <summary>
+            /// 性别
+            /// </summary>
+            [Explain(@"性别")]
+            [Column]
+            public SexEnum Sex { get { return _sex; } set { _sex = value; } }
+            private SexEnum _sex = SexEnum.Secrecy;
+        }
+
         #endregion
 
         public CaseModel Func_ColumnModelParser() {
@@ -187,6 +250,54 @@ namespace Test.ConsoleProgram.Engine
                     }.Calc();
                 },
             };
+        }
+
+        public CaseModel Func_GetValue_SetValue() {
+            return new CaseModel() {
+                NameSign = @"获取/设置值",
+                ExeEvent = () => {
+                    GS answer = new GS() {
+                        Age = RandomData.GetInt(),
+                        DateOfBirth = RandomData.GetDateTime(),
+                        Name = RandomData.GetChineseString(),
+                        Price = RandomData.GetDouble(),
+                        Sex = RandomData.Item(EnumInfo.GetALLItem<GS.SexEnum>()),
+                    };
+
+                    GS result = new GS();
+
+                    ShineUponParser<GS, ShineUponInfo> parser = new ShineUponParser<GS, ShineUponInfo>();
+                    foreach (ShineUponInfo info in parser.GetSortResult()) {
+                        KeyString ks = parser.GetValue_KeyString(info, answer);
+                        result = parser.SetValue_Object(info, result, ks.Value);
+                    }
+
+                    return true;
+                },
+            };
+        }
+        public bool IsGSEqual(GS m1, GS m2) {
+            if (m1.Age != m2.Age) {
+                Console.WriteLine("不相等:  m1.Age:{0}  m2.Age:{1}", m1.Age, m2.Age);
+                return false;
+            }
+            if (m1.DateOfBirth != m2.DateOfBirth) {
+                Console.WriteLine("不相等:  m1.DateOfBirth:{0}  m2.DateOfBirth:{1}", m1.DateOfBirth, m2.DateOfBirth);
+                return false;
+            }
+            if (m1.Name != m2.Name) {
+                Console.WriteLine("不相等:  m1.Name:{0}  m2.Name:{1}", m1.Name, m2.Name);
+                return false;
+            }
+            if (m1.Price != m2.Price) {
+                Console.WriteLine("不相等:  m1.Price:{0}  m2.Price:{1}", m1.Price, m2.Price);
+                return false;
+            }
+            if (m1.Sex != m2.Sex) {
+                Console.WriteLine("不相等:  m1.Sex:{0}  m2.Sex:{1}", m1.Sex, m2.Sex);
+                return false;
+            }
+            return true;
         }
     }
 }

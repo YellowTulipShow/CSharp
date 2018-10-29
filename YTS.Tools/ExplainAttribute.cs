@@ -15,7 +15,7 @@ namespace YTS.Tools
         public const string ERROR_EXPLAIN_TEXT = @"Error Explain";
 
         public ExplainAttribute(string explaninStr) {
-            this._text = ConvertTool.ObjToString(explaninStr);
+            this._text = ConvertTool.ObjectToString(explaninStr);
         }
 
         /// <summary>

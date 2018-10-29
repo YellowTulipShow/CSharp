@@ -45,7 +45,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="model">数据映射模型</param>
         /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
-            string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
+            string sqlinsert = ConvertTool.StringToStringTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
 
@@ -59,13 +59,12 @@ namespace YTS.Engine.IOAccess
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
             foreach (ColumnInfo item in this.Parser.GetColumn_CanWrite()) {
-                KeyObject im = this.Parser.GetModelValue(item, model);
-                if (CheckData.IsObjectNull(im) || CheckData.IsStringNull(im.Key)) {
+                KeyString ks = this.Parser.GetValue_KeyString(item, model);
+                if (CheckData.IsObjectNull(ks) || CheckData.IsStringNull(ks.Key)) {
                     continue;
                 }
-                fieldArr.Add(im.Key);
-                string str_value = ModelValueToDataBaseValue(im.Value);
-                valueArr.Add(string.Format("'{0}'", str_value));
+                fieldArr.Add(ks.Key);
+                valueArr.Add(string.Format("'{0}'", ks.Value));
             }
             if ((fieldArr.Count != valueArr.Count) || CheckData.IsSizeEmpty(fieldArr)) {
                 return string.Empty;
@@ -113,7 +112,7 @@ namespace YTS.Engine.IOAccess
                 if (CheckData.IsStringNull(item.Key)) {
                     return null;
                 }
-                string str_value = ModelValueToDataBaseValue(item.Value);
+                string str_value = ConvertTool.ObjectToString(item.Value);
                 return string.Format("{0} = '{1}'", item.Key, item.Value);
             }, null);
             string set_str = ConvertTool.IListToString(expressions, ',');
@@ -176,7 +175,7 @@ namespace YTS.Engine.IOAccess
                 return errorint;
             }
             object value = DbHelperSQL.GetSingle(sql_select);
-            return ConvertTool.ObjToInt(value, errorint);
+            return ConvertTool.ObjectToInt(value, errorint);
         }
         #endregion
 
@@ -260,7 +259,7 @@ namespace YTS.Engine.IOAccess
                     continue;
                 }
                 object value = row[item.Property.Name];
-                model = this.Parser.SetModelValue(item, model, value);
+                model = this.Parser.SetValue_Object(item, model, value);
             }
             return model;
         }
@@ -338,16 +337,17 @@ namespace YTS.Engine.IOAccess
         /// <returns>数据库对应数据类型</returns>
         private string GetMemberInfoMSQLServerDataType(ColumnInfo info) {
             Type detype = info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(int), true) ||
+                CheckData.IsTypeEqualDepth(detype, typeof(Enum), true)) {
                 return @"int";
             }
-            if (CheckData.IsTypeEqual<float>(detype)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(float), true)) {
                 return @"money";
             }
-            if (CheckData.IsTypeEqual<double>(detype)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(double), true)) {
                 return @"float";
             }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(DateTime), true)) {
                 return @"datetime";
             }
             string charlen = !info.Attribute.IsPrimaryKey ? "max" : info.Attribute.CharLength.ToString();

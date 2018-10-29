@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using YTS.Engine.IOAccess;
 using YTS.Tools;
@@ -7,15 +8,18 @@ namespace YTS.BLL
 {
     public class URLReWriter : BLL_LocalFile<Model.URLReWriter, DAL.URLReWriter>
     {
-        public readonly string SiteName = string.Empty;
-
+        public URLReWriter()
+            : base() {
+        }
         public URLReWriter(string sitename)
             : base() {
-            this.SiteName = ConvertTool.ObjToString(sitename);
+            this.SelfDAL.SetSiteName(sitename);
         }
 
+        /* ================================== ~华丽的间隔线~ ================================== */
+
         public override DAL.URLReWriter InitCreateDAL() {
-            return new DAL.URLReWriter(this.SiteName);
+            return new DAL.URLReWriter();
         }
 
         public override bool IsNeedDefaultRecord() {
@@ -40,15 +44,17 @@ namespace YTS.BLL
             };
         }
 
+        /* ================================== ~华丽的间隔线~ ================================== */
+
         public static string GetURLSiteName(string url) {
-            url = ConvertTool.ObjToString(url);
+            url = ConvertTool.ObjectToString(url);
             Regex re = new Regex(@"/?TS-(\w*)/?.*");
             return re.Match(url).Groups[1].Value.ToString().Trim();
         }
 
         public static string SetURLSiteName(string sitename, string url) {
-            sitename = ConvertTool.ObjToString(sitename);
-            url = ConvertTool.ObjToString(url);
+            sitename = ConvertTool.ObjectToString(sitename);
+            url = ConvertTool.ObjectToString(url);
             return string.Format("/TS-{0}/{1}", sitename, url.Trim('/'));
         }
     }

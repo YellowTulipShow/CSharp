@@ -34,6 +34,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_Learn() {
             //return new CaseModel[] { };
             return new CaseModel[] {
+                new Learn.Test_ObjectComparison(),
                 new Learn.Test_Linq(),
                 new Learn.Test_Path(),
                 new Learn.Test_FileDataOperating(),
@@ -48,6 +49,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_Tools() {
             //return new CaseModel[] { };
             return new CaseModel[] {
+                new Tools.Test_CheckData(),
                 new Tools.Test_ConvertTool(),
                 new Tools.Test_ReflexHelp(),
                 new Tools.Test_EnumInfo(),

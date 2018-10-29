@@ -39,7 +39,7 @@ namespace YTS.Web.UI
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
             string request_absfilepath = PathHelp.ToAbsolute(request_path);
-            request_absfilepath = ConvertTool.ObjToString(request_absfilepath);
+            request_absfilepath = ConvertTool.ObjectToString(request_absfilepath);
             if (File.Exists(request_absfilepath)) {
                 return;
             }

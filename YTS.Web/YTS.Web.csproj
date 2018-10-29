@@ -184,7 +184,6 @@
     <Content Include="xmlconfig\UrlArray.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\ValuesController1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +234,9 @@
       <Project>{d38d9e9b-740d-4e04-ae10-5e21f19465fc}</Project>
       <Name>YTS.Web.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="API\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

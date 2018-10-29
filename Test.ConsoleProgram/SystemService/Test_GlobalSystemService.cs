@@ -22,7 +22,7 @@ namespace Test.ConsoleProgram.SystemService
                     Console.WriteLine("Config:");
                     ShineUponParser<SystemConfig, ShineUponInfo> parser = new ShineUponParser<SystemConfig, ShineUponInfo>();
                     foreach (ShineUponInfo info in parser.GetSortResult()) {
-                        KeyObject ko = parser.GetModelValue(info, Gsys.Config);
+                        KeyObject ko = parser.GetValue_KeyObject(info, Gsys.Config);
                         Console.WriteLine("info.Name: {0}  ko.Key: {1}  ko.Value: {2}", info.Name, ko.Key, ko.Value);
                     }
                     return true;

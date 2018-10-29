@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISiteNameInfo.cs" />
     <Compile Include="MSSQLServer_IntID.cs">
       <SubType>Code</SubType>
     </Compile>

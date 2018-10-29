@@ -104,54 +104,39 @@ namespace YTS.Engine.ShineUpon
         /// <param name="info">行信息</param>
         /// <param name="model">数据来源</param>
         /// <returns>键值数据</returns>
-        public KeyObject GetModelValue(I info, M model) {
+        public KeyObject GetValue_KeyObject(I info, M model) {
             if (CheckData.IsObjectNull(info) || CheckData.IsObjectNull(model)) {
                 return null;
             }
-            object value = info.Property.GetValue(model, null);
-            return new KeyObject() {
-                Key = info.Property.Name,
-                Value = value,
-            };
+            object ov = info.Property.GetValue(model, null);
+            return new KeyObject(info.Property.Name, ov);
+        }
+
+        public KeyString GetValue_KeyString(I info, M model) {
+            KeyObject ko = GetValue_KeyObject(info, model);
+            if (CheckData.IsObjectNull(ko)) {
+                return null;
+            }
+            object ov = info.Property.GetValue(model, null);
+            string sv = ConvertTool.ObjectToString(ov);
+            return new KeyString(info.Property.Name, sv);
         }
 
         /// <summary>
         /// 设置_模型_数据
         /// </summary>
         /// <param name="info">行信息</param>
-        /// <param name="targetModel">目标模型</param>
-        /// <param name="value">数据</param>
+        /// <param name="target_model">目标模型</param>
+        /// <param name="ov">数据</param>
         /// <returns>目标模型</returns>
-        public M SetModelValue(I info, M targetModel, object value) {
-            if (!CheckData.IsObjectNull(value) && info.Property.CanWrite) {
-                info.Property.SetValue(targetModel, value, null);
+        public M SetValue_Object(I info, M target_model, object ov) {
+            if (!CheckData.IsObjectNull(ov) && info.Property.CanWrite) {
+                Type itype = info.Property.PropertyType;
+                object oo = ConvertTool.ObjectToObject(itype, ov);
+                info.Property.SetValue(target_model, oo, null);
             }
-            return targetModel;
+            return target_model;
         }
         #endregion
-
-        /// <summary>
-        /// 数据基础转化
-        /// </summary>
-        /// <param name="parser_info"></param>
-        /// <param name="field_value"></param>
-        /// <returns></returns>
-        public object DataBasicConvert(I parser_info, string field_value) {
-            field_value = ConvertTool.ObjToString(field_value);
-            Type detype = parser_info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
-                return ConvertTool.ObjToInt(field_value, default(int));
-            }
-            if (CheckData.IsTypeEqual<float>(detype) || CheckData.IsTypeEqual<double>(detype)) {
-                return ConvertTool.ObjToFloat(field_value, default(float));
-            }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return ConvertTool.ObjToDateTime(field_value, default(DateTime));
-            }
-            if (CheckData.IsTypeEqual<bool>(detype)) {
-                return ConvertTool.ObjToBool(field_value, default(bool));
-            }
-            return field_value;
-        }
     }
 }

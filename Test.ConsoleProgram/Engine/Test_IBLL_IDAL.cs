@@ -381,26 +381,21 @@ namespace Test.ConsoleProgram.Engine
 
             public bool TestModelIsEqual(TestModel answer, TestModel source) {
                 if (answer.RecordIndex != source.RecordIndex) {
-                    //ErrorValuePrint(answer, source, @"RecordIndex", m => m.RecordIndex);
                     return false;
                 }
                 if (answer.Age != source.Age) {
-                    //ErrorValuePrint(answer, source, @"Age", m => m.Age);
                     return false;
                 }
                 if (answer.Name != source.Name) {
-                    //ErrorValuePrint(answer, source, @"Name", m => m.Name);
                     return false;
                 }
                 if (answer.Sex != source.Sex) {
-                    //ErrorValuePrint(answer, source, @"Sex", m => m.Sex);
                     return false;
                 }
 
-                string a_dt = answer.DateOfBirth.ToString(Format.DATETIME_MILLISECOND);
-                string s_dt = source.DateOfBirth.ToString(Format.DATETIME_MILLISECOND);
+                string a_dt = answer.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                string s_dt = source.DateOfBirth.ToString(Format.DATETIME_SECOND);
                 if (a_dt != s_dt) {
-                    //ErrorValuePrint(answer, source, @"DateOfBirth", m => m.DateOfBirth.ToString(Format.DATETIME_MILLISECOND));
                     return false;
                 }
                 return true;

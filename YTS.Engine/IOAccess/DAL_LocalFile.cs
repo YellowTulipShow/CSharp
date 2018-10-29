@@ -139,7 +139,7 @@ namespace YTS.Engine.IOAccess
                 if (where(model)) {
                     foreach (KeyObject item in kos) {
                         if (!CheckData.IsStringNull(item.Key) && dic.ContainsKey(item.Key)) {
-                            model = this.Parser.SetModelValue(dic[item.Key], model, item.Value);
+                            model = this.Parser.SetValue_Object(dic[item.Key], model, item.Value);
                         }
                     }
                     nowlist[i] = model;

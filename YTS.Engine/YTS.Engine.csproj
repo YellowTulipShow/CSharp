@@ -78,11 +78,11 @@
     <Compile Include="IOAccess\StringWhere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShineUpon\AbsShineUpon.cs" />
+    <Compile Include="ShineUpon\AbsShineUponIni.cs" />
     <Compile Include="ShineUpon\ShineUponInfo.cs" />
     <Compile Include="ShineUpon\ShineUponModelAttribute.cs" />
     <Compile Include="ShineUpon\ShineUponParser.cs" />
     <Compile Include="ShineUpon\ShineUponPropertyAttribute.cs" />
-    <Compile Include="Template\HTMLToAspx.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">

@@ -25,7 +25,6 @@ namespace YTS.Web.UI.Page
         /// </summary>
         public virtual void ShowPage() { }
 
-        #region 页面通用方法==========================================
         /// <summary>
         /// 返回URL重写统一链接地址
         /// </summary>
@@ -49,6 +48,5 @@ namespace YTS.Web.UI.Page
             DateTime now = DateTime.Now;
             return ConvertTool.CombinationContent(now.Year, now.Second, RandomData.GetInt(now.Millisecond));
         }
-        #endregion
     }
 }

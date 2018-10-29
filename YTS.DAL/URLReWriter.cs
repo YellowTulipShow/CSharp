@@ -3,24 +3,36 @@ using YTS.SystemService;
 using YTS.Engine.IOAccess;
 using YTS.Engine.ShineUpon;
 using YTS.Tools;
+using System.IO;
 
 namespace YTS.DAL
 {
     public class URLReWriter : DAL_LocalXML<Model.URLReWriter>
     {
-        public readonly string SiteName = string.Empty;
+        /// <summary>
+        /// 站点名称
+        /// </summary>
+        private string _siteName = string.Empty;
 
-        public URLReWriter(string sitename)
+        /* ================================== ~华丽的间隔线~ ================================== */
+
+        public URLReWriter()
             : base() {
-            this.SiteName = ConvertTool.ObjToString(sitename);
+        }
+        public URLReWriter(FileShare fileShare)
+            : base(fileShare) {
         }
 
-        public void ReSetSiteName(string sitename) {
+        /* ================================== ~华丽的间隔线~ ================================== */
+
+        public void SetSiteName(string sitename) {
+            this._siteName = ConvertTool.ObjectToString(sitename);
+            this.ReCreateAbsFilePath();
         }
 
         public override string GetPathFolder() {
             GlobalSystemService Gsys = GlobalSystemService.GetInstance();
-            return string.Format("/{0}/{1}", Gsys.Config.Path_Template, this.SiteName.ToString().Trim('/'));
+            return string.Format("/{0}/{1}", Gsys.Config.Path_Template, this._siteName.ToString().Trim('/'));
         }
     }
 }
