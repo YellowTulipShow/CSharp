@@ -221,7 +221,6 @@ namespace YTS.Engine.IOAccess
             foreach (ShineUponInfo info in perser.GetSortResult()) {
                 string sinival = ReadString(section_name, info.Name, string.Empty);
                 if (CheckData.IsStringNull(sinival)) {
-                    IniConfig_WriteItem(perser, info, section_name, model);
                     continue;
                 }
                 perser.SetValue_Object(info, model, sinival);
@@ -231,15 +230,12 @@ namespace YTS.Engine.IOAccess
             string section_name = typeof(M).FullName;
             ShineUponParser<M, ShineUponInfo> perser = new ShineUponParser<M, ShineUponInfo>();
             foreach (ShineUponInfo info in perser.GetSortResult()) {
-                IniConfig_WriteItem(perser, info, section_name, model);
+                KeyString ks = perser.GetValue_KeyString(info, model);
+                if (CheckData.IsObjectNull(ks)) {
+                    continue;
+                }
+                WriteString(section_name, info.Name, ks.Value);
             }
-        }
-        public void IniConfig_WriteItem<M>(ShineUponParser<M, ShineUponInfo> perser, ShineUponInfo info, string section_name, M model) where M : AbsShineUpon {
-            KeyString ks = perser.GetValue_KeyString(info, model);
-            if (CheckData.IsObjectNull(ks)) {
-                return;
-            }
-            WriteString(section_name, info.Name, ks.Value);
         }
         #endregion
     }

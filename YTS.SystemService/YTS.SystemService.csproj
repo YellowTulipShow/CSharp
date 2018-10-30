@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsConfig.cs" />
+    <Compile Include="ConfigParser.cs" />
     <Compile Include="GlobalSystemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemConfig.cs" />

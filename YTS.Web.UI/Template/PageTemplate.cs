@@ -63,25 +63,25 @@ namespace YTS.Web.UI.Template
             r[22] = new Regex(@"<%(?:write |=)(?:\s*)(.*?)(?:\s*)%>", options);
         }
 
-        /// <summary>
-        /// 根据模板信息模型生成对应的模板
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public static string GetTemplate(Model.URLReWriter model)
-        {
-            string sitePath = @"/";
-            string tempPath = "templets";
-            string skinName = "YTSTemp";
-            string templet = model.Templet;
-            string fromPage = model.Page;
-            string inherit = model.Inherit;
-            string buildPath = "YTSTemp";
-            string channelName = model.Channel;
-            string pageSize = model.PageSize;
-            int nest = 1;
-            return GetTemplate(sitePath, tempPath, skinName, templet, fromPage, inherit, buildPath, channelName, pageSize, nest);
-        }
+        ///// <summary>
+        ///// 根据模板信息模型生成对应的模板
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //public static string GetTemplate(Model.URLReWriter model)
+        //{
+        //    string sitePath = @"/";
+        //    string tempPath = "templets";
+        //    string skinName = "YTSTemp";
+        //    string templet = model.Templet;
+        //    string fromPage = model.Page;
+        //    string inherit = model.Inherit;
+        //    string buildPath = "YTSTemp";
+        //    string channelName = model.Channel;
+        //    string pageSize = model.PageSize;
+        //    int nest = 1;
+        //    return GetTemplate(sitePath, tempPath, skinName, templet, fromPage, inherit, buildPath, channelName, pageSize, nest);
+        //}
 
         /// <summary>
         /// 根据模板信息模型生成对应的模板

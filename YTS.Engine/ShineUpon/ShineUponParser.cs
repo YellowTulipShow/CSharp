@@ -112,14 +112,19 @@ namespace YTS.Engine.ShineUpon
             return new KeyObject(info.Property.Name, ov);
         }
 
+        /// <summary>
+        /// 获取_模型_数据
+        /// </summary>
+        /// <param name="info">行信息</param>
+        /// <param name="model">数据来源</param>
+        /// <returns>键值数据</returns>
         public KeyString GetValue_KeyString(I info, M model) {
             KeyObject ko = GetValue_KeyObject(info, model);
             if (CheckData.IsObjectNull(ko)) {
                 return null;
             }
-            object ov = info.Property.GetValue(model, null);
-            string sv = ConvertTool.ToString(ov);
-            return new KeyString(info.Property.Name, sv);
+            string sv = ConvertTool.ToString(ko.Value);
+            return new KeyString(ko.Key, sv);
         }
 
         /// <summary>

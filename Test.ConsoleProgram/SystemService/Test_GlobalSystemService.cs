@@ -18,13 +18,22 @@ namespace Test.ConsoleProgram.SystemService
             return new CaseModel() {
                 NameSign = @"系统配置",
                 ExeEvent = () => {
-                    GlobalSystemService Gsys = GlobalSystemService.GetInstance();
+                    SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
                     Console.WriteLine("Config:");
                     ShineUponParser<SystemConfig, ShineUponInfo> parser = new ShineUponParser<SystemConfig, ShineUponInfo>();
                     foreach (ShineUponInfo info in parser.GetSortResult()) {
-                        KeyObject ko = parser.GetValue_KeyObject(info, Gsys.Config);
+                        KeyObject ko = parser.GetValue_KeyObject(info, sys_config);
                         Console.WriteLine("info.Name: {0}  ko.Key: {1}  ko.Value: {2}", info.Name, ko.Key, ko.Value);
                     }
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_ConfigParser() {
+            return new CaseModel() {
+                NameSign = @"配置分析器",
+                ExeEvent = () => {
                     return true;
                 },
             };

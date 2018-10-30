@@ -65,7 +65,8 @@ namespace YTS.BLL
             if (CheckData.IsObjectNull(uri)) {
                 return null;
             }
-            string site_name = uri.AbsolutePath;
+            string site_name = GetURLSiteName(uri.AbsolutePath);
+
             return null;
         }
     }

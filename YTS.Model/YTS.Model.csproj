@@ -44,6 +44,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Site.cs" />
     <Compile Include="URLReWriter.cs" />
     <Compile Include="User.cs" />
     <Compile Include="File\AbsFile.cs" />

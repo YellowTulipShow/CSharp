@@ -106,6 +106,11 @@ namespace Test.ConsoleProgram
                 Console.WriteLine("Source 数据源为空");
                 return false;
             }
+
+            if (CheckData.IsSizeEmpty(Answer) && CheckData.IsSizeEmpty(Source)) {
+                return true;
+            }
+
             if (Answer.Count != Source.Count) {
                 Func_lengthNotEquals(Answer.Count, Source.Count);
                 return false;

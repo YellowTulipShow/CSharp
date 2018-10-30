@@ -169,6 +169,7 @@ namespace YTS.Tools
                 return ToDouble(ov, default(double));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(DateTime), true)) {
+                Convert.ToDateTime(ov);
                 return ToDateTime(ov, default(DateTime));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(bool), true)) {

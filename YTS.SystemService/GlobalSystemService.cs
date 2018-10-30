@@ -17,23 +17,28 @@ namespace YTS.SystemService
         /// 获得 实例 对象
         /// </summary>
         public static GlobalSystemService GetInstance() {
-            return HolderClass.sysConfig;
+            return HolderClass.instance;
         }
         private static class HolderClass
         {
-            public static GlobalSystemService sysConfig = new GlobalSystemService();
+            public static GlobalSystemService instance = new GlobalSystemService();
         }
         #endregion
         
         private GlobalSystemService() {
-            // 获得配置信息
-            this._config = new SystemConfig();
         }
 
         /// <summary>
-        /// 配置 数据 模型
+        /// 配置 分析器
         /// </summary>
-        public SystemConfig Config { get { return _config; } }
-        private SystemConfig _config = null;
+        public ConfigParser Config {
+            get {
+                if (CheckData.IsObjectNull(_config)) {
+                    _config = new ConfigParser();
+                }
+                return _config;
+            }
+        }
+        private ConfigParser _config = null;
     }
 }

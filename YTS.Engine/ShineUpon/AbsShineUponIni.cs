@@ -22,17 +22,25 @@ namespace YTS.Engine.ShineUpon
             string rel_filename = GetFileName();
             string abs_file_path = PathHelp.CreateUseFilePath(rel_folder, rel_filename);
             this.ini = new IniFile(abs_file_path);
-            this.ini.IniConfig_Read(this);
         }
 
-        public abstract string GetPathFolder();
+        public virtual string GetPathFolder() {
+            return @"/SysConfigINI";
+        }
 
         public abstract string GetFileName();
 
         /// <summary>
+        /// 加载
+        /// </summary>
+        public void Load() {
+            this.ini.IniConfig_Read(this);
+        }
+
+        /// <summary>
         /// 保存配置文件
         /// </summary>
-        public void SaveConfig() {
+        public void Save() {
             this.ini.IniConfig_Write(this);
         }
     }

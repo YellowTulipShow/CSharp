@@ -5,6 +5,7 @@ using YTS.Engine;
 using YTS.Engine.IOAccess;
 using YTS.SystemService;
 using YTS.Tools;
+using YTS.Web.UI.Template;
 
 namespace YTS.Web.UI
 {
@@ -50,7 +51,9 @@ namespace YTS.Web.UI
             // 判断是否需要生成模板文件
             if (IsNeedGenerateTemplate(urlmodel)) {
                 // 生成模板
-                Template.PageTemplate.GetTemplate(urlmodel);
+                //Template.PageTemplate.GetTemplate(urlmodel);
+                HtmlToAspx hta = new HtmlToAspx(urlmodel);
+                hta.Generate();
             }
         }
 
@@ -69,8 +72,8 @@ namespace YTS.Web.UI
                 return false;
             }
 
-            GlobalSystemService Gsys = GlobalSystemService.GetInstance();
-            if (Gsys.Config.IsDeBug) {
+            SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
+            if (sys_config.Is_DeBug) {
                 // 调试状态, 每一次访问都生成 
                 return true;
             }

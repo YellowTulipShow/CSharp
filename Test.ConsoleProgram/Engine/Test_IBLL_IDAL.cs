@@ -17,6 +17,7 @@ namespace Test.ConsoleProgram.Engine
         public Test_IDAL_IDAL() {
             NameSign = @"接口: IDALorIDAL";
             SonCases = new CaseModel[] {
+                //Error_DateTimeType(),
                 MSSQLServer(),
                 LocalTXT(),
                 LocalXML(),
@@ -379,23 +380,24 @@ namespace Test.ConsoleProgram.Engine
                 };
             }
 
-            public bool TestModelIsEqual(TestModel answer, TestModel source) {
-                if (answer.RecordIndex != source.RecordIndex) {
+            public bool TestModelIsEqual(TestModel a, TestModel s) {
+                if (a.RecordIndex != s.RecordIndex) {
                     return false;
                 }
-                if (answer.Age != source.Age) {
+                if (a.Age != s.Age) {
                     return false;
                 }
-                if (answer.Name != source.Name) {
+                if (a.Name != s.Name) {
                     return false;
                 }
-                if (answer.Sex != source.Sex) {
+                if (a.Sex != s.Sex) {
                     return false;
                 }
 
-                string a_dt = answer.DateOfBirth.ToString(Format.DATETIME_SECOND);
-                string s_dt = source.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
                 if (a_dt != s_dt) {
+                    Console.WriteLine("时间不一致!  a:{0}  s:{1}", a, s);
                     return false;
                 }
                 return true;
@@ -452,11 +454,15 @@ namespace Test.ConsoleProgram.Engine
                         iDAL.Delete(null);
                         iDAL.Insert((M[])array);
                         TestModel[] query_result = iDAL.Select(0, null, sorts);
-                        return new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
+                        bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
                             Answer = array,
                             Source = query_result,
                             Func_isEquals = TestModelIsEqual,
                         }.Calc();
+                        if (!isby) {
+                            throw new Exception("错误");
+                        }
+                        return isby;
                     },
                 };
             }
@@ -576,7 +582,7 @@ namespace Test.ConsoleProgram.Engine
                         verify.Source = iDAL.Select(0, null, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("0条, 空条件 : 错误");
-                            return false;
+                            throw new Exception("错误");
                         }
 
                         TestModel[] answer_array = ConvertTool.ListConvertType<TestModel, TestModel>(array, model => {
@@ -586,7 +592,7 @@ namespace Test.ConsoleProgram.Engine
                         verify.Source = iDAL.Select(0, w_dal, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("0条, 有条件 : 错误");
-                            return false;
+                            throw new Exception("错误");
                         }
 
                         TestModel[] top_answer_array = new TestModel[8];
@@ -597,7 +603,7 @@ namespace Test.ConsoleProgram.Engine
                         verify.Source = iDAL.Select(top_answer_array.Length, w_dal, sorts);
                         if (!verify.Calc()) {
                             Console.WriteLine("{0}条, 有条件 : 错误", top_answer_array.Length);
-                            return false;
+                            throw new Exception("错误");
                         }
                         return true;
                     },
@@ -623,7 +629,7 @@ namespace Test.ConsoleProgram.Engine
                                 TestModel[] result = iDAL.Select(page_size, page_index, out record_count, w_dal, sorts);
                                 TestModel[] answer_array = ConvertTool.ToRangeList(answer_list, page_index, page_size);
 
-                                bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.DoubleCycle) {
+                                bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                                     Answer = answer_array,
                                     Source = result,
                                     Func_isEquals = TestModelIsEqual,
@@ -635,7 +641,7 @@ namespace Test.ConsoleProgram.Engine
                                     },
                                 }.Calc();
                                 if (!isby) {
-                                    return false;
+                                    throw new Exception("错误");
                                 }
                             }
 
@@ -654,17 +660,58 @@ namespace Test.ConsoleProgram.Engine
             }
         }
 
-        public CaseModel ErrorReShow() {
+
+        public CaseModel Error_DateTimeType() {
             return new CaseModel() {
-                NameSign = @"错误重现",
+                NameSign = @"时间类型",
                 ExeEvent = () => {
                     DAL_MSSQLServer<TestModel> dal = new DAL_MSSQLServer<TestModel>();
-                    int sumcount = 0;
-                    int page_size = 10;
-                    int page_index = 9;
-                    TestModel[] list = dal.Select(page_size, page_index, out sumcount, @"RecordIndex % 3 = 0", null);
-                    if (list.Length > 0 && list.Length != page_size) {
-                        Console.WriteLine("list.Length: {0}  page_size: {1}", list.Length, page_size);
+                    TestModel[] array = new TestModel[999];
+                    for (int i = 0; i < array.Length; i++) {
+                        string name = string.Format("第{0}条 - ", i);
+                        array[i] = new TestModel() {
+                            RecordIndex = i,
+                            Age = RandomData.GetInt(7828, 546822),
+                            DateOfBirth = new DateTime(2018, 10, 30, 14, 42, 33, i),
+                            Name = name + RandomData.GetChineseString(RandomData.GetInt(3, 5)),
+                            Sex = RandomData.Item(EnumInfo.GetALLItem<TestModel.SexEnum>()),
+                        };
+                    }
+                    dal.Delete(null);
+                    dal.Insert(array);
+                    TestModel[] result = dal.Select(0, null, new KeyBoolean[] {
+                        new KeyBoolean("RecordIndex", true),
+                    });
+
+                    VerifyIList<TestModel, TestModel> verify = new VerifyIList<TestModel, TestModel>(CalcWayEnum.SingleCycle) {
+                        Answer = array,
+                        Source = result,
+                        Func_isEquals = (a, s) => {
+                            if (a.RecordIndex != s.RecordIndex) {
+                                return false;
+                            }
+                            if (a.Age != s.Age) {
+                                return false;
+                            }
+                            if (a.Name != s.Name) {
+                                return false;
+                            }
+                            if (a.Sex != s.Sex) {
+                                return false;
+                            }
+
+                            string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                            string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                            if (a_dt != s_dt) {
+                                Console.WriteLine("时间不一致!  a:{0}  s:{1}", a, s);
+                                return false;
+                            }
+                            return true;
+                        },
+                    };
+
+                    bool isby = verify.Calc();
+                    if (!isby) {
                         return false;
                     }
                     return true;

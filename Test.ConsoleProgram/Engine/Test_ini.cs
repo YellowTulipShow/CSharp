@@ -68,6 +68,7 @@ namespace Test.ConsoleProgram.Engine
                         foreach (KeyString ks in section.Value) {
                             if (!ini.WriteString(section.Key, ks.Key, ks.Value)) {
                                 Console.WriteLine("写入错误! section: {0} key: {1} value: {2}", section.Key, ks.Key, ks.Value);
+                                throw new Exception("错误");
                                 return false;
                             }
                         }
