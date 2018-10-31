@@ -268,13 +268,14 @@ namespace YTS.Engine.IOAccess
         /// <summary>
         /// 执行-SQL字符串事务处理
         /// </summary>
-        /// <param name="sqllist">SQL字符串列表</param>
+        /// <param name="sqls">SQL字符串列表</param>
         /// <returns>是否成功</returns>
-        public bool Transaction(string[] sqllist) {
-            if (CheckData.IsSizeEmpty(sqllist)) {
+        public bool Transaction(IList<string> sqls) {
+            if (CheckData.IsSizeEmpty(sqls)) {
                 return false;
             }
-            bool resu = DbHelperSQL.ExecuteTransaction(sqllist);
+            return DbHelperSQL.Transaction_SQLServer(sqls) == sqls.Count;
+            bool resu = DbHelperSQL.ExecuteTransaction(sqls);
             return resu;
         }
 
@@ -351,7 +352,7 @@ namespace YTS.Engine.IOAccess
                 return @"float";
             }
             if (CheckData.IsTypeEqualDepth(detype, typeof(DateTime), true)) {
-                return @"datetime";
+                return @"datetime2";
             }
             string charlen = !info.Attribute.IsPrimaryKey ? "max" : info.Attribute.CharLength.ToString();
             string str = string.Format("nvarchar({0})", charlen);

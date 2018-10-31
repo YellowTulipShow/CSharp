@@ -394,10 +394,11 @@ namespace Test.ConsoleProgram.Engine
                     return false;
                 }
 
-                string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
-                string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
-                if (a_dt != s_dt) {
+                if (a.DateOfBirth != s.DateOfBirth) {
+                    string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                    string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
                     Console.WriteLine("时间不一致!  a_dt:{0}  s_dt:{1}", a_dt, s_dt);
+                    throw new Exception("错误");
                     return false;
                 }
                 return true;
@@ -677,12 +678,41 @@ namespace Test.ConsoleProgram.Engine
                             Sex = RandomData.Item(EnumInfo.GetALLItem<TestModel.SexEnum>()),
                         };
                     }
-                    dal.Delete(null);
-                    dal.Insert(array);
+
+                    Console.WriteLine("dal.Delete(null): {0}s", RunHelp.GetRunTime(() => {
+                        dal.Delete(null);
+                    }));
+
+                    string[] sqls = null;
+
+                    Console.WriteLine("sqls create: {0}s", RunHelp.GetRunTime(() => {
+                        sqls = ConvertTool.ListConvertType(array, (model) => dal.SQLInsert(model, false));
+                    }));
+
+                    Console.WriteLine("dal.Transaction(sqls): {0}s", RunHelp.GetRunTime(() => {
+                        dal.Transaction(sqls);
+                    }));
+
+                    //dal.Insert(array);
+
+                    DataTable dt = dal.QueryRecords(0, null, "RecordIndex asc").Tables[0];
+
+                    for (int i = 0; i < dt.Rows.Count; i++) {
+                        TestModel a = array[i];
+                        DataRow dr = dt.Rows[i];
+                        TestModel s = dal.DataRowToModel(dr);
+
+                        if (a.DateOfBirth != s.DateOfBirth) {
+                            throw new Exception("错误");
+                        }
+                    }
+
+
+
+                    /*
                     TestModel[] result = dal.Select(0, null, new KeyBoolean[] {
                         new KeyBoolean("RecordIndex", true),
                     });
-
                     VerifyIList<TestModel, TestModel> verify = new VerifyIList<TestModel, TestModel>(CalcWayEnum.SingleCycle) {
                         Answer = array,
                         Source = result,
@@ -700,10 +730,11 @@ namespace Test.ConsoleProgram.Engine
                                 return false;
                             }
 
-                            string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
-                            string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
-                            if (a_dt != s_dt) {
+                            if (a.DateOfBirth != s.DateOfBirth) {
+                                string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
+                                string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
                                 Console.WriteLine("时间不一致!  a:{0}  s:{1}", a, s);
+                                throw new Exception("错误");
                                 return false;
                             }
                             return true;
@@ -714,6 +745,7 @@ namespace Test.ConsoleProgram.Engine
                     if (!isby) {
                         return false;
                     }
+                    */
                     return true;
                 },
             };

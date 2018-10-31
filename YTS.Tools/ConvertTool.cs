@@ -194,7 +194,7 @@ namespace YTS.Tools
                 return ov.ToString();
             }
             if (CheckData.IsTypeEqualDepth(vt, typeof(DateTime), true)) {
-                return ((DateTime)ov).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
+                return ToString((DateTime)ov);
             }
             if (vt.IsEnum || CheckData.IsTypeEqualDepth(vt, typeof(Enum), true)) {
                 return ((int)ov).ToString();
@@ -240,6 +240,20 @@ namespace YTS.Tools
             } catch (Exception) {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// 时间类型转字符串
+        /// </summary>
+        public static string ToString(DateTime time) {
+            return time.ToString(Const.Format.DATETIME_MILLISECOND_SEVEN);
+        }
+
+        /// <summary>
+        /// 数字转字符串
+        /// </summary>
+        public static string ToString(int iv) {
+            return iv.ToString();
         }
 
         /// <summary>

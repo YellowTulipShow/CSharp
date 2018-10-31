@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram.Tools
             base.SonCases = new CaseModel[] {
                 new ObjectToObject(),
                 new ToRangeList(),
+                DateTimeToString(),
             };
         }
 
@@ -232,6 +233,24 @@ namespace Test.ConsoleProgram.Tools
                     return true;
                 };
             }
+        }
+
+        public CaseModel DateTimeToString() {
+            return new CaseModel() {
+                NameSign = @"时间转字符串",
+                ExeEvent = () => {
+                    for (int i = 0; i < 1000; i++) {
+                        DateTime time = new DateTime(2018, 5, 30, 14, 42, 33, i);
+                        string str = ConvertTool.ToString(time);
+                        //Convert.ToString(time);
+                        DateTime ct = ConvertTool.ToDateTime(str, DateTime.Now);
+                        if (time != ct) {
+                            throw new Exception("error");
+                        }
+                    }
+                    return true;
+                },
+            };
         }
     }
 }
