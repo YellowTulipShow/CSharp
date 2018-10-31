@@ -3,8 +3,11 @@ using YTS.Engine.ShineUpon;
 using YTS.SystemService;
 using YTS.Tools;
 
-namespace YTS.Web.UI
+namespace YTS.Model
 {
+    /// <summary>
+    /// URL重写配置
+    /// </summary>
     public class URLReWriterConfig: AbsConfig
     {
         public URLReWriterConfig() : base() { }

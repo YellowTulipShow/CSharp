@@ -215,9 +215,10 @@ namespace YTS.Engine.IOAccess
         #endregion
 
         #region === Reflex ===
-        public void IniConfig_Read<M>(M model) where M : AbsShineUpon {
-            string section_name = typeof(M).FullName;
-            ShineUponParser<M, ShineUponInfo> perser = new ShineUponParser<M, ShineUponInfo>();
+        public void IniConfig_Read(AbsShineUpon model) {
+            Type mtype = model.GetType();
+            string section_name = mtype.FullName;
+            ShineUponTypeParser<ShineUponInfo> perser = new ShineUponTypeParser<ShineUponInfo>(mtype);
             foreach (ShineUponInfo info in perser.GetSortResult()) {
                 string sinival = ReadString(section_name, info.Name, string.Empty);
                 if (CheckData.IsStringNull(sinival)) {
@@ -227,8 +228,9 @@ namespace YTS.Engine.IOAccess
             }
         }
         public void IniConfig_Write<M>(M model) where M : AbsShineUpon {
-            string section_name = typeof(M).FullName;
-            ShineUponParser<M, ShineUponInfo> perser = new ShineUponParser<M, ShineUponInfo>();
+            Type mtype = model.GetType();
+            string section_name = mtype.FullName;
+            ShineUponTypeParser<ShineUponInfo> perser = new ShineUponTypeParser<ShineUponInfo>(mtype);
             foreach (ShineUponInfo info in perser.GetSortResult()) {
                 KeyString ks = perser.GetValue_KeyString(info, model);
                 if (CheckData.IsObjectNull(ks)) {

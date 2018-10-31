@@ -31,8 +31,8 @@ namespace YTS.DAL
         }
 
         public override string GetPathFolder() {
-            SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
-            return string.Format("/{0}/{1}", sys_config.Path_Template, this._siteName.ToString().Trim('/'));
+            Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
+            return string.Format("/{0}/{1}", curl.RootTemplatePath, this._siteName.ToString().Trim('/'));
         }
     }
 }

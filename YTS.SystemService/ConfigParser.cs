@@ -66,6 +66,10 @@ namespace YTS.SystemService
         }
 
         ~ConfigParser() {
+            SaveALLConfig();
+        }
+
+        public void SaveALLConfig() {
             foreach (KeyValuePair<string, AbsConfig> kv in this.AbsConfigDictionary) {
                 kv.Value.Save();
             }

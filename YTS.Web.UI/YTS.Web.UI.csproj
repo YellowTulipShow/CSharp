@@ -56,7 +56,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Template\UrlRewriteModel.cs" />
-    <Compile Include="URLReWriterConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">

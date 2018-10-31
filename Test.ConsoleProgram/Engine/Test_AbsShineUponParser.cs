@@ -201,18 +201,18 @@ namespace Test.ConsoleProgram.Engine
             return new CaseModel() {
                 NameSign = @"列",
                 ExeEvent = () => {
-                    YTS.Engine.DataBase.ColumnModelParser<T> parser = new YTS.Engine.DataBase.ColumnModelParser<T>();
-                    YTS.Tools.Model.KeyString[] keys = T.Answer_ColumnInfos();
-                    YTS.Engine.DataBase.ColumnInfo[] columns = parser.GetSortResult();
+                    ColumnModelParser<T> parser = new ColumnModelParser<T>();
+                    KeyString[] keys = T.Answer_ColumnInfos();
+                    ColumnInfo[] columns = parser.GetSortResult();
 
-                    return new VerifyIList<YTS.Tools.Model.KeyString, YTS.Engine.DataBase.ColumnInfo>(CalcWayEnum.DoubleCycle) {
+                    return new VerifyIList<KeyString, ColumnInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
                         Source = columns,
                         Func_isEquals = (item, info) => {
                             return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
                                 item.Value == info.Explain.Text &&
-                                !YTS.Tools.CheckData.IsObjectNull(info.Attribute);
+                                !CheckData.IsObjectNull(info.Attribute);
                         },
                         Func_lengthNotEquals = (len_key, len_column) => {
                             Console.WriteLine("keys.Length: {0} columns.Length: {1} 不相等", len_key, len_column);
@@ -269,7 +269,7 @@ namespace Test.ConsoleProgram.Engine
                     ShineUponParser<GS, ShineUponInfo> parser = new ShineUponParser<GS, ShineUponInfo>();
                     foreach (ShineUponInfo info in parser.GetSortResult()) {
                         KeyString ks = parser.GetValue_KeyString(info, answer);
-                        result = parser.SetValue_Object(info, result, ks.Value);
+                        parser.SetValue_Object(info, result, ks.Value);
                     }
 
                     return true;

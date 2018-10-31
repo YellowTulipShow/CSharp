@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Generic;
+using YTS.Tools;
 
 namespace YTS.Engine.DataBase.MSQLServer
 {

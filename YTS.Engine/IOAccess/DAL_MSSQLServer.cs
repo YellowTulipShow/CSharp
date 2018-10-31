@@ -259,7 +259,7 @@ namespace YTS.Engine.IOAccess
                     continue;
                 }
                 object value = row[item.Property.Name];
-                model = this.Parser.SetValue_Object(item, model, value);
+                this.Parser.SetValue_Object(item, model, value);
             }
             return model;
         }
@@ -304,6 +304,9 @@ namespace YTS.Engine.IOAccess
             string SQL_AlterColumns = SQLAlterColumns(columns);
 
             string sql = CreateSQL.If(str_if_where, SQL_CreateTable, SQL_AlterColumns);
+            if (CheckData.IsStringNull(sql)) {
+                return;
+            }
             DbHelperSQL.GetSingle(sql);
         }
 

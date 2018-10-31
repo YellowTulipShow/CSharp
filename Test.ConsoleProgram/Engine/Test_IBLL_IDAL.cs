@@ -397,7 +397,7 @@ namespace Test.ConsoleProgram.Engine
                 string a_dt = a.DateOfBirth.ToString(Format.DATETIME_SECOND);
                 string s_dt = s.DateOfBirth.ToString(Format.DATETIME_SECOND);
                 if (a_dt != s_dt) {
-                    Console.WriteLine("时间不一致!  a:{0}  s:{1}", a, s);
+                    Console.WriteLine("时间不一致!  a_dt:{0}  s_dt:{1}", a_dt, s_dt);
                     return false;
                 }
                 return true;

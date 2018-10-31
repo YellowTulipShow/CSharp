@@ -33,14 +33,14 @@ namespace YTS.Engine.ShineUpon
         /// <summary>
         /// 加载
         /// </summary>
-        public void Load() {
+        public virtual void Load() {
             this.ini.IniConfig_Read(this);
         }
 
         /// <summary>
         /// 保存配置文件
         /// </summary>
-        public void Save() {
+        public virtual void Save() {
             this.ini.IniConfig_Write(this);
         }
     }

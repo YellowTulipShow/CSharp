@@ -9,7 +9,6 @@ namespace YTS.SystemService
     /// <summary>
     /// 系统配置数据模型
     /// </summary>
-    [Serializable]
     public class SystemConfig : AbsConfig
     {
         public SystemConfig() : base() { }

@@ -432,6 +432,9 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="table_name">表名</param>
         /// <param name="column_formats">所有的列格式信息</param>
         public static string CreateTable(string table_name, string[] column_formats) {
+            if (CheckData.IsSizeEmpty(column_formats)) {
+                return string.Empty;
+            }
             string columnFormats = ConvertTool.ToString(column_formats, ',');
             return string.Format("CREATE TABLE {0} ({1})", table_name, columnFormats);
         }

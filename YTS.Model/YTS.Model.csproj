@@ -46,6 +46,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Site.cs" />
     <Compile Include="URLReWriter.cs" />
+    <Compile Include="URLReWriterConfig.cs" />
     <Compile Include="User.cs" />
     <Compile Include="File\AbsFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

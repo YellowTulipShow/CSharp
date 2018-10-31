@@ -4,6 +4,9 @@ using YTS.Tools;
 
 namespace YTS.SystemService
 {
+    /// <summary>
+    /// 上传配置
+    /// </summary>
     public class UploadConfig : AbsConfig
     {
         public UploadConfig() : base() { }
