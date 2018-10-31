@@ -72,6 +72,7 @@
     <Compile Include="ReflexHelp.cs" />
     <Compile Include="RunHelp.cs" />
     <Compile Include="Sort.cs" />
+    <Compile Include="SystemLog.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="XML.cs" />
   </ItemGroup>

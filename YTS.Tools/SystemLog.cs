@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using YTS.Tools;
-using YTS.Tools.Const;
+using System.Text;
 
-namespace YTS.SystemService
+namespace YTS.Tools
 {
     /// <summary>
     /// 系统日志记录
@@ -62,7 +61,7 @@ namespace YTS.SystemService
         /// <returns>写入的日志文件绝对路径</returns>
         public string Write() {
             string path = GetLogFilePath();
-            File.AppendAllText(path, GetFormatContent());
+            File.AppendAllText(path, GetFormatContent(), Encoding.UTF8);
             return path;
         }
 
@@ -82,7 +81,7 @@ namespace YTS.SystemService
         /// </summary>
         private string GetFormatContent() {
             string[] content = new string[] {
-                this.AddTime.ToString(Format.DATETIME_MILLISECOND),
+                ConvertTool.ToString(this.AddTime),
                 this.Type.ToString(),
                 this.Position,
                 this.Message,
