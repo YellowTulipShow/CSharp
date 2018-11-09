@@ -120,7 +120,7 @@ namespace YTS.Model
         /// 获取模型数据-文件路径-目标
         /// </summary>
         /// <returns>文件绝对路径</returns>
-        public string GetFilePath_Templet() {
+        public string GetFilePath_Target() {
             string directory = GetFilePath_Directory();
             string path = PathHelp.CreateUseFilePath(directory, Target);
             return path;
