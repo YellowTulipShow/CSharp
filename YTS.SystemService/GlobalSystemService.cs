@@ -12,7 +12,22 @@ namespace YTS.SystemService
     /// </summary>
     public class GlobalSystemService
     {
-        #region ====== Single Model Core: ======
+        #region === Config ===
+        /// <summary>
+        /// 配置 分析器
+        /// </summary>
+        public ConfigParser Config {
+            get {
+                if (CheckData.IsObjectNull(_config)) {
+                    _config = new ConfigParser();
+                }
+                return _config;
+            }
+        }
+        private ConfigParser _config = null;
+        #endregion
+
+        #region === Single Model Core: ===
         /// <summary>
         /// 获得 实例 对象
         /// </summary>
@@ -27,18 +42,5 @@ namespace YTS.SystemService
         
         private GlobalSystemService() {
         }
-
-        /// <summary>
-        /// 配置 分析器
-        /// </summary>
-        public ConfigParser Config {
-            get {
-                if (CheckData.IsObjectNull(_config)) {
-                    _config = new ConfigParser();
-                }
-                return _config;
-            }
-        }
-        private ConfigParser _config = null;
     }
 }
