@@ -1,6 +1,7 @@
 ﻿using System;
 using YTS.Engine.IOAccess;
 using YTS.Engine.ShineUpon;
+using YTS.SystemService;
 using YTS.Tools;
 
 namespace YTS.Model
@@ -10,6 +11,7 @@ namespace YTS.Model
     /// </summary>
     public class URLReWriter : AbsShineUpon, IFileInfo
     {
+
         public URLReWriter() { }
 
         public string GetPathFolder() {
@@ -20,6 +22,26 @@ namespace YTS.Model
             return @"URLReWriter.config";
         }
 
+        #region === Site Name ===
+        private string _sitename = string.Empty;
+
+        /// <summary>
+        /// 获取站点名称
+        /// </summary>
+        public string Get_SiteName() {
+            return _sitename;
+        }
+
+        /// <summary>
+        /// 设置站点名称
+        /// </summary>
+        /// <param name="sitename"></param>
+        public void Set_SiteName(string sitename) {
+            this._sitename = sitename;
+        }
+        #endregion
+
+        #region === Model ===
         /// <summary>
         /// 名称标识
         /// </summary>
@@ -29,25 +51,9 @@ namespace YTS.Model
         private string _name = string.Empty;
 
         /// <summary>
-        /// 频道类型
+        /// 页面继承后台逻辑类
         /// </summary>
-        [Explain(@"频道类型")]
-        [ShineUponProperty]
-        public string Type { get { return _type; } set { _type = value; } }
-        private string _type = string.Empty;
-
-        /// <summary>
-        /// 源页面地址
-        /// </summary>
-        [Explain(@"源页面地址")]
-        [ShineUponProperty]
-        public string Page { get { return _page; } set { _page = value; } }
-        private string _page = string.Empty;
-
-        /// <summary>
-        /// 页面继承的类名
-        /// </summary>
-        [Explain(@"页面继承的类名")]
+        [Explain(@"页面继承后台逻辑类")]
         [ShineUponProperty]
         public string Inherit { get { return _inherit; } set { _inherit = value; } }
         private string _inherit = string.Empty;
@@ -61,47 +67,26 @@ namespace YTS.Model
         private string _templet = string.Empty;
 
         /// <summary>
-        /// 所属频道名称
+        /// 目标文件名称
         /// </summary>
-        [Explain(@"所属频道名称")]
+        [Explain(@"目标文件名称")]
         [ShineUponProperty]
-        public string Channel { get { return _channel; } set { _channel = value; } }
-        private string _channel = string.Empty;
+        public string Target { get { return _target; } set { _target = value; } }
+        private string _target = string.Empty;
 
         /// <summary>
-        /// 每页数量，类型为列表页时启用该字段
-        /// </summary>
-        [Explain(@"每页数量，类型为列表页时启用该字段")]
-        [ShineUponProperty]
-        public string PageSize { get { return _pagesize; } set { _pagesize = value; } }
-        private string _pagesize = string.Empty;
-
-        /// <summary>
-        /// URL重写表达式连接字符串，后台编辑用到
-        /// </summary>
-        [Explain(@"URL重写表达式连接字符串，后台编辑用到")]
-        [ShineUponProperty]
-        public string JoinString { get { return _joinstring; } set { _joinstring = value; } }
-        private string _joinstring = string.Empty;
-
-        /// <summary>
-        /// 解释解释
+        /// 正则请求选项列表
         /// </summary>
         [Explain(@"解释解释")]
         [ShineUponProperty]
-        public Item[] Items { get { return _items; } set { _items = value; } }
-        private Item[] _items = new Item[] { };
+        public RegularQuery[] ReItems { get { return _re_query_items; } set { _re_query_items = value; } }
+        private RegularQuery[] _re_query_items = null;
 
-        public class Item : AbsShineUpon
+        /// <summary>
+        /// 正则请求选项
+        /// </summary>
+        public class RegularQuery : AbsShineUpon
         {
-            /// <summary>
-            /// URL重写表达式
-            /// </summary>
-            [Explain(@"URL重写表达式")]
-            [ShineUponProperty]
-            public string Path { get { return _path; } set { _path = value; } }
-            private string _path = string.Empty;
-
             /// <summary>
             /// 正则表达式
             /// </summary>
@@ -115,8 +100,41 @@ namespace YTS.Model
             /// </summary>
             [Explain(@"传输(请求)参数")]
             [ShineUponProperty]
-            public string QueryString { get { return _querystring; } set { _querystring = value; } }
-            private string _querystring = string.Empty;
+            public string QueryParameter { get { return _query_parameter; } set { _query_parameter = value; } }
+            private string _query_parameter = string.Empty;
         }
+        #endregion
+
+        #region === GetFilePath ===
+        /// <summary>
+        /// 获取模型数据-文件路径-模板
+        /// </summary>
+        /// <returns>文件绝对路径</returns>
+        public string GetFilePath_Templet() {
+            string directory = GetFilePath_Directory();
+            string path = PathHelp.CreateUseFilePath(directory, Templet);
+            return path;
+        }
+
+        /// <summary>
+        /// 获取模型数据-文件路径-目标
+        /// </summary>
+        /// <returns>文件绝对路径</returns>
+        public string GetFilePath_Templet() {
+            string directory = GetFilePath_Directory();
+            string path = PathHelp.CreateUseFilePath(directory, Target);
+            return path;
+        }
+
+        /// <summary>
+        /// 获取模型数据-文件夹路径
+        /// </summary>
+        /// <returns>文件夹相对路径</returns>
+        private string GetFilePath_Directory() {
+            Model.URLReWriterConfig urlre_config = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
+            string directory = string.Format("/{0}/{1}", urlre_config.RootTemplatePath, Get_SiteName());
+            return directory;
+        }
+        #endregion
     }
 }

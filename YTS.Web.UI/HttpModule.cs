@@ -45,8 +45,7 @@ namespace YTS.Web.UI
                 return;
             }
 
-            string siteName = BLL.URLReWriter.GetURLSiteName(request_path); // 表示根目录一个
-            BLL.URLReWriter bllurl = new BLL.URLReWriter(siteName);
+            BLL.URLReWriter bllurl = new BLL.URLReWriter();
             Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(context.Request.Url);
             // 判断是否需要生成模板文件
             if (IsNeedGenerateTemplate(urlmodel)) {
@@ -66,28 +65,31 @@ namespace YTS.Web.UI
                 return false;
             }
 
-            string tempPath = PathHelp.ToAbsolute(model.Templet);
-            if (!FileHelper.IsExistFile(tempPath)) {
+            SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
+            Model.URLReWriterConfig urlre_config = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
+            string directory = string.Format("/{0}/{1}", urlre_config.RootTemplatePath, model.Get_SiteName());
+
+            string tempPath = PathHelp.CreateUseFilePath(directory, model.Templet);
+            if (!File.Exists(tempPath)) {
                 // 模板文件都不存在的话，就不用生成了
                 return false;
             }
 
-            SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
             if (sys_config.Is_DeBug) {
                 // 调试状态, 每一次访问都生成 
                 return true;
             }
 
-            string pagePath = PathHelp.ToAbsolute(model.Page);
-            if (!FileHelper.IsExistFile(pagePath)) {
+            string targetPath = PathHelp.CreateUseFilePath(directory, model.Target);
+            if (!File.Exists(targetPath)) {
                 // 生成的访问文件不存在，需要生成
                 return true;
             }
 
             FileInfo tempFif = new FileInfo(tempPath);
-            FileInfo pageFif = new FileInfo(pagePath);
+            FileInfo targetFif = new FileInfo(targetPath);
             // 比较文件的修改时间
-            return tempFif.LastWriteTime > pageFif.LastWriteTime;
+            return tempFif.LastWriteTime > targetFif.LastWriteTime;
         }
     }
 }

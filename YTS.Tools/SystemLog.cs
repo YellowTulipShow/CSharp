@@ -77,7 +77,7 @@ namespace YTS.Tools
         }
 
         /// <summary>
-        /// 设置内容格式
+        /// 获取格式化后内容
         /// </summary>
         private string GetFormatContent() {
             string[] content = new string[] {

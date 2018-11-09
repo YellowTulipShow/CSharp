@@ -94,8 +94,12 @@ namespace YTS.Engine.IOAccess
                         M[] list = (M[])xs.Deserialize(reader);
                         List<M> results = new List<M>();
                         foreach (M model in list) {
-                            if (where(model)) {
-                                results.Add(model);
+                            M result = SingleModelProcessing(model);
+                            if (CheckData.IsObjectNull(result)) {
+                                continue;
+                            }
+                            if (where(result)) {
+                                results.Add(result);
                             }
                             if (top > 0 && results.Count >= top) {
                                 break;
@@ -105,6 +109,15 @@ namespace YTS.Engine.IOAccess
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 单一模型处理
+        /// </summary>
+        /// <param name="model">需要处理的数据模型</param>
+        /// <returns>处理的结果</returns>
+        public virtual M SingleModelProcessing(M model) {
+            return model;
         }
     }
 }

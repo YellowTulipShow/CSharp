@@ -39,7 +39,7 @@ namespace YTS.SystemService
         /// <summary>
         /// 加密使用字符串
         /// </summary>
-        [Explain(@"版本号")]
+        [Explain(@"加密使用字符串")]
         [ShineUponProperty]
         public string EncryptedUseString {
             get {

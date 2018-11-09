@@ -73,7 +73,7 @@ namespace Test.ConsoleProgram.Learn
                         double rate = (double)kv.Value / (double)sum * 100d;
                         Console.WriteLine("{0}: {1}次 比例: {2}%", kv.Key, kv.Value, rate);
                     }
-                    return false;
+                    return true;
                 },
             };
         }

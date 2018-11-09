@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using YTS.Engine.IOAccess;
+using YTS.SystemService;
 using YTS.Tools;
 
 namespace YTS.BLL
@@ -33,14 +34,12 @@ namespace YTS.BLL
             return new Model.URLReWriter[] {
                 new Model.URLReWriter() {
                     Name = @"index",
-                    Type = @"index",
                     Inherit = typeof(System.Web.UI.Page).FullName,
-                    Page = @"index.aspx",
                     Templet = @"index.html",
-                    Items = new Model.URLReWriter.Item[] {
-                        new Model.URLReWriter.Item() {
-                            Path = @"index.aspx",
-                            Pattern = @"index.aspx",
+                    ReItems = new Model.URLReWriter.RegularQuery[] {
+                        new Model.URLReWriter.RegularQuery() {
+                            Pattern = @"index.html",
+                            QueryParameter = string.Empty,
                         },
                     },
                 },
@@ -61,13 +60,29 @@ namespace YTS.BLL
             return string.Format("/TS-{0}/{1}", sitename, url.Trim('/'));
         }
 
+        /* ================================== ~华丽的间隔线~ ================================== */
+
         public Model.URLReWriter GetItem_RequestURI(Uri uri) {
             if (CheckData.IsObjectNull(uri)) {
                 return null;
             }
             string site_name = GetURLSiteName(uri.AbsolutePath);
-
-            return null;
+            this.SelfDAL.SetSiteName(site_name);
+            Model.URLReWriter result = this.GetModel(model => {
+                if (CheckData.IsSizeEmpty(model.ReItems)) {
+                    return false;
+                }
+                foreach (Model.URLReWriter.RegularQuery item in model.ReItems) {
+                    if (CheckData.IsStringNull(item.Pattern)) {
+                        continue;
+                    }
+                    if (Regex.IsMatch(uri.AbsolutePath, item.Pattern, RegexOptions.IgnoreCase)) {
+                        return true;
+                    }
+                }
+                return false;
+            }, null);
+            return result;
         }
     }
 }

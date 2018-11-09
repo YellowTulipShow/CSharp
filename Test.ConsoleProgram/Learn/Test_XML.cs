@@ -56,7 +56,7 @@ namespace Test.ConsoleProgram.Learn
                         NewLineHandling = NewLineHandling.Replace,
                         OmitXmlDeclaration = true,
                     };
-                    
+
                     using (XmlWriter writer = XmlWriter.Create(absfile, settings)) {
                         XmlSerializer xmlser = new XmlSerializer(typeof(Person[]));
                         xmlser.Serialize(writer, list);
