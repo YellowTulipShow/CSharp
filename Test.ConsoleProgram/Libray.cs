@@ -57,6 +57,7 @@ namespace Test.ConsoleProgram
                 new Tools.Test_EnumInfo(),
                 new Tools.Test_PathHelp(),
                 new Tools.Test_SerializerDeserialize(),
+                new Tools.Test_UseSystemLog(),
             };
         }
 

@@ -88,6 +88,7 @@
     <Compile Include="MainProram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Libray.cs" />
+    <Compile Include="Tools\Test_UseSystemLog.cs" />
     <Compile Include="VerifyIList.cs" />
   </ItemGroup>
   <ItemGroup>

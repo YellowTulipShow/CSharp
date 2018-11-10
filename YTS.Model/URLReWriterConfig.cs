@@ -22,8 +22,16 @@ namespace YTS.Model
         /// </summary>
         [Explain(@"根模板路径")]
         [ShineUponProperty]
-        public string RootTemplatePath { get { return _root_template_path; } set { _root_template_path = value; } }
-        private string _root_template_path = @"Template";
+        public string RootTemplate { get { return _root_template; } set { _root_template = value; } }
+        private string _root_template = @"Template";
+
+        /// <summary>
+        /// 根执行页面路径
+        /// </summary>
+        [Explain(@"根模板路径")]
+        [ShineUponProperty]
+        public string RootPage { get { return _root_page; } set { _root_page = value; } }
+        private string _root_page = @"Template";
         #endregion
     }
 }

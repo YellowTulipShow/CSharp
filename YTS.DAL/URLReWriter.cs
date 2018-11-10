@@ -12,7 +12,7 @@ namespace YTS.DAL
         /// <summary>
         /// 站点名称
         /// </summary>
-        private string _siteName = string.Empty;
+        private string SelfSiteName { get; set; }
 
         /* ================================== ~华丽的间隔线~ ================================== */
 
@@ -26,18 +26,28 @@ namespace YTS.DAL
         /* ================================== ~华丽的间隔线~ ================================== */
 
         public void SetSiteName(string sitename) {
-            this._siteName = ConvertTool.ToString(sitename).ToString().Trim('/');
+            this.SelfSiteName = ConvertTool.ToString(sitename).ToString().Trim('/');
             this.ReCreateAbsFilePath();
         }
 
         public override string GetPathFolder() {
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            return string.Format("/{0}/{1}", curl.RootTemplatePath, this._siteName);
+            return GetSiteNamePathFolder(curl.RootTemplate);
+        }
+
+        public string GetSiteNamePathFolder(string root) {
+            if (CheckData.IsStringNull(root)) {
+                return string.Format("/{0}", this.SelfSiteName);
+            }
+            return string.Format("/{0}/{1}", root, this.SelfSiteName);
         }
 
         public override Model.URLReWriter SingleModelProcessing(Model.URLReWriter model) {
             Model.URLReWriter result = base.SingleModelProcessing(model);
-            result.Set_SiteName(this._siteName);
+            if (CheckData.IsObjectNull(result)) {
+                return null;
+            }
+            result.Set_SiteName(this.SelfSiteName);
             return result;
         }
     }

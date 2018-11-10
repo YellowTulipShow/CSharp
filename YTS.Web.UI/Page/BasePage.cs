@@ -20,6 +20,10 @@ namespace YTS.Web.UI.Page
             ShowPage();
         }
 
+        public override void ProcessRequest(System.Web.HttpContext context) {
+            base.ProcessRequest(context);
+        }
+
         /// <summary>
         /// ShowPage Virtual Method
         /// </summary>

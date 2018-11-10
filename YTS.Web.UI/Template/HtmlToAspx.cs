@@ -10,18 +10,19 @@ namespace YTS.Web.UI.Template
     /// </summary>
     public class HtmlToAspx
     {
-        ///// <summary>
-        ///// 绝对文件路径_Html
-        ///// </summary>
-        //public readonly string AbsFilePath_Html = string.Empty;
-        ///// <summary>
-        ///// 绝对文件路径_Apsx
-        ///// </summary>
-        //public readonly string AbsFilePath_Apsx = string.Empty;
+        public Model.URLReWriter URLModel = null;
 
-        public HtmlToAspx(Model.URLReWriter urlreWriter) {
+        public string AbsPathTemplet = null;
+        public string AbsPathTarget = null;
 
+        public HtmlToAspx(Model.URLReWriter urlmodel, string abspath_templet, string abspath_target) {
+            this.URLModel = urlmodel;
+
+            this.AbsPathTemplet = abspath_templet;
+            this.AbsPathTarget = abspath_target;
         }
+
+
 
         /// <summary>
         /// 生成创建

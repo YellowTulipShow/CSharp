@@ -31,13 +31,6 @@ namespace YTS.Web.UI
             // 获得请求页面路径页面(含目录)
             string request_path = context.Request.Path.ToLower();
 
-            SystemLog log = new SystemLog() {
-                Position = "HttpModule.BeginRequest",
-            };
-            log.Message = string.Format("request_path: {0}", request_path);
-            log.Message = log.Write();
-            log.Write();
-
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
             string request_absfilepath = PathHelp.ToAbsolute(request_path);
             request_absfilepath = ConvertTool.ToString(request_absfilepath);
@@ -45,51 +38,38 @@ namespace YTS.Web.UI
                 return;
             }
 
-            BLL.URLReWriter bllurl = new BLL.URLReWriter();
-            Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(context.Request.Url);
-            // 判断是否需要生成模板文件
-            if (IsNeedGenerateTemplate(urlmodel)) {
-                // 生成模板
-                //Template.PageTemplate.GetTemplate(urlmodel);
-                HtmlToAspx hta = new HtmlToAspx(urlmodel);
-                hta.Generate();
+            // 执行生成执行页面内容
+            string redirect_path = GenerateTemplatePage(context.Request.Url);
+            if (!CheckData.IsStringNull(redirect_path)) {
+                // HTTP请求重写路径
+                context.RewritePath(redirect_path);
             }
         }
 
-        /// <summary>
-        /// 是否需要生成模板文件
-        /// </summary>
-        private bool IsNeedGenerateTemplate(Model.URLReWriter model) {
-            if (CheckData.IsObjectNull(model)) {
+
+        private string GenerateTemplatePage(Uri uri) {
+            BLL.URLReWriter bllurl = new BLL.URLReWriter();
+            Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(uri);
+            if (CheckData.IsObjectNull(urlmodel)) {
                 // 当得到的对象 为空的时候,证明没有此数据内容,当然也就不用生成了
-                return false;
+                return string.Empty;
+            }
+
+            FileInfo FItemp = new FileInfo(bllurl.GetFilePath_Templet(urlmodel));
+            if (!FItemp.Exists) {
+                // 模板文件都不存在的话，就不用生成了
+                return string.Empty;
             }
 
             SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
-            Model.URLReWriterConfig urlre_config = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            string directory = string.Format("/{0}/{1}", urlre_config.RootTemplatePath, model.Get_SiteName());
-
-            string tempPath = PathHelp.CreateUseFilePath(directory, model.Templet);
-            if (!File.Exists(tempPath)) {
-                // 模板文件都不存在的话，就不用生成了
-                return false;
+            FileInfo FItarget = new FileInfo(bllurl.GetFilePath_Target(urlmodel));
+            if (sys_config.Is_DeBug || !FItarget.Exists || FItemp.LastWriteTime > FItarget.LastWriteTime) {
+                // 生成模板
+                HtmlToAspx hta = new HtmlToAspx(urlmodel, FItemp.FullName, FItarget.FullName);
+                hta.Generate();
             }
 
-            if (sys_config.Is_DeBug) {
-                // 调试状态, 每一次访问都生成 
-                return true;
-            }
-
-            string targetPath = PathHelp.CreateUseFilePath(directory, model.Target);
-            if (!File.Exists(targetPath)) {
-                // 生成的访问文件不存在，需要生成
-                return true;
-            }
-
-            FileInfo tempFif = new FileInfo(tempPath);
-            FileInfo targetFif = new FileInfo(targetPath);
-            // 比较文件的修改时间
-            return tempFif.LastWriteTime > targetFif.LastWriteTime;
+            return bllurl.HTTPRedirectPath(uri, urlmodel);
         }
     }
 }

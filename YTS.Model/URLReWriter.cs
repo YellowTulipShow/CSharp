@@ -105,36 +105,5 @@ namespace YTS.Model
         }
         #endregion
 
-        #region === GetFilePath ===
-        /// <summary>
-        /// 获取模型数据-文件路径-模板
-        /// </summary>
-        /// <returns>文件绝对路径</returns>
-        public string GetFilePath_Templet() {
-            string directory = GetFilePath_Directory();
-            string path = PathHelp.CreateUseFilePath(directory, Templet);
-            return path;
-        }
-
-        /// <summary>
-        /// 获取模型数据-文件路径-目标
-        /// </summary>
-        /// <returns>文件绝对路径</returns>
-        public string GetFilePath_Target() {
-            string directory = GetFilePath_Directory();
-            string path = PathHelp.CreateUseFilePath(directory, Target);
-            return path;
-        }
-
-        /// <summary>
-        /// 获取模型数据-文件夹路径
-        /// </summary>
-        /// <returns>文件夹相对路径</returns>
-        private string GetFilePath_Directory() {
-            Model.URLReWriterConfig urlre_config = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            string directory = string.Format("/{0}/{1}", urlre_config.RootTemplatePath, Get_SiteName());
-            return directory;
-        }
-        #endregion
     }
 }

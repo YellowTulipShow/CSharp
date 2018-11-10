@@ -26,7 +26,7 @@ namespace YTS.SystemService
                 Set(tc.FullName, newconfig);
                 return newconfig;
             }
-            if (CheckData.IsTypeEqual(absconfig.GetType(), typeof(C))) {
+            if (CheckData.IsTypeEqual(absconfig.GetType(), tc)) {
                 return (C)absconfig;
             } else {
                 throw new Exception("需要的配置类型与结果的配置类型不一样!");
