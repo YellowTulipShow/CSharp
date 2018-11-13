@@ -48,7 +48,7 @@ namespace Test.ConsoleProgram.Learn
                         CheckCharacters = true,
                         CloseOutput = true,
                         ConformanceLevel = ConformanceLevel.Document,
-                        Encoding = Encoding.UTF8,
+                        Encoding = YTS.Tools.Const.Format.FILE_ENCODING,
                         Indent = true,
                         IndentChars = @"    ",
                         NamespaceHandling = NamespaceHandling.Default,

@@ -52,7 +52,7 @@ namespace YTS.Engine.IOAccess
                 File.Delete(this.AbsFilePath);
             }
             using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
-                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
+                using (StreamWriter sw = new StreamWriter(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     foreach (M model in models) {
                         string line = ModelToString(model);
                         sw.WriteLine(line);
@@ -77,7 +77,7 @@ namespace YTS.Engine.IOAccess
                 return new M[] { };
             }
             using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                using (StreamReader sr = new StreamReader(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     List<M> results = new List<M>();
                     string line = string.Empty;
                     while ((line = sr.ReadLine()) != null) {

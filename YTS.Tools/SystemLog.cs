@@ -61,7 +61,7 @@ namespace YTS.Tools
         /// <returns>写入的日志文件绝对路径</returns>
         public string Write() {
             string path = GetLogFilePath();
-            File.AppendAllText(path, GetFormatContent(), Encoding.UTF8);
+            File.AppendAllText(path, GetFormatContent(), YTS.Tools.Const.Format.FILE_ENCODING);
             return path;
         }
 

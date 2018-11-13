@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YTS.Engine.IOAccess;
+using YTS.Engine.Config;
 using YTS.Tools;
 
 namespace YTS.SystemService

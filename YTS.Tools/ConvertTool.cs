@@ -207,8 +207,14 @@ namespace YTS.Tools
         /// <summary>
         /// 将字符串去除前后多余空格
         /// </summary>
-        public static string ToStringTrim(string sv) {
+        public static string ToTrim(string sv) {
             return ToString(sv).Trim();
+        }
+        /// <summary>
+        /// 清除字符串前后的相对路径符号: '/'
+        /// </summary>
+        public static string ToPathSymbol(string sv) {
+            return ToTrim(sv).Trim('/');
         }
         /// <summary>
         /// 数组列表转字符串

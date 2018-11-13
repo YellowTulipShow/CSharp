@@ -71,6 +71,18 @@ namespace Test.ConsoleProgram.Tools
                             Value = basic_dir + "test\\wlif\\jiw\\name.txt",
                         },
                         new KeyString() {
+                            Key = "//",
+                            Value = basic_dir,
+                        },
+                        new KeyString() {
+                            Key = "/test//wlif/jiw/name.txt",
+                            Value = basic_dir + "test\\wlif\\jiw\\name.txt",
+                        },
+                        new KeyString() {
+                            Key = "/test//wlif//jiw////name.txt",
+                            Value = basic_dir + "test\\wlif\\jiw\\name.txt",
+                        },
+                        new KeyString() {
                             Key = basic_dir+"test\\wlif\\jiw\\name.txt",
                             Value = basic_dir + "test\\wlif\\jiw\\name.txt",
                         },
@@ -92,7 +104,7 @@ namespace Test.ConsoleProgram.Tools
                         },
                         new KeyString() {
                             Key = "C://",
-                            Value = "C:\\\\",
+                            Value = "C:\\",
                         },
                     };
                     foreach (KeyString item in paths) {

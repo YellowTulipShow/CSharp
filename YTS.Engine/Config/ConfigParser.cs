@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using YTS.Tools;
 
-namespace YTS.SystemService
+namespace YTS.Engine.Config
 {
     public class ConfigParser
     {
@@ -39,7 +39,7 @@ namespace YTS.SystemService
         /// <param name="config_key_name">配置信息的键名称</param>
         /// <returns>抽象的配置信息</returns>
         public AbsConfig Get(string config_key_name) {
-            config_key_name = ConvertTool.ToStringTrim(config_key_name);
+            config_key_name = ConvertTool.ToTrim(config_key_name);
             if (CheckData.IsStringNull(config_key_name)) {
                 return null;
 	        }
@@ -55,12 +55,12 @@ namespace YTS.SystemService
         /// <param name="config_key_name">配置信息的键名称</param>
         /// <param name="config">需要设置的配置信息</param>
         private void Set(string config_key_name, AbsConfig config) {
-            config_key_name = ConvertTool.ToStringTrim(config_key_name);
+            config_key_name = ConvertTool.ToTrim(config_key_name);
             if (CheckData.IsStringNull(config_key_name)) {
-                throw new Exception("配置键值名称为空");
+                throw new Exception(@"配置键值名称为空");
             }
             if (CheckData.IsObjectNull(config)) {
-                throw new Exception("配置实例为空");
+                throw new Exception(@"配置实例为空");
             }
             this.AbsConfigDictionary[config_key_name] = config;
         }

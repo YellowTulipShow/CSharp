@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace YTS.Tools.Const
 {
@@ -39,5 +40,10 @@ namespace YTS.Tools.Const
         /// 时间格式 精确至: 年
         /// </summary>
         public const string DATETIME_YEAR = "yyyy";
+
+        /// <summary>
+        /// 文件内容统一编码
+        /// </summary>
+        public const Encoding FILE_ENCODING = Encoding.UTF8;
     }
 }

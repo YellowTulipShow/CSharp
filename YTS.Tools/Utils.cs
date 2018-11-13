@@ -635,7 +635,7 @@ namespace YTS.Tools
             //    System.Net.WebClient client = new System.Net.WebClient();
             //    try
             //    {
-            //        client.Encoding = System.Text.Encoding.UTF8;
+            //        client.Encoding = System.Text.YTS.Tools.Const.Format.FILE_ENCODING;
             //        result = client.DownloadString(uriPath);
             //    }
             //    catch
@@ -895,7 +895,7 @@ namespace YTS.Tools
 
                 response = request.GetResponse();
                 if (response != null) {
-                    StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                    StreamReader reader = new StreamReader(response.GetResponseStream(), YTS.Tools.Const.Format.FILE_ENCODING);
                     responseStr = reader.ReadToEnd();
                     reader.Close();
                 }
@@ -930,7 +930,7 @@ namespace YTS.Tools
                 response = request.GetResponse();
 
                 if (response != null) {
-                    StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                    StreamReader reader = new StreamReader(response.GetResponseStream(), YTS.Tools.Const.Format.FILE_ENCODING);
                     responseStr = reader.ReadToEnd();
                     reader.Close();
                 }

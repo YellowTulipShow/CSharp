@@ -104,8 +104,15 @@ namespace YTS.BLL
             if (CheckData.IsObjectNull(model)) {
                 return string.Empty;
             }
-            // 与 URL 重写的配置文件在同一文件夹下
-            string directory = this.SelfDAL.GetPathFolder();
+            model.Templet = ConvertTool.ToString(model.Templet);
+            string directory = null;
+            if (Regex.IsMatch(model.Templet, @"^/.*")) {
+                // 留有从根目录来的绝对路径值
+                directory = this.SelfDAL.GetRootTemplatePathFolder();
+            } else {
+                // 与 URL 重写的配置文件在同一文件夹下
+                directory = this.SelfDAL.GetPathFolder();
+            }
             string path = PathHelp.CreateUseFilePath(directory, model.Templet);
             return path;
         }
@@ -135,6 +142,13 @@ namespace YTS.BLL
             string querystr = Regex.Replace(uri.AbsolutePath, rq.Pattern, rq.QueryParameter);
             string path = string.Format("{0}/{1}?{2}", directory, urlmodel.Target, querystr);
             return path;
+        }
+
+        public string GetReSourceFilePath(Uri uri) {
+            string url = ConvertTool.ToString(uri.AbsolutePath);
+            Regex re = new Regex(@"/?TS-(\w*)/?(.*)");
+            string page = re.Match(url).Groups[2].Value.ToString().Trim();
+            return string.Format("{0}/{1}", this.SelfDAL.GetPathFolder(), page);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="model">数据映射模型</param>
         /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
-            string sqlinsert = ConvertTool.ToStringTrim(SQLInsert(model, false));
+            string sqlinsert = ConvertTool.ToTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
 

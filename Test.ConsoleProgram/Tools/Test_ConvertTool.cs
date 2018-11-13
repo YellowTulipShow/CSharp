@@ -218,7 +218,7 @@ namespace Test.ConsoleProgram.Tools
                     string absfile = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_ToRangeList.txt");
                     File.Delete(absfile);
                     using (FileStream fileshream = new FileStream(absfile, FileMode.OpenOrCreate)) {
-                        using (StreamWriter writer = new StreamWriter(fileshream, Encoding.UTF8)) {
+                        using (StreamWriter writer = new StreamWriter(fileshream, YTS.Tools.Const.Format.FILE_ENCODING)) {
                             for (int count = 9; count <= 11; count++) {
                                 for (int index = -1; index < 11; index++) {
                                     string[] result = ConvertTool.ToRangeList(source, index, count);

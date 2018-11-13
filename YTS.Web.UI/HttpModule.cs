@@ -51,6 +51,12 @@ namespace YTS.Web.UI
             BLL.URLReWriter bllurl = new BLL.URLReWriter();
             Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(uri);
             if (CheckData.IsObjectNull(urlmodel)) {
+                string resource_file = bllurl.GetReSourceFilePath(uri);
+                string abs_resource_file = PathHelp.ToAbsolute(resource_file);
+                if (File.Exists(abs_resource_file)) {
+                    return resource_file;
+                }
+
                 // 当得到的对象 为空的时候,证明没有此数据内容,当然也就不用生成了
                 return string.Empty;
             }

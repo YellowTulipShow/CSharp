@@ -1,6 +1,6 @@
 ﻿using System;
+using YTS.Engine.Config;
 using YTS.Engine.ShineUpon;
-using YTS.SystemService;
 using YTS.Tools;
 
 namespace YTS.Model
@@ -23,7 +23,7 @@ namespace YTS.Model
         [Explain(@"根模板路径")]
         [ShineUponProperty]
         public string RootTemplate { get { return _root_template; } set { _root_template = value; } }
-        private string _root_template = @"Template";
+        private string _root_template = @"/Template";
 
         /// <summary>
         /// 根执行页面路径
@@ -31,7 +31,7 @@ namespace YTS.Model
         [Explain(@"根模板路径")]
         [ShineUponProperty]
         public string RootPage { get { return _root_page; } set { _root_page = value; } }
-        private string _root_page = @"Template";
+        private string _root_page = @"/auto/page_aspx";
         #endregion
     }
 }

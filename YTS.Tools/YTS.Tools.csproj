@@ -59,7 +59,6 @@
     <Compile Include="ConvertTool.cs" />
     <Compile Include="EnumInfo.cs" />
     <Compile Include="ExplainAttribute.cs" />
-    <Compile Include="FileHelper.cs" />
     <Compile Include="JSON.cs" />
     <Compile Include="Model\KeyBasic.cs" />
     <Compile Include="Model\KeyBoolean.cs" />

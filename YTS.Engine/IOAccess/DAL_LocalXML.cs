@@ -29,7 +29,7 @@ namespace YTS.Engine.IOAccess
                 CheckCharacters = true,
                 CloseOutput = true,
                 ConformanceLevel = ConformanceLevel.Document,
-                Encoding = System.Text.Encoding.UTF8,
+                Encoding = System.Text.YTS.Tools.Const.Format.FILE_ENCODING,
                 Indent = true,
                 IndentChars = @"    ",
                 NamespaceHandling = NamespaceHandling.Default,
@@ -88,7 +88,7 @@ namespace YTS.Engine.IOAccess
             }
             using (FileStream fs = File.Open(this.AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, this.FileShare)) {
                 fs.Position = 0;
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                using (StreamReader sr = new StreamReader(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     using (XmlReader reader = XmlReader.Create(sr, Config_XmlReaderSettings())) {
                         XmlSerializer xs = new XmlSerializer(typeof(M[]));
                         M[] list = (M[])xs.Deserialize(reader);

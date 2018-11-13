@@ -86,7 +86,7 @@ namespace YTS.Engine.IOAccess
         }
 
         public Encoding GetEncoding() {
-            return Encoding.UTF8;
+            return YTS.Tools.Const.Format.FILE_ENCODING;
         }
         #endregion
 

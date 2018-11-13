@@ -28,6 +28,7 @@ namespace YTS.Tools
             }
             relative = relative.TrimStart('/');
             relative = FilterDisablePathChar(relative);
+            relative = Regex.Replace(relative, @"/{2,}", @"/");
             relative = relative.Replace(@"/", @"\");
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relative);
         }
@@ -73,7 +74,7 @@ namespace YTS.Tools
                 return string.Empty;
             }
 
-            string abs_directory = ToAbsolute(directory).TrimEnd('\\').TrimEnd('\\');
+            string abs_directory = ToAbsolute(directory).TrimEnd('\\');
             if (!Directory.Exists(abs_directory)) {
                 Directory.CreateDirectory(abs_directory);
             }

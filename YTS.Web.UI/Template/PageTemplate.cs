@@ -139,7 +139,7 @@ namespace YTS.Web.UI.Template
             }
 
             //开始读写文件
-            using (StreamReader objReader = new StreamReader(templetFullPath, Encoding.UTF8))
+            using (StreamReader objReader = new StreamReader(templetFullPath, YTS.Tools.Const.Format.FILE_ENCODING))
             {
                 StringBuilder extNamespace = new StringBuilder(); //命名空间标签转换容器
                 StringBuilder textOutput = new StringBuilder(70000);
@@ -206,10 +206,10 @@ namespace YTS.Web.UI.Template
                         Directory.CreateDirectory(pageDir);
                     }
                     //保存写入文件
-                    File.WriteAllText(outputPath, template, Encoding.UTF8);
+                    File.WriteAllText(outputPath, template, YTS.Tools.Const.Format.FILE_ENCODING);
                     //using (FileStream fs = new FileStream(outputPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
                     //{
-                    //    Byte[] info = Encoding.UTF8.GetBytes(template);
+                    //    Byte[] info = YTS.Tools.Const.Format.FILE_ENCODING.GetBytes(template);
                     //    fs.Write(info, 0, info.Length);
                     //    fs.Close();
                     //}

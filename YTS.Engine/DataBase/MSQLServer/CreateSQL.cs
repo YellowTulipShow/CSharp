@@ -293,7 +293,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="isResultID">是否结果返回ID标识</param>
         /// <returns>sql insert 语句</returns>
         public static string Insert(string table_name, string[] column_names, string[] column_values, bool isResultID = false) {
-            table_name = ConvertTool.ToStringTrim(table_name);
+            table_name = ConvertTool.ToTrim(table_name);
             if (CheckData.IsStringNull(table_name) || CheckData.IsSizeEmpty(column_names) ||
                 CheckData.IsSizeEmpty(column_values) || column_names.Length != column_values.Length) {
                 return string.Empty;
@@ -310,8 +310,8 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="where">删除条件</param>
         /// <returns>sql delete 语句</returns>
         public static string Delete(string table_name, string where) {
-            table_name = ConvertTool.ToStringTrim(table_name);
-            where = ConvertTool.ToStringTrim(where);
+            table_name = ConvertTool.ToTrim(table_name);
+            where = ConvertTool.ToTrim(where);
             if (CheckData.IsStringNull(table_name)) {
                 return string.Empty;
             }
@@ -326,9 +326,9 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="where">更新条件</param>
         /// <returns>sql update 语句</returns>
         public static string Update(string table_name, string setcontent, string where) {
-            table_name = ConvertTool.ToStringTrim(table_name);
-            setcontent = ConvertTool.ToStringTrim(setcontent);
-            where = ConvertTool.ToStringTrim(where);
+            table_name = ConvertTool.ToTrim(table_name);
+            setcontent = ConvertTool.ToTrim(setcontent);
+            where = ConvertTool.ToTrim(where);
             if (CheckData.IsStringNull(table_name) || CheckData.IsStringNull(setcontent)) {
                 return string.Empty;
             }
@@ -344,9 +344,9 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <param name="order">排序条件</param>
         /// <returns>sql select 语句</returns>
         public static string Select(string table_name, int top, string where, string order) {
-            table_name = ConvertTool.ToStringTrim(table_name);
-            where = ConvertTool.ToStringTrim(where);
-            order = ConvertTool.ToStringTrim(order);
+            table_name = ConvertTool.ToTrim(table_name);
+            where = ConvertTool.ToTrim(where);
+            order = ConvertTool.ToTrim(order);
             if (CheckData.IsStringNull(table_name)) {
                 return string.Empty;
             }

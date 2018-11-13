@@ -11,7 +11,6 @@ namespace YTS.Model
     /// </summary>
     public class URLReWriter : AbsShineUpon, IFileInfo
     {
-
         public URLReWriter() { }
 
         public string GetPathFolder() {
@@ -55,7 +54,15 @@ namespace YTS.Model
         /// </summary>
         [Explain(@"页面继承后台逻辑类")]
         [ShineUponProperty]
-        public string Inherit { get { return _inherit; } set { _inherit = value; } }
+        public string Inherit {
+            get {
+                if (CheckData.IsStringNull(_inherit)) {
+                    _inherit = typeof(System.Web.UI.Page).FullName;
+                }
+                return _inherit;
+            }
+            set { _inherit = value; }
+        }
         private string _inherit = string.Empty;
 
         /// <summary>

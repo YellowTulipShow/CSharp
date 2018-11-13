@@ -10,8 +10,8 @@ namespace Test.ConsoleProgram
     internal class MainProram
     {
         internal static void Main(string[] args) {
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.InputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = YTS.Tools.Const.Format.FILE_ENCODING;
+            Console.InputEncoding = YTS.Tools.Const.Format.FILE_ENCODING;
             Console.Title = @"YTS.Test 控制台程序";
             do {
                 ExecuteCases();

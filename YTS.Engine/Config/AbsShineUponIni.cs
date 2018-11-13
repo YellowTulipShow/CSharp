@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YTS.Engine.IOAccess;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
 
-namespace YTS.Engine.ShineUpon
+namespace YTS.Engine.Config
 {
     /// <summary>
     /// 映射处理数据模型 ini 配置文件版
@@ -25,7 +26,7 @@ namespace YTS.Engine.ShineUpon
         }
 
         public virtual string GetPathFolder() {
-            return @"/SysConfigINI";
+            return string.Format("/{0}", ConvertTool.ToPathSymbol(YTS.Tools.Const.Names.SYSTEM_AUTO_GENERATES_PATH));
         }
 
         public abstract string GetFileName();

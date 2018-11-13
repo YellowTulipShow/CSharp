@@ -221,7 +221,7 @@ namespace Test.ConsoleProgram.Learn
         public T[] ReaderLines<T>(string abs_file_path, Func<string, T> line_rule) {
             List<T> lines = new List<T>();
             using (FileStream fs = File.Open(abs_file_path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None)) {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8)) {
+                using (StreamReader sr = new StreamReader(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     string line = string.Empty;
                     while ((line = sr.ReadLine()) != null) {
                         // 筛选符合规则的数据行
@@ -251,7 +251,7 @@ namespace Test.ConsoleProgram.Learn
         /// <param name="lines">写入的行数据集合</param>
         public void WriterLine(string abs_file_path, string[] lines) {
             using (FileStream fs = File.Open(abs_file_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None)) {
-                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8)) {
+                using (StreamWriter sw = new StreamWriter(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     foreach (string line in lines) {
                         sw.WriteLine(line);
                     }
