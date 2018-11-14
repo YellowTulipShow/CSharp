@@ -86,6 +86,10 @@ namespace YTS.Engine.IOAccess
         /// 填充默认记录集合
         /// </summary>
         public void FillDefaultRecordGather() {
+            int count = GetRecordCount(default(W));
+            if (count > 0) {
+                return;
+            }
             M[] list = GetDefaultRecordGather();
             if (CheckData.IsSizeEmpty(list)) {
                 return;
