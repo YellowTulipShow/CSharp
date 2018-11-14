@@ -86,8 +86,7 @@ namespace YTS.Engine.IOAccess
             if (!File.Exists(this.AbsFilePath)) {
                 return new M[] { };
             }
-            using (FileStream fs = File.Open(this.AbsFilePath, FileMode.OpenOrCreate, FileAccess.Read, this.FileShare)) {
-                fs.Position = 0;
+            using (FileStream fs = File.OpenRead(this.AbsFilePath)) {
                 using (StreamReader sr = new StreamReader(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {
                     using (XmlReader reader = XmlReader.Create(sr, Config_XmlReaderSettings())) {
                         XmlSerializer xs = new XmlSerializer(typeof(M[]));
