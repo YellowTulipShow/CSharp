@@ -1,11 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="YTS.Web.UI.Page.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="System.Web.UI.Page" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>欢迎</title>
-</head>
-<body>
-    <p>Hello World</p>
-</body>
-</html>
+<%
+    HttpContext.Current.Response.Redirect(@"/TS-css3/FrostedGlass.html");
+%>

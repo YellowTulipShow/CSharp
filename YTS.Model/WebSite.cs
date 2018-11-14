@@ -34,8 +34,8 @@ namespace YTS.Model
         /// </summary>
         [Explain(@"站点域名")]
         [ShineUponProperty]
-        public string Url { get { return _url; } set { _url = value; } }
-        private string _url = @"yellowtulipshow.github.io";
+        public string Domain { get { return _domain; } set { _domain = value; } }
+        private string _domain = @"yellowtulipshow.github.io";
 
 
         /// <summary>
@@ -106,8 +106,16 @@ namespace YTS.Model
         /// </summary>
         [Explain(@"关闭信息")]
         [ShineUponProperty]
-        public string CloseMessage { get { return _close_message; } set { _close_message = value; } }
-        private string _close_message = @"正在进行维护...... 请稍后重试";
+        public string CloseMessage {
+            get {
+                if (CheckData.IsStringNull(_close_message)) {
+                    _close_message = @"正在进行维护...... 请稍后重试";
+                }
+                return _close_message;
+            }
+            set { _close_message = value; }
+        }
+        private string _close_message = string.Empty;
 
 
         /// <summary>

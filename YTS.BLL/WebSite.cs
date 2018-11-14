@@ -14,6 +14,25 @@ namespace YTS.BLL
     {
         public WebSite() : base() { }
 
+        public override bool IsNeedDefaultRecord() {
+            return true;
+        }
+
+        public override Model.WebSite[] GetDefaultRecordGather() {
+            return new Model.WebSite[] {
+                new Model.WebSite() {
+                    Name = string.Empty,
+                    Domain = @"127.0.0.1",
+                },
+                new Model.WebSite() {
+                    Name = @"Admin",
+                    Domain = @"127.0.0.1",
+                    Tel = @"18563920971",
+                    Mail = @"1426689530@qq.com",
+                },
+            };
+        }
+
         /// <summary>
         /// 匹配 URL Web 站点信息
         /// </summary>

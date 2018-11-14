@@ -17,9 +17,9 @@ namespace YTS.Web.UI.Page
         public readonly BLL.WebSite bllwebsite = null;
 
         public BasePage() {
-            this.bllwebsite = new BLL.WebSite();
-            Model.WebSite modelwebsite = bllwebsite.GetModel(SiteName);
-            this.bllurl = new BLL.URLReWriter(modelwebsite);
+            //this.bllwebsite = new BLL.WebSite();
+            //Model.WebSite modelwebsite = bllwebsite.GetModel(SiteName);
+            //this.bllurl = new BLL.URLReWriter(modelwebsite);
             ShowPage();
         }
 

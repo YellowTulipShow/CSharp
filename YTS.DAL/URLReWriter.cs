@@ -58,6 +58,9 @@ namespace YTS.DAL
         }
 
         public void SetSiteName(Model.WebSite modelsite) {
+            if (CheckData.IsObjectNull(modelsite)) {
+                return;
+            }
             this.SelfSiteName = ConvertTool.ToPathSymbol(modelsite.Name);
             this.ReCreateAbsFilePath();
         }
