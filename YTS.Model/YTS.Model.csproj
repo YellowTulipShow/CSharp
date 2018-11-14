@@ -56,6 +56,7 @@
     <Compile Include="DB\AbsTable_Remark.cs" />
     <Compile Include="DB\AbsTable_StringID.cs" />
     <Compile Include="DB\AbsTable_TimeAdd.cs" />
+    <Compile Include="WebSite.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.Engine\YTS.Engine.csproj">

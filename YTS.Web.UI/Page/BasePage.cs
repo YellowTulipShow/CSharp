@@ -14,9 +14,12 @@ namespace YTS.Web.UI.Page
         public string SiteName = null;
 
         public readonly BLL.URLReWriter bllurl = null;
+        public readonly BLL.WebSite bllwebsite = null;
 
         public BasePage() {
-            this.bllurl = new BLL.URLReWriter(this.SiteName);
+            this.bllwebsite = new BLL.WebSite();
+            Model.WebSite modelwebsite = bllwebsite.GetModel(SiteName);
+            this.bllurl = new BLL.URLReWriter(modelwebsite);
             ShowPage();
         }
 

@@ -44,6 +44,6 @@ namespace YTS.Tools.Const
         /// <summary>
         /// 文件内容统一编码
         /// </summary>
-        public const Encoding FILE_ENCODING = Encoding.UTF8;
+        public static readonly Encoding FILE_ENCODING = Encoding.UTF8;
     }
 }

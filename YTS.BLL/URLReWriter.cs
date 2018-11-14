@@ -12,19 +12,11 @@ namespace YTS.BLL
     /// </summary>
     public class URLReWriter : BLL_LocalFile<Model.URLReWriter, DAL.URLReWriter>
     {
-        public URLReWriter()
-            : base() {
-        }
-        public URLReWriter(string sitename)
-            : base() {
-            this.SelfDAL.SetSiteName(sitename);
+        public URLReWriter(Model.WebSite modelsite) {
+            this.SelfDAL.SetSiteName(modelsite);
         }
 
         /* ================================== ~华丽的间隔线~ ================================== */
-
-        public override DAL.URLReWriter InitCreateDAL() {
-            return new DAL.URLReWriter();
-        }
 
         public override bool IsNeedDefaultRecord() {
             return true;
@@ -48,31 +40,15 @@ namespace YTS.BLL
 
         /* ================================== ~华丽的间隔线~ ================================== */
 
-        public static string GetURLSiteName(string url) {
-            url = ConvertTool.ToString(url);
-            Regex re = new Regex(@"/?TS-(\w*)/?.*");
-            return re.Match(url).Groups[1].Value.ToString().Trim();
-        }
-
-        public static string SetURLSiteName(string sitename, string url) {
-            sitename = ConvertTool.ToString(sitename);
-            url = ConvertTool.ToString(url);
-            return string.Format("/TS-{0}/{1}", sitename, url.Trim('/'));
-        }
-
-        /* ================================== ~华丽的间隔线~ ================================== */
-
         /// <summary>
-        /// 获取选项, 根据请求URI信息, 执行过程会动态更改站点名称
+        /// 获取URL重写信息, 根据请求URI信息
         /// </summary>
         /// <param name="uri">用户的请求 uri 信息</param>
         /// <returns>获取唯一匹配的信息数据</returns>
-        public Model.URLReWriter GetItem_RequestURI(Uri uri) {
-            if (CheckData.IsObjectNull(uri)) {
+        public Model.URLReWriter GetItem_RequestURI(string url_absolute_path) {
+            if (CheckData.IsStringNull(url_absolute_path)) {
                 return null;
             }
-            string site_name = GetURLSiteName(uri.AbsolutePath);
-            this.SelfDAL.SetSiteName(site_name);
             Model.URLReWriter result = this.GetModel(model => {
                 if (CheckData.IsSizeEmpty(model.ReItems)) {
                     return false;
@@ -82,18 +58,31 @@ namespace YTS.BLL
                     if (CheckData.IsStringNull(item.Pattern)) {
                         continue;
                     }
-                    if (Regex.IsMatch(uri.AbsolutePath, item.Pattern, RegexOptions.IgnoreCase)) {
+                    if (Regex.IsMatch(url_absolute_path, item.Pattern, RegexOptions.IgnoreCase)) {
                         requery = item;
                         break;
                     }
                 }
                 if (!CheckData.IsObjectNull(requery)) {
-                    model.ReItems = new Model.URLReWriter.RegularQuery[] { requery };
+                    model.ReItems = new Model.URLReWriter.RegularQuery[] {
+                        requery
+                    };
                     return true;
                 }
                 return false;
             }, null);
             return result;
+        }
+
+        /// <summary>
+        /// 获取资源文件地址
+        /// </summary>
+        /// <param name="url_absolute_path">url绝对地址路径</param>
+        /// <param name="bllwebsite">业务逻辑层: Web站点</param>
+        /// <returns>得到的资源文件地址</returns>
+        public string GetResourceFilePath(string url_absolute_path, BLL.WebSite bllwebsite) {
+            string page = bllwebsite.MatchPagePath(url_absolute_path);
+            return string.Format("/{0}/{1}", this.SelfDAL.GetPathFolder(), page);
         }
 
         /// <summary>
@@ -132,6 +121,12 @@ namespace YTS.BLL
             return path;
         }
 
+        /// <summary>
+        /// HTTP 重定向路径
+        /// </summary>
+        /// <param name="uri">需要的原始路径各部分信息</param>
+        /// <param name="urlmodel">需要的 URL 重定向模型</param>
+        /// <returns>最终生成的重定向路径</returns>
         public string HTTPRedirectPath(Uri uri, Model.URLReWriter urlmodel) {
             if (CheckData.IsObjectNull(urlmodel)) {
                 return string.Empty;
@@ -139,16 +134,15 @@ namespace YTS.BLL
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
             string directory = this.SelfDAL.GetSiteNamePathFolder(curl.RootPage);
             Model.URLReWriter.RegularQuery rq = urlmodel.ReItems[0];
+            if (CheckData.IsObjectNull(uri)) {
+                return string.Format("{0}/{1}", directory, urlmodel.Target);
+            }
             string querystr = Regex.Replace(uri.AbsolutePath, rq.Pattern, rq.QueryParameter);
+            if (!CheckData.IsStringNull(uri.Query)) {
+                querystr = string.Format("{0}&{1}", querystr, uri.Query.TrimStart('?'));
+            }
             string path = string.Format("{0}/{1}?{2}", directory, urlmodel.Target, querystr);
             return path;
-        }
-
-        public string GetReSourceFilePath(Uri uri) {
-            string url = ConvertTool.ToString(uri.AbsolutePath);
-            Regex re = new Regex(@"/?TS-(\w*)/?(.*)");
-            string page = re.Match(url).Groups[2].Value.ToString().Trim();
-            return string.Format("{0}/{1}", this.SelfDAL.GetPathFolder(), page);
         }
     }
 }

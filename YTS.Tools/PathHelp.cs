@@ -99,5 +99,12 @@ namespace YTS.Tools
                 fs.Close();
             }
         }
+
+        /// <summary>
+        /// 获得系统自动生成文件夹相对路径
+        /// </summary>
+        public static string SystemAutoGeneratesFolder() {
+            return string.Format("/{0}", Const.Names.SYSTEM_AUTO_GENERATES_PATH);
+        }
     }
 }

@@ -89,6 +89,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_BLL() {
             //return new CaseModel[] { };
             return new CaseModel[] {
+                new BLL.Test_WebSite(),
                 new BLL.Test_URLReWriter(),
             };
         }

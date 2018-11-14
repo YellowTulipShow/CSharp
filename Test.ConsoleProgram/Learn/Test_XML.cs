@@ -20,7 +20,17 @@ namespace Test.ConsoleProgram.Learn
 
         public class Person
         {
+            [XmlAttribute]
+            public int Attribute { get; set; }
+
+            [XmlIgnore]
+            public int Ignore { get; set; }
+
+            [XmlElement]
+            public int Element { get; set; }
+
             public int Age { get; set; }
+
             public Customer Bill { get; set; }
         }
         public class Customer

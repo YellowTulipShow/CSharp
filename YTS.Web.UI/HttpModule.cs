@@ -30,6 +30,10 @@ namespace YTS.Web.UI
 
             // 获得请求页面路径页面(含目录)
             string request_path = context.Request.Path.ToLower();
+            if (request_path == @"/") {
+                context.Response.Redirect(@"index.aspx");
+                return;
+            }
 
             // 检查请求的文件是否存在 如:存在,跳出,没必要做任何处理
             string request_absfilepath = PathHelp.ToAbsolute(request_path);
@@ -39,19 +43,35 @@ namespace YTS.Web.UI
             }
 
             // 执行生成执行页面内容
-            string redirect_path = GenerateTemplatePage(context.Request.Url);
+            string redirect_path = ReWriteURLPath(context.Request.Url);
             if (!CheckData.IsStringNull(redirect_path)) {
+                SystemLog log = new SystemLog() {
+                    Type = SystemLog.LogType.Daily,
+                    Position = @"YTS.Web.UI.HttpModule.BeginRequest",
+                    Message = string.Format("new redirect path: {0}", redirect_path),
+                };
+                log.Write();
+
                 // HTTP请求重写路径
                 context.RewritePath(redirect_path);
             }
         }
 
+        /// <summary>
+        /// 重写 URL 路径
+        /// </summary>
+        /// <param name="uri">用户原始请求信息</param>
+        /// <returns>重定向路径, 如果为空则不处理</returns>
+        private string ReWriteURLPath(Uri uri) {
+            BLL.WebSite bllsite = new BLL.WebSite();
+            string site_name = bllsite.MatchSiteName(uri.AbsolutePath);
+            Model.WebSite modelsite = bllsite.GetModel(site_name);
 
-        private string GenerateTemplatePage(Uri uri) {
-            BLL.URLReWriter bllurl = new BLL.URLReWriter();
-            Model.URLReWriter urlmodel = bllurl.GetItem_RequestURI(uri);
-            if (CheckData.IsObjectNull(urlmodel)) {
-                string resource_file = bllurl.GetReSourceFilePath(uri);
+            BLL.URLReWriter bllurl = new BLL.URLReWriter(modelsite);
+            Model.URLReWriter modelurl = bllurl.GetItem_RequestURI(uri.AbsolutePath);
+
+            if (CheckData.IsObjectNull(modelurl)) {
+                string resource_file = bllurl.GetResourceFilePath(uri.AbsolutePath, bllsite);
                 string abs_resource_file = PathHelp.ToAbsolute(resource_file);
                 if (File.Exists(abs_resource_file)) {
                     return resource_file;
@@ -61,21 +81,21 @@ namespace YTS.Web.UI
                 return string.Empty;
             }
 
-            FileInfo FItemp = new FileInfo(bllurl.GetFilePath_Templet(urlmodel));
+            FileInfo FItemp = new FileInfo(bllurl.GetFilePath_Templet(modelurl));
             if (!FItemp.Exists) {
                 // 模板文件都不存在的话，就不用生成了
                 return string.Empty;
             }
 
             SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
-            FileInfo FItarget = new FileInfo(bllurl.GetFilePath_Target(urlmodel));
+            FileInfo FItarget = new FileInfo(bllurl.GetFilePath_Target(modelurl));
             if (sys_config.Is_DeBug || !FItarget.Exists || FItemp.LastWriteTime > FItarget.LastWriteTime) {
                 // 生成模板
-                HtmlToAspx hta = new HtmlToAspx(urlmodel, FItemp.FullName, FItarget.FullName);
+                HtmlToAspx hta = new HtmlToAspx(modelurl, FItemp.FullName, FItarget.FullName);
                 hta.Generate();
             }
 
-            return bllurl.HTTPRedirectPath(uri, urlmodel);
+            return bllurl.HTTPRedirectPath(uri, modelurl);
         }
     }
 }

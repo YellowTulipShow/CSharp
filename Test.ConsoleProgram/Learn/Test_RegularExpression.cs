@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Learn
 {
@@ -13,6 +14,7 @@ namespace Test.ConsoleProgram.Learn
                 Func_Find_Static(),
                 Func_Replace(),
                 Func_Replace_Static(),
+                Func_Null(),
             };
         }
 
@@ -57,6 +59,27 @@ namespace Test.ConsoleProgram.Learn
                 NameSign = @"替换静态",
                 ExeEvent = () => {
                     return Regex.Replace(@"/Admin/index.aspx", @"/(\w*)/?(.*)", @"$1-$2") == @"Admin-index.aspx";
+                },
+            };
+        }
+
+        public CaseModel Func_Null() {
+            return new CaseModel() {
+                NameSign = @"匹配结果空值",
+                ExeEvent = () => {
+                    Regex re = new Regex(@"/TS-(\w*)/?(.*)", RegexOptions.IgnoreCase);
+
+                    Match nullval = re.Match(@"/TSMain/index.html");
+                    if (CheckData.IsObjectNull(nullval)) {
+                        Console.WriteLine("不匹配返回为空");
+                        return false;
+                    }
+                    if (nullval == Match.Empty) {
+                        Console.WriteLine("不匹配返回为正规空值空组");
+                    }
+
+                    Match normal = re.Match(@"/TS-Main/index.html");
+                    return normal.Groups[1].Value == @"Main";
                 },
             };
         }

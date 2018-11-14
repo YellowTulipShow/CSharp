@@ -26,23 +26,20 @@ namespace YTS.DAL
         /// <summary>
         /// 重写: 获取 URL 重写路径配置文件文件夹路径
         /// </summary>
-        /// <returns></returns>
         public override string GetPathFolder() {
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            return GetSiteNamePathFolder(curl.RootTemplate.Trim('/'));
+            return GetSiteNamePathFolder(ConvertTool.ToPathSymbol(curl.RootTemplate));
         }
 
         /// <summary>
-        /// 单一模型处理
+        /// 重写: 单一模型处理
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public override Model.URLReWriter SingleModelProcessing(Model.URLReWriter model) {
             Model.URLReWriter result = base.SingleModelProcessing(model);
             if (CheckData.IsObjectNull(result)) {
                 return null;
             }
-            result.Set_SiteName(this.SelfSiteName.Trim('/'));
+            result.Set_SiteName(this.SelfSiteName);
             return result;
         }
 
@@ -52,17 +49,17 @@ namespace YTS.DAL
             if (CheckData.IsStringNull(root)) {
                 return string.Format("/{0}", this.SelfSiteName);
             }
-            return string.Format("/{0}/{1}", root.Trim('/'), this.SelfSiteName.Trim('/'));
-        }
-
-        public void SetSiteName(string sitename) {
-            this.SelfSiteName = ConvertTool.ToString(sitename).ToString().Trim('/');
-            this.ReCreateAbsFilePath();
+            return string.Format("/{0}/{1}", ConvertTool.ToPathSymbol(root), ConvertTool.ToPathSymbol(this.SelfSiteName));
         }
 
         public string GetRootTemplatePathFolder() {
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            return string.Format("/{0}", curl.RootTemplate.Trim('/'));
+            return string.Format("/{0}", ConvertTool.ToPathSymbol(curl.RootTemplate));
+        }
+
+        public void SetSiteName(Model.WebSite modelsite) {
+            this.SelfSiteName = ConvertTool.ToPathSymbol(modelsite.Name);
+            this.ReCreateAbsFilePath();
         }
     }
 }

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\Test_WebSite.cs" />
     <Compile Include="Engine\Test_IBLL_IDAL.cs" />
     <Compile Include="BLL\Test_URLReWriter.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />

@@ -30,8 +30,16 @@ namespace YTS.Model
         /// </summary>
         [Explain(@"根模板路径")]
         [ShineUponProperty]
-        public string RootPage { get { return _root_page; } set { _root_page = value; } }
-        private string _root_page = @"/auto/page_aspx";
+        public string RootPage {
+            get {
+                if (CheckData.IsStringNull(_root_page)) {
+                    _root_page = string.Format("/{0}/ASPXPage", YTS.Tools.Const.Names.SYSTEM_AUTO_GENERATES_PATH);
+                }
+                return _root_page;
+            }
+            set { _root_page = value; }
+        }
+        private string _root_page = string.Empty;
         #endregion
     }
 }

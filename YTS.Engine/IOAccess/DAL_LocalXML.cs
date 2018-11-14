@@ -29,7 +29,7 @@ namespace YTS.Engine.IOAccess
                 CheckCharacters = true,
                 CloseOutput = true,
                 ConformanceLevel = ConformanceLevel.Document,
-                Encoding = System.Text.YTS.Tools.Const.Format.FILE_ENCODING,
+                Encoding = YTS.Tools.Const.Format.FILE_ENCODING,
                 Indent = true,
                 IndentChars = @"    ",
                 NamespaceHandling = NamespaceHandling.Default,
