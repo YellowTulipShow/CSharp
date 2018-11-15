@@ -104,7 +104,15 @@ namespace YTS.Tools
         /// 获得系统自动生成文件夹相对路径
         /// </summary>
         public static string SystemAutoGeneratesFolder() {
-            return string.Format("/{0}", ConvertTool.ToPathSymbol(Const.Names.SYSTEM_AUTO_GENERATES_PATH));
+            return string.Format("/{0}", PathHelp.ToPathSymbol(Const.Names.SYSTEM_AUTO_GENERATES_PATH));
+        }
+
+
+        /// <summary>
+        /// 清除字符串前后的相对路径符号: '/'
+        /// </summary>
+        public static string ToPathSymbol(string sv) {
+            return ConvertTool.ToTrim(sv).Trim('/');
         }
     }
 }

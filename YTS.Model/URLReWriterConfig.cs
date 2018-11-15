@@ -34,7 +34,7 @@ namespace YTS.Model
             get {
                 if (CheckData.IsStringNull(_root_page)) {
                     string auto_folder = PathHelp.SystemAutoGeneratesFolder();
-                    auto_folder = ConvertTool.ToPathSymbol(auto_folder);
+                    auto_folder = PathHelp.ToPathSymbol(auto_folder);
                     _root_page = string.Format("/{0}/ASPXPage", auto_folder);
                 }
                 return _root_page;

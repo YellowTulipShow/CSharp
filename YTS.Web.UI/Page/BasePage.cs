@@ -8,13 +8,27 @@ namespace YTS.Web.UI.Page
     /// </summary>
     public class BasePage : System.Web.UI.Page
     {
-        /// <summary>
-        /// 站点名称
-        /// </summary>
-        public string SiteName = null;
+        public BLL.WebSite BLLWebSite {
+            get {
+                if (CheckData.IsObjectNull(_bll_website)) {
+                    _bll_website = new BLL.WebSite();
+                }
+                return _bll_website;
+            }
+            set { _bll_website = value; }
+        }
+        private BLL.WebSite _bll_website = null;
 
-        public readonly BLL.URLReWriter bllurl = null;
-        public readonly BLL.WebSite bllwebsite = null;
+        public BLL.URLReWriter BLLURL {
+            get {
+                if (CheckData.IsObjectNull(_bll_url)) {
+                    _bll_url = new BLL.URLReWriter(new Model.WebSite());
+                }
+                return _bll_url;
+            }
+            set { _bll_url = value; }
+        }
+        private BLL.URLReWriter _bll_url = null;
 
         public BasePage() {
             //this.bllwebsite = new BLL.WebSite();

@@ -156,11 +156,7 @@ namespace YTS.Tools
                 return ToInt(ov, default(int));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(Enum), true)) {
-                if (ov.GetType().IsEnum) {
-                    return (int)ov;
-                } else {
-                    return ToInt(ov, default(int));
-                }
+                return ov.GetType().IsEnum ? (int)ov : ToInt(ov, default(int));
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(float), true)) {
                 return ToFloat(ov, default(float));
@@ -174,6 +170,10 @@ namespace YTS.Tools
             }
             if (CheckData.IsTypeEqualDepth(type, typeof(bool), true)) {
                 return ToBool(ov, default(bool));
+            }
+            if (CheckData.IsTypeEqualDepth(type, typeof(Type), true)) {
+                string typename = ToString(ov);
+                return ToType(typename);
             }
             return ov;
         }
@@ -199,6 +199,9 @@ namespace YTS.Tools
             if (vt.IsEnum || CheckData.IsTypeEqualDepth(vt, typeof(Enum), true)) {
                 return ((int)ov).ToString();
             }
+            if (CheckData.IsTypeEqualDepth(vt, typeof(Type), true)) {
+                return ((Type)ov).FullName;
+            }
             return ov.ToString();
         }
         public static string ToString(string sv) {
@@ -209,12 +212,6 @@ namespace YTS.Tools
         /// </summary>
         public static string ToTrim(string sv) {
             return ToString(sv).Trim();
-        }
-        /// <summary>
-        /// 清除字符串前后的相对路径符号: '/'
-        /// </summary>
-        public static string ToPathSymbol(string sv) {
-            return ToTrim(sv).Trim('/');
         }
         /// <summary>
         /// 数组列表转字符串
@@ -260,6 +257,23 @@ namespace YTS.Tools
         /// </summary>
         public static string ToString(int iv) {
             return iv.ToString();
+        }
+
+        /// <summary>
+        /// 根据类型名称查找类型
+        /// </summary>
+        /// <param name="typename">类型名称</param>
+        /// <returns>类型</returns>
+        public static Type ToType(string typename) {
+            if (CheckData.IsStringNull(typename)) {
+                return null;
+            }
+            Type rtype = Type.GetType(typename);
+            try {
+                return CheckData.IsObjectNull(rtype) ? null : rtype;
+            } catch (Exception) {
+                return null;
+            }
         }
 
         /// <summary>

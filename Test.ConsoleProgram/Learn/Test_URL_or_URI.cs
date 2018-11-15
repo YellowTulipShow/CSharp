@@ -22,6 +22,10 @@ namespace Test.ConsoleProgram.Learn
                 ExeEvent = () => {
                     string[] urls = new string[] {
                         @"",
+                        @"C:\A\B\C\D\E\F\G\H\",
+                        @"C:\A\B\C\D\X\Y\Z\test.txt",
+                        @"..\..\D\X\Y",
+                        @"..\..\D\X\Y\Z\test.txt",
                         @"http://127.0.0.1/error_url",
                         @"https://blog.csdn.net/tigerzx/article/details/60335505",
                         @"https://blog.csdn.net:8512/tigerzx/article/details/60335505",
@@ -99,7 +103,7 @@ namespace Test.ConsoleProgram.Learn
                     }
 
                     string abs_file_path = PathHelp.CreateUseFilePath(@"/auto/Learn/Test_URL_or_URI", @"Func_ViewAttributes.txt");
-                    WriterFileString(abs_file_path, str.ToString());
+                    ClearAndWriteFile(abs_file_path, str.ToString());
                     return true;
                 },
             };

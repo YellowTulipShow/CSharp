@@ -29,7 +29,12 @@ namespace Test.ConsoleProgram
         /// </summary>
         public CaseModel[] SonCases = new CaseModel[] { };
 
-        public void WriterFileString(string abs_file_path, string content) {
+        /// <summary>
+        /// 清除并写入文件内容, 并在控制台报告文件路径
+        /// </summary>
+        /// <param name="abs_file_path">文件绝对路径</param>
+        /// <param name="content">写入内容</param>
+        public void ClearAndWriteFile(string abs_file_path, string content) {
             abs_file_path = ConvertTool.ToString(abs_file_path);
             if (!PathHelp.IsAbsolute(abs_file_path)) {
                 Console.WriteLine("需要写入的文件名称错误: {0}", abs_file_path);

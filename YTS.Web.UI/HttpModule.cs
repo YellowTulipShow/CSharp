@@ -66,6 +66,9 @@ namespace YTS.Web.UI
             BLL.WebSite bllsite = new BLL.WebSite();
             string site_name = bllsite.MatchSiteName(uri.AbsolutePath);
             Model.WebSite modelsite = bllsite.GetModel(site_name);
+            if (CheckData.IsObjectNull(modelsite)) {
+                return string.Empty;
+            }
 
             BLL.URLReWriter bllurl = new BLL.URLReWriter(modelsite);
             Model.URLReWriter modelurl = bllurl.GetItem_RequestURI(uri.AbsolutePath);
@@ -91,8 +94,9 @@ namespace YTS.Web.UI
             FileInfo FItarget = new FileInfo(bllurl.GetFilePath_Target(modelurl));
             if (sys_config.Is_DeBug || !FItarget.Exists || FItemp.LastWriteTime > FItarget.LastWriteTime) {
                 // 生成模板
-                HtmlToAspx hta = new HtmlToAspx(modelurl, FItemp.FullName, FItarget.FullName);
-                hta.Generate();
+                HtmlToAspx hta = new HtmlToAspx();
+                HtmlToAspx.Params par = hta.ParamsMerge(modelurl, FItemp, FItarget);
+                hta.Generate(par);
             }
 
             return bllurl.HTTPRedirectPath(uri, modelurl);

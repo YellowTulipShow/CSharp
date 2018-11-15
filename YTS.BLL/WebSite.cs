@@ -71,7 +71,7 @@ namespace YTS.BLL
         /// <param name="site_name"></param>
         /// <returns></returns>
         public Model.WebSite GetModel(string site_name) {
-            if (CheckData.IsStringNull(site_name)) {
+            if (CheckData.IsObjectNull(site_name)) {
                 return null;
             }
             return GetModel(model => {

@@ -28,7 +28,7 @@ namespace YTS.DAL
         /// </summary>
         public override string GetPathFolder() {
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            return GetSiteNamePathFolder(ConvertTool.ToPathSymbol(curl.RootTemplate));
+            return GetSiteNamePathFolder(PathHelp.ToPathSymbol(curl.RootTemplate));
         }
 
         /// <summary>
@@ -49,19 +49,19 @@ namespace YTS.DAL
             if (CheckData.IsStringNull(root)) {
                 return string.Format("/{0}", this.SelfSiteName);
             }
-            return string.Format("/{0}/{1}", ConvertTool.ToPathSymbol(root), ConvertTool.ToPathSymbol(this.SelfSiteName));
+            return string.Format("/{0}/{1}", PathHelp.ToPathSymbol(root), PathHelp.ToPathSymbol(this.SelfSiteName));
         }
 
         public string GetRootTemplatePathFolder() {
             Model.URLReWriterConfig curl = GlobalSystemService.GetInstance().Config.Get<Model.URLReWriterConfig>();
-            return string.Format("/{0}", ConvertTool.ToPathSymbol(curl.RootTemplate));
+            return string.Format("/{0}", PathHelp.ToPathSymbol(curl.RootTemplate));
         }
 
         public void SetSiteName(Model.WebSite modelsite) {
             if (CheckData.IsObjectNull(modelsite)) {
                 return;
             }
-            this.SelfSiteName = ConvertTool.ToPathSymbol(modelsite.Name);
+            this.SelfSiteName = PathHelp.ToPathSymbol(modelsite.Name);
             this.ReCreateAbsFilePath();
         }
     }
