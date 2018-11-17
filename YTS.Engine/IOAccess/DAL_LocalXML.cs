@@ -33,7 +33,7 @@ namespace YTS.Engine.IOAccess
                 Indent = true,
                 IndentChars = @"    ",
                 NamespaceHandling = NamespaceHandling.Default,
-                NewLineOnAttributes = true, // NewLineChars = @"\n", 不要设置, 设置也只能设置为: \r\n
+                NewLineOnAttributes = false,
                 NewLineHandling = NewLineHandling.Replace,
                 OmitXmlDeclaration = false,
             };

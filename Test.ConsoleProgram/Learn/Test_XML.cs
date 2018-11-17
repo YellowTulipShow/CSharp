@@ -62,9 +62,9 @@ namespace Test.ConsoleProgram.Learn
                         Indent = true,
                         IndentChars = @"    ",
                         NamespaceHandling = NamespaceHandling.Default,
-                        NewLineOnAttributes = true, // NewLineChars = @"\n", 不要设置, 设置也只能设置为: \r\n
+                        NewLineOnAttributes = false,
                         NewLineHandling = NewLineHandling.Replace,
-                        OmitXmlDeclaration = true,
+                        OmitXmlDeclaration = false,
                     };
 
                     using (XmlWriter writer = XmlWriter.Create(absfile, settings)) {
@@ -75,7 +75,5 @@ namespace Test.ConsoleProgram.Learn
                 },
             };
         }
-
     }
-
 }

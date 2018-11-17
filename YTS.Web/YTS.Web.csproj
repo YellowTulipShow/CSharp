@@ -169,6 +169,7 @@
     <Content Include="assets\scripts\zepto\zepto.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="index.aspx" />
+    <Content Include="Template\Admin\List.html" />
     <Content Include="Template\YTSTemp\configFolder\_headConfigInfo.html" />
     <Content Include="Template\YTSTemp\index.html" />
     <Content Include="Template\YTSTemp\Main_Arena.html" />
@@ -181,7 +182,6 @@
     <Content Include="Template\YTSTemp\PublicModelPage\EmbossedPattern.html" />
     <Content Include="Template\YTSTemp\Questionnaire.html" />
     <Content Include="Web.config" />
-    <Content Include="xmlconfig\UrlArray.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,11 +199,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="xmlconfig\site.config" />
-    <Content Include="xmlconfig\urls.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="xmlconfig\user.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">

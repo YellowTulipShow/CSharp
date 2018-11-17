@@ -8,6 +8,10 @@ namespace YTS.Web.UI.Page
     /// </summary>
     public class BasePage : System.Web.UI.Page
     {
+        #region === Property ===
+        /// <summary>
+        /// 业务逻辑层: Web 站点
+        /// </summary>
         public BLL.WebSite BLLWebSite {
             get {
                 if (CheckData.IsObjectNull(_bll_website)) {
@@ -19,6 +23,9 @@ namespace YTS.Web.UI.Page
         }
         private BLL.WebSite _bll_website = null;
 
+        /// <summary>
+        /// 业务逻辑层: URL 重写
+        /// </summary>
         public BLL.URLReWriter BLLURL {
             get {
                 if (CheckData.IsObjectNull(_bll_url)) {
@@ -29,6 +36,7 @@ namespace YTS.Web.UI.Page
             set { _bll_url = value; }
         }
         private BLL.URLReWriter _bll_url = null;
+        #endregion
 
         public BasePage() {
             //this.bllwebsite = new BLL.WebSite();
@@ -40,6 +48,8 @@ namespace YTS.Web.UI.Page
         public override void ProcessRequest(System.Web.HttpContext context) {
             base.ProcessRequest(context);
         }
+
+
 
         /// <summary>
         /// ShowPage Virtual Method
