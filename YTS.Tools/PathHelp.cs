@@ -107,7 +107,6 @@ namespace YTS.Tools
             return string.Format("/{0}", PathHelp.ToPathSymbol(Const.Names.SYSTEM_AUTO_GENERATES_PATH));
         }
 
-
         /// <summary>
         /// 清除字符串前后的相对路径符号: '/'
         /// </summary>

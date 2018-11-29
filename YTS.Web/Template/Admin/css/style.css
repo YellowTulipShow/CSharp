@@ -1,0 +1,167 @@
+﻿.body {
+}
+
+.FixedSection {
+    display: block;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*<!-- 图标 -->*/
+.Logo {
+    right: auto;
+    bottom: auto;
+    width: 11.25em;
+    height: 2.6875em;
+    text-align: center;
+    padding: .1em 0;
+    background-color: #fafafa;
+}
+    .Logo .img {
+        display: inline-block;
+        width: auto;
+        height: 2.4875em;
+    }
+
+/*<!-- 顶部 -->*/
+.TopRegion {
+    left: 11.25em;
+    height: 2.6875em;
+    overflow: auto;
+
+    background-color: #fafafa;
+}
+    .TopRegion .left {
+        float: left;
+    }
+    .TopRegion .right {
+        float: right;
+    }
+    .TopRegion .TopMenus {}
+        .TopRegion .TopMenus .list {
+            display: block;
+            overflow: hidden;
+            border-left: 1px solid #eee;
+        }
+            .TopRegion .TopMenus .list .item {
+                display: block;
+                min-width: 1px;
+                height: 100%;
+                padding: 0 1.5em;
+                float: left;
+                border-right: 1px solid #eee;
+            }
+                .TopRegion .TopMenus .list .item .a {}
+                .TopRegion .TopMenus .list .item .span {
+                    line-height: 2.6875em;
+                }
+    .TopRegion .user {
+        display: block;
+        overflow: hidden;
+        width: auto;
+        height: 100%;
+        margin-right: .5em;
+    }
+        .TopRegion .user .avatar {
+            float: left;
+        }
+            .TopRegion .user .avatar .img {
+                display: block;
+                width: auto;
+                height: 2.0875em;
+                margin-top: .3em;
+                margin-right: .3em;
+            }
+        .TopRegion .user .name {
+            float: right;
+        }
+            .TopRegion .user .name .span {
+                line-height: 2.6875em;
+            }
+
+/*<!-- 导航栏 -->*/
+.Navigation {
+    width: 11.25em;
+    top: 2.6875em;
+    overflow: auto;
+    background-color: #267cb7;
+    padding: .5em;
+    color: #fff;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+    .Navigation .title {
+        display: block;
+        margin: 0 auto;
+    }
+        .Navigation .title .span {
+            line-height:
+        }
+    .Navigation .nav {
+        display: block;
+        margin: 0 auto;
+    }
+        .Navigation .nav .section {}
+            .Navigation .nav .section .name {}
+                .Navigation .nav .section .name .icon {}
+                .Navigation .nav .section .name .span {}
+            .Navigation .nav .section .list {}
+                .Navigation .nav .section .list .item {
+                }
+                    .Navigation .nav .section .list .item .name {
+                        font-size: .9em;
+                        line-height: 2.2em;
+                    }
+                    .Navigation .nav .section .list .item {}
+
+        .Navigation .nav .section .name,
+        .Navigation .nav .section .list .item {
+            display: block;
+            padding: .3em 1em;
+        }
+        .Navigation .nav .section .name:hover,
+        .Navigation .nav .section .list .item:hover,
+        .Navigation .nav .section .list .item.selected {
+            background: #2e84bf;
+            -webkit-border-radius: .4em;
+            -moz-border-radius: .4em;
+            border-radius: .4em;
+        }
+        .Navigation .nav .section .list .item.selected {
+            background-color: #16a0d3;
+        }
+
+/*<!-- 内容 -->*/
+.Content {
+    left: 11.25em;
+    top: 2.6875em;
+    overflow: auto;
+    /*background-color: #ffd9e9;*/
+}
+    .Content .iframe {
+        display: block;
+        overflow: auto;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+/*<!-- 位置路径 -->*/
+.LocationPath {
+    color: #686f7f;
+    font-size: .8em;
+}
+    .LocationPath .a {
+        display: inline;
+    }
+    .LocationPath .span {
+        display: inline;
+    }

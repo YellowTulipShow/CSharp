@@ -139,6 +139,13 @@ namespace YTS.Tools
         #endregion
 
         /// <summary>
+        /// 将字符串去除前后多余空格
+        /// </summary>
+        public static string ToTrim(string sv) {
+            return ToString(sv).Trim();
+        }
+
+        /// <summary>
         /// 将 不确定类型数据 转换为 指定数据类型值
         /// </summary>
         /// <param name="type">指定数据类型</param>
@@ -204,14 +211,13 @@ namespace YTS.Tools
             }
             return ov.ToString();
         }
+        /// <summary>
+        /// 转为程序可用不报错字符串
+        /// </summary>
+        /// <param name="sv">字符串类型值</param>
+        /// <returns>可用不报错字符串</returns>
         public static string ToString(string sv) {
             return CheckData.IsStringNull(sv) ? string.Empty : sv.ToString();
-        }
-        /// <summary>
-        /// 将字符串去除前后多余空格
-        /// </summary>
-        public static string ToTrim(string sv) {
-            return ToString(sv).Trim();
         }
         /// <summary>
         /// 数组列表转字符串
@@ -244,14 +250,12 @@ namespace YTS.Tools
                 return string.Empty;
             }
         }
-
         /// <summary>
         /// 时间类型转字符串
         /// </summary>
         public static string ToString(DateTime time) {
             return time.ToString(Const.Format.DATETIME_MILLISECOND_SEVEN);
         }
-
         /// <summary>
         /// 数字转字符串
         /// </summary>
