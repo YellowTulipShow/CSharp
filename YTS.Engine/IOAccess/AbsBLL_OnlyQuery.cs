@@ -17,7 +17,7 @@ namespace YTS.Engine.IOAccess
         IBLL_OnlyQuery<M, D, W, P, PI>
         where M : AbsShineUpon, new()
         where D : AbsDAL<M, W, P, PI>, new()
-        where P : ShineUponParser<M, PI>, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
         /// <summary>

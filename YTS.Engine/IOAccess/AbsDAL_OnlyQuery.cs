@@ -15,7 +15,7 @@ namespace YTS.Engine.IOAccess
     public abstract class AbsDAL_OnlyQuery<M, W, P, PI> :
         IDAL_OnlyQuery<M, W, P, PI>
         where M : AbsShineUpon, new()
-        where P : ShineUponParser<M, PI>, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
         /// <summary>
@@ -51,14 +51,15 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         public virtual M InitCreateModel() {
             return new M();
-            return ReflexHelp.CreateNewObject<M>();
         }
 
         /// <summary>
         /// 初始化创建 解析器Parser 对象
         /// </summary>
         public virtual P InitCreateParser() {
-            return new P();
+            P parser = new P();
+            parser.NeedParserType = typeof(M);
+            return parser;
         }
 
         /// <summary>

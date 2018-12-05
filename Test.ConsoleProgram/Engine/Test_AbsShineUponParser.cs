@@ -203,7 +203,7 @@ namespace Test.ConsoleProgram.Engine
                 ExeEvent = () => {
                     ColumnModelParser<T> parser = new ColumnModelParser<T>();
                     KeyString[] keys = T.Answer_ColumnInfos();
-                    ColumnInfo[] columns = parser.GetSortResult();
+                    ColumnInfo[] columns = parser.GetList();
 
                     return new VerifyIList<KeyString, ColumnInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
@@ -229,13 +229,12 @@ namespace Test.ConsoleProgram.Engine
             return new CaseModel() {
                 NameSign = @"字段",
                 ExeEvent = () => {
-                    ShineUponParser<F, ShineUponInfo> parser = new ShineUponParser<F, ShineUponInfo>();
+                    ShineUponParser parser = new ShineUponParser(typeof(F));
                     KeyString[] keys = F.Answer_FieldInfos();
-                    ShineUponInfo[] columns = parser.GetSortResult();
 
                     return new VerifyIList<YTS.Tools.Model.KeyString, ShineUponInfo>(CalcWayEnum.DoubleCycle) {
                         Answer = keys,
-                        Source = columns,
+                        Source = new List<ShineUponInfo>(parser.GetDictionary().Values),
                         Func_isEquals = (item, info) => {
                             return item.Key == info.Name &&
                                 item.Key == info.Property.Name &&
@@ -266,8 +265,8 @@ namespace Test.ConsoleProgram.Engine
 
                     GS result = new GS();
 
-                    ShineUponParser<GS, ShineUponInfo> parser = new ShineUponParser<GS, ShineUponInfo>();
-                    foreach (ShineUponInfo info in parser.GetSortResult()) {
+                    ShineUponParser parser = new ShineUponParser(typeof(GS));
+                    foreach (ShineUponInfo info in parser.GetDictionary().Values) {
                         KeyString ks = parser.GetValue_KeyString(info, answer);
                         parser.SetValue_Object(info, result, ks.Value);
                     }

@@ -58,7 +58,7 @@ namespace YTS.Engine.IOAccess
         public string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
-            foreach (ColumnInfo item in this.Parser.GetColumn_CanWrite()) {
+            foreach (ColumnInfo item in this.Parser.GetListCanWrite()) {
                 KeyString ks = this.Parser.GetValue_KeyString(item, model);
                 if (CheckData.IsObjectNull(ks) || CheckData.IsStringNull(ks.Key)) {
                     continue;
@@ -139,7 +139,7 @@ namespace YTS.Engine.IOAccess
         public KeyBoolean[] GetDefaultSortWhere() {
             return new KeyBoolean[] {
                 new KeyBoolean() {
-                    Key = this.Parser.GetSortResult()[0].Name,
+                    Key = this.Parser.GetList()[0].Name,
                     Value = false,
                 },
             };
@@ -253,7 +253,7 @@ namespace YTS.Engine.IOAccess
                 return null;
             }
             M model = ReflexHelp.CreateNewObject<M>();
-            ColumnInfo[] columninfos = this.Parser.GetSortResult();
+            ColumnInfo[] columninfos = this.Parser.GetList();
             foreach (ColumnInfo item in columninfos) {
                 if (CheckData.IsObjectNull(item)) {
                     continue;
@@ -316,7 +316,7 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnInfo item in this.Parser.GetSortResult()) {
+            foreach (ColumnInfo item in this.Parser.GetList()) {
                 string fieldName = item.Property.Name;
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;

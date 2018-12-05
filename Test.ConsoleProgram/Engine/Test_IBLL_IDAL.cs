@@ -320,9 +320,9 @@ namespace Test.ConsoleProgram.Engine
 
         public CaseModel LocalTXT() {
             Func<TestModel, bool> where = (model) => model.RecordIndex % 3 == 0;
-            Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>() {
+            Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo>() {
                 NameSign = @"行文本文件",
-                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalTXT<TestModel>(),
+                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalTXT<TestModel>(),
                 w_dal = where,
                 w_model = where,
                 update_content_dal = new KeyObject[] {
@@ -338,9 +338,9 @@ namespace Test.ConsoleProgram.Engine
 
         public CaseModel LocalXML() {
             Func<TestModel, bool> where = (model) => model.RecordIndex % 3 == 0;
-            Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>() {
+            Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo> mdoel = new Test_WhereIDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo>() {
                 NameSign = @"XML格式文件",
-                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser<TestModel, ShineUponInfo>, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalXML<TestModel>(),
+                iDAL = (IDAL<TestModel, Func<TestModel, bool>, ShineUponParser, ShineUponInfo>)new YTS.Engine.IOAccess.DAL_LocalXML<TestModel>(),
                 w_dal = where,
                 w_model = where,
                 update_content_dal = new KeyObject[] {
@@ -357,7 +357,7 @@ namespace Test.ConsoleProgram.Engine
         public class Test_WhereIDAL<M, W, P, PI> : CaseModel
             where M : TestModel
             where W : class
-            where P : ShineUponParser<M, PI>
+            where P : ShineUponParser
             where PI : ShineUponInfo
         {
             public Func<TestModel, bool> w_model;

@@ -13,7 +13,7 @@ namespace YTS.Engine.IOAccess
     /// </summary>
     /// <typeparam name="M">数据映射模型</typeparam>
     public abstract class DAL_LocalFile<M> :
-        AbsDAL<M, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
+        AbsDAL<M, Func<M, bool>, ShineUponParser, ShineUponInfo>,
         IFileInfo
         where M : AbsShineUpon, IFileInfo, new()
     {
@@ -133,7 +133,7 @@ namespace YTS.Engine.IOAccess
             if (CheckData.IsObjectNull(where)) {
                 where = model => true;
             }
-            Dictionary<string, ShineUponInfo> dic = this.Parser.GetAnalyticalResult();
+            Dictionary<string, ShineUponInfo> dic = this.Parser.GetDictionary();
             for (var i = nowlist.Count - 1; i >= 0; i--) {
                 M model = nowlist[i];
                 if (where(model)) {

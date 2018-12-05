@@ -215,11 +215,14 @@ namespace YTS.Engine.IOAccess
         #endregion
 
         #region === Reflex ===
+        /// <summary>
+        /// 读取: ini.file => model
+        /// </summary>
         public void IniConfig_Read(AbsShineUpon model) {
             Type mtype = model.GetType();
             string section_name = mtype.FullName;
-            ShineUponTypeParser<ShineUponInfo> perser = new ShineUponTypeParser<ShineUponInfo>(mtype);
-            foreach (ShineUponInfo info in perser.GetSortResult()) {
+            ShineUponParser perser = new ShineUponParser(mtype);
+            foreach (ShineUponInfo info in perser.GetDictionary().Values) {
                 string sinival = ReadString(section_name, info.Name, string.Empty);
                 if (CheckData.IsStringNull(sinival)) {
                     continue;
@@ -227,11 +230,17 @@ namespace YTS.Engine.IOAccess
                 perser.SetValue_Object(info, model, sinival);
             }
         }
+        /// <summary>
+        /// 读取: model => ini.file
+        /// </summary>
         public void IniConfig_Write<M>(M model) where M : AbsShineUpon {
+            if (CheckData.IsObjectNull(model)) {
+                return;
+            }
             Type mtype = model.GetType();
             string section_name = mtype.FullName;
-            ShineUponTypeParser<ShineUponInfo> perser = new ShineUponTypeParser<ShineUponInfo>(mtype);
-            foreach (ShineUponInfo info in perser.GetSortResult()) {
+            ShineUponParser perser = new ShineUponParser(mtype);
+            foreach (ShineUponInfo info in perser.GetDictionary().Values) {
                 KeyString ks = perser.GetValue_KeyString(info, model);
                 if (CheckData.IsObjectNull(ks)) {
                     continue;

@@ -16,7 +16,7 @@ namespace YTS.Engine.IOAccess
         IDAL_OnlyQuery<M, W, P, PI>
         where M : AbsShineUpon
         where D : IDAL_OnlyQuery<M, W, P, PI>
-        where P : ShineUponParser<M, PI>
+        where P : ShineUponParser
         where PI : ShineUponInfo
     {
     }

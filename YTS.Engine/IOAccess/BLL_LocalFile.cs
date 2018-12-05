@@ -10,7 +10,7 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="D">抽象-数据访问层(Data Access Layer)</typeparam>
     public class BLL_LocalFile<M, D> :
-        AbsBLL<M, D, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>
+        AbsBLL<M, D, Func<M, bool>, ShineUponParser, ShineUponInfo>
         where M : AbsShineUpon, IFileInfo, new()
         where D : DAL_LocalFile<M>, new()
     {

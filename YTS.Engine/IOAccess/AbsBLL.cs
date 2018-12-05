@@ -19,7 +19,7 @@ namespace YTS.Engine.IOAccess
         IDefaultRecord<M>
         where M : AbsShineUpon, new()
         where D : AbsDAL<M, W, P, PI>, new()
-        where P : ShineUponParser<M, PI>, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
         public AbsBLL()

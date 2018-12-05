@@ -23,8 +23,8 @@ namespace Test.ConsoleProgram.SystemService
                 ExeEvent = () => {
                     SystemConfig sys_config = GlobalSystemService.GetInstance().Config.Get<SystemConfig>();
                     Console.WriteLine("Config:");
-                    ShineUponParser<SystemConfig, ShineUponInfo> parser = new ShineUponParser<SystemConfig, ShineUponInfo>();
-                    foreach (ShineUponInfo info in parser.GetSortResult()) {
+                    ShineUponParser parser = new ShineUponParser(typeof(SystemConfig));
+                    foreach (ShineUponInfo info in parser.GetDictionary().Values) {
                         KeyObject ko = parser.GetValue_KeyObject(info, sys_config);
                         Console.WriteLine("info.Name: {0}  ko.Key: {1}  ko.Value: {2}", info.Name, ko.Key, ko.Value);
                     }
