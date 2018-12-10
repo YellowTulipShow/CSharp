@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var slider = new window.SliderBanner({});
+        });
+    </script>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <%template src="_banner.html"%>
+
+        <!-- 珍峰四大标准 -->
+        <div class="ModelBox_MAX Standard">
+            <div class="ModelBox">
+                <div class="Title">
+                    <span class="span en">TOP CORDYCEPS</span>
+                    <span class="span zh sign">珍峰冬虫夏草</span>
+                </div>
+                <div class="List">
+                    <div class="li">
+                        <div class="icon">
+                            <img class="img" src="<%templateskin%>/images/icon-1.png" />
+                        </div>
+                        <div class="txt">
+                            <span class="span bold">中国最大的收草基地</span>
+                            <span class="span">8位顶级收草师傅，驻扎杂多，历时19年，与3600户当地藏民，合作供销，形成全国最大的高海拔收草基地。</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="icon">
+                            <img class="img" src="<%templateskin%>/images/icon-2.png" />
+                        </div>
+                        <div class="txt">
+                            <span class="span bold">100000+ 忠实顾客</span>
+                            <span class="span">用优质的服务、产品质量，换来全国各地超100000的忠实顾客，和业内超高的口碑，而且这个数字每天都在递增。</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="icon">
+                            <img class="img" src="<%templateskin%>/images/icon-3.png" />
+                        </div>
+                        <div class="txt">
+                            <span class="span bold">比市场价低47%</span>
+                            <span class="span">直接源头收购，省去中间环节，全部让利顾客，珍峰冬虫夏草价格普遍比市场价低47%左右。</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="icon">
+                            <img class="img" src="<%templateskin%>/images/icon-4.png" />
+                        </div>
+                        <div class="txt">
+                            <span class="span bold">100%好虫草</span>
+                            <span class="span">只收高海拔的杂多虫草，且质量从源头把控，从收购到发货，每一根虫草质检3遍以上。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

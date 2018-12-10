@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <div class="ModelBox_MAX Banner zix-1">
+            <div class="ShowRegion">
+                <img class="img Style_IsMobile_Hide" src="<%templateskin%>/images/banner-3.jpg" />
+                <img class="img Style_IsPC_Hide" src="<%templateskin%>/images/banner/ginsengdecode.jpg" />
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="ModelBox_MAX Nav">
+            <div class="ModelBox">
+                <div class="Name">
+                    <span class="span">解密虫草</span>
+                </div>
+                <div class="Links">
+                    <a class="a span" href='<%linkurl("index")%>'>首页</a>
+                    <span class="span">></span>
+                    <a class="a span" href='<%linkurl("ginsengdecode_list",52)%>'><%=get_channel_title("ginsengdecode")%></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 解密虫草列表页 -->
+        <div class="ModelBox_MAX ArticleZF">
+            <div class="ModelBox Content">
+                <%set DataTable newsList=get_article_list(channel, category_id, pagesize, page, "status=0", out totalcount, out pagelist, "ginsengdecode_list", category_id, "__id__")%>
+                <%if(newsList.Rows.Count<=0)%>
+                <div class="Null">
+                    <span class="span">暂无数据</span>
+                </div>
+                <%else%>
+                <div class="Lists">
+                    <%foreach(DataRow dr in newsList.Rows)%>
+                    <a class="li" data-id='{dr[id]}' href='<%linkurl("ginsengdecode_show",{dr[id]})%>'>
+                        <div class="thumbnail">
+                            <%if({dr[img_url]}!="")%>
+                            <div class="img" style="background-image: url({dr[img_url]});"></div>
+                            <%else%>
+                            <div class="img" style="background-image: url(<%templateskin%>/images/thumbnail.jpg);"></div>
+                            <%/if%>
+                        </div>
+                        <div class="txt">
+                            <div class="title">
+                                <span class="span">{dr[title]}</span>
+                            </div>
+                            <div class="description">
+                                <span class="span">{dr[zhaiyao]}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <%/foreach%>
+                </div>
+                <div class="PageNav greenborder">{pagelist}</div>
+                <%/if%>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

@@ -22,6 +22,7 @@ namespace Test.ConsoleProgram.Engine
                 LocalTXT(),
                 LocalXML(),
                 //ErrorReShow(),
+                Test_new(),
             };
         }
 
@@ -747,6 +748,17 @@ namespace Test.ConsoleProgram.Engine
                     }
                     */
                     return true;
+                },
+            };
+        }
+
+        public CaseModel Test_new() {
+            return new CaseModel() {
+                NameSign = @"测试创建",
+                ExeEvent = () => {
+                    IDAL<AbsShineUpon, string, ShineUponParser, ShineUponInfo> dal = (IDAL<AbsShineUpon, string, ShineUponParser, ShineUponInfo>)new YTS.DAL.MSSQLServer_StringID<YTS.Model.Article>();
+                    Console.WriteLine("dal: ", JSON.Serializer(dal));
+                    return false;
                 },
             };
         }

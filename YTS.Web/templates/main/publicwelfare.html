@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+    <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/AllPageJS.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Btype =  window.InfoCollect.BorwserType();
+            var win_w = window.PageInfo.Get_Page_Width();
+            var isMobile = (Btype == "Mobile" && win_w <= 1200);
+            // 乐视视频调用
+            try {
+                var letvPlayer = new window.VideoUse({
+                    info: {
+                        auto_play: false,
+                        is_blackShady_fullScreen: isMobile,
+                        address: {
+                            "uu": "qtevp3utiw",
+                            "vu": "f8d2ff3305",
+                            "pu": "9e0d901162",
+                        }
+                    },
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <div class="ModelBox_MAX Banner zix-1">
+            <div class="ShowRegion">
+                <img class="img Style_IsMobile_Hide" src="<%templateskin%>/images/banner-6.jpg" />
+                <img class="img Style_IsPC_Hide" src="<%templateskin%>/images/banner/publicwelfare.jpg" />
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="ModelBox_MAX Nav">
+            <div class="ModelBox">
+                <div class="Name">
+                    <span class="span"><%=get_channel_title("publicwelfare")%></span>
+                </div>
+                <div class="Links">
+                    <a class="a span" href='<%linkurl("index")%>'>首页</a>
+                    <span class="span">></span>
+                    <a class="a span" href='<%linkurl("publicwelfare")%>'><%=get_channel_title("publicwelfare")%></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 珍峰公益 -->
+        <div class="ModelBox_MAX">
+            <div class="ModelBox">
+                <div class="library_page">
+                    <div class="library_title">
+                        <span>『珍峰图书馆』公益计划</span>
+                        <span>宗旨：捐赠图书100万册，影响1000万儿童。</span>
+                    </div>
+                    <!-- 视频 -->
+                    <div class="library_video">
+                        <!-- 视频 -->
+                        <div id="ID_Box_VideoRegion" class="VideoRegion box_shadow">
+                            <div class="Content">
+                                <img id="ID_Btn_VideoCloseFullScreen" class="img button close_fullscreen" src="<%templateskin%>/images/CloseBtn.png" />
+                                <div id="ID_MainPlayer" class="MainPlayer"></div>
+                            </div>
+                            <div id="ID_Box_Video_CoverImg" class="CoverImg">
+                                <img class="img center video_cover" src="<%templateskin%>/images/video-1.jpg" />
+                                <div class="loading">
+                                    <div class="ShadyBlack opacity-6"></div>
+                                    <div class="bgimg LoadingGif" style="background-image: url('<%templateskin%>/images/icon_loading.png');"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 图书馆故事 -->
+                    <div class="library_story">
+                        <div class="library_story_title">
+                            <span>图书馆故事</span>
+                        </div>
+                        <div class="library_story_content">
+                            <p>一直以来，珍峰虫草取之藏民，得以走向世界。但生活在第三极的藏族孩子知识匮乏，思想的贫瘠限制了想象，他们不知道世界有多大。珍峰暂时还没有能力带他们看世界，于是选择捐建图书馆，畅游书海同样能够看到世间万象。</p>
+                        </div>
+                        <div class="library_story_content">
+                            <p>2017年12月1日，“珍峰图书馆”计划正式启动。短短几天，就得到社会的广泛关注，不少爱心人士都将家中闲置的图书转交给珍峰，共同为贫困孩子带去温暖。</p>
+                        </div>
+                        <div class="library_story_content">
+                            <p>2017年12月3日，珍峰收草师傅拜访了杂多县昂闹村小学，该校海拔4680米，由杂多政府资办，寄宿制。现含教职工8名，学生130名，均是附近牧民的孩子，有单亲也有孤儿。我们了解到，因经济环境受限，学校图书缺失严重，无法满足学生需求。故此，我们将该小学确定为“珍峰图书馆”计划的首所目标学校。</p>
+                        </div>
+                        <div class="library_story_content">
+                            <p>2017年12月6日，珍峰收草师傅李成录等人，代表公司为昂闹村小学布置完工首个珍峰图书馆，共捐赠图书2680本，衣物、学习用品390件。珍峰的此次举动，受到全校师生的真诚致谢！收草师傅们也获得了藏族的最高礼遇！</p>
+                        </div>
+                        <div class="library_story_content">
+                            <p>接下来，珍峰将面向整个杂多县乃至全国的贫困学校，与社会爱心人士一起，捐建一个又一个图书馆，为渴望求知的孩子创造更广阔的追梦天地！</p>
+                        </div>
+                    </div>
+                    <!-- 图书馆现状 -->
+                    <div class="library_situation">
+                        <div class="library_situation_showimg">
+                            <img src="<%templateskin%>/images/library/show-3.jpg"/>
+                        </div>
+                        <div class="library_situation_msg">
+                            <p>▲&nbsp;这是刚刚布置完工的图书馆一角，小椅子还没有摆上，大家就迫不及待的翻阅起书来，这群心理饥渴已久的孩子，终于有了一处丰富精神世界的天地。</p>
+                        </div>
+                        <div class="library_situation_showimg">
+                            <img src="<%templateskin%>/images/library/show-4.jpg"/>
+                        </div>
+                        <div class="library_situation_msg">
+                            <p>▲&nbsp;珍峰收草师傅与昂闹村小学全体学生合影。可以看到，每一个学生手里都有一本自己喜爱的书籍，这是他们曾经一度渴望的，现在终于得到了。</p>
+                        </div>
+                        <div class="library_situation_showimg">
+                            <img src="<%templateskin%>/images/library/show-5.jpg"/>
+                        </div>
+                        <div class="library_situation_msg">
+                            <p>▲&nbsp;金色的“珍峰图书馆”五个字格外醒目，这是珍峰的第一个公益计划。我们在正在做的，是竭尽所能，贡献所有珍峰人的力量；我们更希望做的，是凝聚全社会的爱，影响千万儿童。</p>
+                        </div>
+                    </div>
+                    <div class="library_title">
+                        <span>欢迎将你的旧书捐给『珍峰图书馆』</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

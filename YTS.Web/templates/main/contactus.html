@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/AllPageJS.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Btype =  window.InfoCollect.BorwserType();
+            var win_w = window.PageInfo.Get_Page_Width();
+            var isMobile = (Btype == "Mobile" && win_w <= 1200);
+            console.log(isMobile);
+            // 百度地图调用
+            try {
+                var mapUse = new window.MapUse({
+                    info: {
+                        show_type: isMobile ? 'fullscreen' : 'link_cover',
+                    },
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <div class="ModelBox_MAX Banner zix-1">
+            <div class="ShowRegion">
+                <img class="img Style_IsMobile_Hide" src="<%templateskin%>/images/banner-4.jpg" />
+                <img class="img Style_IsPC_Hide" src="<%templateskin%>/images/banner/contactus.jpg" />
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="ModelBox_MAX Nav">
+            <div class="ModelBox">
+                <div class="Name">
+                    <span class="span"><%=get_channel_title("contactus")%></span>
+                </div>
+                <div class="Links">
+                    <a class="a span" href='<%linkurl("index")%>'>首页</a>
+                    <span class="span">></span>
+                    <a class="a span" href='<%linkurl("contactus")%>'><%=get_channel_title("contactus")%></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 联系我们 -->
+        <div class="ModelBox_MAX ContactUs">
+            <div class="ModelBox">
+                <div class="Map">
+                    <!-- 百度地图 -->
+                    <div id="ID_Box_MapRegion" class="MapRegion box_shadow">
+                        <div class="Content">
+                            <div class="MainIframeBox">
+                                <img id="ID_Btn_MapCloseFullScreen" class="img button close_fullscreen" src="<%templateskin%>/images/CloseBtn_yin.png" />
+                                <iframe id="ID_IframeContainer_Map" class="iframe" src="" data-src="<%templateskin%>/baidu_map.html" frameborder="0"></iframe>
+                            </div>
+                        </div>
+                        <div id="ID_Box_Map_CoverImg" class="a CoverImg">
+                            <div class="PC">
+                                <div class="a">
+                                    <img class="img" src="<%templateskin%>/images/map_coverimg_pc.jpg" />
+                                </div>
+                            </div>
+                            <div class="Mobile">
+                                <img class="img" src="<%templateskin%>/images/map_coverimg.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Lists">
+                    <div class="li">
+                        <div class="Icon">
+                            <img class="img" src="<%templateskin%>/images/icon-5.png" />
+                        </div>
+                        <div class="Info">
+                            <span class="span title">地址</span>
+                            <span class="span">青海省玉树州杂多县日历寺路与然子路交叉口 珍峰大院</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="Icon">
+                            <img class="img" src="<%templateskin%>/images/icon-6.png" />
+                        </div>
+                        <div class="Info">
+                            <span class="span title">电话</span>
+                            <span class="span tel Style_IsMobile_Hide">400-8338-322</span>
+                            <a class="span tel Style_IsPC_Hide" href="tel:400-8338-322">400-8338-322</a>
+                            <span class="span">服务时间：每天8：00-21：00</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="Icon">
+                            <img class="img" src="<%templateskin%>/images/icon-7.png" />
+                        </div>
+                        <div class="Info">
+                            <span class="span title">微博</span>
+                            <span class="span">新浪搜索“<i class="i">珍峰冬虫夏草</i>”</span>
+                            <span class="span">冬虫夏草行业第一大V</span>
+                        </div>
+                    </div>
+                    <div class="li">
+                        <div class="Icon">
+                            <img class="img" src="<%templateskin%>/images/icon-8.png" />
+                        </div>
+                        <div class="Info">
+                            <span class="span title">公众号</span>
+                            <span class="span">搜索公众号“<i class="i">珍峰冬虫夏草</i>”</span>
+                            <span class="span">每周一更新行业干货</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

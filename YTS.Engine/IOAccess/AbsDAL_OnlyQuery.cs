@@ -18,6 +18,8 @@ namespace YTS.Engine.IOAccess
         where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
+        public AbsDAL_OnlyQuery() { }
+
         /// <summary>
         /// 初始化自动生成默认数据映射模型
         /// </summary>
@@ -32,6 +34,13 @@ namespace YTS.Engine.IOAccess
         private M _default_model = null;
 
         /// <summary>
+        /// 初始化创建 默认数据模型Model 对象
+        /// </summary>
+        public virtual M InitCreateModel() {
+            return new M();
+        }
+
+        /// <summary>
         /// 数据映射模型解析器
         /// </summary>
         public P Parser {
@@ -43,15 +52,6 @@ namespace YTS.Engine.IOAccess
             }
         }
         private P _parser = null;
-
-        public AbsDAL_OnlyQuery() { }
-
-        /// <summary>
-        /// 初始化创建 默认数据模型Model 对象
-        /// </summary>
-        public virtual M InitCreateModel() {
-            return new M();
-        }
 
         /// <summary>
         /// 初始化创建 解析器Parser 对象

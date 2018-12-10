@@ -1,0 +1,2574 @@
+/* ****************************************** 华丽的分隔符 ****************************************** */
+
+/*<!-- 背景固定 -->*/
+.BackgroundFixed {}
+    .BackgroundFixed .Image {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        background-color: #808080;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+@media screen and (max-width: 1200px) {
+    .BackgroundFixed .Image {
+        background-size: auto 100%;
+    }
+}
+
+/*<!-- 头部 固定悬浮 -->*/
+.Head {
+    display: block;
+    font-size: 1.3em;
+    height: 4em;
+    padding: .5em 0;
+}
+    .Head * {
+        -webkit-transition: all .4s ease-in-out 0s;
+        -moz-transition: all .4s ease-in-out 0s;
+        -ms-transition: all .4s ease-in-out 0s;
+        -o-transition: all .4s ease-in-out 0s;
+        transition: all .4s ease-in-out 0s;
+    }
+    .Head.Fixed {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        -moz-box-shadow: 0px 0px 4px #000;
+        box-shadow: 0px 0px 4px #000;
+    }
+    .Head.Content {
+        font-size: 1em;
+        padding: 0;
+    }
+    .Head .Directory {
+        display: none;
+    }
+    .Head .Logo {
+        width: auto;
+        height: 100%;
+        text-align: center;
+        float: left;
+        overflow: hidden;
+    }
+        .Head .Logo .img {
+            display: block;
+            width: auto;
+            height: 100%;
+            float: right;
+        }
+        .Head .Logo .img.white {
+            display: none;
+        }
+
+    .Head .Navigation {
+        display: block;
+        position: relative;
+        width: auto;
+        height: auto;
+        text-align: center;
+        float: right;
+    }
+        .Head .Navigation .span {}
+        .Head .Navigation .BgRegion {
+            display: block;
+            width: 100%;
+            height: 0;
+        }
+        .Head .Navigation .ContactInfo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: auto;
+            height: 2em;
+            font-size: .8em;
+            margin-top: .5em;
+        }
+            .Head .Navigation .ContactInfo .span {
+                display: block;
+                position: relative;
+                float: right;
+                line-height: 2em;
+                color: #f77400;
+                font-weight: bold;
+                margin-left: .4em;
+            }
+            .Head .Navigation .ContactInfo .img {
+                display: block;
+                float: right;
+                width: 1.6em;
+                height: 1.6em;
+                margin: .2em;
+            }
+            .Head .Navigation .ContactInfo .span.wx {}
+                .Head .Navigation .ContactInfo .span.wx .img.hide {
+                    display: none;
+                    position: absolute;
+                    top: 2.5em;
+                    left: -3em;
+                    width: 8em;
+                    height: 8em;
+                    margin: 0;
+                    max-width: none;
+                    border: 1px solid #d2d2d2;
+                    background-color: #fff;
+                    z-index: 10000000;
+                }
+                .Head .Navigation .ContactInfo .span.wx:hover .img.hide {
+                    display: block;
+                }
+        .Head .Navigation .Info {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: auto;
+            height: 1.5em;
+        }
+        .Head .Navigation .List {
+            display: block;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            margin-top: 2em;
+        }
+            .Head .Navigation .List .a {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            .Head .Navigation .List .li {
+                display: inline-block;
+                position: relative;
+                width: auto;
+                height: auto;
+                padding: 0 .5em;
+                margin: 0 .5em;
+            }
+                .Head .Navigation .List .li .span {
+                    display: block;
+                    width: auto;
+                    height: 100%;
+                    color: #666;
+                    line-height: 2.5em;
+                    font-size: .8em;
+                }
+                .Head .Navigation .List .li .name {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    z-index: 3;
+                }
+                .Head .Navigation .List .li .ul {
+                    display: none;
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    position: absolute;
+                    top: 4em;
+                    left: 0;
+                    z-index: 2;
+                    filter: alpha(opacity=0);
+                    -moz-opacity: 0;
+                    opacity: 0;
+                }
+                    .Head .Navigation .List .li .ul .ol {
+                        width: 150%;
+                        height: 0;
+                        text-align: left;
+                        padding-left: 50%;
+                    }
+                        .Head .Navigation .List .li .ul .ol .span {}
+            .Head .Navigation .List .li:hover,
+            .Head .Navigation .List .li:hover .ul .ol {
+                background-color: #fff;
+            }
+            .Head .Navigation .List .li:hover .span {
+                color: #ef4040;
+            }
+            .Head .Navigation .List .li:hover .ul {
+                filter: alpha(opacity=100);
+                -moz-opacity: 1;
+                opacity: 1;
+            }
+            .Head .Navigation .List .li:hover .ul .ol {
+                height: 4em;
+            }
+            .Head .Navigation .List .li:hover .ul .ol:hover {
+                background-color: #eee;
+            }
+@media screen and (max-width: 1350px) {
+    .Head {
+        display: block;
+        height: 4em;
+        margin-top: 0;
+        background-color: #000 !important;
+        position: relative;
+        padding: 0;
+        font-size: 1.8em;
+    }
+        .Head.Fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .Head.Fixed.Focus {
+            overflow: visible;
+        }
+        .Head .Directory {
+            display: block;
+            width: auto;
+            height: 100%;
+            float: right;
+            margin-right: 1em;
+            position: relative;
+            z-index: 2;
+        }
+            .Head .Directory .Button,
+            .Head .Directory .HintText {
+                display: block;
+                width: auto;
+                height: 1.5em;
+                margin-top: 1.25em;
+                float: left;
+            }
+            .Head .Directory .Button {
+                margin-right: .56em;
+            }
+                .Head .Directory .Button .line {
+                    display: block;
+                    position: relative;
+                    width: 1.2em;
+                    height: .1em;
+                    background-color: #fff;
+                    margin: .3em 0;
+                }
+                .Head.Focus .Directory .Button .line.top {
+                    -ms-transform: translateY(.4em) rotate(45deg);
+                    -moz-transform: translateY(.4em) rotate(45deg);
+                    -webkit-transform: translateY(.4em) rotate(45deg);
+                    -o-transform: translateY(.4em) rotate(45deg);
+                    transform: translateY(.4em) rotate(45deg);
+                }
+                .Head.Focus .Directory .Button .line.center {
+                    filter: alpha(opacity=0);
+                    -moz-opacity: 0;
+                    opacity: 0;
+                }
+                .Head.Focus .Directory .Button .line.bottom {
+                    -ms-transform: translateY(-.4em) rotate(-45deg);
+                    -moz-transform: translateY(-.4em) rotate(-45deg);
+                    -webkit-transform: translateY(-.4em) rotate(-45deg);
+                    -o-transform: translateY(-.4em) rotate(-45deg);
+                    transform: translateY(-.4em) rotate(-45deg);
+                }
+            .Head .Directory .HintText {
+            }
+                .Head .Directory .HintText .span {
+                    color: #fff;
+                    line-height: 1.5em;
+                }
+        .Head .Logo {
+            width: auto;
+            height: 100%;
+            float: left;
+            margin-left: 1em;
+            position: relative;
+            z-index: 2;
+        }
+            .Head .Logo .img {
+                float: left;
+                height: 2.4em;
+                margin-top: .8em;
+
+                -webkit-transition: all .4s ease-in-out 0s;
+                -moz-transition: all .4s ease-in-out 0s;
+                -ms-transition: all .4s ease-in-out 0s;
+                -o-transition: all .4s ease-in-out 0s;
+                transition: all .4s ease-in-out 0s;
+            }
+            .Head.Focus .Logo .img {
+                height: 3.4em;
+                margin-top: .4em;
+            }
+            .Head .Logo .img {
+                display: none;
+            }
+            .Head .Logo .img.white {
+                display: block;
+            }
+        .Head .Navigation {
+            width: 100%;
+            height: auto;
+            float: none;
+            padding-right: 0;
+            padding-top: 3.9em;
+            position: relative;
+            z-index: -1;
+        }
+            .Head .Navigation .ContactInfo {
+                display: none;
+            }
+        .Head.Focus .Navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+            .Head.Focus .Navigation .BgRegion {
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                margin-top: 4em;
+            }
+            .Head .Navigation .List {
+                overflow-y: hidden;
+            }
+                .Head .Navigation .List .li {
+                    display: block;
+                    position: relative;
+                    width: 80%;
+                    height: auto;
+                    padding: 0;
+                    margin: 0 auto;
+                    border-bottom: 1px solid rgb(51, 51, 51);
+                    filter: alpha(opacity=0);
+                    -moz-opacity: 0;
+                    opacity: 0;
+                    margin-top: -1em;
+                }
+                    .Head.Focus .Navigation .List .li {
+                        filter: alpha(opacity=100);
+                        -moz-opacity: 1;
+                        opacity: 1;
+                        margin-top: 0;
+                    }
+                    .Head .Navigation .List .li .span {
+                        display: block;
+                        width: auto;
+                        height: auto;
+                        line-height: 4em;
+                        text-align: left;
+                        color: rgb(206, 203, 203);
+                        font-size: 1em;
+                    }
+                    .Head .Navigation .List .li .name {
+                        height: 4em;
+                        padding-left: 5%;
+                    }
+                    .Head .Navigation .List .li .ul {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        position: relative;
+                        top: auto;
+                        left: auto;
+                        z-index: 2;
+                        filter: alpha(opacity=0);
+                        -moz-opacity: 0;
+                        opacity: 0;
+                        overflow: hidden;
+                    }
+                        .Head .Navigation .List .li .ul .ol {
+                            width: 100%;
+                            height: 0;
+                            text-align: left;
+                            padding-left: 15%;
+                        }
+                            .Head .Navigation .List .li .ul .ol .span {
+                                line-height: 4em;
+                            }
+                .Head .Navigation .List .li.Focus,
+                .Head .Navigation .List .li.Focus .ul .ol {
+                    background-color: #fff;
+                }
+                .Head .Navigation .List .li.Focus .span {
+                    color: #000;
+                }
+                .Head .Navigation .List .li.Focus .ul {
+                    filter: alpha(opacity=100);
+                    -moz-opacity: 1;
+                    opacity: 1;
+                }
+                .Head .Navigation .List .li:hover .ul .ol {
+                    height: 0;
+                }
+                .Head .Navigation .List .li.Focus .ul .ol {
+                    height: 4em;
+                }
+                .Head .Navigation .List .li.Focus .ul .ol:hover {
+                    background-color: #ef4040;
+                }
+}
+
+/*<!-- 轮播图部分 -->*/
+.Banner {
+    font-size: 1.1em;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+    .Banner .Btn_Go {
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: auto;
+        height: 100%;
+        z-index: 10;
+    }
+        .Banner .Btn_Go .topbox {
+            display: block;
+            position: relative;
+            z-index: 11;
+            width: 100%;
+            height: 48%;
+            height: calc(50% - 2em);
+        }
+        .Banner .Btn_Go .img {
+            display: block;
+            position: relative;
+            z-index: 11;
+            height: 4em;
+        }
+        .Banner .Btn_Go .button {
+            display: block;
+            width: 4em;
+            height: 4em;
+            margin: 0 auto;
+        }
+            .Banner .Btn_Go .button .icon {
+                display: block;
+                width: 100%;
+                height: 100%;
+                color: #fff;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                font-size: 2em;
+            }
+                .Banner .Btn_Go .button .icon:before {
+                    line-height: 2.1em;
+                }
+        .Banner .Btn_Go.Disabled .topbox {
+            height: 52%;
+            height: calc(50% + 2em);
+        }
+        .Banner .Btn_Go.Disabled .button {
+            margin-top: -4em;
+        }
+        .Banner .Btn_Go.Disabled .img {
+            margin-top: -4em;
+        }
+        .Banner .Btn_Go.Left {
+            left: 3em;
+        }
+        .Banner .Btn_Go.Right {
+            right: 3em;
+        }
+    .Banner .List {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-top: 30%;
+    }
+        .Banner .List .li {
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+
+            background-size: 100% auto;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            -webkit-transition: all .6s ease-in-out 0s;
+            -moz-transition: all .6s ease-in-out 0s;
+            -ms-transition: all .6s ease-in-out 0s;
+            -o-transition: all .6s ease-in-out 0s;
+            transition: all .6s ease-in-out 0s;
+        }
+        .Banner .List .li {
+            filter: alpha(opacity=0);
+            -moz-opacity: 0;
+            opacity: 0;
+        }
+        .Banner .List .li.Show {
+            filter: alpha(opacity=100);
+            -moz-opacity: 1;
+            opacity: 1;
+            z-index: 5;
+        }
+    .Banner .ShowRegion {}
+        .Banner .ShowRegion .li {
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 16.5em;
+            max-height: 291px;
+        }
+        .Banner .ShowRegion .li {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            -webkit-transition: all .6s ease-in-out 0s;
+            -moz-transition: all .6s ease-in-out 0s;
+            -ms-transition: all .6s ease-in-out 0s;
+            -o-transition: all .6s ease-in-out 0s;
+            transition: all .6s ease-in-out 0s;
+        }
+        .Banner .ShowRegion,
+        .Banner .ShowRegion .img {
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+        }
+@media screen and (max-width: 1200px) {
+    .Banner .Btn_Go {
+        font-size: .7em;
+    }
+}
+
+/*<!-- 底部 -->*/
+.Footer {
+    font-size: 1.3em;
+    padding: 2em 0;
+    padding-bottom: 2.8em;
+    background-color: #2b2b2b;
+}
+    .Footer .Qrcode {
+        display: block;
+        position: relative;
+        z-index: 2;
+    }
+        .Footer .Qrcode .content {
+            display: block;
+            width: 4em;
+            height: auto;
+            position: absolute;
+            top: 1em;
+            right: 0;
+        }
+            .Footer .Qrcode .content .box {
+                text-align: center;
+            }
+            .Footer .Qrcode .content .box.img {
+            }
+                .Footer .Qrcode .content .box .img {
+                    display: block;
+                    width: 4em;
+                    height: 4em;
+                }
+                .Footer .Qrcode .content .box .img.max {
+                    width: 8em;
+                    height: 8em;
+                    max-width: none !important;
+                    position: absolute;
+                    top: -2em;
+                    right: 0;
+                    filter: alpha(opacity=0);
+                    -moz-opacity: 0;
+                    opacity: 0;
+                    -webkit-transition: all .5s ease-in-out 0s;
+                    -moz-transition: all .5s ease-in-out 0s;
+                    -ms-transition: all .5s ease-in-out 0s;
+                    -o-transition: all .5s ease-in-out 0s;
+                    transition: all .5s ease-in-out 0s;
+                }
+                .Footer .Qrcode .content .box.img:hover .img.max {
+                    right: 5em;
+                    filter: alpha(opacity=100);
+                    -moz-opacity: 1;
+                    opacity: 1;
+                }
+                .Footer .Qrcode .content .box .span {
+                    font-size: .6em;
+                    color: #fff;
+                    line-height: 1.2em;
+                }
+    .Footer .LineHR {
+        display: block;
+        position: relative;
+        z-index: 1;
+
+        height: 1px;
+        background-color: rgb(224, 221, 221);
+        filter: alpha(opacity=49);
+        -moz-opacity: .49;
+        opacity: .49;
+
+        margin-top: 1em;
+        margin-bottom: .7em;
+    }
+    .Footer .Content {
+        display: block;
+        position: relative;
+        z-index: 1;
+        overflow: visible;
+    }
+        .Footer .Content .Block {
+            display: block;
+            overflow: hidden;
+
+            width: 100%;
+            height: auto;
+            text-align: center;
+        }
+        .Footer .Content .Logo {
+            width: 40%;
+            height: 4em;
+        }
+            .Footer .Content .Logo .img {
+                display: block;
+                width: auto;
+                height: 100%;
+                float: left;
+            }
+        .Footer .Content .Navigation {
+            overflow: hidden;
+            width: 85%;
+            height: auto;
+            margin-bottom: 1.6em;
+        }
+            .Footer .Content .Navigation .span {}
+            .Footer .Content .Navigation .List {
+                display: block;
+                overflow: hidden;
+                width: auto;
+                height: auto;
+
+                position: relative;
+                float: left;
+            }
+                .Footer .Content .Navigation .List .a {}
+                .Footer .Content .Navigation .List .li {
+                    display: block;
+                    overflow: hidden;
+                    float: left;
+                    width: auto;
+                    height: auto;
+
+                    margin-right: 3.5em;
+                }
+                .Footer .Content .Navigation .List .li .span {
+                    display: block;
+                    overflow: hidden;
+                    width: auto;
+                    height: auto;
+                    color: #fff;
+
+                    font-size: .8em;
+                    line-height: 3em;
+                }
+                .Footer .Content .Navigation .List .li .span:hover {
+                    color: #ef4040;
+                }
+        .Footer .Content .CopyRight {
+            display: block;
+            overflow: visible;
+            position: relative;
+            width: 65%;
+            height: auto;
+            text-align: left;
+        }
+            .Footer .Content .CopyRight .span {
+                display: block;
+                position: relative;
+                width: auto;
+                color: #fff;
+                line-height: 2em;
+                font-size: .75em;
+                text-align: left;
+                float: left;
+            }
+            .Footer .Content .CopyRight .span.tel {
+                text-align: right;
+                float: right;
+                font-weight: bold;
+            }
+            .Footer .Content .CopyRight .span.tel .img {
+                display: block;
+                width: 1.7em;
+                height: 1.7em;
+                margin-top: .15em;
+                margin-right: .7em;
+            }
+            .Footer .Content .CopyRight .span.tel.wx {}
+                .Footer .Content .CopyRight .span.tel.wx .img.hide {
+                    display: none;
+                    position: absolute;
+                    bottom: 2.5em;
+                    left: -3em;
+                    width: 8em;
+                    height: 8em;
+                    margin: 0;
+                    max-width: none;
+                    border: 1px solid #d2d2d2;
+                    background-color: #fff;
+                    z-index: 10000000;
+                }
+                .Footer .Content .CopyRight .span.tel.wx:hover .img.hide {
+                    display: block;
+                }
+        .Footer .Content .SocialNetwork {
+            display: block;
+            width: 40%;
+            height: auto;
+            text-align: right;
+        }
+            .Footer .Content .SocialNetwork .List {
+                float: right;
+            }
+                .Footer .Content .SocialNetwork .List .li {
+                    color: #fff;
+                }
+@media screen and (max-width: 1140px) {
+    .Footer .Content .Navigation .List .li {
+        height: 50%;
+    }
+        .Footer .Content .Navigation .List .li .span {
+            line-height: 2.5em;
+        }
+        .Footer .Content .CopyRight .span.tel {
+            display: none;
+        }
+        .Footer .Content .CopyRight {
+            width: 100%;
+            text-align: center;
+        }
+        .Footer .Content .CopyRight .span {
+            display: inline;
+            float: none;
+        }
+}
+@media screen and (max-width: 700px) {
+    .Footer {
+        font-size: 1.5em;
+        padding: 1.8em;
+    }
+        .Footer .Qrcode {
+            display: none;
+        }
+            .Footer .Content .Logo {
+                width: 100%;
+                height: 4em;
+            }
+                .Footer .Content .Logo .img {
+                    display: block;
+                    width: 10em;
+                    height: auto;
+                    float: none;
+                    margin: 0 auto;
+                }
+            .Footer .Content .Navigation {
+                overflow: hidden;
+                width: 100%;
+            }
+                .Footer .Content .Navigation .List {
+                    width: 100%;
+                    text-align: center;
+                }
+                    .Footer .Content .Navigation .List .a {}
+                    .Footer .Content .Navigation .List .li {
+                        display: block;
+                        width: 50%;
+                        float: left;
+                        margin: 0;
+                    }
+}
+
+/* 百度地图 */
+.BaiduMap {
+    display: block;
+    overflow: hidden;
+    padding-top: 3em;
+}
+    .BaiduMap .Content {
+        display: block;
+        overflow: hidden;
+    }
+    .BaiduMap_iframe {
+        display: block;
+        width: 100%;
+        height: 35em;
+    }
+    .MapBox_CoverImg {}
+        .MapBox_CoverImg img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    #MapBox_mainObj {
+        width: 100%;
+        overflow: hidden;
+    }
+    .PlayVedio_CoverImg {}
+        .PlayVedio_CoverImg img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    .PlayBox_BlackShady {
+        width: 100%;
+        position: relative;
+    }
+        .PlayFullScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        #PlayBoxStyleObj {
+            width: 100%;
+        }
+        .PlayBox_Btn_CloseFullScreen {
+            display: none;
+        }
+        .PlayBox_BlackShady.PlayFullScreen .PlayBox_Btn_CloseFullScreen {
+            position: absolute;
+            top: .5em;
+            right: .5em;
+
+            width: 3em;
+            height: 3em;
+
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+@media screen and (max-width: 1140px) {
+    .BaiduMap .Content {
+        width: 100% !important;
+    }
+}
+
+
+/*<!-- 文章目录 -->*/
+.ArticleDirectory {
+    font-size: 1.3em;
+    overflow: hidden;
+    padding: 3.2em 0;
+}
+    .ArticleDirectory .List {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+    }
+        .ArticleDirectory .List .a {}
+        .ArticleDirectory .List .li {
+            display: block;
+            position: relative;
+            float: left;
+
+            width: 30%;
+            height: auto;
+            margin: 0 1.5%;
+            text-align: left;
+        }
+            .ArticleDirectory .List .li .span {}
+            .ArticleDirectory .List .li .Thumbnail {
+                width: 100%;
+                height: 11em;
+                overflow: hidden;
+            }
+                .ArticleDirectory .List .li .Thumbnail .img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+
+                    -webkit-transform: scale(1);
+                    -moz-transform: scale(1);
+                    -o-transform: scale(1);
+                    -ms-transform: scale(1);
+                    transform: scale(1);
+                }
+                .ArticleDirectory .List .li .Thumbnail:hover .img {
+                    -webkit-transition: all 6s linear;
+                    -moz-transition: all 6s linear;
+                    -ms-transition: all 6s linear;
+                    -o-transition: all 6s linear;
+                    transition: all 6s linear;
+
+                    -webkit-transform: scale(1.5);
+                    -moz-transform: scale(1.5);
+                    -o-transform: scale(1.5);
+                    -ms-transform: scale(1.5);
+                    transform: scale(1.5);
+                }
+            .ArticleDirectory .List .li .title {
+                display: block;
+                font-size: .9em;
+            }
+                .ArticleDirectory .List .li .title .span {
+                    display: block;
+                    font-weight: bold;
+                    line-height: 2.5em;
+                    height: 2.5em;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            .ArticleDirectory .List .li .description {
+                display: block;
+                font-size: .7em;
+            }
+                .ArticleDirectory .List .li .description .span {
+                    color: #888;
+                    font-weight: bold;
+                    line-height: 1.6em;
+                }
+            .ArticleDirectory .List .li .info {
+                display: block;
+                font-size: .68em;
+                height: 1.4em;
+                padding-top: .3em;
+            }
+                .ArticleDirectory .List .li .info .span {
+                    color: #bbb;
+                }
+
+                .ArticleDirectory .List .li .info .time,
+                .ArticleDirectory .List .li .info .more {
+                    display: block;
+                    width: auto;
+                    height: 100%;
+                    overflow: hidden;
+                    padding: .3em;
+                }
+                .ArticleDirectory .List .li .info .time {
+                    float: left;
+                }
+                    .ArticleDirectory .List .li .info .time .icon {
+                        display: block;
+                        width: auto;
+                        height: 100%;
+                        float: left;
+                        font-size: 1.4em;
+                    }
+                        .ArticleDirectory .List .li .info .time .icon:before {
+                            line-height: 1.1em;
+                        }
+                    .ArticleDirectory .List .li .info .time .text {
+                        display: block;
+                        float: left;
+                        margin-left: .3em;
+                    }
+                        .ArticleDirectory .List .li .info .time .text .span {
+                            font-weight: bold;
+                        }
+                .ArticleDirectory .List .li .info .more {
+                    float: right;
+                }
+                    .ArticleDirectory .List .li .info .more .span  {}
+@media screen and (max-width: 1250px) {
+    .ArticleDirectory {
+        font-size: 1.15em;
+    }
+        .ArticleDirectory .List .li .Thumbnail {
+            height: 9em;
+        }
+}
+@media screen and (max-width: 952px) {
+    .ArticleDirectory {
+        font-size: 1em;
+    }
+        .ArticleDirectory .List .li .Thumbnail {
+            height: 7em;
+        }
+}
+@media screen and (max-width: 762px) {
+    .ArticleDirectory {
+        font-size: 1.2em;
+        overflow: hidden;
+        padding: 1.5em 0;
+    }
+        .ArticleDirectory .List {
+            display: block;
+            text-align: center;
+        }
+            .ArticleDirectory .List .a {}
+            .ArticleDirectory .List .li {
+                float: none;
+
+                width: 90%;
+                height: auto;
+                margin: 2em auto;
+                text-align: left;
+                font-size: 1.1em;
+            }
+                .ArticleDirectory .List .li .span {}
+                .ArticleDirectory .List .li .Thumbnail {
+                    width: 100%;
+                    height: 13em;
+                    overflow: hidden;
+                }
+                    .ArticleDirectory .List .li .Thumbnail .img,
+                    .ArticleDirectory .List .li .Thumbnail:hover .img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        -webkit-transform: scale(1);
+                        -moz-transform: scale(1);
+                        -o-transform: scale(1);
+                        -ms-transform: scale(1);
+                        transform: scale(1);
+                    }
+                .ArticleDirectory .List .li .title {
+                    display: block;
+                    font-size: 1em;
+                }
+                .ArticleDirectory .List .li .description {
+                    font-size: .9em;
+                }
+                .ArticleDirectory .List .li .info {
+                    font-size: .8em;
+                }
+}
+
+/* 文章内容列表 */
+.Article {
+    font-size: 1.2em;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 1.2em 0;
+}
+    .Article .LocationNav {
+        display: block !important;
+        padding: 0 .4em !important;
+        margin-bottom: 1em !important;
+    }
+        .Article .LocationNav *,
+        .Article .LocationNav span,
+        .Article .LocationNav a {
+            display: inline;
+            font-size: .9em;
+            line-height: 2.2em;
+            padding: 0 .1em;
+            color: #333;
+            font-weight: 400;
+        }
+        .Article .LocationNav a:hover {
+            color: #8CAC52;
+        }
+    .Article .Content {
+        display: block;
+        overflow: hidden;
+        position: relative;
+    }
+    .Article .Content .Block {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: #fff;
+        margin-bottom: .9em;
+    }
+    .Article .Content .nAC_ListArray,
+    .Article .Content .nAC_comment {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 74%;
+        height: auto;
+        float: left;
+    }
+    .Article .Content .nAC_wrap {
+        width: 100%;
+        float: left;
+        padding: 1.5em;
+    }
+        .Article .Content .nAC_wrap .span {}
+        .Article .Content .nAC_wrap .nAC_name {
+            margin-top: .7em;
+            padding-bottom: 1em;
+        }
+            .Article .Content .nAC_wrap .nAC_name .span {
+                font-size: 1.3em;
+                font-weight: 300;
+                color: #333;
+            }
+        .Article .Content .nAC_wrap .nAC_info {
+            padding-bottom: .5em;
+        }
+            .Article .Content .nAC_wrap .nAC_info .span {
+                display: inline;
+                font-size: .7em;
+                color: #b0b0b0;
+                padding-right: .8em;
+            }
+            .Article .Content .nAC_wrap .nAC_info .span:before {
+                padding-right: .3em;
+            }
+
+            .Article .Content .nAC_wrap .nAC_info .span.like {
+                width: auto;
+                height: 1em;
+                line-height: 1.2em;
+                color: #000;
+                display: inline-block;
+                position: relative;
+            }
+            .Article .Content .nAC_wrap .nAC_info .span.like:hover,
+            .Article .Content .nAC_wrap .nAC_info .span.like.ok {
+                cursor: pointer;
+                color: #f15253;
+            }
+            .Article .Content .nAC_wrap .nAC_info .span.like:before {
+                content: '';
+                display: inline-block;
+                width: 1.2em;
+                height: 1.2em;
+                background-image: url('/templates/main/images/like-frame-heavy.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left center;
+                position: absolute;
+                padding: 0;
+                top: 0;
+                left: -1.3em;
+            }
+            .Article .Content .nAC_wrap .nAC_info .span.like.ok:before {
+                background-position: right center;
+                -webkit-transition: background-position .71s steps(19);
+                transition: background-position .71s steps(19);
+            }
+        .Article .Content .nAC_wrap .nAC_note {
+            font-size: .7em;
+            padding: 1.3em 2em;
+            background: #f5f5f5;
+            line-height: 22px;
+            color: #757575;
+        }
+            .Article .Content .nAC_wrap .nAC_note .p {
+                line-height: 1.7em;
+            }
+        .Article .Content .nAC_wrap .nAC_entry {
+            color: #333;
+            line-height: 1.5em;
+            padding: 0;
+            padding-bottom: 1em;
+        }
+            .Article .Content .nAC_wrap .nAC_entry > p,
+            .Article .Content .nAC_wrap .nAC_entry > div {
+                font-size: 14px;
+                display: inherit;
+                margin: 1em 0;
+                word-wrap: break-word;
+            }
+        .Article .Content .nAC_wrap .nAC_next_box {
+            font-size: .7em;
+            overflow: hidden;
+            padding: 0;
+            padding-bottom: 1em;
+        }
+            .Article .Content .nAC_wrap .nAC_next_box .item {
+                display: block;
+                width: 49%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                float: left;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+                .Article .Content .nAC_wrap .nAC_next_box .item.prev {
+                    float: left;
+                    text-align: left;
+                }
+                .Article .Content .nAC_wrap .nAC_next_box .item.next {
+                    float: right;
+                    text-align: right;
+                }
+                .Article .Content .nAC_wrap .nAC_next_box .item a {
+                    display: inline;
+                    color: #428bca;
+                }
+                .Article .Content .nAC_wrap .nAC_next_box .item .span {
+                    display: inline;
+                }
+        .Article .Content .nAC_wrap .nAC_pagelist {
+            font-size: .8em;
+        }
+        .Article .Content .nAC_wrap .Null {
+            display: block;
+            text-align: center;
+        }
+            .Article .Content .nAC_wrap .Null .span {
+                color: #8d8d8d;
+            }
+        .Article .Content .nAC_wrap .Group {}
+            .Article .Content .nAC_wrap .Group .GName {
+                display: block;
+                overflow: hidden;
+            }
+                .Article .Content .nAC_wrap .Group .GName .span {
+                    display: inline;
+                    font-weight: bold;
+                    font-size: 1.2em;
+                    line-height: 2em;
+                }
+                .Article .Content .nAC_wrap .Group .GName .main {
+                    display: block;
+                    float: left;
+                }
+                    .Article .Content .nAC_wrap .Group .GName .main .span {}
+                .Article .Content .nAC_wrap .Group .GName .more {
+                    display: block;
+                    float: right;
+                    text-align: right;
+                    font-size: .6em;
+                    margin-top: 1.5em;
+                }
+                    .Article .Content .nAC_wrap .Group .GName .more .a {
+                        color: #333;
+                    }
+                    .Article .Content .nAC_wrap .Group .GName .more .a:hover {
+                        color: #8CAC52;
+                    }
+                    .Article .Content .nAC_wrap .Group .GName .more .a.span {
+                        font-weight: 400;
+                        margin-left: .3em;
+                    }
+            .Article .Content .nAC_wrap .Group .List {
+                display: block;
+                font-size: .8em;
+            }
+                .Article .Content .nAC_wrap .Group .List .li {
+                    display: block;
+                    padding-bottom: 1em;
+                    border-bottom: 1px solid #f0f0f0;
+                    overflow: hidden;
+                    position: relative;
+                }
+                .Article .Content .nAC_wrap .Group .List .li .title {
+                    display: block;
+                    float: left;
+                    font-size: 1.2em;
+                    overflow: hidden;
+                }
+                    .Article .Content .nAC_wrap .Group .List .li .title .a,
+                    .Article .Content .nAC_wrap .Group .List .li .title .span {
+                        color: #333;
+                    }
+                    .Article .Content .nAC_wrap .Group .List .li:hover .title .span,
+                    .Article .Content .nAC_wrap .Group .List .li .title .a:hover {
+                        color: #8CAC52 !important;
+                    }
+                    .Article .Content .nAC_wrap .Group .List .li .title .span {
+                        display: block;
+                        overflow: hidden;
+                        width: 100%;
+                        height: 3em;
+                        line-height: 3em;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign {
+                        padding: 0 .2em;
+                        text-align: center;
+                        border: 1px solid #eee;
+                        border-left: none;
+                        color: #666;
+                        overflow: hidden;
+                        -moz-box-shadow: 1px 1px 1px #888;
+                        box-shadow: 1px 1px 1px #888;
+                    }
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign.comment {}
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign.top {}
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign.good {}
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign.hot {}
+                    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign.pic {}
+                .Article .Content .nAC_wrap .Group .List .li .note {
+                    display: block;
+                    width: 100%;
+                    float: left;
+                }
+                    .Article .Content .nAC_wrap .Group .List .li .thumbnail {
+                        display: block;
+                        float: left;
+                        width: 8.2em;
+                        height: 8.2em;
+                        margin-right: .8em;
+                    }
+                        .Article .Content .nAC_wrap .Group .List .li .thumbnail .img {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    .Article .Content .nAC_wrap .Group .List .li .description {
+                        display: block;
+                        font-size: .9em;
+                        max-height: 6.6em;
+                        line-height: 2.2em;
+                        font-weight: 500;
+                        color: #666;
+                        overflow: hidden;
+                    }
+                        .Article .Content .nAC_wrap .Group .List .li .description .span {}
+                    .Article .Content .nAC_wrap .Group .List .li .info {
+                        display: block;
+                        max-height: 2em;
+                        line-height: 2em;
+                        margin-top: .4em;
+                    }
+                        .Article .Content .nAC_wrap .Group .List .li .info .span {
+                            display: inline;
+                            font-size: .8em;
+                            color: #999;
+                            margin-right: 1em;
+                        }
+                        .Article .Content .nAC_wrap .Group .List .li .info .span:before {
+                            margin-right: .4em;
+                        }
+    .Article .Content .nAC_sidebar {
+        width: 24%;
+        float: right;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+        .Article .Content .nAC_sidebar .nAC_htname {
+            padding-bottom: .7em;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            font-weight: 300;
+        }
+            .Article .Content .nAC_sidebar .nAC_htname .span {
+                font-size: .9em;
+                line-height: 1.2em;
+            }
+        .Article .Content .nAC_sidebar .itembox {
+            display: block;
+            width: 100%;
+            margin-bottom: .7em;
+            padding: .9em;
+            float: left;
+        }
+        .Article .Content .nAC_sidebar .a {
+            color: #333;
+        }
+        .Article .Content .nAC_sidebar .a:hover {
+            cursor: pointer;
+            color: #34ad2a !important;
+            text-decoration: none;
+            -webkit-transition: all .3s ease-in-out 0s;
+            -moz-transition: all .3s ease-in-out 0s;
+            -ms-transition: all .3s ease-in-out 0s;
+            -o-transition: all .3s ease-in-out 0s;
+            transition: all .3s ease-in-out 0s;
+        }
+        .Article .Content .nAC_sidebar .nAC_text-link {
+            font-size: .7em;
+        }
+            .Article .Content .nAC_sidebar .nAC_text-link .li {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                margin-top: 1.1em;
+            }
+            .Article .Content .nAC_sidebar .nAC_text-link .li .span,
+            .Article .Content .nAC_sidebar .nAC_text-link .li .a {
+                display: inline;
+                line-height: 1.4em;
+                white-space: nowrap;
+                vertical-align: middle;
+            }
+            .Article .Content .nAC_sidebar .nAC_text-link .li .span {
+                color: #333;
+            }
+            .Article .Content .nAC_sidebar .nAC_text-link .li .a.span {}
+            .Article .Content .nAC_sidebar .nAC_text-link .li .span.signno {
+                -moz-border-radius: 2px;
+                -webkit-border-radius: 2px;
+                border-radius: 2px;
+                text-align: center;
+                display: inline-block;
+
+                width: 1.4em;
+                height: 1.4em;
+                font-weight: 400;
+                color: #fff;
+                background-color: #999;
+
+                margin-right: .5em;
+            }
+            .Article .Content .nAC_sidebar .nAC_text-link .li.hot .span.signno {
+                background-color: #d70029;
+            }
+        .Article .Content .nAC_sidebar .nAC_side-img-list {
+            font-size: .62em;
+        }
+            .Article .Content .nAC_sidebar .nAC_side-img-list .li {
+                display: block;
+                overflow: hidden;
+                position: relative;
+                text-overflow: ellipsis;
+                margin-top: 1.1em;
+            }
+                .Article .Content .nAC_sidebar .nAC_side-img-list .li .img-box {
+                    width: 5.4em;
+                    height: 5.4em;
+
+                    display: block;
+                    float: left;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                    .Article .Content .nAC_sidebar .nAC_side-img-list .li .img-box .img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+                .Article .Content .nAC_sidebar .nAC_side-img-list .li .txt-box {
+                    width: 100%;
+                    display: block;
+                    float: left;
+                    padding-left: 6em;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                    .Article .Content .nAC_sidebar .nAC_side-img-list .li .txt-box .span {
+                        width: 100%;
+                        display: block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 1.8em;
+                    }
+                    .Article .Content .nAC_sidebar .nAC_side-img-list .li .txt-box .span.href {
+                        height: 3.6em;
+                    }
+                    .Article .Content .nAC_sidebar .nAC_side-img-list .li .txt-box .span.time {
+                        color: #999;
+                        font-size: .9em;
+                        height: 1.8em;
+                    }
+        .Article .Content .nAC_sidebar .nAC_contactinfo {
+            font-size: .7em;
+            overflow: hidden;
+        }
+            .Article .Content .nAC_sidebar .nAC_contactinfo .line {
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 0 .5em;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-size: 1em;
+                border-bottom: 1px dashed #ddd;
+                float: left;
+            }
+                .Article .Content .nAC_sidebar .nAC_contactinfo .line.thead {
+                    width: 100%;
+                    padding: 0;
+                    color: #333 !important;
+                    font-weight: 400;
+                    border-color: transparent;
+                }
+                .Article .Content .nAC_sidebar .nAC_contactinfo .line.half {
+                    width: 42%;
+                    margin: 0 4%;
+                    text-align: center;
+                }
+                .Article .Content .nAC_sidebar .nAC_contactinfo .line .a {}
+                .Article .Content .nAC_sidebar .nAC_contactinfo .line .span {
+                    display: inline;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 2.5em;
+                    line-height: 2.5em;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    color: inherit;
+                }
+    .Article .Content .nAC_comment {}
+        .Article .Content .nAC_comment > * {
+            font-size: 1.3em;
+            -moz-box-sizing: content-box;
+            -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+        .Article .Content .nAC_comment input {
+            width: auto;
+        }
+@media screen and (max-width: 1200px) {
+    .Article .Content .Block,
+    .Article .Content .nAC_comment,
+    .Article .Content .nAC_ListArray {
+        font-size: 1.2em;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+    .Article .Content .nAC_comment,
+    .Article .Content .nAC_ListArray {
+        width: 98%;
+        font-size: 1em;
+        min-height: auto !important;
+    }
+    .Article .Content .nAC_sidebar {
+        width: 100%;
+        position: relative;
+    }
+    .Article .Content .nAC_sidebar .itembox {
+        width: 48%;
+    }
+    .Article .Content .nAC_wrap .Group .List {
+        font-size: .7em;
+    }
+}
+@media screen and (max-width: 900px) {
+    .Article .Content .Block {
+        width: 100% !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+@media screen and (max-width: 680px) {
+    .Article .Content .Block {
+        font-size: 1.6em;
+    }
+    .Article .Content .nAC_sidebar {
+        font-size: 1em;
+    }
+    .Article .Content,
+    .Article .Content .nAC_sidebar .itembox {
+        width: 100% !important;
+    }
+    .Article .Content .nAC_wrap .Group .List {
+        font-size: .6em;
+    }
+}
+@media screen and (max-width: 490px) {
+    .Article .Content .nAC_wrap .Group .List .li .title .span .i.sign {
+        font-size: .8em;
+    }
+}
+
+/* 对话框 */
+.Dialog {
+    font-size: 1.2em;
+    z-index: -1;
+}
+    .Dialog.Show {
+        z-index: 10;
+    }
+    .Dialog .Content {
+        padding: 1.2em;
+        padding-top: 1.8em;
+        -moz-border-radius: .6em;
+        -webkit-border-radius: .6em;
+        border-radius: .6em;
+        -moz-box-shadow: 0px 0px .4em #787878;
+        box-shadow: 0px 0px .4em #787878;
+    }
+    .Dialog .CloseButton {
+        display: block;
+        position: absolute;
+        top: .5em;
+        right: .5em;
+        width: 1.8em;
+        height: 1.8em;
+        width: 1.4em;
+        height: 1.4em;
+    }
+        .Dialog .CloseButton .img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+    .Dialog .Title {
+        display: block;
+        overflow: hidden;
+        text-align: center;
+    }
+        .Dialog .Title .span {
+            display: inline;
+            font-weight: 400;
+            color: #657176;
+            line-height: 2em;
+        }
+    .Dialog .WeChatImg {}
+        .Dialog .WeChatImg .Title {}
+        .Dialog .WeChatImg .Title .span {}
+        .Dialog .WeChatImg .ImgValue {
+            display: block;
+            width: 18em;
+            height: 18em;
+        }
+        .Dialog .WeChatImg .ImgValue .img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    .Dialog .LeaveMessage {}
+        .Dialog .LeaveMessage .span {}
+        .Dialog .LeaveMessage .Title {
+            text-align: left;
+        }
+        .Dialog .LeaveMessage .Title .span {}
+        .Dialog .LeaveMessage .HintTxt {
+            width: 15em;
+            padding: 1em;
+            text-align: center;
+        }
+        .Dialog .LeaveMessage .HintTxt .span {
+            font-weight: 500;
+            word-spacing: .1em;
+        }
+@media screen and (max-width: 1200px) {
+}
+
+/*<!-- 导航栏 -->*/
+.Nav {
+    display: block;
+    overflow: hidden;
+}
+    .Nav .Name {
+        display: block;
+        float: left;
+        background-color: #f77400;
+    }
+        .Nav .Name .span {
+            display: block;
+            font-size: 1.3em;
+            line-height: 2em;
+            margin: .8em 2em;
+            color: #fff;
+        }
+    .Nav .Links {
+        display: block;
+        float: right;
+    }
+        .Nav .Links .span {
+            color: #262626;
+            line-height: 4.2em;
+        }
+        .Nav .Links .a {
+            color: #807f7f;
+        }
+        .Nav .Links .a:hover {
+            color: #ef4040;
+        }
+
+
+/*<!-- 播放视频内容区域 -->*/
+.VideoRegion {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+    .VideoRegion .img {
+        display: block;
+        overflow: hidden;
+        position: relative;
+    }
+    .VideoRegion .Content {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: auto;
+
+        background-color: #000;
+    }
+        .VideoRegion .Content .img {
+            display: block;
+        }
+            .VideoRegion .Content .img.button {}
+            .VideoRegion .Content .img.close_fullscreen {
+                position: absolute;
+                top: .5em;
+                right: .5em;
+                width: 3em;
+                height: 3em;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+            }
+        .VideoRegion .Content .MainPlayer {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        .VideoRegion.FullScreen .Content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+        .VideoRegion.FullScreen .Content .MainPlayer {
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            -webkit-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+        }
+    .VideoRegion .CoverImg {
+        display: block;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+    }
+        .VideoRegion .CoverImg .img {
+            display: block;
+        }
+            .VideoRegion .CoverImg .img.center {
+            }
+            .VideoRegion .CoverImg .img.video_cover {
+                width: 100%;
+                height: 100%;
+            }
+        .VideoRegion .CoverImg .loading {
+            display: none;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+        }
+                .VideoRegion .CoverImg .loading .bgimg {
+                    width: 100%;
+                    height: 100%;
+                }
+        .VideoRegion.Play .CoverImg {
+            display: none;
+        }
+        .VideoRegion.Loading .CoverImg .loading {
+            display: block;
+        }
+
+
+/*<!-- 地图 -->*/
+.MapRegion {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+    .MapRegion .Content {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 0;
+    }
+        .MapRegion .Content .img {
+            display: block;
+        }
+            .MapRegion .Content .img.button {}
+            .MapRegion .Content .img.close_fullscreen {
+                display: none;
+                position: absolute;
+                top: .5em;
+                right: .5em;
+                width: 3em;
+                height: 3em;
+                z-index: 0;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+            }
+        .MapRegion .Content .MainIframeBox {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 35em;
+            z-index: 2;
+        }
+            .MapRegion .Content .MainIframeBox .iframe {
+                display: block;
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+    .MapRegion .CoverImg {
+        display: block;
+    }
+        .MapRegion .CoverImg .img,
+        .MapRegion .CoverImg .PC .a {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        .MapRegion .CoverImg .PC {
+            display: none;
+        }
+            .MapRegion .CoverImg .PC .a {}
+        .MapRegion .CoverImg .Mobile {
+            display: block;
+        }
+    .MapRegion.Show .Content {
+        height: auto;
+    }
+    .MapRegion.Show .CoverImg {
+        display: none;
+    }
+        .MapRegion.PCCoverImg .CoverImg .PC {
+            display: block;
+        }
+        .MapRegion.PCCoverImg .CoverImg .Mobile {
+            display: none;
+        }
+    .MapRegion.Show.FullScreen .CoverImg {
+        display: block;
+    }
+    .MapRegion.FullScreen .Content .MainIframeBox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1000;
+        filter: alpha(opacity=0);
+        -moz-opacity: 0;
+        opacity: 0;
+    }
+    .MapRegion.Show.FullScreen .Content .MainIframeBox {
+        z-index: 1000;
+        filter: alpha(opacity=100);
+        -moz-opacity: 1;
+        opacity: 1;
+    }
+        .MapRegion.Show.FullScreen .Content .MainIframeBox .img.close_fullscreen {
+            display: block;
+            z-index: 2;
+        }
+
+/* ****************************************** 华丽的分隔符 ****************************************** */
+
+/*<!-- 珍峰四大标准 -->*/
+.Standard {}
+    .Standard .Title {
+        display: block;
+        text-align: center;
+        margin-top: 3em;
+        margin-bottom: 3.5em;
+        font-size: 1.3em;
+    }
+        .Standard .Title .span {
+            display: block;
+            line-height: 1.8em;
+        }
+        .Standard .Title .span.en {
+            color: #333;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .Standard .Title .span.zh {
+            color: #959595;
+        }
+        .Standard .Title .span.sign {
+            display: inline-block;
+            position: relative;
+        }
+            .Standard .Title .span.sign:before,
+            .Standard .Title .span.sign:after {
+                content: " ";
+                position: absolute;
+                top: .9em;
+                display: block;
+                width: 1.8em;
+                height: 1px;
+                background-color: #959595;
+            }
+            .Standard .Title .span.sign:before {
+                left: -2.5em;
+            }
+            .Standard .Title .span.sign:after {
+                right: -2.5em;
+            }
+    .Standard .List {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+        .Standard .List .li {
+            display: block;
+            overflow: hidden;
+            width: 23%;
+            text-align: center;
+            float: left;
+            margin: 0 1%;
+            margin-bottom: 3em !important;
+        }
+            .Standard .List .li .icon {
+                display: block;
+                width: 100%;
+                margin-bottom: 1.3em;
+            }
+                .Standard .List .li .icon .img {
+                    display: inline-block;
+                    width: 6em;
+                    height: 6em;
+                }
+            .Standard .List .li .txt {}
+                .Standard .List .li .txt .span {
+                    display: block;
+                    color: #666;
+                    line-height: 2em;
+                    font-size: .8em;
+                }
+                .Standard .List .li .txt .span.bold {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                }
+@media screen and (max-width: 890px) {
+    .Standard .List .li {
+        width: 46%;
+        margin: 0 2%;
+    }
+        .Standard .List .li .txt {}
+        .Standard .List .li .txt .span {
+            line-height: 2.2em;
+        }
+}
+@media screen and (max-width: 500px) {
+    .Standard .List .li {
+        width: 96%;
+        margin: 0 2%;
+    }
+        .Standard .List .li .txt {
+            width: 80%;
+            margin: 0 auto;
+            font-size: 1.5em;
+        }
+        .Standard .List .li .txt .span {
+            line-height: 2.2em;
+        }
+}
+
+/* 品牌文化 页面 */
+.brand_page {
+    width: 100%;
+    font-size: 1.3em;
+    margin-bottom: 2em;
+}
+    .brand_title {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        padding-top: 1.8em;
+        padding-bottom: 1.8em;
+    }
+        .brand_title span {
+            display: inline-block;
+            width: auto;
+            line-height: 2em;
+            font-size: 1.8em;
+            color: #000;
+            font-weight: bold;
+        }
+
+    /*<!-- 视频 -->*/
+    .brand_video {
+        display: block;
+        width: 100%;
+    }
+
+    /*<!-- 品牌战略 -->*/
+    .brand_strategy {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 1em;
+
+        padding: .5em;
+    }
+        .brand_strategy_title {
+            width: 100%;
+            text-align: center;
+        }
+            .brand_strategy_title span {
+                display: block;
+                width: 100%;
+                height: 3em;
+                line-height: 3em;
+
+                font-size: 1.4em;
+                color: #000;
+                font-weight: bold;
+            }
+        .brand_strategy_list {
+            display: block;
+            width: 50%;
+            min-width: 400px;
+            float: left;
+            overflow: hidden;
+        }
+            .brand_strategy_list_li {
+                width: 100%;
+                text-align: left;
+            }
+                .brand_strategy_list_li strong,
+                .brand_strategy_list_li span {
+                    display: inline-block;
+                    height: 2.5em;
+                    line-height: 2.5em;
+                    font-size: .9em;
+                    color: #7a7a7a;
+                }
+                .brand_strategy_list_li strong {
+                    font-weight: normal;
+                    color: #12b8d7;
+                    color: #000;
+                    font-weight: bold;
+                }
+                .brand_strategy_list_li span {
+                    letter-spacing: 3px;
+                }
+
+    /*<!-- 杂多雪景 -->*/
+    .brand_showimg {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 1em;
+    }
+        .brand_showimg img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+    /*<!-- 品牌故事 -->*/
+    .brand_story {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 1em;
+    }
+        .brand_story_section {
+            display: block;
+            width: 100%;
+            margin-bottom: 1.5em;
+        }
+            .brand_story_section_title {
+                display: block;
+                width: 100%;
+                height: auto;
+                overflow: hidden;
+                text-align: center;
+            }
+                .brand_story_section_title span {
+                    display: inline-block;
+                    width: auto;
+                    height: auto;
+                    line-height: 2em;
+                    font-size: .95em;
+                    color: #000;
+                }
+                .brand_story_section_title span.brand_story_section_title_bold {
+                    font-size: 1.2em;
+                    font-weight: bold;
+                }
+                .brand_story_section_title span.brand_story_section_title_adhereto {
+                    color: #12b8d7;
+                    color: #000;
+                    font-weight: bold;
+                }
+            .brand_story_section_content {}
+                .brand_story_section_content p {
+                    display: block;
+                    width: 100%;
+                    line-height: 2.5em;
+                    font-size: .9em;
+                    color: #666;
+                }
+            .brand_story_section span.ds,
+            .brand_story_section p.ds {
+                line-height: 2.5em;
+            }
+
+    /*<!-- 民众相册 -->*/
+    .brand_album {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+    }
+        .brand_album_padding {
+            padding: 0 1.7em;
+        }
+        .brand_album img {
+            display: inline-block;
+            width: 23%;
+            min-width: 271px;
+            padding: .4em;
+
+            -moz-border-radius: 1em;
+            -webkit-border-radius: 1em;
+            border-radius: 1em;
+        }
+
+/* 图书馆 页面 */
+.library_page {
+    width: 100%;
+    margin: 2.5em 0;
+    letter-spacing: .12em;
+}
+    .library_video {
+        display: block;
+        width: 100%;
+        margin: .8em 0;
+    }
+    .library_title {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+    }
+        .library_title span {
+            display: block;
+            width: 100%;
+            font-size: 1.8em;
+            color: #000;
+            line-height: 2.7em;
+            font-weight: bold;
+        }
+
+    /*<!-- 图书馆故事 -->*/
+    .library_story {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+    }
+        .library_story_title {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+            margin-top: 1em;
+        }
+            .library_story_title span {
+                display: inline-block;
+                font-size: 1.5em;
+                color: #000;
+                line-height: 3em;
+                font-weight: bold;
+            }
+        .library_story_content {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 1em;
+        }
+            .library_story_content p {
+                display: inline-block;
+                font-size: 1.1em;
+                color: #666;
+                line-height: 2.1em;
+            }
+
+    /*<!-- 图书馆现状 -->*/
+    .library_situation {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+    }
+        .library_situation_showimg {
+            width: 100%;
+        }
+            .library_situation_showimg img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        .library_situation_msg {
+            width: 100%;
+            margin: 2em 0;
+        }
+            .library_situation_msg p {
+                display: inline-block;
+                font-size: 1.1em;
+                color: #666;
+                line-height: 2.1em;
+            }
+
+    /*<!-- 图书馆捐赠 -->*/
+    .library_donation {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        margin-top: .9em;
+        margin-bottom: 1.4em;
+    }
+        .library_donation_infocommit {
+            width: 45em;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+            .library_donation_infocommit_item {
+                display: inline-block;
+                width: auto;
+                float: left;
+                overflow: hidden;
+                padding: .4em;
+            }
+                .library_donation_infocommit_item_hint {
+                    display: block;
+                    width: 6.5em;
+                    float: left;
+                    text-align: center;
+                    margin-right: .5em;
+                }
+                    .library_donation_infocommit_item_hint span {
+                        display: block;
+                        background-color: #898989;
+                        width: 100%;
+                        height: 2.5em;
+
+                        line-height: 2.5em;
+                        font-size: 1em;
+                        color: #fff;
+                    }
+                .library_donation_infocommit_item_control {
+                    display: block;
+                    width: 14em;
+                    float: left;
+                }
+                    .library_donation_infocommit_item_control.library_donation_infocommit_item_control_maxSize {
+                        width: 35.8em;
+                    }
+                    .library_donation_infocommit_item_control input,
+                    .library_donation_infocommit_item_control textarea,
+                    .library_donation_infocommit_item_control select {
+                        display: block;
+                        border: 2px solid #898989;
+                        padding: 0 .2em;
+                        width: 100%;
+                        height: 2.5em;
+                        line-height: 2.5em;
+                        font-size: 1em;
+                        color: #000;
+                    }
+                    .library_donation_infocommit_item_control textarea {
+                        height: 5.6em;
+                        line-height: 1.8em;
+                    }
+            .library_donation_infocommit_sumbitbox {
+                display: block;
+                width: 100%;
+                float: left;
+                overflow: hidden;
+                text-align: center;
+            }
+                .library_donation_infocommit_sumbitbox button {
+                    display: inline-block;
+                    background-color: #000;
+                    width: auto;
+                    height: 1.9em;
+                    padding: 0 1.1em;
+                    line-height: 1.9em;
+                    font-size: 1.3em;
+                    color: #fff;
+                }
+                .library_donation_infocommit_sumbitbox button:hover {
+                    cursor: pointer;
+                    background-color: #333;
+                }
+        .library_qrcode {
+            width: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: center;
+        }
+            .library_qrcode_img {
+                width: 11em;
+                margin: 0 auto;
+            }
+                .library_qrcode_img img {
+                    display: block;
+                    width: 100%;
+                }
+            .library_qrcode_txt {
+                width: auto;
+                text-align: center;
+            }
+                .library_qrcode_txt span {
+                    display: block;
+                    font-size: .8em;
+                    line-height: 1.1em;
+                    color: #898989;
+                }
+                .library_qrcode_txt span.max {
+                    font-size: 1em;
+                    line-height: 2.8em;
+                }
+    @media screen and (max-width: 1080px) {
+        .library_page {}
+            .library_donation {
+                text-align: center;
+            }
+                .library_donation_infocommit { }
+                .library_qrcode {
+                    width: 100%;
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    margin-top: 1.5em;
+                }
+                    .library_qrcode_img {
+                        width: 10em;
+                    }
+    }
+    @media screen and (max-width: 820px) {
+        .library_page {}
+            .library_donation {}
+                .library_donation_infocommit {
+                    width: 100%;
+                    min-width: 100%;
+                }
+                    .library_donation_infocommit_item {
+                        width: 100%;
+                    }
+                        .library_donation_infocommit_item_hint {}
+                        .library_donation_infocommit_item_control {
+                            display: block;
+                            width: 100%;
+                            float: left;
+                        }
+                        .library_donation_infocommit_item_control.library_donation_infocommit_item_control_maxSize {
+                            width: 100%;
+                        }
+    }
+
+
+/*<!-- 联系我们 -->*/
+.ContactUs {
+    margin: 3em 0;
+}
+    .ContactUs .Map {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-bottom: 3em;
+    }
+    .ContactUs .Lists {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+        .ContactUs .Lists .li {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            width: 50%;
+            float: left;
+            margin-bottom: 2.4em;
+            white-space: nowrap;
+        }
+            .ContactUs .Lists .li .Icon {
+                display: block;
+                width: 3.5em;
+                margin-top: .5em;
+                margin-right: 1em;
+                float: left;
+            }
+                .ContactUs .Lists .li .Icon .img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+            .ContactUs .Lists .li .Info {
+                display: block;
+                float: left;
+                width: 25em;
+                max-width: calc(100% - 4.5em);
+                white-space: normal;
+            }
+                .ContactUs .Lists .li .Info .span {
+                    display: block;
+                    font-size: 1.3em;
+                    color: #323a45;
+                    line-height: 2em;
+                }
+                .ContactUs .Lists .li .Info .span.title {
+                    font-size: 1.8em;
+                    font-weight: bold;
+                }
+                .ContactUs .Lists .li .Info .span.tel {
+                    color: #f77400;
+                }
+                .ContactUs .Lists .li .Info .span .i {
+                    font-weight: bold;
+                }
+
+    @media screen and (max-width: 1350px) {
+        .ContactUs .Lists .li {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+        }
+    }
+
+.ArticleZF {}
+    .ArticleZF * {
+        -webkit-transition: all .3s ease-in-out 0s;
+        -moz-transition: all .3s ease-in-out 0s;
+        -ms-transition: all .3s ease-in-out 0s;
+        -o-transition: all .3s ease-in-out 0s;
+        transition: all .3s ease-in-out 0s;
+    }
+    .ArticleZF .Content {
+        margin: 3em auto;
+    }
+    .ArticleZF .GName,
+    .ArticleZF .Null {
+        display: block;
+        text-align: center;
+        background-color: #f3f3f3;
+    }
+        .ArticleZF .GName .span,
+        .ArticleZF .Null .span {
+            font-size: 1.5em;
+            line-height: 4em;
+            color: #8d8d8d;
+        }
+    .ArticleZF .GName {
+        margin: 0;
+        text-align: left;
+        background-color: transparent;
+    }
+        .ArticleZF .GName .span {
+            font-size: 1.8em;
+            color: #000;
+            font-weight: bold;
+            line-height: 3em;
+        }
+    .ArticleZF .Lists {
+        margin-bottom: 3em;
+    }
+        .ArticleZF .Lists .li {
+            display: block;
+            overflow: hidden;
+            padding: 1em 0;
+            border-bottom: 1px solid #efefef;
+        }
+            .ArticleZF .Lists .li .thumbnail {
+                display: block;
+                overflow: hidden;
+                position: relative;
+                width: 15%;
+                height: auto;
+                float: left;
+                font-size: 1.4em;
+                line-height: 3em;
+                margin-top: 1em;
+            }
+                .ArticleZF .Lists .li .thumbnail:after {
+                    display: block;
+                    content: '';
+                    padding-bottom: 60%;
+                }
+                .ArticleZF .Lists .li .thumbnail .img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+                .ArticleZF .Lists .li:hover .thumbnail .img {
+                    width: 110%;
+                    height: 106%;
+                    top: -5%;
+                    left: -3%;
+                }
+            .ArticleZF .Lists .li .txt {
+                display: block;
+                width: 80%;
+                height: auto;
+                float: right;
+            }
+                .ArticleZF .Lists .li .txt .span {}
+                .ArticleZF .Lists .li .txt .title {}
+                .ArticleZF .Lists .li .txt .title .span {
+                    color: #333;
+                    font-weight: bold;
+                    font-size: 1.4em;
+                    line-height: 3em;
+                }
+
+                .ArticleZF .Lists .li .txt .description {}
+                .ArticleZF .Lists .li .txt .description .span {
+                    color: #969694;
+                    line-height: 2em;
+                }
+    .ArticleZF .PageNav {
+        margin-bottom: 3em;
+    }
+    .ArticleZF .Lists .li:hover .txt .title .span,
+    .ArticleZF .GName .a.span:hover {
+        color: #f77400;
+    }

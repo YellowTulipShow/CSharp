@@ -43,22 +43,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsHttpRequestHandler.cs" />
+    <Compile Include="BasePage.cs" />
+    <Compile Include="HtmlBuilder.cs" />
     <Compile Include="HttpModule.cs" />
+    <Compile Include="Label\article.cs" />
+    <Compile Include="Label\category.cs" />
+    <Compile Include="Label\comment.cs" />
+    <Compile Include="Label\express.cs" />
+    <Compile Include="Label\orders.cs" />
+    <Compile Include="Label\payment.cs" />
+    <Compile Include="Label\plugin.cs" />
+    <Compile Include="Label\shoppingcart.cs" />
+    <Compile Include="Label\users.cs" />
+    <Compile Include="ManagePage.cs" />
+    <Compile Include="ManagePageBasicsSpread.cs" />
+    <Compile Include="ManagePageTableShowListType.cs" />
+    <Compile Include="Page\article.cs" />
+    <Compile Include="Page\article_list.cs" />
+    <Compile Include="Page\article_show.cs" />
     <Compile Include="Page\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page\index.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Page\cart.cs" />
+    <Compile Include="Page\category.cs" />
+    <Compile Include="Page\error.cs" />
+    <Compile Include="Page\index.cs" />
+    <Compile Include="Page\login.cs" />
+    <Compile Include="Page\oauth_login.cs" />
+    <Compile Include="Page\payment.cs" />
+    <Compile Include="Page\register.cs" />
+    <Compile Include="Page\repassword.cs" />
+    <Compile Include="Page\search.cs" />
+    <Compile Include="Page\shopping.cs" />
     <Compile Include="Page\Show.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Page\useramount.cs" />
+    <Compile Include="Page\usercenter.cs" />
+    <Compile Include="Page\usermessage.cs" />
+    <Compile Include="Page\usermessage_show.cs" />
+    <Compile Include="Page\userorder.cs" />
+    <Compile Include="Page\userorder_show.cs" />
+    <Compile Include="Page\userpoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShoppingCart.cs" />
     <Compile Include="Template\HtmlToAspx.cs" />
+    <Compile Include="Template\HttpModule.cs" />
     <Compile Include="Template\PageTemplate.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Template\UrlRewriteModel.cs" />
+    <Compile Include="UpLoad.cs" />
+    <Compile Include="UserPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">

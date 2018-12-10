@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Web;
+using System.Collections.Generic;
+using System.Text;
 
 namespace YTS.Web.UI.Page
 {
-    public partial class index : BasePage
+    public partial class index : Web.UI.BasePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        /// <summary>
+        /// 重写虚方法,此方法将在Init事件前执行
+        /// </summary>
+        protected override void ShowPage()
         {
-            // 方法执行的首页
-            //HttpContext.Current.Response.Redirect(linkurl("Main_Arena"));
 
-            string url = @"/TS-css3/FrostedGlass.html";
-            HttpContext.Current.Response.Redirect(url);
         }
     }
 
