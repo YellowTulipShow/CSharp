@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Web;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI.Page
 {
@@ -51,7 +51,7 @@ namespace YTS.Web.UI.Page
             }
             try
             {
-                List<Model.cart_keys> ls = (List<Model.cart_keys>)JsonHelper.JSONToObject<List<Model.cart_keys>>(goodsJsonValue);
+                List<Model.cart_keys> ls = (List<Model.cart_keys>)JSON.Deserialize<List<Model.cart_keys>>(goodsJsonValue);
                 goodsList = ShopCart.ToList(ls, group_id); //商品列表
                 goodsTotal = ShopCart.GetTotal(goodsList); //商品统计
             }

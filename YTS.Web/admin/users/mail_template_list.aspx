@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mail_template_list.aspx.cs" Inherits="YTS.Web.admin.users.mail_template_list" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>

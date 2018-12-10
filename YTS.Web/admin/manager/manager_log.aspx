@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="manager_log.aspx.cs" Inherits="YTS.Web.admin.manager.manager_log" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>

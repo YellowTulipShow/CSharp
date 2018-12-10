@@ -4,7 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.users
 {
@@ -83,13 +83,13 @@ namespace YTS.Web.admin.users
             Model.userconfig model = bll.loadConfig();
             try
             {
-                model.regstatus = Utils.StrToInt(regstatus.SelectedValue, 0);
-                model.regmsgstatus = Utils.StrToInt(regmsgstatus.SelectedValue, 0);
+                model.regstatus = ConvertTool.ToInt(regstatus.SelectedValue, 0);
+                model.regmsgstatus = ConvertTool.ToInt(regmsgstatus.SelectedValue, 0);
                 model.regmsgtxt = regmsgtxt.Text;
                 model.regkeywords = regkeywords.Text.Trim();
-                model.regctrl = Utils.StrToInt(regctrl.Text.Trim(), 0);
-                model.regsmsexpired = Utils.StrToInt(regsmsexpired.Text.Trim(), 0);
-                model.regemailexpired = Utils.StrToInt(regemailexpired.Text.Trim(), 0);
+                model.regctrl = ConvertTool.ToInt(regctrl.Text.Trim(), 0);
+                model.regsmsexpired = ConvertTool.ToInt(regsmsexpired.Text.Trim(), 0);
+                model.regemailexpired = ConvertTool.ToInt(regemailexpired.Text.Trim(), 0);
                 if (regverify.Checked == true)
                 {
                     model.regverify = 1;
@@ -124,12 +124,12 @@ namespace YTS.Web.admin.users
                 }
                 model.regrulestxt = regrulestxt.Text;
 
-                model.invitecodeexpired = Utils.StrToInt(invitecodeexpired.Text.Trim(), 1);
-                model.invitecodecount = Utils.StrToInt(invitecodecount.Text.Trim(), 0);
-                model.invitecodenum = Utils.StrToInt(invitecodenum.Text.Trim(), 0);
-                model.pointcashrate = Utils.StrToDecimal(pointcashrate.Text.Trim(), 0);
-                model.pointinvitenum = Utils.StrToInt(pointinvitenum.Text.Trim(), 0);
-                model.pointloginnum = Utils.StrToInt(pointloginnum.Text.Trim(), 0);
+                model.invitecodeexpired = ConvertTool.ToInt(invitecodeexpired.Text.Trim(), 1);
+                model.invitecodecount = ConvertTool.ToInt(invitecodecount.Text.Trim(), 0);
+                model.invitecodenum = ConvertTool.ToInt(invitecodenum.Text.Trim(), 0);
+                model.pointcashrate = ConvertTool.ToDecimal(pointcashrate.Text.Trim(), 0);
+                model.pointinvitenum = ConvertTool.ToInt(pointinvitenum.Text.Trim(), 0);
+                model.pointloginnum = ConvertTool.ToInt(pointloginnum.Text.Trim(), 0);
                 bll.saveConifg(model);
                 AddAdminLog(DTEnums.ActionEnum.Edit.ToString(), "修改用户配置信息"); //记录日志
                 JscriptMsg("修改用户配置成功！", "user_config.aspx");

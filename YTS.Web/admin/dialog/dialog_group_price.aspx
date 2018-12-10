@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="dialog_group_price.aspx.cs" Inherits="YTS.Web.admin.dialog.dialog_group_price" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>

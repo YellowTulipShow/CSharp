@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="user_config.aspx.cs" Inherits="YTS.Web.admin.users.user_config" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>

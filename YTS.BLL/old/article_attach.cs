@@ -92,7 +92,7 @@ namespace YTS.BLL
             Model.article_attach model = GetModel(id);
             if (model != null && model.file_path != filePath)
             {
-                FileHelper.DeleteFile(model.file_path);
+                FileHelp.DeleteFile(model.file_path);
             }
         }
         #endregion

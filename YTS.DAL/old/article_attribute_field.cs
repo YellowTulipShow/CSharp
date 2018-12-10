@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -85,7 +85,7 @@ namespace YTS.DAL
         public bool Update(Model.article_attribute_field model)
         {
             Model.article_attribute_field oldModel = GetModel(model.id);//取到旧的数据
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -163,7 +163,7 @@ namespace YTS.DAL
         public bool Delete(int id)
         {
             Model.article_attribute_field model = GetModel(id);//取得扩展字段实体
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())

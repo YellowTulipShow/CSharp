@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.channel
 {
@@ -148,7 +148,7 @@ namespace YTS.Web.admin.channel
             BLL.article_attribute_field bll = new BLL.article_attribute_field();
 
             model.control_type = ddlControlType.SelectedValue;
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.name = txtName.Text.Trim();
             model.title = txtTitle.Text;
             if (cbIsRequired.Checked == true)
@@ -175,9 +175,9 @@ namespace YTS.Web.admin.channel
             {
                 model.is_html = 0;
             }
-            model.editor_type = Utils.StrToInt(rblEditorType.SelectedValue, 0);
-            model.data_length = Utils.StrToInt(txtDataLength.Text.Trim(), 0);
-            model.data_place = Utils.StrToInt(ddlDataPlace.SelectedValue, 0);
+            model.editor_type = ConvertTool.ToInt(rblEditorType.SelectedValue, 0);
+            model.data_length = ConvertTool.ToInt(txtDataLength.Text.Trim(), 0);
+            model.data_place = ConvertTool.ToInt(ddlDataPlace.SelectedValue, 0);
             model.data_type = rblDataType.SelectedValue;
             model.item_option = txtItemOption.Text.Trim();
             model.default_value = txtDefaultValue.Text.Trim();
@@ -204,11 +204,11 @@ namespace YTS.Web.admin.channel
             if (model.is_sys == 0)
             {
                 model.control_type = ddlControlType.SelectedValue;
-                model.data_length = Utils.StrToInt(txtDataLength.Text.Trim(), 0);
-                model.data_place = Utils.StrToInt(ddlDataPlace.SelectedValue, 0);
+                model.data_length = ConvertTool.ToInt(txtDataLength.Text.Trim(), 0);
+                model.data_place = ConvertTool.ToInt(ddlDataPlace.SelectedValue, 0);
                 model.data_type = rblDataType.SelectedValue;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.title = txtTitle.Text;
             if (cbIsRequired.Checked == true)
             {
@@ -234,7 +234,7 @@ namespace YTS.Web.admin.channel
             {
                 model.is_html = 0;
             }
-            model.editor_type = Utils.StrToInt(rblEditorType.SelectedValue, 0);
+            model.editor_type = ConvertTool.ToInt(rblEditorType.SelectedValue, 0);
             model.item_option = txtItemOption.Text.Trim();
             model.default_value = txtDefaultValue.Text.Trim();
             model.valid_pattern = txtValidPattern.Text.Trim();

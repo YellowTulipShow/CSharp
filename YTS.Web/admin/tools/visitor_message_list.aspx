@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="visitor_message_list.aspx.cs" Inherits="YTS.Web.admin.tools.visitor_message_list" ValidateRequest="false" %>
 
-<%@ Import Namespace="YTS.Common" %>
+<%@ Import Namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
                     <a class="menu-btn"><i class="iconfont icon-more"></i></a>
                     <div class="l-list">
                         <ul class="icon-list">
-                            <!--<li><a href="product_type_edit.aspx?action=<%=YTS.Common.DTEnums.ActionEnum.Add %>"><i class="iconfont icon-close"></i><span>新增</span></a></li>-->
+                            <!--<li><a href="product_type_edit.aspx?action=<%=YTS.Tools.DTEnums.ActionEnum.Add %>"><i class="iconfont icon-close"></i><span>新增</span></a></li>-->
                             <li><a href="javascript:;" onclick="checkAll(this);"><i class="iconfont icon-check"></i><span>全选</span></a></li>
                             <li>
                                 <asp:LinkButton ID="btnDelete" runat="server" OnClientClick="return ExePostBack('btnDelete');"><i class="iconfont icon-delete"></i><span>删除</span></asp:LinkButton>
@@ -107,7 +107,7 @@
 
                         <td><%#string.Format("{0:G}",Eval("TimeAdd")).Replace('/','-')%></td>
                         <td><%#Eval("Remark")%></td>
-                        <!--<td align="center"><a href="product_type_edit.aspx?action=<%#YTS.Common.DTEnums.ActionEnum.Edit%>&id=<%#Eval("id")%>">修改</a></td>-->
+                        <!--<td align="center"><a href="product_type_edit.aspx?action=<%#YTS.Tools.DTEnums.ActionEnum.Edit%>&id=<%#Eval("id")%>">修改</a></td>-->
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>

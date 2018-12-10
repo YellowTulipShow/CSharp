@@ -4,7 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.settings
 {
@@ -163,7 +163,7 @@ namespace YTS.Web.admin.settings
 
                 model.webpath = webpath.Text;
                 model.webmanagepath = webmanagepath.Text;
-                model.staticstatus = Utils.StrToInt(staticstatus.SelectedValue, 0);
+                model.staticstatus = ConvertTool.ToInt(staticstatus.SelectedValue, 0);
                 model.staticextension = staticextension.Text;
                 if (memberstatus.Checked == true)
                 {
@@ -217,7 +217,7 @@ namespace YTS.Web.admin.settings
                 {
                     model.emailssl = 0;
                 }
-                model.emailport = Utils.StrToInt(emailport.Text.Trim(), 25);
+                model.emailport = ConvertTool.ToInt(emailport.Text.Trim(), 25);
                 model.emailfrom = emailfrom.Text;
                 model.emailusername = emailusername.Text;
                 //判断密码是否更改
@@ -228,26 +228,26 @@ namespace YTS.Web.admin.settings
                 model.emailnickname = emailnickname.Text;
 
                 model.filepath = filepath.Text;
-                model.filesave = Utils.StrToInt(filesave.SelectedValue, 2);
-                model.fileremote = Utils.StrToInt(fileremote.SelectedValue, 0);
+                model.filesave = ConvertTool.ToInt(filesave.SelectedValue, 2);
+                model.fileremote = ConvertTool.ToInt(fileremote.SelectedValue, 0);
                 model.fileextension = fileextension.Text;
                 model.videoextension = videoextension.Text;
-                model.attachsize = Utils.StrToInt(attachsize.Text.Trim(), 0);
-                model.videosize = Utils.StrToInt(videosize.Text.Trim(), 0);
-                model.imgsize = Utils.StrToInt(imgsize.Text.Trim(), 0);
-                model.imgmaxheight = Utils.StrToInt(imgmaxheight.Text.Trim(), 0);
-                model.imgmaxwidth = Utils.StrToInt(imgmaxwidth.Text.Trim(), 0);
-                model.thumbnailheight = Utils.StrToInt(thumbnailheight.Text.Trim(), 0);
-                model.thumbnailwidth = Utils.StrToInt(thumbnailwidth.Text.Trim(), 0);
+                model.attachsize = ConvertTool.ToInt(attachsize.Text.Trim(), 0);
+                model.videosize = ConvertTool.ToInt(videosize.Text.Trim(), 0);
+                model.imgsize = ConvertTool.ToInt(imgsize.Text.Trim(), 0);
+                model.imgmaxheight = ConvertTool.ToInt(imgmaxheight.Text.Trim(), 0);
+                model.imgmaxwidth = ConvertTool.ToInt(imgmaxwidth.Text.Trim(), 0);
+                model.thumbnailheight = ConvertTool.ToInt(thumbnailheight.Text.Trim(), 0);
+                model.thumbnailwidth = ConvertTool.ToInt(thumbnailwidth.Text.Trim(), 0);
                 model.thumbnailmode = thumbnailmode.SelectedValue;
-                model.watermarktype = Utils.StrToInt(watermarktype.SelectedValue, 0);
-                model.watermarkposition = Utils.StrToInt(watermarkposition.Text.Trim(), 9);
-                model.watermarkimgquality = Utils.StrToInt(watermarkimgquality.Text.Trim(), 80);
+                model.watermarktype = ConvertTool.ToInt(watermarktype.SelectedValue, 0);
+                model.watermarkposition = ConvertTool.ToInt(watermarkposition.Text.Trim(), 9);
+                model.watermarkimgquality = ConvertTool.ToInt(watermarkimgquality.Text.Trim(), 80);
                 model.watermarkpic = watermarkpic.Text;
-                model.watermarktransparency = Utils.StrToInt(watermarktransparency.Text.Trim(), 5);
+                model.watermarktransparency = ConvertTool.ToInt(watermarktransparency.Text.Trim(), 5);
                 model.watermarktext = watermarktext.Text;
                 model.watermarkfont = watermarkfont.Text;
-                model.watermarkfontsize = Utils.StrToInt(watermarkfontsize.Text.Trim(), 12);
+                model.watermarkfontsize = ConvertTool.ToInt(watermarkfontsize.Text.Trim(), 12);
 
                 bll.saveConifg(model);
                 AddAdminLog(DTEnums.ActionEnum.Edit.ToString(), "修改系统配置信息"); //记录日志

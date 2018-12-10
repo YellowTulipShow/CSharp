@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="message_edit.aspx.cs" Inherits="YTS.Web.admin.users.message_edit" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>

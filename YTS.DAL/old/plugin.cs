@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -92,7 +92,7 @@ namespace YTS.DAL
         /// </summary>
         public void MarkTemplet(string sitePath, string tempPath, string skinName, string dirPath, string xPath)
         {
-            XmlNodeList xnList = XmlHelper.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
+            XmlNodeList xnList = XML.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
             foreach (XmlElement xe in xnList)
             {
                 if (xe.NodeType != XmlNodeType.Comment && xe.Name.ToLower() == "rewrite")
@@ -118,7 +118,7 @@ namespace YTS.DAL
         /// </summary>
         public bool UpdateNodeValue(string dirPath, string xPath, string value)
         {
-            return XmlHelper.UpdateNodeInnerText(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath, value);
+            return XML.UpdateNodeInnerText(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath, value);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace YTS.DAL
         /// </summary>
         public bool AppendNodes(string dirPath, string xPath)
         {
-            XmlNodeList xnList = XmlHelper.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
+            XmlNodeList xnList = XML.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
              return new url_rewrite().Import(xnList);
         }
 
@@ -152,7 +152,7 @@ namespace YTS.DAL
         /// </summary>
         public bool RemoveNodes(string dirPath, string xPath)
         {
-            XmlNodeList xnList = XmlHelper.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
+            XmlNodeList xnList = XML.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
             return new url_rewrite().Remove(xnList);
         }
 
@@ -161,7 +161,7 @@ namespace YTS.DAL
         /// </summary>
         public bool AppendMenuNodes(string navPath, string dirPath, string xPath, string parentName)
         {
-            XmlNodeList xnList = XmlHelper.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
+            XmlNodeList xnList = XML.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
             if (xnList.Count > 0)
             {
                 foreach (XmlElement xe in xnList)
@@ -207,7 +207,7 @@ namespace YTS.DAL
         /// </summary>
         public void RemoveMenuNodes(string dirPath, string xPath)
         {
-            XmlNodeList xnList = XmlHelper.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
+            XmlNodeList xnList = XML.ReadNodes(dirPath + DTKeys.FILE_PLUGIN_XML_CONFING, xPath);
             if (xnList.Count > 0)
             {
                 DAL.navigation dal = new navigation(databaseprefix);
@@ -238,7 +238,7 @@ namespace YTS.DAL
             try
             {
                 List<string> ls = new List<string>();
-                XmlNodeList xnList = XmlHelper.ReadNodes(filePath, xPath);
+                XmlNodeList xnList = XML.ReadNodes(filePath, xPath);
                 if (xnList.Count > 0)
                 {
                     foreach (XmlElement xe in xnList)

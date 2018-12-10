@@ -6,8 +6,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using YTS.Common;
-using YTS.DBUtility;
+using YTS.DAL;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 using YTS.Web.UI;
 
 namespace YTS.Web.admin.tools
@@ -103,11 +104,11 @@ namespace YTS.Web.admin.tools
 
             daModel.Time_Start = daModel.Time_Start.Replace("'", "");
             if (!CheckData.IsStringNull(daModel.Time_Start)) {
-                sqls.Add(CreateSQL.WhereGreaterThanEqual(BLL_vismsg.ColName_TimeAdd, daModel.Time_Start));
+                sqls.Add(CreateSQL.WhereBigThanEqual(BLL_vismsg.ColName_TimeAdd, daModel.Time_Start));
             }
             daModel.Time_End = daModel.Time_End.Replace("'", "");
             if (!CheckData.IsStringNull(daModel.Time_End)) {
-                sqls.Add(CreateSQL.WhereLessThanEqual(BLL_vismsg.ColName_TimeAdd, daModel.Time_End));
+                sqls.Add(CreateSQL.WhereSmallThanEqual(BLL_vismsg.ColName_TimeAdd, daModel.Time_End));
             }
 
             if (!CheckData.IsStringNull(daModel.LikeSelectValue)) {
@@ -118,7 +119,7 @@ namespace YTS.Web.admin.tools
                 }
             }
 
-            string resultSQLStr = ConvertTool.IListToString(sqls, CreateSQL.WHERE_AND);
+            string resultSQLStr = ConvertTool.ToString(sqls, CreateSQL.WHERE_AND);
             if (CheckData.IsStringNull(resultSQLStr.Trim())) {
                 return string.Empty;
             }

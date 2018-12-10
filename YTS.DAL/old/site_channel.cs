@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -48,7 +48,7 @@ namespace YTS.DAL
                 return 0;
             }
 
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open(); //打开数据连接
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -123,7 +123,7 @@ namespace YTS.DAL
             {
                 return false;
             }
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -211,7 +211,7 @@ namespace YTS.DAL
             //取得要删除的所有导航ID
             string navIds = new navigation(databaseprefix).GetIds("channel_" + channelName);
 
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicsBLL.cs" />
     <Compile Include="dv_SiteChannelFieldInfo.cs" />
     <Compile Include="MSSQLServer_IntID.cs" />
     <Compile Include="MSSQLServer_StringID.cs" />

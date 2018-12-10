@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -285,7 +285,7 @@ namespace YTS.DAL
 					new SqlParameter("@nav_name", SqlDbType.NVarChar,50)};
             parameters[0].Value = nav_name;
             string str = Convert.ToString(DbHelperSQL.GetSingle(strSql.ToString(), parameters));
-            return Utils.StrToInt(str, 0);
+            return ConvertTool.ToInt(str, 0);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 
 namespace YTS.Web.admin.users
@@ -114,7 +114,7 @@ namespace YTS.Web.admin.users
                 }
                 //开始发送短信
                 string msg = string.Empty;
-                bool result = new BLL.sms_message().Send(txtMobileNumbers.Text.Trim(), txtSmsContent.Text.Trim(), Utils.StrToInt(ddlSmsPass.SelectedValue, 3), out msg);
+                bool result = new BLL.sms_message().Send(txtMobileNumbers.Text.Trim(), txtSmsContent.Text.Trim(), ConvertTool.ToInt(ddlSmsPass.SelectedValue, 3), out msg);
                 if (result)
                 {
                     AddAdminLog(DTEnums.ActionEnum.Add.ToString(), "发送手机短信"); //记录日志
@@ -142,7 +142,7 @@ namespace YTS.Web.admin.users
                 string _mobiles = GetGroupMobile(al);
                 //开始发送短信
                 string msg = string.Empty;
-                bool result = new BLL.sms_message().Send(_mobiles, txtSmsContent.Text.Trim(), Utils.StrToInt(ddlSmsPass.SelectedValue, 3), out msg);
+                bool result = new BLL.sms_message().Send(_mobiles, txtSmsContent.Text.Trim(), ConvertTool.ToInt(ddlSmsPass.SelectedValue, 3), out msg);
                 if (result)
                 {
                     AddAdminLog(DTEnums.ActionEnum.Add.ToString(), "发送手机短信"); //记录日志

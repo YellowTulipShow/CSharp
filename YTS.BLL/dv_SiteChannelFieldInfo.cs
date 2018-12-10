@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using YTS.DBUtility;
-using YTS.Common;
 using System.Data;
+using System.Collections.Generic;
+using YTS.Tools;
+using YTS.Engine.DataBase.MSQLServer;
 
 namespace YTS.BLL
 {
@@ -40,7 +40,7 @@ namespace YTS.BLL
                 wheres.Add(CreateSQL.WhereEqual(ColName_ID_ChannelInfo, channel_id.ToString()));
             }
 
-            string sqlwhere = ConvertTool.IListToString(wheres, CreateSQL.WHERE_AND);
+            string sqlwhere = ConvertTool.ToString(wheres, CreateSQL.WHERE_AND);
             DataTable dt = base.GetList(0, sqlwhere, string.Empty).Tables[0];
             if (CheckData.IsSizeEmpty(dt)) {
                 return new Model.dv_SiteChannelFieldInfo[] { };

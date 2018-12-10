@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {

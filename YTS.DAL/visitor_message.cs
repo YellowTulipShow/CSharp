@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -15,12 +14,12 @@ namespace YTS.DAL
         public readonly static Model.visitor_message defmodel = new Model.visitor_message();
         public visitor_message() : base(defmodel) { }
 
-        //public readonly string ColName_id = ReflexHelper.Name(() => defmodel.id);
-        public readonly string ColName_name = ReflexHelper.Name(() => defmodel.name);
-        //public readonly string ColName_tel = ReflexHelper.Name(() => defmodel.tel);
-        //public readonly string ColName_msg = ReflexHelper.Name(() => defmodel.msg);
-        public readonly string ColName_ipaddress = ReflexHelper.Name(() => defmodel.ipaddress);
-        public readonly string ColName_TimeAdd = ReflexHelper.Name(() => defmodel.TimeAdd);
-        //public readonly string ColName_Remark = ReflexHelper.Name(() => defmodel.Remark);
+        //public readonly string ColName_id = ReflexHelp.Name(() => defmodel.id);
+        public readonly string ColName_name = ReflexHelp.Name(() => defmodel.name);
+        //public readonly string ColName_tel = ReflexHelp.Name(() => defmodel.tel);
+        //public readonly string ColName_msg = ReflexHelp.Name(() => defmodel.msg);
+        public readonly string ColName_ipaddress = ReflexHelp.Name(() => defmodel.ipaddress);
+        public readonly string ColName_TimeAdd = ReflexHelp.Name(() => defmodel.TimeAdd);
+        //public readonly string ColName_Remark = ReflexHelp.Name(() => defmodel.Remark);
     }
 }

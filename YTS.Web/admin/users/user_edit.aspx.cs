@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.users
 {
@@ -197,9 +197,9 @@ namespace YTS.Web.admin.users
             model.qq = Utils.DropHTML(txtQQ.Text);
             model.msn = Utils.DropHTML(txtMsn.Text);
             model.address = Utils.DropHTML(txtAddress.Text.Trim());
-            model.amount = Utils.StrToDecimal(txtAmount.Text.Trim(), 0);
-            model.point = Utils.StrToInt(txtPoint.Text.Trim(), 0);
-            model.exp = Utils.StrToInt(txtExp.Text.Trim(), 0);
+            model.amount = ConvertTool.ToDecimal(txtAmount.Text.Trim(), 0);
+            model.point = ConvertTool.ToInt(txtPoint.Text.Trim(), 0);
+            model.exp = ConvertTool.ToInt(txtExp.Text.Trim(), 0);
 
             if (bll.Update(model))
             {

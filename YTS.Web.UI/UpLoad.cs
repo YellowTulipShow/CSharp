@@ -5,7 +5,7 @@ using System.IO;
 using System.Drawing;
 using System.Net;
 using System.Configuration;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {
@@ -93,11 +93,11 @@ namespace YTS.Web.UI
                     Directory.CreateDirectory(fullUpLoadPath);
                 }
                 //保存主文件
-                FileHelper.SaveFile(byteData, fullUpLoadPath + newFileName);
+                FileHelp.SaveFile(byteData, fullUpLoadPath + newFileName);
                 //保存缩略图文件
                 if (thumbData != null)
                 {
-                    FileHelper.SaveFile(thumbData, fullUpLoadPath + newThumbnailFileName);
+                    FileHelp.SaveFile(thumbData, fullUpLoadPath + newThumbnailFileName);
                 }
 
                 //处理完毕，返回JOSN格式的文件信息
@@ -174,7 +174,7 @@ namespace YTS.Web.UI
                 }
                 try
                 {
-                    byte[] byteData = FileHelper.ConvertStreamToByteBuffer(response.GetResponseStream());
+                    byte[] byteData = FileHelp.ConvertStreamToByteBuffer(response.GetResponseStream());
                     return FileSaveAs(byteData, sourceUri, false, false);
                 }
                 catch (Exception e)
@@ -193,7 +193,7 @@ namespace YTS.Web.UI
             //文件不应是上传文件，防止跨目录删除
             if (fileUri.IndexOf("..") == -1 && fileUri.ToLower().StartsWith(sysConfig.webpath.ToLower() + sysConfig.filepath.ToLower()))
             {
-                FileHelper.DeleteUpFile(fileUri);
+                FileHelp.DeleteUpFile(fileUri);
             }
         }
 

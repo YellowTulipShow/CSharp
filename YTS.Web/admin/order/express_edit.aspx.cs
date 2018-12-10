@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.order
 {
@@ -72,7 +72,7 @@ namespace YTS.Web.admin.order
 
             model.title = txtTitle.Text.Trim();
             model.express_code = txtExpressCode.Text.Trim();
-            model.express_fee = Utils.StrToDecimal(txtExpressFee.Text.Trim(), 0);
+            model.express_fee = ConvertTool.ToDecimal(txtExpressFee.Text.Trim(), 0);
             model.website = txtWebSite.Text.Trim();
             model.remark = Utils.ToHtml(txtRemark.Text);
             if (cbIsLock.Checked == true)
@@ -83,7 +83,7 @@ namespace YTS.Web.admin.order
             {
                 model.is_lock = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             if (bll.Add(model) > 0)
             {
@@ -103,7 +103,7 @@ namespace YTS.Web.admin.order
 
             model.title = txtTitle.Text.Trim();
             model.express_code = txtExpressCode.Text.Trim();
-            model.express_fee = Utils.StrToDecimal(txtExpressFee.Text.Trim(), 0);
+            model.express_fee = ConvertTool.ToDecimal(txtExpressFee.Text.Trim(), 0);
             model.website = txtWebSite.Text.Trim();
             model.remark = Utils.ToHtml(txtRemark.Text);
             if (cbIsLock.Checked == true)
@@ -114,7 +114,7 @@ namespace YTS.Web.admin.order
             {
                 model.is_lock = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             if (bll.Update(model))
             {

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="site_oauth_list.aspx.cs" Inherits="YTS.Web.admin.users.site_oauth_list" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>
@@ -83,7 +83,7 @@
     </td>
     <td><img src="<%#Eval("img_url")%>" title="<%#Eval("ptitle")%>" /></td>
     <td><a href="site_oauth_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&id=<%#Eval("id")%>"><%#Eval("title")%></a></td>
-    <td><%#new YTS.BLL.sites().GetTitle(Utils.StrToInt(Eval("site_id").ToString(),0))%></td>
+    <td><%#new YTS.BLL.sites().GetTitle(ConvertTool.ToInt(Eval("site_id").ToString(),0))%></td>
     <td><asp:TextBox ID="txtSortId" runat="server" Text='<%#Eval("sort_id")%>' CssClass="sort" onkeydown="return checkNumber(event);" /></td>
     <td><%#string.Format("{0:g}",Eval("add_time"))%></td>
     <td align="center"><a href="site_oauth_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&id=<%#Eval("id")%>">修改</a></td>

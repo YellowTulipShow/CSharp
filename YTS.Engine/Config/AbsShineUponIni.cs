@@ -26,7 +26,7 @@ namespace YTS.Engine.Config
         }
 
         public virtual string GetPathFolder() {
-            return string.Format("/{0}", PathHelp.ToPathSymbol(YTS.Tools.Const.Names.SYSTEM_AUTO_GENERATES_PATH));
+            return string.Format("/{0}", PathHelp.ToPathSymbol(Tools.Const.Names.SYSTEM_AUTO_GENERATES_PATH));
         }
 
         public abstract string GetFileName();

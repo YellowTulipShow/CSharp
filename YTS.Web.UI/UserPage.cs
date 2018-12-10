@@ -9,7 +9,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {

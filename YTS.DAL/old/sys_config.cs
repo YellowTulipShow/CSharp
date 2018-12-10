@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -17,7 +17,7 @@ namespace YTS.DAL
         /// </summary>
         public Model.sysconfig loadConfig(string configFilePath)
         {
-            return (Model.sysconfig)SerializationHelper.Load(typeof(Model.sysconfig), configFilePath);
+            return (Model.sysconfig)XML.Load(typeof(Model.sysconfig), configFilePath);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace YTS.DAL
         {
             lock (lockHelper)
             {
-                SerializationHelper.Save(model, configFilePath);
+                XML.Save(model, configFilePath);
             }
             return model;
         }

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.BLL
 {
@@ -54,9 +54,9 @@ namespace YTS.BLL
                 if (old_build_path.ToLower() != model.build_path.ToLower())
                 {
                     //更改频道分类对应的目录名称
-                    FileHelper.MoveDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + old_build_path,
+                    FileHelp.MoveDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + old_build_path,
                         sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + model.build_path);
-                    FileHelper.MoveDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_HTML + "/" + old_build_path,
+                    FileHelp.MoveDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_HTML + "/" + old_build_path,
                         sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_HTML + "/" + model.build_path);
                 }
                 return true;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.manager
 {
@@ -175,9 +175,9 @@ namespace YTS.Web.admin.manager
                 cblActionType.Items.Clear();
                 for (int i = 0; i < actionTypeArr.Length; i++)
                 {
-                    if (Utils.ActionType().ContainsKey(actionTypeArr[i]))
+                    if (EnumInfo.IsContains<Tools.Const.Enums.ManagementOperate>(actionTypeArr[i]))
                     {
-                        cblActionType.Items.Add(new ListItem(" " + Utils.ActionType()[actionTypeArr[i]] + " ", actionTypeArr[i]));
+                        cblActionType.Items.Add(new ListItem(" " + EnumInfo.ToDictionary<Tools.Const.Enums.ManagementOperate>()[actionTypeArr[i]].Explain + " ", actionTypeArr[i]));
                     }
                 }
             }

@@ -5,7 +5,7 @@ using System.Data;
 using System.Web;
 using System.Web.SessionState;
 using YTS.Web.UI;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.tools
 {
@@ -399,7 +399,7 @@ namespace YTS.Web.tools
                 return;
             }
             //反序列化JSON
-            Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(result);
+            Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(result);
             if (dic["ret"].ToString() != "0")
             {
                 context.Response.Write("{\"status\": 0, \"msg\": \"错误代码：" + dic["ret"] + "，描述：" + dic["msg"] + "\"}");
@@ -475,7 +475,7 @@ namespace YTS.Web.tools
             string mobile = Utils.ToHtml(DTRequest.GetFormString("txtMobile").Trim());
             string userip = DTRequest.GetIP();
             //反序列化JSON
-            Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(result);
+            Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(result);
             if (dic["ret"].ToString() != "0")
             {
                 context.Response.Write("{\"status\": 0, \"msg\": \"错误代码：" + dic["ret"] + "，" + dic["msg"] + "\"}");
@@ -530,7 +530,7 @@ namespace YTS.Web.tools
             }
             if (!string.IsNullOrEmpty(dic["birthday"].ToString()))
             {
-                model.birthday = Utils.StrToDateTime(dic["birthday"].ToString());
+                model.birthday = ConvertTool.ToDateTime(dic["birthday"].ToString(), DateTime.Now);
             }
             model.reg_ip = userip;
             model.reg_time = DateTime.Now;
@@ -1067,7 +1067,7 @@ namespace YTS.Web.tools
             //检查是否图片
 
             //检查参数
-            if (!FileHelper.FileExists(fileName) || w == 0 || h == 0)
+            if (!FileHelp.FileExists(fileName) || w == 0 || h == 0)
             {
                 context.Response.Write("{\"status\":0, \"msg\":\"对不起，请先上传一张图片！\"}");
                 return;
@@ -1075,7 +1075,7 @@ namespace YTS.Web.tools
             //取得保存的新文件名
             UpLoad upFiles = new UpLoad();
             string result = upFiles.CropSaveAs(fileName, 180, 180, w, h, x1, y1);
-            Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(result);
+            Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(result);
             if (dic["status"].ToString() == "0")
             {
                 context.Response.Write("{\"status\": 0, \"msg\": \"图片裁剪过程中发生意外错误！\"}");
@@ -1581,7 +1581,7 @@ namespace YTS.Web.tools
             string[] arrId = check_id.Split(',');
             for (int i = 0; i < arrId.Length; i++)
             {
-                int id = Utils.StrToInt(arrId[i], 0);
+                int id = ConvertTool.ToInt(arrId[i], 0);
                 if (id > 0)
                 {
                     new BLL.user_point_log().Delete(id, model.user_name);
@@ -1611,7 +1611,7 @@ namespace YTS.Web.tools
             string[] arrId = check_id.Split(',');
             for (int i = 0; i < arrId.Length; i++)
             {
-                int id = Utils.StrToInt(arrId[i], 0);
+                int id = ConvertTool.ToInt(arrId[i], 0);
                 if (id > 0)
                 {
                     new BLL.user_amount_log().Delete(id, model.user_name);
@@ -1641,7 +1641,7 @@ namespace YTS.Web.tools
             string[] arrId = check_id.Split(',');
             for (int i = 0; i < arrId.Length; i++)
             {
-                int id = Utils.StrToInt(arrId[i], 0);
+                int id = ConvertTool.ToInt(arrId[i], 0);
                 if (id > 0)
                 {
                     new BLL.user_recharge().Delete(id, model.user_name);
@@ -1671,7 +1671,7 @@ namespace YTS.Web.tools
             string[] arrId = check_id.Split(',');
             for (int i = 0; i < arrId.Length; i++)
             {
-                int id = Utils.StrToInt(arrId[i], 0);
+                int id = ConvertTool.ToInt(arrId[i], 0);
                 if (id > 0)
                 {
                     new BLL.user_message().Delete(id, model.user_name);
@@ -1717,7 +1717,7 @@ namespace YTS.Web.tools
                 context.Response.Write("{\"status\":0, \"msg\":\"商品传输参数不正确！\"}");
                 return;
             }
-            List<Model.cart_keys> ls = (List<Model.cart_keys>)JsonHelper.JSONToObject<List<Model.cart_keys>>(jsonData);
+            List<Model.cart_keys> ls = (List<Model.cart_keys>)JSON.Deserialize<List<Model.cart_keys>>(jsonData);
             if (ls != null)
             {
                 Utils.WriteCookie(DTKeys.COOKIE_SHOPPING_BUY, jsonData); //暂放在清单
@@ -1880,7 +1880,7 @@ namespace YTS.Web.tools
                 return;
             }
             //获取商品信息==================================
-            List<Model.cart_keys> iList = (List<Model.cart_keys>)JsonHelper.JSONToObject<List<Model.cart_keys>>(hideGoodsJson);
+            List<Model.cart_keys> iList = (List<Model.cart_keys>)JSON.Deserialize<List<Model.cart_keys>>(hideGoodsJson);
             List<Model.cart_items> goodsList = ShopCart.ToList(iList, user_group_id); //商品列表
             Model.cart_total goodsTotal = ShopCart.GetTotal(goodsList); //商品统计
             if (goodsList == null)

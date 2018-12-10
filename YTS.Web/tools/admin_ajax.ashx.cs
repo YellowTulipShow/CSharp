@@ -8,7 +8,7 @@ using System.Data;
 using System.Web;
 using System.Web.SessionState;
 using YTS.Web.UI;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.tools
 {

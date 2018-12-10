@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using YTS.Common;
-using YTS.DBUtility;
-
+using YTS.DAL;
+using YTS.Tools;
 namespace YTS.Web.UI
 {
     public abstract class ManagePageTableShowListType<T> : ManagePageBasicsSpread where T : Model.AbsTableModel
@@ -308,7 +307,7 @@ namespace YTS.Web.UI
         /// 获取当前页面URL链接
         /// </summary>
         protected string GetAccessThisPageURLLink(string pageUrl, AbsBasicDataModel daModel, string AddParamsStr) {
-            //string paramsStr = URLHelper.ConvertDictionaryToString(ReflexHelper.GetObjectAttribute(daModel));
+            //string paramsStr = URLHelper.ConvertDictionaryToString(ReflexHelp.GetObjectAttribute(daModel));
             //string ResuPageUrl = string.Empty;
             //if (!string.IsNullOrEmpty(AddParamsStr) && !string.IsNullOrWhiteSpace(AddParamsStr))
             //{
@@ -334,7 +333,7 @@ namespace YTS.Web.UI
         protected int[] GetTableTrUserSelectDataIDs(bool isSelected) {
             List<int> ids = new List<int>();
             for (int i = 0; i < rptList.Items.Count; i++) {
-                int id = Utils.ObjToInt(((HiddenField)rptList.Items[i].FindControl("hidId")).Value, 0);
+                int id = ConvertTool.ToInt(((HiddenField)rptList.Items[i].FindControl("hidId")).Value, 0);
                 CheckBox cb = (CheckBox)rptList.Items[i].FindControl("chkId");
                 if (cb.Checked == isSelected) {
                     ids.Add(id);
@@ -380,7 +379,7 @@ namespace YTS.Web.UI
         protected string imgResult(string sourceImgUrl) {
             StringBuilder resultStr = new StringBuilder();
 
-            if (!FileHelper.FileExists(sourceImgUrl)) {
+            if (!FileHelp.FileExists(sourceImgUrl)) {
                 return String.Format("文件不存在<br/>{0}", sourceImgUrl);
             }
             resultStr.Append(String.Format("<a href=\"{0}\" target=\"_blank\">", sourceImgUrl));
@@ -413,7 +412,7 @@ namespace YTS.Web.UI
         /// <returns></returns>
         protected string PageFormat_Region(string[] list) {
             string[] formatlist = ConvertTool.ListConvertType(list, str => string.Format("<span>{0}</span>", str));
-            return string.Format("<div class=\"l-btns\">{0}</div>", ConvertTool.IListToString(formatlist, PAGE_OUTPUT_LINE_BREAK));
+            return string.Format("<div class=\"l-btns\">{0}</div>", ConvertTool.ToString(formatlist, PAGE_OUTPUT_LINE_BREAK));
         }
 
         /// <summary>
@@ -433,7 +432,7 @@ namespace YTS.Web.UI
         /// <param name="objValue">数据源</param>
         /// <param name="decimals">取小数点后 N 位</param>
         protected string ShowDoudleNormal(object objValue, int decimals) {
-            double num = Utils.ObjToFloat(objValue, 0);
+            double num = ConvertTool.ToFloat(objValue, 0);
             return Math.Round(num, decimals).ToString();
         }
 

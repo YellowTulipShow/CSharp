@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Web;
 using System.Web.Caching;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.BLL
 {

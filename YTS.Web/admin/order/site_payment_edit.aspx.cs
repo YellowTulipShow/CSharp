@@ -4,7 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.order
 {
@@ -166,9 +166,9 @@ namespace YTS.Web.admin.order
             this.model = new Model.site_payment();
             BLL.site_payment bll = new BLL.site_payment();
 
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
-            model.payment_id = Utils.StrToInt(ddlPaymentId.SelectedValue, 0);
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
+            model.payment_id = ConvertTool.ToInt(ddlPaymentId.SelectedValue, 0);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.title = txtTitle.Text.Trim();
             model.key1 = txtKey1.Text.Trim();
             model.key2 = txtKey2.Text.Trim();
@@ -189,9 +189,9 @@ namespace YTS.Web.admin.order
             bool result = false;
             BLL.site_payment bll = new BLL.site_payment();
 
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
-            model.payment_id = Utils.StrToInt(ddlPaymentId.SelectedValue, 0);
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
+            model.payment_id = ConvertTool.ToInt(ddlPaymentId.SelectedValue, 0);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.title = txtTitle.Text.Trim();
             model.key1 = txtKey1.Text.Trim();
             model.key2 = txtKey2.Text.Trim();
@@ -210,7 +210,7 @@ namespace YTS.Web.admin.order
         //根据站点显示未添加的平台
         protected void ddlSiteId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int currSiteId = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
+            int currSiteId = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
             if (this.model != null && currSiteId == this.model.site_id)
             {
                 PaymentBind(currSiteId, model.payment_id);
@@ -224,7 +224,7 @@ namespace YTS.Web.admin.order
          //根据平台显示相关字段
         protected void ddlPaymentId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int currPaymentId = Utils.StrToInt(ddlPaymentId.SelectedValue, 0);
+            int currPaymentId = ConvertTool.ToInt(ddlPaymentId.SelectedValue, 0);
             if (currPaymentId > 0)
             {
                 ShowFields(currPaymentId);

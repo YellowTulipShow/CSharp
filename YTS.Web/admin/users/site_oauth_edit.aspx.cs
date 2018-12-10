@@ -4,7 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.users
 {
@@ -102,9 +102,9 @@ namespace YTS.Web.admin.users
             this.model = new Model.site_oauth();
             BLL.site_oauth bll = new BLL.site_oauth();
 
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
-            model.oauth_id = Utils.StrToInt(ddlOauthId.SelectedValue, 0);
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
+            model.oauth_id = ConvertTool.ToInt(ddlOauthId.SelectedValue, 0);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.title = txtTitle.Text.Trim();
             model.app_id = txtAppId.Text.Trim();
             model.app_key = txtAppKey.Text.Trim();
@@ -123,9 +123,9 @@ namespace YTS.Web.admin.users
             bool result = false;
             BLL.site_oauth bll = new BLL.site_oauth();
 
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
-            model.oauth_id = Utils.StrToInt(ddlOauthId.SelectedValue, 0);
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
+            model.oauth_id = ConvertTool.ToInt(ddlOauthId.SelectedValue, 0);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.title = txtTitle.Text.Trim();
             model.app_id = txtAppId.Text.Trim();
             model.app_key = txtAppKey.Text.Trim();
@@ -142,7 +142,7 @@ namespace YTS.Web.admin.users
         //根据站点显示未安装的应用
         protected void ddlSiteId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int currSiteId = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
+            int currSiteId = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
             if (this.model != null && currSiteId == this.model.site_id)
             {
                 OauthBind(currSiteId, model.oauth_id);

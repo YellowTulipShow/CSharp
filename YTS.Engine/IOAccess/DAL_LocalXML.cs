@@ -61,7 +61,7 @@ namespace YTS.Engine.IOAccess
                 models = new M[] { };
             }
             if (isOverride) {
-                File.Delete(this.AbsFilePath);
+                FileHelp.DeleteFile(this.AbsFilePath);
             }
             XmlSerializer xs = new XmlSerializer(typeof(M[]));
             using (FileStream fs = File.Open(this.AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, this.FileShare)) {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.channel
 {
@@ -182,7 +182,7 @@ namespace YTS.Web.admin.channel
             Model.site_channel model = new Model.site_channel();
             BLL.site_channel bll = new BLL.site_channel();
 
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
             model.name = txtName.Text.Trim();
             model.title = txtTitle.Text.Trim();
             if (cbIsLock.Checked == false)
@@ -205,7 +205,7 @@ namespace YTS.Web.admin.channel
             {
                 model.is_spec = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             //添加频道扩展字段
             List<Model.site_channel_field> ls = new List<Model.site_channel_field>();
@@ -214,7 +214,7 @@ namespace YTS.Web.admin.channel
                 if (cblAttributeField.Items[i].Selected)
                 {
                     string[] fieldIdArr = cblAttributeField.Items[i].Value.Split(','); //分解出ID值
-                    ls.Add(new Model.site_channel_field { field_id = Utils.StrToInt(fieldIdArr[1], 0) });
+                    ls.Add(new Model.site_channel_field { field_id = ConvertTool.ToInt(fieldIdArr[1], 0) });
                 }
             }
             model.channel_fields = ls;
@@ -247,7 +247,7 @@ namespace YTS.Web.admin.channel
                         urlModel.page = itemPageArr[i].Trim();
                         urlModel.inherit = GetInherit(urlModel.type);
                         urlModel.templet = itemTempletArr[i].Trim();
-                        if (Utils.StrToInt(itemPageSizeArr[i].Trim(), 0) > 0)
+                        if (ConvertTool.ToInt(itemPageSizeArr[i].Trim(), 0) > 0)
                         {
                             urlModel.pagesize = itemPageSizeArr[i].Trim();
                         }
@@ -350,7 +350,7 @@ namespace YTS.Web.admin.channel
             Model.site_channel model = bll.GetModel(_id);
 
             string old_name = model.name;
-            model.site_id = Utils.StrToInt(ddlSiteId.SelectedValue, 0);
+            model.site_id = ConvertTool.ToInt(ddlSiteId.SelectedValue, 0);
             model.name = txtName.Text.Trim();
             model.title = txtTitle.Text.Trim();
             model.is_lock = 0;
@@ -378,7 +378,7 @@ namespace YTS.Web.admin.channel
             {
                 model.is_spec = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             //添加频道扩展字段
             List<Model.site_channel_field> ls = new List<Model.site_channel_field>();
@@ -387,7 +387,7 @@ namespace YTS.Web.admin.channel
                 if (cblAttributeField.Items[i].Selected)
                 {
                     string[] fieldIdArr = cblAttributeField.Items[i].Value.Split(','); //分解出ID值
-                    ls.Add(new Model.site_channel_field { channel_id = model.id, field_id = Utils.StrToInt(fieldIdArr[1], 0) });
+                    ls.Add(new Model.site_channel_field { channel_id = model.id, field_id = ConvertTool.ToInt(fieldIdArr[1], 0) });
                 }
             }
             model.channel_fields = ls;
@@ -420,7 +420,7 @@ namespace YTS.Web.admin.channel
                         urlModel.page = itemPageArr[i].Trim();
                         urlModel.inherit = GetInherit(urlModel.type);
                         urlModel.templet = itemTempletArr[i].Trim();
-                        if (Utils.StrToInt(itemPageSizeArr[i].Trim(), 0) > 0)
+                        if (ConvertTool.ToInt(itemPageSizeArr[i].Trim(), 0) > 0)
                         {
                             urlModel.pagesize = itemPageSizeArr[i].Trim();
                         }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -188,7 +189,7 @@ namespace YTS.DAL
                 int rows = DbHelperSQL.ExecuteSql(conn, trans, "delete from " + databaseprefix + "article_attach where id=" + dr["id"].ToString()); //删除数据库
                 if (rows > 0)
                 {
-                    FileHelper.DeleteFile(dr["file_path"].ToString()); //删除文件
+                    FileHelp.DeleteFile(dr["file_path"].ToString()); //删除文件
                 }
             }
         }
@@ -360,7 +361,7 @@ namespace YTS.DAL
             {
                 foreach (Model.article_attach modelt in models)
                 {
-                    FileHelper.DeleteFile(modelt.file_path);
+                    FileHelp.DeleteFile(modelt.file_path);
                 }
             }
         }

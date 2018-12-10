@@ -5,7 +5,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.settings
 {
@@ -71,7 +71,7 @@ namespace YTS.Web.admin.settings
                 CheckBox cb = (CheckBox)rptList.Items[i].FindControl("chkId");
                 if (cb.Checked)
                 {
-                    FileHelper.DeleteFile("../../templates/" + this.skinName + "/" + fileName);
+                    FileHelp.DeleteFile("../../templates/" + this.skinName + "/" + fileName);
                 }
             }
             AddAdminLog(DTEnums.ActionEnum.Delete.ToString(), "删除模板文件，模板:" + this.skinName);//记录日志

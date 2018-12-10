@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.settings
 {
@@ -84,9 +84,9 @@ namespace YTS.Web.admin.settings
         private void ActionTypeBind()
         {
             cblActionType.Items.Clear();
-            foreach (KeyValuePair<string, string> kvp in Utils.ActionType())
+            foreach (EnumInfo kvp in EnumInfo.AnalysisList<Tools.Const.Enums.ManagementOperate>())
             {
-                cblActionType.Items.Add(new ListItem(kvp.Value + "(" + kvp.Key + ")", kvp.Key));
+                cblActionType.Items.Add(new ListItem(kvp.Explain + "(" + kvp.Name + ")", kvp.Name));
             }
         }
         #endregion
@@ -158,7 +158,7 @@ namespace YTS.Web.admin.settings
                 string action_type_str = string.Empty;
                 for (int i = 0; i < cblActionType.Items.Count; i++)
                 {
-                    if (cblActionType.Items[i].Selected && Utils.ActionType().ContainsKey(cblActionType.Items[i].Value))
+                    if (cblActionType.Items[i].Selected && EnumInfo.IsContains<Tools.Const.Enums.ManagementOperate>(cblActionType.Items[i].Value))
                     {
                         action_type_str += cblActionType.Items[i].Value + ",";
                     }
@@ -213,7 +213,7 @@ namespace YTS.Web.admin.settings
                 string action_type_str = string.Empty;
                 for (int i = 0; i < cblActionType.Items.Count; i++)
                 {
-                    if (cblActionType.Items[i].Selected && Utils.ActionType().ContainsKey(cblActionType.Items[i].Value))
+                    if (cblActionType.Items[i].Selected && EnumInfo.IsContains<Tools.Const.Enums.ManagementOperate>(cblActionType.Items[i].Value))
                     {
                         action_type_str += cblActionType.Items[i].Value + ",";
                     }

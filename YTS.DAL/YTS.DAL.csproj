@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicsDAL.cs" />
+    <Compile Include="BasicsDALViewOnlySelect.cs" />
     <Compile Include="dv_SiteChannelFieldInfo.cs" />
     <Compile Include="ISiteNameInfo.cs" />
+    <Compile Include="ITableBasicFunction.cs" />
     <Compile Include="MSSQLServer_IntID.cs">
       <SubType>Code</SubType>
     </Compile>

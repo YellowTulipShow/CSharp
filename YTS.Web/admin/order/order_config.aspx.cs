@@ -4,7 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.order
 {
@@ -60,13 +60,13 @@ namespace YTS.Web.admin.order
                 {
                     model.anonymous = 0;
                 }
-                model.taxtype = Utils.StrToInt(taxtype.SelectedValue, 1);
-                model.taxamount = Utils.StrToDecimal(taxamount.Text.Trim(), 0);
-                model.confirmmsg = Utils.StrToInt(confirmmsg.SelectedValue, 0);
+                model.taxtype = ConvertTool.ToInt(taxtype.SelectedValue, 1);
+                model.taxamount = ConvertTool.ToDecimal(taxamount.Text.Trim(), 0);
+                model.confirmmsg = ConvertTool.ToInt(confirmmsg.SelectedValue, 0);
                 model.confirmcallindex = confirmcallindex.Text;
-                model.expressmsg = Utils.StrToInt(expressmsg.SelectedValue, 0);
+                model.expressmsg = ConvertTool.ToInt(expressmsg.SelectedValue, 0);
                 model.expresscallindex = expresscallindex.Text;
-                model.completemsg = Utils.StrToInt(completemsg.SelectedValue, 0);
+                model.completemsg = ConvertTool.ToInt(completemsg.SelectedValue, 0);
                 model.completecallindex = completecallindex.Text;
 
                 bll.saveConifg(model);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
-using YTS.Common;
+using YTS.Tools;
 using YTS.Web.UI;
 
 namespace YTS.Web.tools
@@ -22,12 +22,12 @@ namespace YTS.Web.tools
         }
 
         public Model.AjaxResult Like(HttpContext context, Model.AjaxResult ajax) {
-            int channel_id = ConvertTool.StrToInt(DTRequest.GetString("channel_id"), 0);
+            int channel_id = ConvertTool.ToInt(DTRequest.GetString("channel_id"), 0);
             if (channel_id <= 0) {
                 return ErrorAjaxResult(ajax, @"频道错误");
             }
 
-            int article_id = ConvertTool.StrToInt(DTRequest.GetString("article_id"), 0);
+            int article_id = ConvertTool.ToInt(DTRequest.GetString("article_id"), 0);
             if (article_id <= 0) {
                 return ErrorAjaxResult(ajax, @"文章错误");
             }

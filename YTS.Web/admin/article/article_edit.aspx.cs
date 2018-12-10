@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.article
 {
@@ -631,7 +631,7 @@ namespace YTS.Web.admin.article
 
             model.site_id = this.channelModel.site_id;
             model.channel_id = this.channel_id;
-            model.category_id = Utils.StrToInt(ddlCategoryId.SelectedValue, 0);
+            model.category_id = ConvertTool.ToInt(ddlCategoryId.SelectedValue, 0);
             model.call_index = txtCallIndex.Text.Trim();
             model.title = txtTitle.Text.Trim();
             model.tags = txtTags.Text.Trim();
@@ -651,7 +651,7 @@ namespace YTS.Web.admin.article
             }
             
             model.content = txtContent.Value;
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.click = int.Parse(txtClick.Text.Trim());
             model.is_msg = cblItem.Items[0].Selected ? 1 : 0;
             model.is_top = cblItem.Items[1].Selected ? 1 : 0;
@@ -669,7 +669,7 @@ namespace YTS.Web.admin.article
             {
                 model.status = GetAdminInfo().is_audit;
             }
-            model.add_time = Utils.StrToDateTime(txtAddTime.Text.Trim());
+            model.add_time = ConvertTool.ToDateTime(txtAddTime.Text.Trim(), DateTime.Now);
             model.fields = SetFieldValues(this.channel_id); //扩展字段赋值
 
             #region 保存相册====================
@@ -714,9 +714,9 @@ namespace YTS.Web.admin.article
                 List<Model.article_attach> ls = new List<Model.article_attach>();
                 for (int i = 0; i < attachFileNameArr.Length; i++)
                 {
-                    int fileSize = Utils.StrToInt(attachFileSizeArr[i], 0);
-                    string fileExt = FileHelper.GetFileExt(attachFilePathArr[i]);
-                    int _point = Utils.StrToInt(attachPointArr[i], 0);
+                    int fileSize = ConvertTool.ToInt(attachFileSizeArr[i], 0);
+                    string fileExt = FileHelp.GetFileExt(attachFilePathArr[i]);
+                    int _point = ConvertTool.ToInt(attachPointArr[i], 0);
                     ls.Add(new Model.article_attach { channel_id = this.channel_id, file_name = attachFileNameArr[i], file_path = attachFilePathArr[i], file_size = fileSize, file_ext = fileExt, point = _point });
                 }
                 model.attach = ls;
@@ -753,7 +753,7 @@ namespace YTS.Web.admin.article
 
             model.site_id = this.channelModel.site_id;
             model.channel_id = this.channel_id;
-            model.category_id = Utils.StrToInt(ddlCategoryId.SelectedValue, 0);
+            model.category_id = ConvertTool.ToInt(ddlCategoryId.SelectedValue, 0);
             model.call_index = txtCallIndex.Text.Trim();
             model.title = txtTitle.Text.Trim();
             model.tags = txtTags.Text.Trim();
@@ -773,7 +773,7 @@ namespace YTS.Web.admin.article
             }
             
             model.content = txtContent.Value;
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.click = int.Parse(txtClick.Text.Trim());
             model.is_msg = cblItem.Items[0].Selected ? 1 : 0;
             model.is_top = cblItem.Items[1].Selected ? 1 : 0;
@@ -789,7 +789,7 @@ namespace YTS.Web.admin.article
             {
                 model.status = GetAdminInfo().is_audit;
             }
-            model.add_time = Utils.StrToDateTime(txtAddTime.Text.Trim());
+            model.add_time = ConvertTool.ToDateTime(txtAddTime.Text.Trim(), DateTime.Now);
             model.update_time = DateTime.Now;
             model.fields = SetFieldValues(this.channel_id); //扩展字段赋值
 
@@ -811,7 +811,7 @@ namespace YTS.Web.admin.article
                 for (int i = 0; i < albumArr.Length; i++)
                 {
                     string[] imgArr = albumArr[i].Split('|');
-                    int img_id = Utils.StrToInt(imgArr[0], 0);
+                    int img_id = ConvertTool.ToInt(imgArr[0], 0);
                     if (imgArr.Length == 3)
                     {
                         if (!string.IsNullOrEmpty(remarkArr[i]))
@@ -844,10 +844,10 @@ namespace YTS.Web.admin.article
                 List<Model.article_attach> ls = new List<Model.article_attach>();
                 for (int i = 0; i < attachFileNameArr.Length; i++)
                 {
-                    int attachId = Utils.StrToInt(attachIdArr[i], 0);
-                    int fileSize = Utils.StrToInt(attachFileSizeArr[i], 0);
-                    string fileExt = FileHelper.GetFileExt(attachFilePathArr[i]);
-                    int _point = Utils.StrToInt(attachPointArr[i], 0);
+                    int attachId = ConvertTool.ToInt(attachIdArr[i], 0);
+                    int fileSize = ConvertTool.ToInt(attachFileSizeArr[i], 0);
+                    string fileExt = FileHelp.GetFileExt(attachFilePathArr[i]);
+                    int _point = ConvertTool.ToInt(attachPointArr[i], 0);
                     ls.Add(new Model.article_attach { id = attachId, channel_id = this.channel_id, article_id = _id, file_name = attachFileNameArr[i], file_path = attachFilePathArr[i], file_size = fileSize, file_ext = fileExt, point = _point, });
                 }
                 model.attach = ls;

@@ -8,7 +8,7 @@ namespace YTS.Tools
     /// <summary>
     /// 缓存助手 (不是很明白的类)
     /// </summary>
-    [Obsolete("此文件只能用于 Web 项目, 并且并没有彻底搞明白工作原理", true)]
+    //[Obsolete("此文件只能用于 Web 项目, 并且并没有彻底搞明白工作原理", true)]
     public class CacheHelper
     {
         /// <summary>

@@ -49,7 +49,7 @@ namespace YTS.Engine.IOAccess
                 models = new M[] { };
             }
             if (isOverride) {
-                File.Delete(this.AbsFilePath);
+                FileHelp.DeleteFile(this.AbsFilePath);
             }
             using (FileStream fs = File.Open(AbsFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare)) {
                 using (StreamWriter sw = new StreamWriter(fs, YTS.Tools.Const.Format.FILE_ENCODING)) {

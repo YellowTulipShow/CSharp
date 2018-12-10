@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Collections.Generic;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.BLL
 {
@@ -125,7 +125,7 @@ namespace YTS.BLL
                     return 0;
                 }
                 code = strArr[0];
-                return Utils.StrToInt(strArr[1], 0);
+                return ConvertTool.ToInt(strArr[1], 0);
             }
             catch
             {
@@ -155,7 +155,7 @@ namespace YTS.BLL
                     return 0;
                 }
                 code = strArr[0];
-                return Utils.StrToInt(strArr[1], 0);
+                return ConvertTool.ToInt(strArr[1], 0);
             }
             catch
             {

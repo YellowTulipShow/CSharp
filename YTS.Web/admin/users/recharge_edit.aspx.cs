@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.users
 {
@@ -59,8 +59,8 @@ namespace YTS.Web.admin.users
             model.user_id = userModel.id;
             model.user_name = userModel.user_name;
             model.recharge_no = "R" + txtRechargeNo.Text.Trim(); //订单号R开头为充值订单
-            model.payment_id = Utils.StrToInt(ddlPaymentId.SelectedValue, 0);
-            model.amount = Utils.StrToDecimal(txtAmount.Text.Trim(), 0);
+            model.payment_id = ConvertTool.ToInt(ddlPaymentId.SelectedValue, 0);
+            model.amount = ConvertTool.ToDecimal(txtAmount.Text.Trim(), 0);
             model.status = 1;
             model.add_time = DateTime.Now;
             model.complete_time = DateTime.Now;

@@ -400,7 +400,7 @@ namespace YTS.Web.UI.Template
             {
                 IsCodeLine = true;
                 strTemplate = strTemplate.Replace(m.Groups[0].ToString(),
-                    "Utils.StrToInt(" + m.Groups[2] + ", 0)");
+                    "ConvertTool.ToInt(" + m.Groups[2] + ", 0)");
             }
             #endregion
 

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="site_payment_list.aspx.cs" Inherits="YTS.Web.admin.order.site_payment_list" ValidateRequest="false" %>
-<%@ Import namespace="YTS.Common" %>
+<%@ Import namespace="YTS.Tools" %>
 
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,7 @@
       <asp:HiddenField ID="hidId" Value='<%#Eval("id")%>' runat="server" />
     </td>
     <td><a href="site_payment_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&id=<%#Eval("id")%>"><%#Eval("title")%></a></td>
-    <td><%#new YTS.BLL.sites().GetTitle(Utils.StrToInt(Eval("site_id").ToString(),0))%></td>
+    <td><%#new YTS.BLL.sites().GetTitle(ConvertTool.ToInt(Eval("site_id").ToString(),0))%></td>
     <td><%#Eval("ptitle")%></td>
     <td><asp:TextBox ID="txtSortId" runat="server" Text='<%#Eval("sort_id")%>' CssClass="sort" onkeydown="return checkNumber(event);" /></td>
     <td><%#string.Format("{0:g}",Eval("add_time"))%></td>

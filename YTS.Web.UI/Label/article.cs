@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {
@@ -262,8 +262,8 @@ namespace YTS.Web.UI
         /// <param name="sour_article_id">文章id</param>
         /// <returns></returns>
         protected string get_view_comment_count(object sour_channel_id, object sour_article_id) {
-            int channel_id = Utils.ObjToInt(sour_channel_id.ToString(), 0);
-            int article_id = Utils.ObjToInt(sour_article_id.ToString(), 0);
+            int channel_id = ConvertTool.ToInt(sour_channel_id.ToString(), 0);
+            int article_id = ConvertTool.ToInt(sour_article_id.ToString(), 0);
             int count = 0;
             if (channel_id > 0 && article_id > 0) {
                 count = new BLL.article_comment().GetCount("is_lock=0 and channel_id=" + channel_id + " and article_id=" + article_id);

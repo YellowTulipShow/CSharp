@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.users
 {
@@ -78,7 +78,7 @@ namespace YTS.Web.admin.users
             {
                 model.is_lock = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.api_path = txtApiPath.Text.Trim();
             model.img_url = txtImgUrl.Text.Trim();
             model.remark = txtRemark.Text;
@@ -107,7 +107,7 @@ namespace YTS.Web.admin.users
             {
                 model.is_lock = 1;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
             model.api_path = txtApiPath.Text.Trim();
             model.img_url = txtImgUrl.Text.Trim();
             model.remark = txtRemark.Text;

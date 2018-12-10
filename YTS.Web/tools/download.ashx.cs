@@ -6,7 +6,7 @@ using System.Data;
 using System.Web;
 using System.Web.SessionState;
 using YTS.Web.UI;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.tools
 {
@@ -84,7 +84,7 @@ namespace YTS.Web.tools
                         new Web.UI.BasePage().linkurl("error", "?msg=" + Utils.UrlEncode("出错了，您要下载的文件不存在或已经被删除！"))));
                         return;
                     }
-                    byte[] byteData = FileHelper.ConvertStreamToByteBuffer(response.GetResponseStream());
+                    byte[] byteData = FileHelp.ConvertStreamToByteBuffer(response.GetResponseStream());
                     context.Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8"); //解决中文乱码
                     context.Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode(model.file_name)); //解决中文文件名乱码    
                     context.Response.AddHeader("Content-length", byteData.Length.ToString());

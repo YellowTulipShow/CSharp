@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.BLL
 {

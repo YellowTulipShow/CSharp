@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
@@ -44,48 +45,116 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbsHttpRequestHandler.cs" />
-    <Compile Include="BasePage.cs" />
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="HtmlBuilder.cs" />
     <Compile Include="HttpModule.cs" />
-    <Compile Include="Label\article.cs" />
-    <Compile Include="Label\category.cs" />
-    <Compile Include="Label\comment.cs" />
-    <Compile Include="Label\express.cs" />
-    <Compile Include="Label\orders.cs" />
-    <Compile Include="Label\payment.cs" />
-    <Compile Include="Label\plugin.cs" />
-    <Compile Include="Label\shoppingcart.cs" />
-    <Compile Include="Label\users.cs" />
-    <Compile Include="ManagePage.cs" />
-    <Compile Include="ManagePageBasicsSpread.cs" />
-    <Compile Include="ManagePageTableShowListType.cs" />
-    <Compile Include="Page\article.cs" />
-    <Compile Include="Page\article_list.cs" />
-    <Compile Include="Page\article_show.cs" />
+    <Compile Include="Label\article.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\category.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\comment.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\express.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\orders.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\payment.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\plugin.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\shoppingcart.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Label\users.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagePageBasicsSpread.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManagePageTableShowListType.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\article.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\article_list.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\article_show.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Page\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page\cart.cs" />
-    <Compile Include="Page\category.cs" />
-    <Compile Include="Page\error.cs" />
-    <Compile Include="Page\index.cs" />
-    <Compile Include="Page\login.cs" />
-    <Compile Include="Page\oauth_login.cs" />
-    <Compile Include="Page\payment.cs" />
-    <Compile Include="Page\register.cs" />
-    <Compile Include="Page\repassword.cs" />
-    <Compile Include="Page\search.cs" />
-    <Compile Include="Page\shopping.cs" />
+    <Compile Include="Page\cart.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\category.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\error.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\index.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\login.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\oauth_login.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\payment.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\register.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\repassword.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\search.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\shopping.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Page\Show.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page\useramount.cs" />
-    <Compile Include="Page\usercenter.cs" />
-    <Compile Include="Page\usermessage.cs" />
-    <Compile Include="Page\usermessage_show.cs" />
-    <Compile Include="Page\userorder.cs" />
-    <Compile Include="Page\userorder_show.cs" />
-    <Compile Include="Page\userpoint.cs" />
+    <Compile Include="Page\useramount.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\usercenter.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\usermessage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\usermessage_show.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\userorder.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\userorder_show.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\userpoint.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="Template\HtmlToAspx.cs" />
@@ -95,7 +164,9 @@
     </Compile>
     <Compile Include="Template\UrlRewriteModel.cs" />
     <Compile Include="UpLoad.cs" />
-    <Compile Include="UserPage.cs" />
+    <Compile Include="UserPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.BLL\YTS.BLL.csproj">

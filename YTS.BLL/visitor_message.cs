@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.BLL
 {
@@ -33,7 +33,7 @@ namespace YTS.BLL
             wheres.Add(CreateSQL.WhereEqual(ColName_ipaddress, ip));
             wheres.Add(string.Format("DATEADD(MINUTE, -{0}, GETDATE()) <= {1}", minute_interval, ColName_TimeAdd));
             wheres.Add(string.Format("{0} <= GETDATE()", ColName_TimeAdd));
-            string sqlwhere = ConvertTool.IListToString(wheres, CreateSQL.WHERE_AND);
+            string sqlwhere = ConvertTool.ToString(wheres, CreateSQL.WHERE_AND);
             return base.GetCount(sqlwhere);
         }
     }

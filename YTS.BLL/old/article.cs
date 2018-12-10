@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.BLL
 {
@@ -79,7 +79,7 @@ namespace YTS.BLL
             bool result = dal.Delete(channelName, channel_id, article_id);//É¾³ýÄÚÈÝ
             if (result && !string.IsNullOrEmpty(content))
             {
-                FileHelper.DeleteContentPic(content, sysConfig.webpath + sysConfig.filepath); //É¾³ýÄÚÈÝÍ¼Æ¬
+                FileHelp.DeleteContentPic(content, sysConfig.webpath + sysConfig.filepath); //É¾³ýÄÚÈÝÍ¼Æ¬
             }
             return result;
         }

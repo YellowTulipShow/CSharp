@@ -7,7 +7,7 @@ using System.Web.SessionState;
 using System.Web;
 using System.Text;
 using System.Text.RegularExpressions;
-using YTS.Common;
+using YTS.Tools;
 using YTS.Web.UI;
 
 namespace YTS.Web.tools
@@ -69,7 +69,7 @@ namespace YTS.Web.tools
             string _delfile = DTRequest.GetString("DelFilePath"); //要删除的文件
             string fileName = DTRequest.GetString("name"); //文件名
 
-            byte[] byteData = FileHelper.ConvertStreamToByteBuffer(context.Request.InputStream); //获取文件流
+            byte[] byteData = FileHelp.ConvertStreamToByteBuffer(context.Request.InputStream); //获取文件流
             bool _iswater = false; //默认不打水印
             bool _isthumbnail = false; //默认不生成缩略图
 
@@ -217,7 +217,7 @@ namespace YTS.Web.tools
             string fileName = "scrawl.png";
             //开始上传
             string remsg = new UpLoad().FileSaveAs(byteData, fileName, false, false);
-            Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(remsg);
+            Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(remsg);
             string status = dic["status"].ToString();
             string msg = dic["msg"].ToString();
             if (status == "0")
@@ -263,7 +263,7 @@ namespace YTS.Web.tools
                 Hashtable hash = new Hashtable();
                 hash["state"] = "未开启远程图片本地化";
                 context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-                context.Response.Write(JsonHelper.ObjectToJSON(hash));
+                context.Response.Write(JSON.Serializer(hash));
                 context.Response.End();
             }
             string[] sourcesUriArr = context.Request.Form.GetValues("source[]");
@@ -272,7 +272,7 @@ namespace YTS.Web.tools
                 Hashtable hash = new Hashtable();
                 hash["state"] = "参数错误：没有指定抓取源";
                 context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-                context.Response.Write(JsonHelper.ObjectToJSON(hash));
+                context.Response.Write(JSON.Serializer(hash));
                 context.Response.End();
             }
             UpLoad upLoad = new UpLoad(); //初始化上传类
@@ -280,7 +280,7 @@ namespace YTS.Web.tools
             foreach (string sourcesUri in sourcesUriArr)
             {
                 string remsg = upLoad.RemoteSaveAs(sourcesUri);
-                Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(remsg);
+                Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(remsg);
                 //如果抓取成功则加入文件列表
                 if (dic["status"].ToString() == "1")
                 {
@@ -295,7 +295,7 @@ namespace YTS.Web.tools
             result["state"] = "SUCCESS";
             result["list"] = fileList;
             context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-            context.Response.Write(JsonHelper.ObjectToJSON(result));
+            context.Response.Write(JSON.Serializer(result));
             context.Response.End();
         }
         #endregion
@@ -319,10 +319,10 @@ namespace YTS.Web.tools
             }*/
             //获取文件信息
             string fileName = upFiles.FileName;
-            byte[] byteData = FileHelper.ConvertStreamToByteBuffer(upFiles.InputStream); //获取文件流
+            byte[] byteData = FileHelp.ConvertStreamToByteBuffer(upFiles.InputStream); //获取文件流
             //开始上传
             string remsg = new UpLoad().FileSaveAs(byteData, fileName, false, isWater);
-            Dictionary<string, object> dic = JsonHelper.DataRowFromJSON(remsg);
+            Dictionary<string, object> dic = JSON.Deserialize<Dictionary<string, object>>(remsg);
             string status = dic["status"].ToString();
             string msg = dic["msg"].ToString();
             if (status == "0")
@@ -343,7 +343,7 @@ namespace YTS.Web.tools
             hash["state"] = message;
             hash["error"] = message;
             context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-            context.Response.Write(JsonHelper.ObjectToJSON(hash));
+            context.Response.Write(JSON.Serializer(hash));
             context.Response.End();
         }
 
@@ -358,7 +358,7 @@ namespace YTS.Web.tools
             hash["title"] = fileName;
             hash["original"] = fileName;
             context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-            context.Response.Write(JsonHelper.ObjectToJSON(hash));
+            context.Response.Write(JSON.Serializer(hash));
             context.Response.End();
         }
 
@@ -421,7 +421,7 @@ namespace YTS.Web.tools
                 hash["start"] = Start;
                 hash["total"] = Total;
                 context.Response.AddHeader("Content-Type", "text/plain; charset=UTF-8");
-                context.Response.Write(JsonHelper.ObjectToJSON(hash));
+                context.Response.Write(JSON.Serializer(hash));
                 context.Response.End();
             }
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Web;
-using YTS.Common;
+using YTS.Tools;
 using System.Text.RegularExpressions;
 
 namespace YTS.Web.UI
@@ -63,7 +63,7 @@ namespace YTS.Web.UI
                                 switch (modeltrewrite2.type.ToLower())
                                 {
                                     case "list":
-                                        sbjson.Append(GetArticleIndexUrlList(lang, name, modeltrewrite2.page, item2.pattern, item2.path, item2.querystring, Utils.StrToInt(modeltrewrite2.pagesize, 0)));
+                                        sbjson.Append(GetArticleIndexUrlList(lang, name, modeltrewrite2.page, item2.pattern, item2.path, item2.querystring, ConvertTool.ToInt(modeltrewrite2.pagesize, 0)));
                                         break;
                                 }
                             }
@@ -102,14 +102,14 @@ namespace YTS.Web.UI
                                     switch (modeltrewrite.type.ToLower())
                                     {
                                         case "list":
-                                            sbjson.Append(GetArticleUrlList(lang, name, modeltrewrite.page, item.pattern, item.path, item.querystring, Utils.StrToInt(modeltrewrite.pagesize, 0)));
+                                            sbjson.Append(GetArticleUrlList(lang, name, modeltrewrite.page, item.pattern, item.path, item.querystring, ConvertTool.ToInt(modeltrewrite.pagesize, 0)));
                                             break;
 
                                         case "detail":
                                             sbjson.Append(GetDetailUrlList(lang, name, modeltrewrite.page, item.pattern, item.path, item.querystring));
                                             break;
                                         case "category":
-                                            sbjson.Append(GetCategoryUrlList(lang, name, modeltrewrite.page, item.pattern, item.path, item.querystring, Utils.StrToInt(modeltrewrite.pagesize, 0)));
+                                            sbjson.Append(GetCategoryUrlList(lang, name, modeltrewrite.page, item.pattern, item.path, item.querystring, ConvertTool.ToInt(modeltrewrite.pagesize, 0)));
                                             break;
                                     }
                                 }

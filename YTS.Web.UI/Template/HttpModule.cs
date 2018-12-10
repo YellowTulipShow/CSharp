@@ -7,7 +7,7 @@ using YTS.SystemService;
 using YTS.Tools;
 using YTS.Web.UI.Template;
 
-namespace YTS.Web.UI
+namespace YTS.Web.UI.Template
 {
     /// <summary>
     /// 客户端请求服务器执行内容模块:实现类提供模块初始化和处置事件。

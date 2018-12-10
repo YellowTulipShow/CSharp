@@ -8,7 +8,7 @@ using System.Threading;
 using System.Web;
 using System.Configuration;
 using System.Xml;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {

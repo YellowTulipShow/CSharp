@@ -2,7 +2,7 @@
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {
@@ -35,7 +35,7 @@ namespace YTS.Web.UI
                     int i = ls.FindIndex(p => p.channel_id == channel_id && p.article_id == article_id);
                     modelt.quantity += quantity; //更新数量
                     ls[i] = modelt;
-                    string jsonStr = JsonHelper.ObjectToJSON(ls); //转换为JSON字符串
+                    string jsonStr = JSON.Serializer(ls); //转换为JSON字符串
                     AddCookies(jsonStr); //重新加入Cookies
                     return true;
                 }
@@ -46,7 +46,7 @@ namespace YTS.Web.UI
             }
             //不存在的则新增
             ls.Add(new Model.cart_keys() { channel_id = channel_id, article_id = article_id, quantity = quantity });
-            AddCookies( JsonHelper.ObjectToJSON(ls)); //添加至Cookies
+            AddCookies( JSON.Serializer(ls)); //添加至Cookies
             return true;
         }
 
@@ -69,7 +69,7 @@ namespace YTS.Web.UI
                     int i = ls.FindIndex(p => p.channel_id == channel_id && p.article_id == article_id);
                     modelt.quantity = quantity; //更新数量
                     ls[i] = modelt;
-                    string jsonStr = JsonHelper.ObjectToJSON(ls); //转换为JSON字符串
+                    string jsonStr = JSON.Serializer(ls); //转换为JSON字符串
                     AddCookies(jsonStr); //重新加入Cookies
                     return modelt;
                 }
@@ -101,7 +101,7 @@ namespace YTS.Web.UI
                 if (modelt != null)
                 {
                     cartList.Remove(modelt); //移除指定的项
-                    string jsonStr = JsonHelper.ObjectToJSON(cartList);
+                    string jsonStr = JSON.Serializer(cartList);
                     AddCookies(jsonStr);
                 }
             }
@@ -127,7 +127,7 @@ namespace YTS.Web.UI
                         cartList.Remove(model);
                     }
                 }
-                string jsonStr = JsonHelper.ObjectToJSON(cartList);
+                string jsonStr = JSON.Serializer(cartList);
                 AddCookies(jsonStr);
             }
         }
@@ -160,15 +160,15 @@ namespace YTS.Web.UI
                     }
                     modelt.title = articleModel.title;
                     modelt.img_url = articleModel.img_url;
-                    modelt.sell_price = Utils.StrToDecimal(articleModel.fields["sell_price"], 0);
-                    modelt.user_price = Utils.StrToDecimal(articleModel.fields["sell_price"], 0);
+                    modelt.sell_price = ConvertTool.ToDecimal(articleModel.fields["sell_price"], 0);
+                    modelt.user_price = ConvertTool.ToDecimal(articleModel.fields["sell_price"], 0);
                     if (articleModel.fields.ContainsKey("point"))
                     {
-                        modelt.point = Utils.StrToInt(articleModel.fields["point"], 0);
+                        modelt.point = ConvertTool.ToInt(articleModel.fields["point"], 0);
                     }
                     if (articleModel.fields.ContainsKey("stock_quantity"))
                     {
-                        modelt.stock_quantity = Utils.StrToInt(articleModel.fields["stock_quantity"], 0);
+                        modelt.stock_quantity = ConvertTool.ToInt(articleModel.fields["stock_quantity"], 0);
                     }
                     bool setStatus = false; //会员组价格赋值状态
                     if (group_id > 0 && articleModel.group_price != null){
@@ -236,7 +236,7 @@ namespace YTS.Web.UI
             int count = 0;
             if (!string.IsNullOrEmpty(jsonStr))
             {
-                List<Model.cart_keys> ls = (List<Model.cart_keys>)JsonHelper.JSONToObject<List<Model.cart_keys>>(jsonStr);
+                List<Model.cart_keys> ls = (List<Model.cart_keys>)JSON.Deserialize<List<Model.cart_keys>>(jsonStr);
                 if (ls != null)
                 {
                     foreach (Model.cart_keys modelt in ls)
@@ -263,7 +263,7 @@ namespace YTS.Web.UI
             string jsonStr = GetCookies(); //获取Cookies值
             if (!string.IsNullOrEmpty(jsonStr))
             {
-                ls = (List<Model.cart_keys>)JsonHelper.JSONToObject<List<Model.cart_keys>>(jsonStr);
+                ls = (List<Model.cart_keys>)JSON.Deserialize<List<Model.cart_keys>>(jsonStr);
                 return ls;
             }
             else

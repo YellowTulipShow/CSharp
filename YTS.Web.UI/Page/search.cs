@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Data;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI.Page
 {
@@ -54,7 +54,7 @@ namespace YTS.Web.UI.Page
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     DataRow dr1 = ds.Tables[0].Rows[i];
-                    string link_url = get_url_rewrite(Utils.StrToInt(dr1["channel_id"].ToString(), 0), dr1["call_index"].ToString(), Utils.StrToInt(dr1["id"].ToString(), 0));
+                    string link_url = get_url_rewrite(ConvertTool.ToInt(dr1["channel_id"].ToString(), 0), dr1["call_index"].ToString(), ConvertTool.ToInt(dr1["id"].ToString(), 0));
                     if (!string.IsNullOrEmpty(link_url))
                     {
                         DataRow dr = dt.NewRow();

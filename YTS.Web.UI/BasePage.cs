@@ -9,9 +9,8 @@ using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
-using YTS.Common;
-using YTS.DBUtility;
-
+using YTS.Tools;
+using YTS.Engine.DataBase.MSQLServer;
 namespace YTS.Web.UI
 {
     public partial class BasePage : System.Web.UI.Page
@@ -211,7 +210,7 @@ namespace YTS.Web.UI
             if (article_id > 0 && channels.Length == 1) {
                 Model.article model = BLL_article.GetModel(channels[0].ID_ChannelInfo, article_id);
                 string img_url = model.fields[thumbnail_banner_name];
-                if (!CheckData.IsStringNull(img_url) && FileHelper.FileExists(img_url)) {
+                if (!CheckData.IsStringNull(img_url) && FileHelp.FileExists(img_url)) {
                     urls.Add(img_url);
                 }
             }
@@ -222,7 +221,7 @@ namespace YTS.Web.UI
             if (category_id > 0) {
                 wheres.Add(CreateSQL.WhereEqual(@"category_id", category_id.ToString()));
             }
-            string article_wheres = ConvertTool.IListToString(wheres, CreateSQL.WHERE_AND);
+            string article_wheres = ConvertTool.ToString(wheres, CreateSQL.WHERE_AND);
             string order_str = @"sort_id asc,add_time desc";
 
             List<Model.article[]> articles_list = new List<Model.article[]>();
@@ -245,7 +244,7 @@ namespace YTS.Web.UI
                     }
                     Model.article model = list[lun];
                     string img_url = model.fields[thumbnail_banner_name];
-                    if (!CheckData.IsStringNull(img_url) && FileHelper.FileExists(img_url)) {
+                    if (!CheckData.IsStringNull(img_url) && FileHelp.FileExists(img_url)) {
                         urls.Add(img_url);
                     }
                 }
@@ -267,7 +266,7 @@ namespace YTS.Web.UI
         }
 
         protected static string PrivateStringRule(string source) {
-            source = ConvertTool.ObjToString(source);
+            source = ConvertTool.ToString(source);
             return source;
         }
         #endregion

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Text;
-using YTS.Common;
+using YTS.Tools;
 using System.Data;
 
 namespace YTS.Web.UI.Page

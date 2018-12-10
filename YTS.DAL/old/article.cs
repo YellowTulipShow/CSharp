@@ -4,8 +4,8 @@ using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -60,7 +60,7 @@ namespace YTS.DAL
             {
                 return 0;
             }
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -167,7 +167,7 @@ namespace YTS.DAL
             {
                 return false;
             }
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -742,7 +742,7 @@ namespace YTS.DAL
             string specWhere = string.Empty;
             foreach (KeyValuePair<string, string> kv in dicSpecIds)
             {
-                if (Utils.StrToInt(kv.Value, 0) > 0)
+                if (ConvertTool.ToInt(kv.Value, 0) > 0)
                 {
                     if (!string.IsNullOrEmpty(specWhere))
                     {

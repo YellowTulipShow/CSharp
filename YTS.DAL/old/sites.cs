@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -41,7 +41,7 @@ namespace YTS.DAL
         /// </summary>
         public int Add(Model.sites model)
         {
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -96,7 +96,7 @@ namespace YTS.DAL
         /// </summary>
         public bool Update(Model.sites model, string old_build_path)
         {
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -157,7 +157,7 @@ namespace YTS.DAL
             }
             //取得要删除的所有导航ID
             string navIds = new navigation(databaseprefix).GetIds("channel_" + build_path);
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())

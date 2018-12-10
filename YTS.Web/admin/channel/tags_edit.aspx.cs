@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.channel
 {
@@ -77,7 +77,7 @@ namespace YTS.Web.admin.channel
             {
                 model.is_red = 0;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             if (bll.Add(model) > 0)
             {
@@ -104,7 +104,7 @@ namespace YTS.Web.admin.channel
             {
                 model.is_red = 0;
             }
-            model.sort_id = Utils.StrToInt(txtSortId.Text.Trim(), 99);
+            model.sort_id = ConvertTool.ToInt(txtSortId.Text.Trim(), 99);
 
             if (bll.Update(model))
             {

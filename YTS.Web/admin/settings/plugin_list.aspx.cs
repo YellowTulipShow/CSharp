@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.settings
 {
@@ -36,7 +36,7 @@ namespace YTS.Web.admin.settings
         {
             string fullPath = Utils.GetMapPath("../../plugins/" + dirName + "/"); //插件目录物理路径
             DirectoryInfo tempPath = new DirectoryInfo(fullPath + @"templet\"); //插件模板目录实例
-            XmlNodeList xnList = XmlHelper.ReadNodes(fullPath + DTKeys.FILE_PLUGIN_XML_CONFING, "plugin/urls");
+            XmlNodeList xnList = XML.ReadNodes(fullPath + DTKeys.FILE_PLUGIN_XML_CONFING, "plugin/urls");
             if (xnList.Count > 0)
             {
                 foreach (XmlElement xe in xnList)
@@ -51,7 +51,7 @@ namespace YTS.Web.admin.settings
                                 foreach (DirectoryInfo dirInfo in tempPath.GetDirectories())
                                 {
                                     //删除对应站点下的aspx文件
-                                    FileHelper.DeleteFile(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + dirInfo.Name + "/" + xe.Attributes["page"].Value);
+                                    FileHelp.DeleteFile(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + dirInfo.Name + "/" + xe.Attributes["page"].Value);
                                 }
                             }
                         }
@@ -157,7 +157,7 @@ namespace YTS.Web.admin.settings
                                     string newFile = Utils.GetMapPath(sysConfig.webpath + @"bin/" + info.Name);
                                     if (File.Exists(newFile))
                                     {
-                                        File.Delete(newFile);
+                                        FileHelp.DeleteFile(newFile);
                                     }
                                 }
                             }

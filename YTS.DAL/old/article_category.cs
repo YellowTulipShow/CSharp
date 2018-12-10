@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
-using YTS.DBUtility;
-using YTS.Common;
+using YTS.Engine.DataBase.MSQLServer;
+using YTS.Tools;
 
 namespace YTS.DAL
 {
@@ -41,7 +41,7 @@ namespace YTS.DAL
         /// </summary>
         public int Add(Model.article_category model)
         {
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())
@@ -110,7 +110,7 @@ namespace YTS.DAL
         /// </summary>
         public bool Update(Model.article_category model)
         {
-            using (SqlConnection conn = new SqlConnection(DbHelperSQL.connectionString))
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.ConnectionString))
             {
                 conn.Open();
                 using (SqlTransaction trans = conn.BeginTransaction())

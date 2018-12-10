@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Web;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.UI
 {
@@ -131,7 +131,11 @@ namespace YTS.Web.UI
             msg.Append(ex.TargetSite.ToString());
             msg.Append("导致错误的应用程序或对象名称:");
             msg.Append(ex.Source);
-            SystemLog.Write(postion, msg.ToString());
+            SystemLog log = new SystemLog() {
+                Position = postion,
+                Message = msg.ToString(),
+            };
+            log.Write();
         }
         /// <summary>
         /// 日志方法输出
@@ -139,7 +143,11 @@ namespace YTS.Web.UI
         public void SystemLogWrite(string functionName, string errordata) {
             string postion = string.Format("{0}.{1}", LogUseRequestFileName(), functionName);
             string message = string.Format("错误数据内容: {0}", errordata);
-            SystemLog.Write(postion, message);
+            SystemLog log = new SystemLog() {
+                Position = postion,
+                Message = message,
+            };
+            log.Write();
         }
 
         /// <summary>
@@ -156,7 +164,7 @@ namespace YTS.Web.UI
         /// 输出写入转换内容
         /// </summary>
         public virtual string OutputWriteContent(dynamic objvalue) {
-            return JsonHelper.ObjectToJSON(objvalue);
+            return JSON.Serializer(objvalue);
         }
 
         /// <summary>

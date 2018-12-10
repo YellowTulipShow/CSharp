@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Web;
 using System.Web.SessionState;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.tools
 {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.channel
 {
@@ -137,8 +137,8 @@ namespace YTS.Web.admin.channel
                     if (bll.Delete(id))
                     {
                         sucCount += 1;
-                        FileHelper.DeleteDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + model.build_path);
-                        FileHelper.DeleteDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_HTML + "/" + model.build_path);
+                        FileHelp.DeleteDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_ASPX + "/" + model.build_path);
+                        FileHelp.DeleteDirectory(sysConfig.webpath + DTKeys.DIRECTORY_REWRITE_HTML + "/" + model.build_path);
                     }
                     else
                     {

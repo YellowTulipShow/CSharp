@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YTS.Common;
+using YTS.Tools;
 
 namespace YTS.Web.admin.settings
 {
@@ -94,7 +94,7 @@ namespace YTS.Web.admin.settings
             }
             try
             {
-                XmlNodeList xnList = XmlHelper.ReadNodes(xmlPath + @"\about.xml", "about");
+                XmlNodeList xnList = XML.ReadNodes(xmlPath + @"\about.xml", "about");
                 foreach (XmlNode n in xnList)
                 {
                     if (n.NodeType != XmlNodeType.Comment && n.Name.ToLower() == "template")
