@@ -42,6 +42,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_RegularExpression(),
                 new Learn.Test_URL_or_URI(),
                 new Learn.Test_RatePossibility(),
+                new Learn.Test_StackTrace(),
             };
         }
 
@@ -57,7 +58,7 @@ namespace Test.ConsoleProgram
                 new Tools.Test_EnumInfo(),
                 new Tools.Test_PathHelp(),
                 new Tools.Test_SerializerDeserialize(),
-                new Tools.Test_UseSystemLog(),
+                new Tools.Test_SystemLog(),
             };
         }
 

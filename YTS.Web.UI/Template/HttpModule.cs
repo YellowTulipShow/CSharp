@@ -46,7 +46,7 @@ namespace YTS.Web.UI.Template
             string redirect_path = ReWriteURLPath(context.Request.Url);
             if (!CheckData.IsStringNull(redirect_path)) {
                 SystemLog log = new SystemLog() {
-                    Type = SystemLog.LogType.Daily,
+                    Type = SystemLog.LogType.Record,
                     Position = @"YTS.Web.UI.HttpModule.BeginRequest",
                     Message = string.Format("new redirect path: {0}", redirect_path),
                 };

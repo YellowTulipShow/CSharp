@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -23,15 +24,20 @@ namespace YTS.Tools
         public enum LogType
         {
             /// <summary>
-            /// 日常
+            /// 记录
             /// </summary>
-            [Explain(@"日常")]
-            Daily = 0,
+            [Explain(@"记录")]
+            Record = 0,
             /// <summary>
             /// 错误
             /// </summary>
             [Explain(@"错误")]
             Error = 1,
+            /// <summary>
+            /// 异常
+            /// </summary>
+            [Explain(@"异常")]
+            Exception = 2,
         }
 
         /// <summary>
@@ -45,6 +51,12 @@ namespace YTS.Tools
         /// </summary>
         public string Message { get { return message; } set { message = value; } }
         private string message = string.Empty;
+
+        /// <summary>
+        /// 是否开启堆栈跟踪列表, 默认不开启
+        /// </summary>
+        public bool IsStackTraceList { get { return _is_stack_trace_list; } set { _is_stack_trace_list = value; } }
+        private bool _is_stack_trace_list = false;
 
         /// <summary>
         /// 添加时间 (默认添加当前时间)
@@ -69,25 +81,54 @@ namespace YTS.Tools
         /// 获取日志文件路径 以指定时间计算
         /// </summary>
         private string GetLogFilePath() {
-            string root = @"SystemLog";
-            string date = string.Format("{0}Year/{1}Month/{2}Day", this.AddTime.Year, this.AddTime.Month, this.AddTime.Day);
-            string folder = string.Format("/{0}/{1}/{2}", root, this.Type.ToString(), date);
+            string directory = string.Format("/Logs/{0}/{1}Year/{2}Month/{3}Day",
+                this.Type.ToString(),
+                this.AddTime.Year,
+                this.AddTime.Month,
+                this.AddTime.Day);
             string file = string.Format("{0}Hour.log", this.AddTime.Hour);
-            return PathHelp.CreateUseFilePath(folder, file);
+            return PathHelp.CreateUseFilePath(directory, file);
         }
 
         /// <summary>
         /// 获取格式化后内容
         /// </summary>
         private string GetFormatContent() {
+            if (this.IsStackTraceList) {
+                string info = ConvertTool.ToString(new string[] {
+                    ConvertTool.ToString(this.AddTime),
+                    this.Type.ToString(),
+                    this.Message,
+                }, @"  >>  ");
+                return ConvertTool.ToString(new string[] {
+                    info,
+                    @"堆栈跟踪:",
+                    this.Position,
+                }, "\n") + "\n";
+            }
             string[] content = new string[] {
                 ConvertTool.ToString(this.AddTime),
                 this.Type.ToString(),
                 this.Position,
                 this.Message,
             };
-            return ConvertTool.ToString(content, @"  >>  ") + "\r\n";
+            return ConvertTool.ToString(content, @"  >>  ") + "\n";
         }
         #endregion
+
+        /// <summary>
+        /// 写入一个日志
+        /// </summary>
+        /// <param name="ex"></param>
+        public static void Write(Exception ex) {
+            SystemLog log = new SystemLog() {
+                Type = LogType.Exception,
+                AddTime = DateTime.Now,
+                Position = new StackTrace(true).ToString(),
+                Message = ex.Message,
+                IsStackTraceList = true,
+            };
+            log.Write();
+        }
     }
 }
