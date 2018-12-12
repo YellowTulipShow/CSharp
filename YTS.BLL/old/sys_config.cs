@@ -10,20 +10,13 @@ namespace YTS.BLL
 {
     public partial class sysconfig
     {
-        private readonly DAL.sysconfig dal = new DAL.sysconfig();
-
         /// <summary>
         ///  读取配置文件
         /// </summary>
         public Model.sysconfig loadConfig()
         {
-            Model.sysconfig model = CacheHelper.Get<Model.sysconfig>(DTKeys.CACHE_SYS_CONFIG);
-            if (model == null)
-            {
-                CacheHelper.Insert(DTKeys.CACHE_SYS_CONFIG, dal.loadConfig(Utils.GetXmlMapPath(DTKeys.FILE_SYS_XML_CONFING)),
-                    Utils.GetXmlMapPath(DTKeys.FILE_SYS_XML_CONFING));
-                model = CacheHelper.Get<Model.sysconfig>(DTKeys.CACHE_SYS_CONFIG);
-            }
+            Model.sysconfig model = new Model.sysconfig();
+            model.Load();
             return model;
         }
 
@@ -32,8 +25,11 @@ namespace YTS.BLL
         /// </summary>
         public Model.sysconfig saveConifg(Model.sysconfig model)
         {
-            return dal.saveConifg(model, Utils.GetXmlMapPath(DTKeys.FILE_SYS_XML_CONFING));
+            if (CheckData.IsObjectNull(model)) {
+                model = loadConfig();
+            }
+            model.Save();
+            return model;
         }
-
     }
 }
