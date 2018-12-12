@@ -13,7 +13,7 @@ namespace YTS.BLL
     /// </summary>
     public partial class user_attach_log
     {
-        private readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//获得系统配置信息
+        private readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         private readonly DAL.user_attach_log dal;
 
         public user_attach_log()

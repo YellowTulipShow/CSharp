@@ -17,7 +17,7 @@ namespace YTS.Web.tools
     /// </summary>
     public class admin_ajax : IHttpHandler, IRequiresSessionState
     {
-        Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//系统配置信息
+        Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();//系统配置信息
         Model.userconfig userConfig = new BLL.userconfig().loadConfig();//会员配置信息
 
         public void ProcessRequest(HttpContext context)

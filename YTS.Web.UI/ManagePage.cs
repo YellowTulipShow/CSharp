@@ -33,7 +33,7 @@ namespace YTS.Web.UI
         public ManagePage()
         {
             this.Load += new EventHandler(ManagePage_Load);
-            sysConfig = new BLL.sysconfig().loadConfig();
+            sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         }
 
         private void ManagePage_Load(object sender, EventArgs e)

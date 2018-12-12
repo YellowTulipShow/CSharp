@@ -24,8 +24,7 @@ namespace YTS.Web.admin.settings
         #region 赋值操作=================================
         private void ShowInfo()
         {
-            BLL.sysconfig bll = new BLL.sysconfig();
-            Model.sysconfig model = bll.loadConfig();
+            Model.sysconfig model = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
 
             webname.Text = model.webname;
             weburl.Text = model.weburl;
@@ -148,8 +147,7 @@ namespace YTS.Web.admin.settings
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             ChkAdminLevel("sys_config", DTEnums.ActionEnum.Edit.ToString()); //检查权限
-            BLL.sysconfig bll = new BLL.sysconfig();
-            Model.sysconfig model = bll.loadConfig();
+            Model.sysconfig model = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             try
             {
                 model.webname = webname.Text;
@@ -249,7 +247,7 @@ namespace YTS.Web.admin.settings
                 model.watermarkfont = watermarkfont.Text;
                 model.watermarkfontsize = ConvertTool.ToInt(watermarkfontsize.Text.Trim(), 12);
 
-                bll.saveConifg(model);
+                model.Save();
                 AddAdminLog(DTEnums.ActionEnum.Edit.ToString(), "修改系统配置信息"); //记录日志
                 JscriptMsg("修改系统配置成功！", "sys_config.aspx");
             }

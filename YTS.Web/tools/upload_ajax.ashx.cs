@@ -58,7 +58,7 @@ namespace YTS.Web.tools
         #region 上传文件处理===================================
         private void UpLoadFile(HttpContext context)
         {
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             //检查是否允许匿名上传
             /*if (sysConfig.fileanonymous == 0 && !new ManagePage().IsAdminLogin() && !new BasePage().IsUserLogin())
             {
@@ -105,7 +105,7 @@ namespace YTS.Web.tools
         /// </summary>
         private void EditorConfig(HttpContext context)
         {
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             StringBuilder jsonStr = new StringBuilder();
             jsonStr.Append("{");
             //上传图片配置项
@@ -234,7 +234,7 @@ namespace YTS.Web.tools
         /// </summary>
         private void EditorListImage(HttpContext context)
         {
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             string filePath = sysConfig.webpath + sysConfig.filepath + "/"; //站点目录+上传目录
             string fileTypes = ".gif,.jpg,.jpeg,.png,.bmp"; //允许浏览的文件扩展名
             ListFileManager(context, filePath, fileTypes);
@@ -245,7 +245,7 @@ namespace YTS.Web.tools
         /// </summary>
         private void EditorListFile(HttpContext context)
         {
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             string filePath = sysConfig.webpath + sysConfig.filepath + "/"; //站点目录+上传目录
             string fileTypes = ".png,.jpg,.jpeg,.gif,.bmp,.flv,.swf,.mkv,.avi,.rm,.rmvb,.mpeg,.mpg,.ogg,.ogv,.mov,.wmv,"
                 +".mp4,.webm,.mp3,.wav,.mid,.rar,.zip,.tar,.gz,.7z,.bz2,.cab,.iso,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.md,.xml"; //允许浏览的文件扩展名
@@ -257,7 +257,7 @@ namespace YTS.Web.tools
         /// </summary>
         private void EditorCatchImage(HttpContext context)
         {
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             if (sysConfig.fileremote == 0)
             {
                 Hashtable hash = new Hashtable();

@@ -15,7 +15,7 @@ namespace YTS.Web.UI
 {
     public partial class BasePage : System.Web.UI.Page
     {
-        protected internal Model.sysconfig config = new BLL.sysconfig().loadConfig();
+        protected internal Model.sysconfig config = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         protected internal Model.userconfig uconfig = new BLL.userconfig().loadConfig();
         protected internal Model.sites site = new Model.sites();
         /// <summary>

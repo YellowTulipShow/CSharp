@@ -17,7 +17,7 @@ namespace YTS.Web.UI
         BLL.site_channel objchannel = new BLL.site_channel();//频道
         BLL.sites objchannel_site = new BLL.sites();//系统站点
         BLL.article objarticle = new BLL.article();//文章
-        Model.sysconfig config = new BLL.sysconfig().loadConfig();//站点配置
+        Model.sysconfig config = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();//站点配置
         Model.site_channel modelchanel = new Model.site_channel();//频道实体类
         private const string urlstr = "\"{0}tools/admin_ajax.ashx?action=get_builder_html&lang={1}&html_filename=&indexy=&aspx_filename={2}&catalogue={3}\"";
 

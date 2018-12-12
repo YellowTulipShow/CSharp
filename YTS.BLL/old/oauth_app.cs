@@ -13,7 +13,7 @@ namespace YTS.BLL
     /// </summary>
     public partial class oauth_app
     {
-        private readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//获得系统配置信息
+        private readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         private readonly DAL.oauth_app dal;
 
         public oauth_app()

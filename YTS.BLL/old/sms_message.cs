@@ -12,7 +12,7 @@ namespace YTS.BLL
     /// </summary>
     public partial class sms_message
     {
-        private readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//获得站点配置信息
+        private readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         public sms_message()
         { }
 

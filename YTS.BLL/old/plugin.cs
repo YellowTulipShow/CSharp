@@ -7,7 +7,7 @@ namespace YTS.BLL
 {
     public partial class plugin
     {
-        private readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//获得站点配置信息
+        private readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         private readonly DAL.plugin dal;
 
         public plugin()

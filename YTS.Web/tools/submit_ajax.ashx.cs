@@ -14,7 +14,7 @@ namespace YTS.Web.tools
     /// </summary>
     public class submit_ajax : IHttpHandler, IRequiresSessionState
     {
-        Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+        Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         Model.userconfig userConfig = new BLL.userconfig().loadConfig();
 
         public void ProcessRequest(HttpContext context)

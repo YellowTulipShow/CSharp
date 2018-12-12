@@ -68,7 +68,6 @@
     <Compile Include="old\site_payment.cs" />
     <Compile Include="old\sms_message.cs" />
     <Compile Include="old\sms_template.cs" />
-    <Compile Include="old\sys_config.cs" />
     <Compile Include="old\url_rewrite.cs" />
     <Compile Include="old\users.cs" />
     <Compile Include="old\user_amount_log.cs" />

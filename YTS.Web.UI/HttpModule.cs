@@ -41,7 +41,7 @@ namespace YTS.Web.UI
         private void ReUrl_BeginRequest(object sender, EventArgs e)
         {
             HttpContext context = ((HttpApplication)sender).Context;
-            Model.sysconfig siteConfig = new BLL.sysconfig().loadConfig();//获得系统配置信息
+            Model.sysconfig siteConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             string requestPath = context.Request.Path.ToLower();//获得当前页面(含目录)
 
             //如果虚拟目录(不含安装目录)与站点根目录名相同则不需要重写

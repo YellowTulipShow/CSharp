@@ -15,7 +15,7 @@ namespace YTS.Web.tools
     /// </summary>
     public class download : IHttpHandler, IRequiresSessionState
     {
-        Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig(); //系统配置
+        Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>(); //系统配置
         public void ProcessRequest(HttpContext context)
         {
             string sitepath = DTRequest.GetQueryString("site");

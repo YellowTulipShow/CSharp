@@ -15,7 +15,7 @@ namespace YTS.Web.UI
 
         public UpLoad()
         {
-            sysConfig = new BLL.sysconfig().loadConfig();
+            sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         }
 
         /// <summary>

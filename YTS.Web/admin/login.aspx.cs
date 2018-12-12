@@ -10,7 +10,7 @@ namespace YTS.Web.admin
 {
     public partial class login : System.Web.UI.Page
     {
-        protected readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();//获得系统配置信息
+        protected readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,7 +54,7 @@ namespace YTS.Web.admin
             Session[DTKeys.SESSION_ADMIN_INFO] = model;
             Session.Timeout = 45;
             //写入登录日志
-            Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig();
+            Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
             if (sysConfig.logstatus > 0)
             {
                 new BLL.manager_log().Add(model.id, model.user_name, DTEnums.ActionEnum.Login.ToString(), "用户登录");

@@ -9,7 +9,7 @@ namespace YTS.Web.UI.Page
 {
     public partial class error : System.Web.UI.Page
     {
-        protected internal Model.sysconfig config = new BLL.sysconfig().loadConfig();
+        protected internal Model.sysconfig config = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         protected string msg = string.Empty;
 
         /// <summary>

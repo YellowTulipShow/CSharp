@@ -13,7 +13,7 @@ namespace YTS.BLL
     /// </summary>
     public partial class manager_log
     {
-        private readonly Model.sysconfig sysConfig = new BLL.sysconfig().loadConfig(); //获得系统配置信息
+        private readonly Model.sysconfig sysConfig = YTS.SystemService.GlobalSystemService.GetInstance().Config.Get<Model.sysconfig>();
         private readonly DAL.manager_log dal;
 
         public manager_log()
