@@ -11,10 +11,6 @@ namespace YTS.Web.tools
     /// </summary>
     public class article_ajax : AbsHttpRequestHandler
     {
-        public override string LogUseRequestFileName() {
-            return @"YTS.Web.tools.article_ajax";
-        }
-
         public override Dictionary<string, Func<HttpContext, Model.AjaxResult, Model.AjaxResult>> ActionSource() {
             return new Dictionary<string, Func<HttpContext, Model.AjaxResult, Model.AjaxResult>> {
                 { @"like", Like },

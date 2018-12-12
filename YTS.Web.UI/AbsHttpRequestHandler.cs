@@ -15,16 +15,6 @@ namespace YTS.Web.UI
     public abstract class AbsHttpRequestHandler : IHttpHandler
     {
         /// <summary>
-        /// 正在执行的方法名称 (错误日志中显示)
-        /// </summary>
-        public string ExecuteMethodName = @"ProcessRequest";
-
-        /// <summary>
-        /// Request 请求的文件名称
-        /// </summary>
-        public abstract string LogUseRequestFileName();
-
-        /// <summary>
         /// 继承自接口: IHttpHandler 是否可重用
         /// </summary>
         public virtual bool IsReusable {
@@ -40,7 +30,7 @@ namespace YTS.Web.UI
             try {
                 jsonResult = LogicalProcessing(context, jsonResult);
             } catch (Exception ex) {
-                SystemLogWrite(ExecuteMethodName, ex);
+                SystemLog.Write(ex);
                 jsonResult.Status = Model.AjaxResult.StatusValue.Error;
                 jsonResult.Msg = @"服务器出错了, 已记录日志...请联系管理员!";
             } finally {
@@ -76,7 +66,6 @@ namespace YTS.Web.UI
                     actionsource.Add(action, defaultAction);
                 }
             }
-            ExecuteMethodName = action;
             return actionsource[action](context, jsonResult);
         }
         /// <summary>
@@ -117,37 +106,6 @@ namespace YTS.Web.UI
             source_model.ResultContent = new object();
             source_model.Url = string.Empty;
             return source_model;
-        }
-
-        /// <summary>
-        /// 日志方法输出
-        /// </summary>
-        public void SystemLogWrite(string functionName, Exception ex) {
-            string postion = String.Format("{0}.{1}", LogUseRequestFileName(), functionName);
-            StringBuilder msg = new StringBuilder();
-            msg.AppendFormat("执行 {0} 方法 出错!!!,错误详情信息:", functionName);
-            msg.Append(ex.Message);
-            msg.Append("引发当前异常的方法(ToString()):");
-            msg.Append(ex.TargetSite.ToString());
-            msg.Append("导致错误的应用程序或对象名称:");
-            msg.Append(ex.Source);
-            SystemLog log = new SystemLog() {
-                Position = postion,
-                Message = msg.ToString(),
-            };
-            log.Write();
-        }
-        /// <summary>
-        /// 日志方法输出
-        /// </summary>
-        public void SystemLogWrite(string functionName, string errordata) {
-            string postion = string.Format("{0}.{1}", LogUseRequestFileName(), functionName);
-            string message = string.Format("错误数据内容: {0}", errordata);
-            SystemLog log = new SystemLog() {
-                Position = postion,
-                Message = message,
-            };
-            log.Write();
         }
 
         /// <summary>

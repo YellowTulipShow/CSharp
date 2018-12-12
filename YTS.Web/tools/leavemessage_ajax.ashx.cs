@@ -12,10 +12,6 @@ namespace YTS.Web.tools
     /// </summary>
     public class leavemessage_ajax : AbsHttpRequestHandler
     {
-        public override string LogUseRequestFileName() {
-            return @"YTS.Web.tools.leavemessage_ajax";
-        }
-
         public override Dictionary<string, Func<HttpContext, Model.AjaxResult, Model.AjaxResult>> ActionSource() {
             return new Dictionary<string, Func<HttpContext, Model.AjaxResult, Model.AjaxResult>>() {
                 { @"commit", Action_Commit },
@@ -23,7 +19,6 @@ namespace YTS.Web.tools
         }
         #region === Action: Commit ===
         private Model.AjaxResult Action_Commit(HttpContext context, Model.AjaxResult jsonResult) {
-            base.ExecuteMethodName = @"Action_Commit";
             Model.visitor_message info_model = GetCommitInfo();
             string error_msg = CheckCommitInfo(info_model);
             if (!CheckData.IsStringNull(error_msg)) {
