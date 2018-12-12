@@ -45,6 +45,16 @@ namespace Test.ConsoleProgram
             File.AppendAllText(abs_file_path, content);
             Console.WriteLine("清空并写入文件: {0}", abs_file_path);
         }
+
+        /// <summary>
+        /// 中断测试实例
+        /// </summary>
+        public CaseModel BreakCase() {
+            return new CaseModel() {
+                NameSign = @"中断测试",
+                ExeEvent = () => false,
+            };
+        }
     }
     /*
      * 正则:
