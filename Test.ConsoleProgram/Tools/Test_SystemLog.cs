@@ -58,7 +58,7 @@ namespace Test.ConsoleProgram.Tools
                         log.Write();
                         log.Write();
                     }
-                    return false;
+                    return true;
                 },
             };
         }

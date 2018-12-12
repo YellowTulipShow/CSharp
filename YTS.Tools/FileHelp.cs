@@ -142,7 +142,7 @@ namespace YTS.Tools
             }
             string fullpath = Utils.GetMapPath(_filepath);
             if (File.Exists(fullpath)) {
-                FileHelp.DeleteFile(fullpath);
+                File.Delete(fullpath);
                 return true;
             }
             return false;
