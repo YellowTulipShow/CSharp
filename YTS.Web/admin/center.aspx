@@ -53,7 +53,7 @@
     <li><p>IIS环境：<%=Request.ServerVariables["SERVER_SOFTWARE"]%></p></li>
     <li><p>服务器端口：<%=Request.ServerVariables["SERVER_PORT"]%></p></li>
     <li><p>目录物理路径：<%=Request.ServerVariables["APPL_PHYSICAL_PATH"]%></p></li>
-    <li><p>系统版本：V<%=Utils.GetVersion()%></p></li>
+    <li><p>系统版本：V1.0.0</p></li>
     <li><p>版本更新：<asp:Literal ID="LitUpgrade" runat="server"/></p></li>
   </ul>
 </div>

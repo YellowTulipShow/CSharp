@@ -129,7 +129,7 @@
         <asp:HiddenField ID="hidId" Value='<%#Eval("id")%>' runat="server" />
       </td>
       <td><a href="article_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&channel_id=<%#this.channel_id %>&id=<%#Eval("id")%>"><%#Eval("title")%></a></td>
-      <td><%#this.bllmanager.UserName(ConvertTool.ObjToString(Eval("user_name")))%></td>
+      <td><%#this.bllmanager.UserName(ConvertTool.ToString(Eval("user_name")))%></td>
       <td><%#new YTS.BLL.article_category().GetTitle(Convert.ToInt32(Eval("category_id")))%></td>
       <td><%#string.Format("{0:g}",Eval("add_time"))%></td>
       <td><asp:TextBox ID="txtSortId" runat="server" Text='<%#Eval("sort_id")%>' CssClass="sort" onkeydown="return checkNumber(event);" /></td>
@@ -168,7 +168,7 @@
             <asp:HiddenField ID="hidId" Value='<%#Eval("id")%>' runat="server" />
           </div>
           <%#Eval("img_url").ToString() != "" ? "<div class=\"pic\"><img src=\"../skin/default/loadimg.gif\" data-original=\"" + Eval("img_url") + "\" /></div><i class=\"absbg\"></i>" : ""%>
-          <h1><span><a href="article_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&channel_id=<%#this.channel_id %>&id=<%#Eval("id")%>"><%#Eval("title")%></a><br/><i style="color: #9f9f9f; font-weight: bold; font-size: .8em;"><%#this.bllmanager.UserName(ConvertTool.ObjToString(Eval("user_name")))%></i></span></h1>
+          <h1><span><a href="article_edit.aspx?action=<%#DTEnums.ActionEnum.Edit %>&channel_id=<%#this.channel_id %>&id=<%#Eval("id")%>"><%#Eval("title")%></a><br/><i style="color: #9f9f9f; font-weight: bold; font-size: .8em;"><%#this.bllmanager.UserName(ConvertTool.ToString(Eval("user_name")))%></i></span></h1>
           <div class="remark">
             <%#Eval("zhaiyao").ToString() == "" ? "暂无内容摘要说明..." : Eval("zhaiyao").ToString()%>
           </div>
