@@ -22,11 +22,11 @@ namespace YTS.Tools
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
         /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
-        public static T Item<T>(T[] source) {
+        public static T Item<T>(IList<T> source) {
             if (CheckData.IsSizeEmpty(source)) {
                 return default(T);
             }
-            return source[R.Next(0, source.Length)];
+            return source[R.Next(0, source.Count)];
         }
 
         /// <summary>
@@ -36,12 +36,12 @@ namespace YTS.Tools
         /// <param name="slist">数据源序列</param>
         /// <param name="need_num">需要的结果数量 如小于等于零取值序列个数</param>
         /// <returns>结果序列</returns>
-        public static T[] Sample<T>(T[] slist, int need_num = 0) {
+        public static T[] Sample<T>(IList<T> slist, int need_num = 0) {
             if (CheckData.IsSizeEmpty(slist)) {
                 return new T[] { };
             }
             List<T> rlist = new List<T>();
-            int slen_size = slist.Length;
+            int slen_size = slist.Count;
             if (need_num <= 0) {
                 need_num = slen_size;
             }

@@ -28,14 +28,14 @@ namespace YTS.Tools
 
         #region === List Array String Convert ===
         /// <summary>
-        /// 获取列表范围
+        /// 获取指定范围选项, 分页计算方式: 倍数计算: index * count
         /// </summary>
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
-        /// <param name="length">每页数量</param>
         /// <param name="index">页面索引</param>
-        /// <returns>获取 </returns>
-        public static T[] ToRangeList<T>(IList<T> source, int index, int length) {
+        /// <param name="count">每页数量</param>
+        /// <returns>选项结果</returns>
+        public static T[] ToRangePage<T>(IList<T> source, int index, int count) {
             /*
                 10条 1页 开始: 1 结束: 10
 
@@ -50,22 +50,48 @@ namespace YTS.Tools
                 8条 2页 开始: 9 结束: 16
              */
 
-            length = length <= 1 ? 10 : length;
-            int max_index = source.Count / length;
-            int superfluous_count = source.Count % length;
+            count = count <= 1 ? 10 : count;
+            int max_index = source.Count / count;
+            int superfluous_count = source.Count % count;
             int exe_index = index < 1 ? 1 : index;
-            int exe_count = length;
+            int exe_count = count;
             if (exe_index == max_index + 1) {
                 exe_count = superfluous_count;
             } else if (exe_index > max_index + 1) {
                 exe_count = 0;
             } else {
-                exe_count = length;
+                exe_count = count;
             }
-            int startpoint = exe_count <= 0 ? 0 : (exe_index - 1) * length;
+            int startpoint = exe_count <= 0 ? 0 : (exe_index - 1) * count;
 
             List<T> list = new List<T>(source);
             return list.GetRange(startpoint, exe_count).ToArray();
+        }
+
+        /// <summary>
+        /// 获取指定范围选项, 长度计算方式: 加法计算: index + length
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="source">数据源</param>
+        /// <param name="index">页面索引</param>
+        /// <param name="length">列表长度</param>
+        /// <returns>选项结果</returns>
+        public static T[] ToRangeIndex<T>(IList<T> source, int index, int length) {
+            if (CheckData.IsSizeEmpty(source) || index >= source.Count) {
+                return new T[] { };
+            }
+            if (index < 0) {
+                index = 0;
+            }
+            if (length < 0) {
+                length = 0;
+            }
+            int sumlen = index + length;
+            if (sumlen >= source.Count) {
+                length -= sumlen - source.Count;
+            }
+            List<T> list = new List<T>(source);
+            return list.GetRange(index, length).ToArray();
         }
         #endregion
 

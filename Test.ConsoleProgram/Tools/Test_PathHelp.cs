@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram.Tools
                 Func_IsAbsolute(),
                 Func_ToAbsolute(),
                 Func_UseFilePath(),
+                Func_DirectoryFileInfo(),
             };
         }
 
@@ -190,6 +191,33 @@ namespace Test.ConsoleProgram.Tools
                         }
                     }
                     return true;
+                },
+            };
+        }
+
+        public CaseModel Func_DirectoryFileInfo() {
+            return new CaseModel() {
+                NameSign = @"文件夹文件遍历",
+                ExeEvent = () => {
+                    string abspath = @"D:\auto\circleoffriends";
+
+                    DirectoryInfo dir = new DirectoryInfo(abspath);
+
+                    // 最新的三条
+                    DirectoryInfo[] sondir = PathHelp.UpToDateDirectorys(dir, 2, 3);
+
+                    foreach (DirectoryInfo info in sondir) {
+                        Console.WriteLine("Directory name: {0}, create time: {1}", info.Name, info.CreationTime);
+
+                        FileInfo[] fis = PathHelp.PatternFileInfo(info, @".*\.(jpg|png|gif)");
+                        foreach (FileInfo fi in fis) {
+                            Console.WriteLine("  File name: {0}, create time: {1}", fi.Name, fi.CreationTime);
+                        }
+
+                        Console.WriteLine(string.Empty);
+                    }
+
+                    return false;
                 },
             };
         }

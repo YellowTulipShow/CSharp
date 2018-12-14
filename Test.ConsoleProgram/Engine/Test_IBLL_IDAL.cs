@@ -628,7 +628,7 @@ namespace Test.ConsoleProgram.Engine
                             for (int page_index = -2; page_index <= answer_list.Length / page_size + 3; page_index++) {
                                 int record_count = 0;
                                 TestModel[] result = iDAL.Select(page_size, page_index, out record_count, w_dal, sorts);
-                                TestModel[] answer_array = ConvertTool.ToRangeList(answer_list, page_index, page_size);
+                                TestModel[] answer_array = ConvertTool.ToRangePage(answer_list, page_index, page_size);
 
                                 bool isby = new VerifyIList<TestModel, TestModel>(CalcWayEnum.Random) {
                                     Answer = answer_array,

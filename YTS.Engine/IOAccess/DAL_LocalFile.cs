@@ -174,7 +174,7 @@ namespace YTS.Engine.IOAccess
             if (CheckData.IsSizeEmpty(array)) {
                 return new M[] { };
             }
-            return ConvertTool.ToRangeList<M>(array, pageIndex, pageCount);
+            return ConvertTool.ToRangePage<M>(array, pageIndex, pageCount);
         }
 
         /// <summary>

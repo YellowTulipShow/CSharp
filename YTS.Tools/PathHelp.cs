@@ -113,5 +113,43 @@ namespace YTS.Tools
         public static string ToPathSymbol(string sv) {
             return ConvertTool.ToTrim(sv).Trim('/');
         }
+
+        /// <summary>
+        /// 获取创建时间最新的 N 条记录
+        /// </summary>
+        /// <param name="info">文件夹目录信息</param>
+        /// <param name="N">最新几条</param>
+        /// <returns>完成排序的目录列表</returns>
+        public static DirectoryInfo[] UpToDateDirectorys(DirectoryInfo info, int index, int N) {
+            if (CheckData.IsObjectNull(info)) {
+                return new DirectoryInfo[] { };
+            }
+            List<DirectoryInfo> sondir = new List<DirectoryInfo>(info.GetDirectories());
+            sondir.Sort((d1, d2) => d1.CreationTime == d2.CreationTime ? 0 :d1.CreationTime > d2.CreationTime ? -1 : 1);
+            return ConvertTool.ToRangePage(sondir, index, N);
+        }
+
+        /// <summary>
+        /// 获取匹配文件名正则表达式的文件选项
+        /// </summary>
+        /// <param name="info">文件夹目录信息</param>
+        /// <param name="pattern">匹配文件名正则表达式</param>
+        /// <returns>结果文件信息列表</returns>
+        public static FileInfo[] PatternFileInfo(DirectoryInfo info, string pattern) {
+            if (CheckData.IsObjectNull(info)) {
+                return new FileInfo[] { };
+            }
+            List<FileInfo> sondir = new List<FileInfo>(info.GetFiles());
+            sondir.Sort((d1, d2) => d1.CreationTime == d2.CreationTime ? 0 : d1.CreationTime > d2.CreationTime ? 1 : -1);
+            if (CheckData.IsStringNull(pattern)) {
+                return sondir.ToArray();
+            }
+            for (int i = sondir.Count - 1; i >= 0; i--) {
+                if (!Regex.IsMatch(sondir[i].Name, pattern, RegexOptions.IgnoreCase)) {
+                    sondir.RemoveAt(i);
+                }
+            }
+            return sondir.ToArray();
+        }
     }
 }

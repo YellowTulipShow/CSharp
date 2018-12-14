@@ -14,6 +14,7 @@ namespace Test.ConsoleProgram.Tools
             base.NameSign = @"转化";
             base.SonCases = new CaseModel[] {
                 new ObjectToObject(),
+                Func_ToRangeIndex(),
                 new ToRangeList(),
                 DateTimeToString(),
             };
@@ -207,7 +208,7 @@ namespace Test.ConsoleProgram.Tools
                     VerifyIList<string, string> verify = new VerifyIList<string, string>(CalcWayEnum.DoubleCycle);
                     foreach (ToRangeListItem item in ToRangeListItem.ResultAnswer()) {
                         verify.Answer = item.result;
-                        verify.Source = ConvertTool.ToRangeList(source, item.index, item.count);
+                        verify.Source = ConvertTool.ToRangePage(source, item.index, item.count);
                         if (!verify.Calc()) {
                             Console.WriteLine("Error: sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, item.index, item.count, JSON.Serializer(item.result));
                         }
@@ -221,7 +222,7 @@ namespace Test.ConsoleProgram.Tools
                         using (StreamWriter writer = new StreamWriter(fileshream, YTS.Tools.Const.Format.FILE_ENCODING)) {
                             for (int count = 9; count <= 11; count++) {
                                 for (int index = -1; index < 11; index++) {
-                                    string[] result = ConvertTool.ToRangeList(source, index, count);
+                                    string[] result = ConvertTool.ToRangePage(source, index, count);
                                     writer.WriteLine("sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, index, count, JSON.Serializer(result));
                                 }
                                 writer.WriteLine();
@@ -248,6 +249,140 @@ namespace Test.ConsoleProgram.Tools
                             throw new Exception("error");
                         }
                     }
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_ToRangeIndex() {
+            return new CaseModel() {
+                NameSign = @"指定范围索引长度",
+                ExeEvent = () => {
+                    StringBuilder str = new StringBuilder();
+
+                    int[] list = new int[] { 0, 1, 2, 3, 4, 5 };
+                    str.AppendFormat("list: {0}\n\n", JSON.Serializer(list));
+                    for (int index = -2; index < list.Length + 2; index++) {
+                        for (int length = -2; length < list.Length + 2; length++) {
+                            int[] result = ConvertTool.ToRangeIndex(list, index, length);
+                            str.AppendFormat("index: {0} length: {1} result: {2}\n", index, length, JSON.Serializer(result));
+                        }
+                    }
+
+                    string path = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_ToRangeIndex.txt");
+                    this.ClearAndWriteFile(path, str.ToString());
+
+                    VerifyIList<int, int> verify = new VerifyIList<int, int>(CalcWayEnum.DoubleCycle);
+                    Action<int, int, int[]> method = (index, length, source) => {
+                        verify.Answer = source;
+                        verify.Source = ConvertTool.ToRangeIndex(list, index, length);
+                        if (!verify.Calc()) {
+                            Console.WriteLine("Error! index: {0} length: {1} result: {2}", index, length, JSON.Serializer(verify.Source));
+                            throw new Exception("错误!");
+                        }
+                    };
+
+                    method(-2, -2, new int[] { });
+                    method(-2, -1, new int[] { });
+                    method(-2, 0, new int[] { });
+                    method(-2, 1, new int[] { 0 });
+                    method(-2, 2, new int[] { 0, 1 });
+                    method(-2, 3, new int[] { 0, 1, 2 });
+                    method(-2, 4, new int[] { 0, 1, 2, 3 });
+                    method(-2, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(-2, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-2, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-1, -2, new int[] { });
+                    method(-1, -1, new int[] { });
+                    method(-1, 0, new int[] { });
+                    method(-1, 1, new int[] { 0 });
+                    method(-1, 2, new int[] { 0, 1 });
+                    method(-1, 3, new int[] { 0, 1, 2 });
+                    method(-1, 4, new int[] { 0, 1, 2, 3 });
+                    method(-1, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(-1, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-1, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(0, -2, new int[] { });
+                    method(0, -1, new int[] { });
+                    method(0, 0, new int[] { });
+                    method(0, 1, new int[] { 0 });
+                    method(0, 2, new int[] { 0, 1 });
+                    method(0, 3, new int[] { 0, 1, 2 });
+                    method(0, 4, new int[] { 0, 1, 2, 3 });
+                    method(0, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(0, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(0, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(1, -2, new int[] { });
+                    method(1, -1, new int[] { });
+                    method(1, 0, new int[] { });
+                    method(1, 1, new int[] { 1 });
+                    method(1, 2, new int[] { 1, 2 });
+                    method(1, 3, new int[] { 1, 2, 3 });
+                    method(1, 4, new int[] { 1, 2, 3, 4 });
+                    method(1, 5, new int[] { 1, 2, 3, 4, 5 });
+                    method(1, 6, new int[] { 1, 2, 3, 4, 5 });
+                    method(1, 7, new int[] { 1, 2, 3, 4, 5 });
+                    method(2, -2, new int[] { });
+                    method(2, -1, new int[] { });
+                    method(2, 0, new int[] { });
+                    method(2, 1, new int[] { 2 });
+                    method(2, 2, new int[] { 2, 3 });
+                    method(2, 3, new int[] { 2, 3, 4 });
+                    method(2, 4, new int[] { 2, 3, 4, 5 });
+                    method(2, 5, new int[] { 2, 3, 4, 5 });
+                    method(2, 6, new int[] { 2, 3, 4, 5 });
+                    method(2, 7, new int[] { 2, 3, 4, 5 });
+                    method(3, -2, new int[] { });
+                    method(3, -1, new int[] { });
+                    method(3, 0, new int[] { });
+                    method(3, 1, new int[] { 3 });
+                    method(3, 2, new int[] { 3, 4 });
+                    method(3, 3, new int[] { 3, 4, 5 });
+                    method(3, 4, new int[] { 3, 4, 5 });
+                    method(3, 5, new int[] { 3, 4, 5 });
+                    method(3, 6, new int[] { 3, 4, 5 });
+                    method(3, 7, new int[] { 3, 4, 5 });
+                    method(4, -2, new int[] { });
+                    method(4, -1, new int[] { });
+                    method(4, 0, new int[] { });
+                    method(4, 1, new int[] { 4 });
+                    method(4, 2, new int[] { 4, 5 });
+                    method(4, 3, new int[] { 4, 5 });
+                    method(4, 4, new int[] { 4, 5 });
+                    method(4, 5, new int[] { 4, 5 });
+                    method(4, 6, new int[] { 4, 5 });
+                    method(4, 7, new int[] { 4, 5 });
+                    method(5, -2, new int[] { });
+                    method(5, -1, new int[] { });
+                    method(5, 0, new int[] { });
+                    method(5, 1, new int[] { 5 });
+                    method(5, 2, new int[] { 5 });
+                    method(5, 3, new int[] { 5 });
+                    method(5, 4, new int[] { 5 });
+                    method(5, 5, new int[] { 5 });
+                    method(5, 6, new int[] { 5 });
+                    method(5, 7, new int[] { 5 });
+                    method(6, -2, new int[] { });
+                    method(6, -1, new int[] { });
+                    method(6, 0, new int[] { });
+                    method(6, 1, new int[] { });
+                    method(6, 2, new int[] { });
+                    method(6, 3, new int[] { });
+                    method(6, 4, new int[] { });
+                    method(6, 5, new int[] { });
+                    method(6, 6, new int[] { });
+                    method(6, 7, new int[] { });
+                    method(7, -2, new int[] { });
+                    method(7, -1, new int[] { });
+                    method(7, 0, new int[] { });
+                    method(7, 1, new int[] { });
+                    method(7, 2, new int[] { });
+                    method(7, 3, new int[] { });
+                    method(7, 4, new int[] { });
+                    method(7, 5, new int[] { });
+                    method(7, 6, new int[] { });
+                    method(7, 7, new int[] { });
+
                     return true;
                 },
             };

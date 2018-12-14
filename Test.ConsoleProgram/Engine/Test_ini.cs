@@ -37,6 +37,7 @@ namespace Test.ConsoleProgram.Engine
                 Func_ClearSection(),
                 Func_DeleteKey(),
                 Func_IsExistsValue(),
+                BreakCase(),
             };
         }
 
@@ -158,8 +159,24 @@ namespace Test.ConsoleProgram.Engine
 
         public CaseModel Func_ClearSection() {
             return new CaseModel() {
-                NameSign = @"清空 Section 部分(待)",
+                NameSign = @"清空 Section 部分",
                 ExeEvent = () => {
+                    VerifyIList<string, string> verify = new VerifyIList<string, string>(CalcWayEnum.DoubleCycle);
+                    verify.Answer = new List<string>(this.dic.Keys);
+                    verify.Source = this.ini.GetSections();
+                    if (!verify.Calc()) {
+                        return false;
+                    }
+
+                    string section = RandomData.Item(new List<string>(this.dic.Keys));
+                    this.dic.Remove(section);
+                    this.ini.ClearSection(section);
+
+                    verify.Answer = new List<string>(this.dic.Keys);
+                    verify.Source = this.ini.GetSections();
+                    if (!verify.Calc()) {
+                        return false;
+                    }
                     return true;
                 },
             };
@@ -167,8 +184,29 @@ namespace Test.ConsoleProgram.Engine
 
         public CaseModel Func_DeleteKey() {
             return new CaseModel() {
-                NameSign = @"删除键(待)",
+                NameSign = @"删除键",
                 ExeEvent = () => {
+                    string section = RandomData.Item(new List<string>(this.dic.Keys));
+                    VerifyIList<KeyString, KeyString> verify = new VerifyIList<KeyString, KeyString>(CalcWayEnum.DoubleCycle) {
+                        Func_isEquals = (a, s) => a.Key == s.Key && a.Value == s.Value,
+                    };
+                    verify.Answer = this.dic[section];
+                    verify.Source = this.ini.GetKeyValues(section);
+                    if (!verify.Calc()) {
+                        return false;
+                    }
+
+                    KeyString ks = RandomData.Item(this.dic[section]);
+                    List<KeyString> kss = new List<KeyString>(this.dic[section]);
+                    kss.Remove(ks);
+                    this.dic[section] = kss.ToArray();
+                    this.ini.DeleteKey(section, ks.Key);
+
+                    verify.Answer = this.dic[section];
+                    verify.Source = this.ini.GetKeyValues(section);
+                    if (!verify.Calc()) {
+                        return false;
+                    }
                     return true;
                 },
             };
