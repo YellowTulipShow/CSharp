@@ -43,6 +43,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_URL_or_URI(),
                 new Learn.Test_RatePossibility(),
                 new Learn.Test_StackTrace(),
+                new Learn.Test_ImgConvert(),
             };
         }
 
@@ -52,6 +53,7 @@ namespace Test.ConsoleProgram
         public CaseModel[] GetList_Tools() {
             //return new CaseModel[] { };
             return new CaseModel[] {
+                new Tools.Test_CommonData(),
                 new Tools.Test_CheckData(),
                 new Tools.Test_ConvertTool(),
                 new Tools.Test_ReflexHelp(),

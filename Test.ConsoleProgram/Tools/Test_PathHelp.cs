@@ -217,7 +217,7 @@ namespace Test.ConsoleProgram.Tools
                         Console.WriteLine(string.Empty);
                     }
 
-                    return false;
+                    return true;
                 },
             };
         }

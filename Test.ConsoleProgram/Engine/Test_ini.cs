@@ -37,7 +37,6 @@ namespace Test.ConsoleProgram.Engine
                 Func_ClearSection(),
                 Func_DeleteKey(),
                 Func_IsExistsValue(),
-                BreakCase(),
             };
         }
 

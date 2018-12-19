@@ -66,6 +66,7 @@
     <Compile Include="Engine\Test_IBLL_IDAL.cs" />
     <Compile Include="BLL\Test_URLReWriter.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
+    <Compile Include="Learn\Test_ImgConvert.cs" />
     <Compile Include="Learn\Test_ObjectComparison.cs" />
     <Compile Include="Learn\Test_FileDataOperating.cs" />
     <Compile Include="Learn\Test_HttpContext.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Learn\Test_XML.cs" />
     <Compile Include="SystemService\Test_GlobalSystemService.cs" />
     <Compile Include="Tools\Test_CheckData.cs" />
+    <Compile Include="Tools\Test_CommonData.cs" />
     <Compile Include="Tools\Test_ConvertTool.cs" />
     <Compile Include="Tools\Test_EnumInfo.cs" />
     <Compile Include="Tools\Test_SerializerDeserialize.cs" />
