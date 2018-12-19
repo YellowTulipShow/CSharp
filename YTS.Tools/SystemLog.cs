@@ -14,11 +14,6 @@ namespace YTS.Tools
 
         #region === Model ===
         /// <summary>
-        /// 日志类型 (默认为 LogEnum.Error 错误 )
-        /// </summary>
-        public LogType Type { get { return type; } set { type = value; } }
-        private LogType type = LogType.Error;
-        /// <summary>
         /// 日志 类型枚举
         /// </summary>
         public enum LogType
@@ -39,6 +34,11 @@ namespace YTS.Tools
             [Explain(@"异常")]
             Exception = 2,
         }
+        /// <summary>
+        /// 日志类型 (默认为 LogEnum.Error 错误)
+        /// </summary>
+        public LogType Type { get { return type; } set { type = value; } }
+        private LogType type = LogType.Error;
 
         /// <summary>
         /// 写入日志位置
@@ -53,19 +53,12 @@ namespace YTS.Tools
         private string message = string.Empty;
 
         /// <summary>
-        /// 是否开启堆栈跟踪列表, 默认不开启
-        /// </summary>
-        public bool IsStackTraceList { get { return _is_stack_trace_list; } set { _is_stack_trace_list = value; } }
-        private bool _is_stack_trace_list = false;
-
-        /// <summary>
         /// 添加时间 (默认添加当前时间)
         /// </summary>
         public DateTime AddTime { get { return addTime; } set { addTime = value; } }
         private DateTime addTime = DateTime.Now;
         #endregion
 
-        #region === Function ===
         /// <summary>
         /// 写入一个日志
         /// </summary>
@@ -73,7 +66,9 @@ namespace YTS.Tools
         /// <returns>写入的日志文件绝对路径</returns>
         public string Write() {
             string path = GetLogFilePath();
-            File.AppendAllText(path, GetFormatContent(), YTS.Tools.Const.Format.FILE_ENCODING);
+            string formatcontent = GetFormatContent();
+            Encoding encode = YTS.Tools.Const.Format.FILE_ENCODING;
+            File.AppendAllText(path, formatcontent, encode);
             return path;
         }
 
@@ -93,35 +88,22 @@ namespace YTS.Tools
         /// <summary>
         /// 获取格式化后内容
         /// </summary>
-        private string GetFormatContent() {
-            if (this.IsStackTraceList) {
-                string info = ConvertTool.ToString(new string[] {
-                    ConvertTool.ToString(this.AddTime),
-                    this.Type.ToString(),
-                    this.Message,
-                }, @"  >>  ");
-                return ConvertTool.ToString(new string[] {
-                    info,
-                    @"堆栈跟踪:",
-                    this.Position,
-                }, "\n") + "\n";
-            }
-            string[] content = new string[] {
+        protected virtual string GetFormatContent() {
+            string[] strs = new string[] {
                 ConvertTool.ToString(this.AddTime),
                 this.Type.ToString(),
                 this.Position,
                 this.Message,
             };
-            return ConvertTool.ToString(content, @"  >>  ") + "\n";
+            return ConvertTool.ToString(strs, @"  >>  ") + "\n";
         }
-        #endregion
 
         /// <summary>
-        /// 写入一个日志
+        /// 写入一个异常报错日志
         /// </summary>
-        /// <param name="ex"></param>
+        /// <param name="ex">表示在应用程序执行期间发生的错误。</param>
         public static void Write(Exception ex) {
-            SystemLog log = new SystemLog() {
+            SystemLog log = new SystemLogException() {
                 Type = LogType.Exception,
                 AddTime = DateTime.Now,
                 Position = new StackTrace(true).ToString(),
@@ -129,6 +111,41 @@ namespace YTS.Tools
                 IsStackTraceList = true,
             };
             log.Write();
+        }
+    }
+
+    /// <summary>
+    /// 异常版系统日志
+    /// </summary>
+    public class SystemLogException : SystemLog
+    {
+        public SystemLogException() { }
+
+        /// <summary>
+        /// 是否开启堆栈跟踪列表, 默认不开启
+        /// </summary>
+        public bool IsStackTraceList { get { return _is_stack_trace_list; } set { _is_stack_trace_list = value; } }
+        private bool _is_stack_trace_list = false;
+
+        /// <summary>
+        /// 格式化日志信息, 其中判断使用堆栈跟踪
+        /// </summary>
+        /// <returns>格式化后文本内容</returns>
+        protected override string GetFormatContent() {
+            if (!this.IsStackTraceList) {
+                return base.GetFormatContent();
+            }
+            string[] strs = new string[] {
+                ConvertTool.ToString(this.AddTime),
+                this.Type.ToString(),
+                this.Message,
+            };
+            string[] strs2 = new string[] {
+                ConvertTool.ToString(strs, @"  >>  "),
+                @"堆栈跟踪:",
+                this.Position,
+            };
+            return ConvertTool.ToString(strs2, "\n") + "\n";
         }
     }
 }

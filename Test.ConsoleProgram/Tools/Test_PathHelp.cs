@@ -199,6 +199,7 @@ namespace Test.ConsoleProgram.Tools
             return new CaseModel() {
                 NameSign = @"文件夹文件遍历",
                 ExeEvent = () => {
+                    return true;
                     string abspath = @"D:\auto\circleoffriends";
 
                     DirectoryInfo dir = new DirectoryInfo(abspath);

@@ -14,6 +14,7 @@ namespace Test.ConsoleProgram.SystemService
             this.SonCases = new CaseModel[] {
                 Func_SystemConfig(),
                 Func_ConfigParser(),
+                //this.BreakCase(),
             };
         }
 
@@ -57,9 +58,6 @@ namespace Test.ConsoleProgram.SystemService
                         throw new Exception("错误");
                         return false;
                     }
-
-                    //ShineUponParser<SystemConfig, ShineUponInfo> parser = new ShineUponParser<SystemConfig, ShineUponInfo>();
-                    //ShineUponInfo[] infos = parser.GetSortResult();
                     return true;
                 },
             };

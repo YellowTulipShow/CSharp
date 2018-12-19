@@ -15,7 +15,7 @@ namespace Test.ConsoleProgram.Learn
         public Test_ImgConvert() {
             this.NameSign = @"图片转化";
             this.SonCases = new CaseModel[] {
-                new MD5Chane(),
+                //new MD5Chane(), // 本地开发测试, 需要固定路径以及图片文件
             };
         }
 
