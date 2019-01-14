@@ -10,7 +10,22 @@ namespace Test.ConsoleProgram.Tools
         public Test_CommonData() {
             this.NameSign = @"常用字符";
             this.SonCases = new CaseModel[] {
+                Func_ForeachPrintALLChars(),
                 Func_ASCII_Special(),
+            };
+        }
+
+        public CaseModel Func_ForeachPrintALLChars() {
+            return new CaseModel() {
+                NameSign = @"遍历输出所有字符",
+                ExeEvent = () => {
+                    StringBuilder str = new StringBuilder();
+                    foreach (char c in CommonData.ASCII_ALL()) {
+                        str.Append(c);
+                    }
+                    Console.WriteLine(str.ToString());
+                    return true;
+                },
             };
         }
 
