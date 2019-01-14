@@ -151,5 +151,46 @@ namespace YTS.Tools
             }
             return sondir.ToArray();
         }
+
+        /// <summary>
+        /// 所有子文件夹递归循环获取
+        /// </summary>
+        /// <param name="olddir"></param>
+        /// <returns></returns>
+        public static DirectoryInfo[] AllSonDirectorys(DirectoryInfo olddir) {
+            if (CheckData.IsObjectNull(olddir)) {
+                return new DirectoryInfo[] { };
+            }
+            DirectoryInfo[] selfson = olddir.GetDirectories();
+            if (CheckData.IsSizeEmpty(selfson)) {
+                return new DirectoryInfo[] { };
+            }
+            List<DirectoryInfo> sons = new List<DirectoryInfo>(selfson);
+            foreach (DirectoryInfo item in selfson) {
+                sons.AddRange(AllSonDirectorys(item));
+            }
+            return sons.ToArray();
+        }
+
+        /// <summary>
+        /// 清空指定的文件夹，但不删除文件夹
+        /// </summary>
+        /// <param name="dir"></param>
+        public static void ClearFolder(string dir) {
+            foreach (string d in Directory.GetFileSystemEntries(dir)) {
+                if (System.IO.File.Exists(d)) {
+                    FileInfo fi = new FileInfo(d);
+                    if (fi.Attributes.ToString().IndexOf("ReadOnly") != -1)
+                        fi.Attributes = FileAttributes.Normal;
+                    System.IO.File.Delete(d);
+                } else {
+                    DirectoryInfo d1 = new DirectoryInfo(d);
+                    if (d1.GetFiles().Length != 0) {
+                        ClearFolder(d1.FullName);
+                    }
+                    Directory.Delete(d);
+                }
+            }
+        }
     }
 }

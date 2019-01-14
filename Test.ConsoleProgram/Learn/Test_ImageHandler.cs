@@ -6,38 +6,73 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using YTS.BLL;
 using YTS.Tools;
 
 namespace Test.ConsoleProgram.Learn
 {
-    public class Test_ImgConvert : CaseModel
+    public class Test_ImageHandler : CaseModel
     {
-        public Test_ImgConvert() {
-            this.NameSign = @"图片转化";
+        public Test_ImageHandler() {
+            this.NameSign = @"图像处理程序";
             this.SonCases = new CaseModel[] {
                 //new MD5Chane(), // 本地开发测试, 需要固定路径以及图片文件
+                Func_MB_KB_B(),
+                Func_Compression(),
+                base.BreakCase(),
             };
         }
 
-        /// <summary>
-        /// 清空指定的文件夹，但不删除文件夹
-        /// </summary>
-        /// <param name="dir"></param>
-        public static void DeleteFolder(string dir) {
-            foreach (string d in Directory.GetFileSystemEntries(dir)) {
-                if (System.IO.File.Exists(d)) {
-                    FileInfo fi = new FileInfo(d);
-                    if (fi.Attributes.ToString().IndexOf("ReadOnly") != -1)
-                        fi.Attributes = FileAttributes.Normal;
-                    System.IO.File.Delete(d);
-                } else {
-                    DirectoryInfo d1 = new DirectoryInfo(d);
-                    if (d1.GetFiles().Length != 0) {
-                        DeleteFolder(d1.FullName);
+        public CaseModel Func_MB_KB_B() {
+            return new CaseModel() {
+                NameSign = @"单位换算",
+                ExeEvent = () => {
+                    long b = 1751335;
+                    Console.WriteLine("b : {0}", b);
+                    double kb = ImageHandler.B_KB(b);
+                    Console.WriteLine("kb : {0}KB", kb);
+                    double mb = ImageHandler.B_MB(b);
+                    Console.WriteLine("mb : {0}MB", mb);
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_Compression() {
+            return new CaseModel() {
+                NameSign = @"压缩计算",
+                ExeEvent = () => {
+                    const string oldpath = @"D:\ZRQDownloads\imgs";
+                    if (!Directory.Exists(oldpath)) {
+                        Console.WriteLine("停止执行, 路径不存在: {0}", oldpath);
+                        return true;
                     }
-                    Directory.Delete(d);
-                }
-            }
+
+                    ImageHandler handler = new ImageHandler();
+                    const int maxwidth = 1200;
+                    const int maxheight = 1200;
+                    handler.SetMaxSize(maxwidth, maxheight);
+                    const long maxbytelength = 2 * 1024 * 1024;
+                    handler.SetMaxByteLength(maxbytelength);
+
+                    DirectoryInfo[] sondirs = PathHelp.AllSonDirectorys(new DirectoryInfo(oldpath));
+                    foreach (DirectoryInfo dirinfo in sondirs) {
+                        FileInfo[] fis = PathHelp.PatternFileInfo(dirinfo, @".*\.(jpg|png|gif)");
+                        foreach (FileInfo file in fis) {
+                            byte[] imgvalues = handler.Calc(file);
+                            if (CheckData.IsSizeEmpty(imgvalues)) {
+                                Console.WriteLine("压缩图片失败, 结果为空!");
+                                Console.WriteLine("FileInfo.FullName: {0}", file.FullName);
+                                return false;
+                            }
+                            string newdirpath = file.DirectoryName.Replace("imgs", "imgs_c");
+                            string newfilepath = PathHelp.CreateUseFilePath(newdirpath, file.Name);
+                            handler.SaveImg(imgvalues, newfilepath);
+                        }
+                    }
+                    return true;
+                },
+            };
         }
 
         public class MD5Chane : CaseModel
@@ -48,12 +83,13 @@ namespace Test.ConsoleProgram.Learn
             }
 
             public bool Method() {
-                DirectoryInfo olddir = new DirectoryInfo(@"D:\auto\circleoffriends\2018-12-18");
-                DirectoryInfo newdir = new DirectoryInfo(@"D:\auto\circleoffriends\download");
-                DeleteFolder(newdir.FullName);
-                FileInfo[] fis = PathHelp.PatternFileInfo(olddir, @".*\.(jpg|png|gif)");
-                foreach (FileInfo file in fis) {
-                    Calc(newdir, file);
+                const string oldpath = @"D:\ZRQDownloads\imgs";
+                DirectoryInfo[] sondirs = PathHelp.AllSonDirectorys(new DirectoryInfo(oldpath));
+                foreach (DirectoryInfo dirinfo in sondirs) {
+                    FileInfo[] fis = PathHelp.PatternFileInfo(dirinfo, @".*\.(jpg|png|gif)");
+                    foreach (FileInfo file in fis) {
+                        Calc(dirinfo, file);
+                    }
                 }
                 return false;
             }
@@ -65,51 +101,69 @@ namespace Test.ConsoleProgram.Learn
                 }
             }
 
-            public void Calc(DirectoryInfo newdir, FileInfo file) {
-                string newfilepath = newdir.FullName + @"\" + file.Name;
-                FileInfo newfile = new FileInfo(newfilepath);
-                int rate = 100;
+            public void Calc(DirectoryInfo olddir, FileInfo file) {
+                string oldpath = PathHelp.CreateUseFilePath(olddir.FullName, file.Name);
+                int rate = 60;
                 byte[] imgcontent = CanUseImg(file, out rate);
-                SaveImg(imgcontent, newfilepath);
-                string[] strs = new string[] {
-                        string.Format("oldFile.size: {0}MB", KB_MB(file.Length)),
-                        string.Format("newFile.size: {0}MB", KB_MB(newfile.Length)),
-                        string.Format("imgcontent.Length: {0}MB", KB_MB(imgcontent.Length)),
-                        string.Format("file.Name: {0}", file.Name),
-                        string.Format("rate: {0}", rate),
-                    };
-                Console.WriteLine(ConvertTool.ToString(strs, @" "));
+                string newpath = PathHelp.CreateUseFilePath(olddir.FullName.Replace("imgs", "imgs_c"), file.Name);
+                if (File.Exists(newpath)) {
+                    File.Delete(newpath);
+                }
+                SaveImg(imgcontent, newpath);
+                PrintInfo(new FileInfo(oldpath), new FileInfo(newpath), rate);
             }
 
-            public double KB_MB(double len) {
+            public void PrintInfo(FileInfo oldfile, FileInfo newfile, int rate) {
+                Console.WriteLine("oldfile.FullName: {0} Size: {1} rate: {2}", oldfile, Size(oldfile), rate);
+                Console.WriteLine("newfile.FullName: {0} Size: {1}\n", newfile, Size(newfile));
+            }
+
+            public string Size(FileInfo file) {
+                const double rate = 1024.0;
+                double b = file.Length;
+                if (b <= rate) {
+                    return string.Format("{0}Byte", Math.Round(b, 2));
+                }
+                double kb = b / rate;
+                if (b <= rate) {
+                    return string.Format("{0}KB", Math.Round(kb, 2));
+                }
+                double mb = kb / rate;
+                return string.Format("{0}MB", Math.Round(mb, 2));
+            }
+
+            public double B_KB(double len) {
+                return Math.Round(len / 1024.0, 2);
+            }
+            public double B_MB(double len) {
                 return Math.Round(len / 1024.0 / 1024.0, 2);
             }
             public byte[] CanUseImg(FileInfo file, out int rate) {
                 byte[] imgcontent = new byte[] { };
                 for (rate = 100; rate > 1; rate -= 5) {
                     imgcontent = CreateNewImg(file, rate);
-                    if (imgcontent.Length <= file.Length || !IsBigImg(imgcontent.Length)) {
+                    if (!IsBigImg(imgcontent.Length)) {
                         break;
                     }
                 }
                 return imgcontent;
             }
-            public bool IsBigImg(int imglength) {
-                return KB_MB(imglength) > 2;
+            public bool IsBigImg(double len) {
+                return B_KB(len) > 250.0;
+                //return B_MB(len) > 2;
             }
             public byte[] CreateNewImg(FileInfo oldfile, int rate) {
                 using (Bitmap bitmap = new Bitmap(oldfile.FullName)) {
-                    int x = RandomData.GetInt(0, bitmap.Width);
-                    int y = RandomData.GetInt(0, bitmap.Height);
-                    Color oc = bitmap.GetPixel(x, y);
-                    Color nc = ChangeColor(oc);
-                    bitmap.SetPixel(x, y, nc);
+                    //int x = RandomData.GetInt(0, bitmap.Width);
+                    //int y = RandomData.GetInt(0, bitmap.Height);
+                    //Color oc = bitmap.GetPixel(x, y);
+                    //Color nc = ChangeColor(oc);
+                    //bitmap.SetPixel(x, y, nc);
 
                     #region 重写计算尺寸大小
                     int max_width = 1200;
-                    int max_height = 700;
-                    bool isBigImg = Math.Round(oldfile.Length / 1024.0 / 1024.0, 2) > 2;
-                    if (isBigImg && (bitmap.Width >= max_width || bitmap.Height >= max_height)) {
+                    int max_height = 7000;
+                    if (bitmap.Width >= max_width || bitmap.Height >= max_height) {
                         Size _newSize = ResizeImage(bitmap.Width, bitmap.Height, max_width, max_height);
                         using (Bitmap newbitmap = new Bitmap(bitmap, _newSize)) {
                             return ConvertByte(newbitmap, rate);

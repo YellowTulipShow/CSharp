@@ -43,7 +43,7 @@ namespace Test.ConsoleProgram
                 new Learn.Test_URL_or_URI(),
                 new Learn.Test_RatePossibility(),
                 new Learn.Test_StackTrace(),
-                new Learn.Test_ImgConvert(),
+                //new Learn.Test_ImageHandler(),
             };
         }
 

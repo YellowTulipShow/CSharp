@@ -69,7 +69,7 @@
     <Compile Include="Engine\Test_IBLL_IDAL.cs" />
     <Compile Include="BLL\Test_URLReWriter.cs" />
     <Compile Include="Engine\Test_AbsShineUponParser.cs" />
-    <Compile Include="Learn\Test_ImgConvert.cs" />
+    <Compile Include="Learn\Test_ImageHandler.cs" />
     <Compile Include="Learn\Test_ObjectComparison.cs" />
     <Compile Include="Learn\Test_FileDataOperating.cs" />
     <Compile Include="Learn\Test_HttpContext.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -257,18 +258,6 @@ namespace YTS.Tools
 
         #region ====== Color: ======
         /// <summary>
-        /// RGB颜色 三项数字值0-255
-        /// </summary>
-        public static int[] RGBColor_NumberList() {
-            const int min = 0;
-            const int max = 255;
-            return new int[3] {
-                GetInt(min, max + 1),
-                GetInt(min, max + 1),
-                GetInt(min, max + 1),
-            };
-        }
-        /// <summary>
         /// RGB颜色 六位字符串
         /// </summary>
         /// <param name="isNeedAdd_Hashtag">是否需要加 '#' 号</param>
@@ -282,6 +271,22 @@ namespace YTS.Tools
                 str.Append(Item(clist));
             }
             return str.ToString();
+        }
+        public static Color ColorRGB() {
+            const int min = 0;
+            const int max = 255 + 1;
+            int red = RandomData.GetInt(min, max);
+            int green = RandomData.GetInt(min, max);
+            int blue = RandomData.GetInt(min, max);
+            Color nc = Color.FromArgb(red, green, blue);
+            return nc;
+        }
+        public static Color ColorRGBA() {
+            const int min = 0;
+            const int max = 255 + 1;
+            int alpha = RandomData.GetInt(min, max);
+            Color nc = Color.FromArgb(alpha, ColorRGB());
+            return nc;
         }
         #endregion
     }
