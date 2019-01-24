@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <div class="ModelBox_MAX Banner zix-1">
+            <div class="ShowRegion">
+                <img class="img Style_IsMobile_Hide" src="<%templateskin%>/images/banner-5.jpg" />
+                <img class="img Style_IsPC_Hide" src="<%templateskin%>/images/banner/directsupply.jpg" />
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="ModelBox_MAX Nav">
+            <div class="ModelBox">
+                <div class="Name">
+                    <span class="span"><%=get_channel_title("directsupply")%></span>
+                </div>
+                <div class="Links">
+                    <a class="a span" href='<%linkurl("index")%>'>首页</a>
+                    <span class="span">></span>
+                    <a class="a span" href='<%linkurl("directsupply")%>'><%=get_channel_title("directsupply")%></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 私人直供 -->
+        <div class="ModelBox_MAX">
+            <div class="ModelBox">
+                <div class="brand_page">
+                    <div class="brand_story">
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_bold ds">源头收草直播&nbsp;&nbsp;所见即所得</span>
+                            </div>
+                            <div class="brand_story_section_content" style="text-align: center;">
+                                <p class="ds">为确保每根虫草纯正道地，<br/>全部产自“中国冬虫夏草第一县”杂多县，<br/>珍峰特意在杂多县设立珍峰收草基地，<br/>19年来兢兢业业，风雨无阻，<br/>客户下单，师傅出发收草，<br/>如有需要</p>
+                            </div>
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_adhereto ds">可现场直播收草。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand_showimg">
+                        <img src="<%templateskin%>/images/show-1.jpg"/>
+                    </div>
+                    <div class="brand_story">
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_bold ds">专人直飞送货，36小时极速送达</span>
+                            </div>
+                            <div class="brand_story_section_content" style="text-align: center;">
+                                <p class="ds">对于急用虫草的客户，<br/>不论订单大小，是否有利润，珍峰均提供直飞送货到家服务，<br/>由于我们现收虫草，且地处偏远，去多数地方都要转机，</p>
+                            </div>
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_adhereto ds">所以我们只能承诺36小时送到。</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand_showimg">
+                        <img src="<%templateskin%>/images/show-2.jpg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

@@ -9,14 +9,18 @@ namespace Test.ConsoleProgram
 {
     internal class MainProram
     {
-        private static readonly string CaseSourceNullErrorMsg = @"(→_→) => 没有设置好的需要实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ";
-
         internal static void Main(string[] args) {
-            Console.OutputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = YTS.Tools.Const.Format.FILE_ENCODING;
+            Console.InputEncoding = YTS.Tools.Const.Format.FILE_ENCODING;
+            Console.Title = @"YTS.Test 控制台程序";
             do {
-                ExecuteCaseText();
+                ExecuteCases();
             } while (IsRepeatExecute());
         }
+
+        /// <summary>
+        /// 是否重复执行
+        /// </summary>
         private static bool IsRepeatExecute() {
             Console.WriteLine(string.Empty);
             Console.WriteLine(@"请输入命令: Q(退出) R(重复执行) C(清空屏幕)");
@@ -35,10 +39,13 @@ namespace Test.ConsoleProgram
             }
         }
 
-        private static void ExecuteCaseText() {
+        /// <summary>
+        /// 执行测试实例集合
+        /// </summary>
+        private static void ExecuteCases() {
             CaseModel[] case_list = new Libray().GetALLCases();
             if (CheckData.IsSizeEmpty(case_list)) {
-                Console.WriteLine(CaseSourceNullErrorMsg);
+                Console.WriteLine(@"(→_→) => 并没有需要测试实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
                 return;
             }
             if (AnalyticCaseModel(case_list, string.Empty)) {
@@ -49,10 +56,13 @@ namespace Test.ConsoleProgram
         }
 
         /// <summary>
-        /// 解析执行实例模型
+        /// 递归解析测试实例集合
         /// </summary>
+        /// <param name="cases">测试实例集合</param>
+        /// <param name="upper_layer_name">上层级名称</param>
+        /// <returns>是否成功</returns>
         private static bool AnalyticCaseModel(CaseModel[] cases, string upper_layer_name) {
-            upper_layer_name = ConvertTool.ObjToString(upper_layer_name);
+            upper_layer_name = ConvertTool.ToString(upper_layer_name);
             foreach (CaseModel model in cases) {
                 // 获取名称
                 string name = model.NameSign;
@@ -64,7 +74,7 @@ namespace Test.ConsoleProgram
                 if (CheckData.IsObjectNull(model.ExeEvent)) {
                     Console.WriteLine("\n[-] Name: [{0}] ExeEvent Is NULL", name);
                 } else {
-                    bool isby = AnalyticCaseModelOneItem(model, name);
+                    bool isby = AnalyticCaseModelOneItem(model.ExeEvent, name);
                     if (!isby) {
                         return false;
                     }
@@ -80,10 +90,16 @@ namespace Test.ConsoleProgram
             return true;
         }
 
-        private static bool AnalyticCaseModelOneItem(CaseModel model, string name) {
+        /// <summary>
+        /// 单个解析测试实例
+        /// </summary>
+        /// <param name="method">执行方法</param>
+        /// <param name="name">执行名称</param>
+        /// <returns>是否成功</returns>
+        private static bool AnalyticCaseModelOneItem(Func<bool> method, string name) {
             bool isby = false;
             double exe_time = RunHelp.GetRunTime(() => {
-                isby = model.ExeEvent();
+                isby = method();
             });
             if (isby) {
                 Console.WriteLine("[+] Name: [{0}] 成功 Success Time: {1}s", name, exe_time);

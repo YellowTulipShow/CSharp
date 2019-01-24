@@ -1,0 +1,44 @@
+
+<div class="UserForms" >
+    <div class="Block Name">
+        <input class="input" type="text" id="ID_Iut_Name" placeholder="请输入姓名" />
+    </div>
+    <div class="Block Phone">
+        <input class="input" type="text" id="ID_Iut_Phone" placeholder="请输入电话" />
+    </div>
+    <div class="Block Demand">
+        <textarea class="textarea" id="ID_Iut_Demand" placeholder="请简要描述您的需求"></textarea>
+    </div>
+    <div class="Block Submit">
+        <button class="button ThemeColor_bg_yellow_Hover" id="ID_Btn_Sutmit_UserInfo" onclick="window.PaegRequest.LeaveMessage()">提交</button>
+    </div>
+</div>
+
+<div id="ID_LeaveMessage_Success" class="Dialog SuspensionFixationALLWindow boxSizing_borderbox">
+    <div class="CurtainShady ThemeColor_bg_black opacity_8 zix-0"></div>
+    <div class=" Content LeaveMessage AbsHorizontalVerticalCenter ThemeColor_bg_white zix-1">
+        <div class="CloseButton zix-2" onclick="window.PageClassSetLibrary.ToggleDialog('#ID_LeaveMessage_Success');">
+            <img class="img" src="<%templateskin%>/images/CloseBtn_yin.png" />
+        </div>
+        <div class="Title">
+            <span class="span">留言提示:</span>
+        </div>
+        <div class="HintTxt">
+            <span class="span">提交成功了!</span>
+        </div>
+    </div>
+</div>
+<div id="ID_LeaveMessage_Error" class="Dialog SuspensionFixationALLWindow boxSizing_borderbox">
+    <div class="CurtainShady ThemeColor_bg_black opacity_8 zix-0"></div>
+    <div class=" Content LeaveMessage AbsHorizontalVerticalCenter ThemeColor_bg_white zix-1">
+        <div class="CloseButton zix-2" onclick="window.PageClassSetLibrary.ToggleDialog('#ID_LeaveMessage_Error');">
+            <img class="img" src="<%templateskin%>/images/CloseBtn_yin.png" />
+        </div>
+        <div class="Title">
+            <span class="span">留言提示:</span>
+        </div>
+        <div class="HintTxt">
+            <span class="span" id="ID_LeaveMessage_Error_span">提交失败了!</span>
+        </div>
+    </div>
+</div>

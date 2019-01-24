@@ -1,0 +1,45 @@
+<div id="ID_nAC_Block_Sidebar" class="nAC_sidebar">
+    <%set DataTable redNews=get_article_list(channel, 0, 5, "status=0 and is_red=1 and img_url!=''")%>
+    <%if(redNews.Rows.Count>0)%>
+    <div class="Block itembox">
+        <div class="nAC_htname">
+            <span class="span">更多推荐</span>
+        </div>
+        <div class="nAC_side-img-list">
+            <%foreach(DataRow dr in redNews.Rows)%>
+            <div class="li">
+                <div class="img-box">
+                    <img class="img" src="{dr[img_url]}" />
+                </div>
+                <div class="txt-box">
+                    <a class="a span href" title="{dr[title]}" href='<%linkurl(use_temp_sign+"_show",{dr[id]})%>'>{dr[title]}</a>
+                    <span class="span time"><%datetostr({dr[add_time]},yyyy-MM-dd)%></span>
+                </div>
+            </div>
+            <%/foreach%>
+        </div>
+    </div>
+    <%/if%>
+
+    <%set DataTable hotNews=get_article_list(channel, 0, 10, "status=0", "click desc,id desc")%>
+    <div class="Block itembox">
+        <div class="nAC_htname">
+            <span class="span">阅读排行</span>
+        </div>
+        <div class="nAC_text-link">
+            <%loop hotdr hotNews%>
+            <div class="li <%if(hotdr__loop__id<2)%>hot<%else%><%/if%>">
+                <span class="span signno"><%=hotdr__loop__id%></span>
+                <a class="a span" href='<%linkurl(use_temp_sign+"_show",{hotdr[id]})%>'>{hotdr[title]}</a>
+            </div>
+            <%/loop%>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#ID_nAC_Block_ListArray").css({
+            "min-height": $("#ID_nAC_Block_Sidebar").height(),
+        });
+    });
+</script>

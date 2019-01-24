@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,10 +41,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsTableModel.cs" />
+    <Compile Include="AjaxResult.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="dv_SiteChannelFieldInfo.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="old\article.cs" />
+    <Compile Include="old\article_albums.cs" />
+    <Compile Include="old\article_attach.cs" />
+    <Compile Include="old\article_attribute_field.cs" />
+    <Compile Include="old\article_category.cs" />
+    <Compile Include="old\article_comment.cs" />
+    <Compile Include="old\article_tags.cs" />
+    <Compile Include="old\article_tags_relation.cs" />
+    <Compile Include="old\express.cs" />
+    <Compile Include="old\mail_template.cs" />
+    <Compile Include="old\manager.cs" />
+    <Compile Include="old\manager_log.cs" />
+    <Compile Include="old\manager_role.cs" />
+    <Compile Include="old\manager_role_value.cs" />
+    <Compile Include="old\navigation.cs" />
+    <Compile Include="old\oauth_app.cs" />
+    <Compile Include="old\orders.cs" />
+    <Compile Include="old\order_config.cs" />
+    <Compile Include="old\order_goods.cs" />
+    <Compile Include="old\payment.cs" />
+    <Compile Include="old\plugin.cs" />
+    <Compile Include="old\shopping_cart.cs" />
+    <Compile Include="old\sites.cs" />
+    <Compile Include="old\site_channel.cs" />
+    <Compile Include="old\site_channel_field.cs" />
+    <Compile Include="old\site_oauth.cs" />
+    <Compile Include="old\site_payment.cs" />
+    <Compile Include="old\sms_template.cs" />
+    <Compile Include="old\sys_config.cs" />
+    <Compile Include="old\template.cs" />
+    <Compile Include="old\url_rewrite.cs" />
+    <Compile Include="old\users.cs" />
+    <Compile Include="old\user_amount_log.cs" />
+    <Compile Include="old\user_attach_log.cs" />
+    <Compile Include="old\user_code.cs" />
+    <Compile Include="old\user_config.cs" />
+    <Compile Include="old\user_groups.cs" />
+    <Compile Include="old\user_group_price.cs" />
+    <Compile Include="old\user_login_log.cs" />
+    <Compile Include="old\user_message.cs" />
+    <Compile Include="old\user_oauth.cs" />
+    <Compile Include="old\user_point_log.cs" />
+    <Compile Include="old\user_recharge.cs" />
     <Compile Include="Permissions.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Site.cs" />
+    <Compile Include="URLReWriter.cs" />
+    <Compile Include="URLReWriterConfig.cs" />
     <Compile Include="User.cs" />
     <Compile Include="File\AbsFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,11 +102,17 @@
     <Compile Include="DB\AbsTable_Remark.cs" />
     <Compile Include="DB\AbsTable_StringID.cs" />
     <Compile Include="DB\AbsTable_TimeAdd.cs" />
+    <Compile Include="visitor_message.cs" />
+    <Compile Include="WebSite.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YTS.Engine\YTS.Engine.csproj">
       <Project>{ee4a7884-3078-49fd-9c7a-479c468346d2}</Project>
       <Name>YTS.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YTS.SystemService\YTS.SystemService.csproj">
+      <Project>{8ceb1fe6-a10c-42d8-b54d-81e94ac86bc3}</Project>
+      <Name>YTS.SystemService</Name>
     </ProjectReference>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj">
       <Project>{cd093053-f358-440d-bf8f-2f1e27e4bd6f}</Project>

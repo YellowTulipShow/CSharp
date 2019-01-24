@@ -1,116 +1,122 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using CSharp.ApplicationData;
-using CSharp.LibrayDataBase;
-using CSharp.LibrayFunction;
+using YTS.Tools;
 
-namespace Test.ConsoleProgram.Case.SonTests
+namespace Test.ConsoleProgram.Tools
 {
     public class Test_CheckData : CaseModel
     {
         public Test_CheckData() {
-            base.NameSign = @"测试 检查 数据类 CheckData";
-            base.ExeEvent = Method;
-            base.SonCases = SonCaseArray();
-        }
-
-        public void Method() {
-        }
-
-        public CaseModel[] SonCaseArray() {
-            return new CaseModel[] {
-                //new TestIsObjectNull(),
-                //new TestIsStringNull(),
-                //new TestIsSizeEmpty(),
-                TestDataType(),
+            this.NameSign = @"检查数据";
+            this.SonCases = new CaseModel[] {
+                Func_IsTypeEqual(),
+                Func_IsTypeEqualDepth(),
             };
         }
 
-        #region Son Test Case
-        public class TestIsObjectNull : CaseModel
+        public class IsTypeEqualModel
         {
-            public TestIsObjectNull() {
-                base.NameSign = @"测试 IsObjectNull";
-                base.ExeEvent = Method;
-            }
+            public Type T1 = null;
+            public Type T2 = null;
+            public bool IsEqual = true;
 
-            public void Method() {
-                object obj = null;
-                Print.WriteLine("obj 为 null : {0}", obj.IsObjectNull());
-                obj = new List<string>() { };
-                Print.WriteLine("obj new 后 : {0}", obj.IsObjectNull());
+            public IsTypeEqualModel(Type t1, Type t2, bool isEqual) {
+                this.T1 = t1;
+                this.T2 = t2;
+                this.IsEqual = isEqual;
             }
         }
-        public class TestIsStringNull : CaseModel
-        {
-            public TestIsStringNull() {
-                base.NameSign = @"测试 IsObjectNull";
-                base.ExeEvent = Method;
-            }
 
-            public void Method() {
-                string str = null;
-                Print.WriteLine("str 为 null : {0}", str.IsStringNull());
-                str = @"testsaefawegarg";
-                Print.WriteLine("str new 后 : {0}", str.IsStringNull());
-            }
-        }
-        public class TestIsSizeEmpty : CaseModel
-        {
-            public TestIsSizeEmpty() {
-                base.NameSign = @"测试 '集合' 的数量";
-                base.ExeEvent = Method;
-            }
-
-            public void Method() {
-                List<string> listT = null;
-                Print.WriteLine("listT 为 null : {0}", listT.IsSizeEmpty());
-                listT = new List<string>() { };
-                Print.WriteLine("listT new 后 : {0}", listT.IsSizeEmpty());
-                listT = new List<string>() { "222", "34343", "fwefwe" };
-                Print.WriteLine("listT new 后 填值 : {0}", listT.IsSizeEmpty());
-
-                int[] array = null;
-                Print.WriteLine("array 为 null : {0}", CheckData.IsSizeEmpty(array));
-                array = new int[] { };
-                Print.WriteLine("array new 后 : {0}", CheckData.IsSizeEmpty(array));
-                array = new int[] { 25, 35, 84, 36, 83, 2, 2, 1, 5 };
-                Print.WriteLine("array new 后 填值 : {0}", CheckData.IsSizeEmpty(array));
-
-                Dictionary<string, int> dictionary = null;
-                Print.WriteLine("dictionary 为 null : {0}", CheckData.IsSizeEmpty(dictionary));
-                dictionary = new Dictionary<string, int>() { };
-                Print.WriteLine("dictionary new 后 : {0}", CheckData.IsSizeEmpty(dictionary));
-                dictionary = new Dictionary<string, int>() { { "key1", 23 }, { "2sliw", 43 } };
-                Print.WriteLine("dictionary new 后 填值 : {0}", CheckData.IsSizeEmpty(dictionary));
-            }
-        }
-        #endregion
-
-        public CaseModel TestDataType() {
+        public CaseModel Func_IsTypeEqual() {
             return new CaseModel() {
-                NameSign = @"检查数据数据类型",
+                NameSign = @"是否类型相同",
                 ExeEvent = () => {
-                    Print.WriteLine("CheckData.IsTypeValue<T>(V)");
-                    Print.WriteLine("T: object V: Int R: {0}", CheckData.IsTypeValue<object>(879));
-                    Print.WriteLine("T: Int V: Int R: {0}", CheckData.IsTypeValue<int>(879));
-                    Print.WriteLine("T: Int V: String R: {0}", CheckData.IsTypeValue<int>("sdfsdf"));
-                    Print.WriteLine("T: DateTime V: DateTime R: {0}", CheckData.IsTypeValue<DateTime>(DateTime.Now));
+                    IsTypeEqualModel[] list = new IsTypeEqualModel[] {
+                        new IsTypeEqualModel(typeof(object), typeof(object), true),
+                        new IsTypeEqualModel(typeof(int), typeof(object), false),
+                        new IsTypeEqualModel(typeof(object), typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), typeof(int), true),
+                        new IsTypeEqualModel(typeof(string), typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), typeof(string), false),
+                        new IsTypeEqualModel(typeof(Enum), typeof(int), false),
+                        new IsTypeEqualModel(null, typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), null, false),
+                        new IsTypeEqualModel(typeof(string), typeof(string), true),
+                        new IsTypeEqualModel(typeof(string), typeof(DateTime), false),
+                        new IsTypeEqualModel(typeof(DateTime), typeof(string), false),
+                        new IsTypeEqualModel(typeof(DateTime), typeof(DateTime), true),
+                        new IsTypeEqualModel(typeof(string[]), typeof(List<string>), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IList<string>), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IEnumerable), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IEnumerable<string>), false),
+                        new IsTypeEqualModel(typeof(IEnumerable<string>), typeof(IEnumerable<string>), true),
+                        new IsTypeEqualModel(typeof(float), typeof(float), true),
+                        new IsTypeEqualModel(typeof(float), typeof(double), false),
+                        new IsTypeEqualModel(typeof(double), typeof(double), true),
+                    };
+                    foreach (IsTypeEqualModel model in list) {
+                        bool CalcResult = CheckData.IsTypeEqual(model.T1, model.T2);
+                        if (CalcResult != model.IsEqual) {
+                            Console.WriteLine("结果出错! T1:{0}  T2:{1}  Answer:{2}  CalcResult:{3}",
+                                model.T1.FullName,
+                                model.T2.FullName,
+                                model.IsEqual,
+                                CalcResult);
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+            };
+        }
 
-                    Print.WriteLine("\n\n");
-                    Print.WriteLine("CheckData.IsTypeValue<T>(V, true)");
-                    Print.WriteLine("T: object V: Int R: {0}", CheckData.IsTypeValue<object>(879, true));
-                    Print.WriteLine("T: Int V: Int R: {0}", CheckData.IsTypeValue<int>(879, true));
-                    Print.WriteLine("T: Int V: String R: {0}", CheckData.IsTypeValue<int>("sdfsdf", true));
-                    Print.WriteLine("T: DateTime V: DateTime R: {0}", CheckData.IsTypeValue<DateTime>(DateTime.Now, true));
-                    Print.WriteLine("T: List<string> V: DateTime R: {0}", CheckData.IsTypeValue<List<string>>(DateTime.Now, true));
-                    Print.WriteLine("T: IList V: DateTime R: {0}", CheckData.IsTypeValue<IList>(DateTime.Now, true));
-                    Print.WriteLine("T: Array V: new string[] {{ }} R: {0}", CheckData.IsTypeValue<Array>(new string[] { }, true));
-                    Print.WriteLine("T: IList V: new string[] {{ }} R: {0}", CheckData.IsTypeValue<IList>(new string[] { }, true));
-                    Print.WriteLine("T: string V: new string[] {{ }} R: {0}", CheckData.IsTypeValue<string>(new string[] { }, true));
-                    Print.WriteLine("T: AbsBasicDataModel V: new ModelUser() R: {0}", CheckData.IsTypeValue<AbsBasicDataModel>(new ModelUser(), true));
-                    Print.WriteLine("T: AbsModel_Remark V: new ModelUser() R: {0}", CheckData.IsTypeValue<AbsModel_Remark>(new ModelUser(), true));
+        public CaseModel Func_IsTypeEqualDepth() {
+            return new CaseModel() {
+                NameSign = @"是否类型相同 深入递归",
+                ExeEvent = () => {
+                    IsTypeEqualModel[] list = new IsTypeEqualModel[] {
+                        new IsTypeEqualModel(typeof(object), typeof(object), true),
+                        new IsTypeEqualModel(typeof(int), typeof(object), true),
+                        new IsTypeEqualModel(typeof(object), typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), typeof(int), true),
+                        new IsTypeEqualModel(typeof(string), typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), typeof(string), false),
+                        new IsTypeEqualModel(typeof(Enum), typeof(int), false),
+                        new IsTypeEqualModel(typeof(Enum), typeof(ValueType), true),
+                        new IsTypeEqualModel(typeof(ValueType), typeof(Enum), false),
+                        new IsTypeEqualModel(null, typeof(int), false),
+                        new IsTypeEqualModel(typeof(int), null, false),
+                        new IsTypeEqualModel(typeof(string), typeof(string), true),
+                        new IsTypeEqualModel(typeof(string), typeof(DateTime), false),
+                        new IsTypeEqualModel(typeof(DateTime), typeof(string), false),
+                        new IsTypeEqualModel(typeof(DateTime), typeof(DateTime), true),
+                        new IsTypeEqualModel(typeof(string[]), typeof(List<string>), false),
+
+                        // 这里就有疑问了:
+                        // IList<T> list = new T[] { }; // 这句代码并没有报错, 是完全可用的
+                        // https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/generics/generics-and-arrays
+                        new IsTypeEqualModel(typeof(string[]), typeof(IList<string>), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IEnumerable), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IEnumerable<string>), false),
+                        new IsTypeEqualModel(typeof(string[]), typeof(IEnumerable<int>), false),
+
+                        new IsTypeEqualModel(typeof(float), typeof(float), true),
+                        new IsTypeEqualModel(typeof(float), typeof(double), false),
+                        new IsTypeEqualModel(typeof(double), typeof(double), true),
+                    };
+                    foreach (IsTypeEqualModel model in list) {
+                        bool CalcResult = CheckData.IsTypeEqualDepth(model.T1, model.T2, true);
+                        if (CalcResult != model.IsEqual) {
+                            Console.WriteLine("结果出错! T1:{0}  T2:{1}  Answer:{2}  CalcResult:{3}",
+                                model.T1.FullName,
+                                model.T2.FullName,
+                                model.IsEqual,
+                                CalcResult);
+                            return false;
+                        }
+                    }
+                    return true;
                 },
             };
         }

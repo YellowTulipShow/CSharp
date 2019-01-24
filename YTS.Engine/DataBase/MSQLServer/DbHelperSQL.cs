@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Generic;
+using YTS.Tools;
 
 namespace YTS.Engine.DataBase.MSQLServer
 {
@@ -204,11 +205,11 @@ namespace YTS.Engine.DataBase.MSQLServer
             } catch (System.Data.SqlClient.SqlException e) {
                 throw e;
             }
-            //			finally
-            //			{
-            //				cmd.Dispose();
-            //				connection.Close();
-            //			}	
+            //          finally
+            //          {
+            //              cmd.Dispose();
+            //              connection.Close();
+            //          }
 
         }
 
@@ -308,7 +309,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         }
 
         /// <summary>
-        /// 执行存储过程，返回影响的行数		
+        /// 执行存储过程，返回影响的行数
         /// </summary>
         /// <param name="storedProcName">存储过程名</param>
         /// <param name="parameters">存储过程参数</param>
@@ -327,7 +328,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         }
 
         /// <summary>
-        /// 创建 SqlCommand 对象实例(用来返回一个整数值)	
+        /// 创建 SqlCommand 对象实例(用来返回一个整数值)
         /// </summary>
         /// <param name="storedProcName">存储过程名</param>
         /// <param name="parameters">存储过程参数</param>
@@ -692,7 +693,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>		
+        /// <param name="SQLStringList">多条SQL语句</param>
         public static int ExecuteSqlTran(List<String> SQLStringList) {
             using (SqlConnection conn = new SqlConnection(ConnectionString)) {
                 conn.Open();
@@ -951,7 +952,7 @@ namespace YTS.Engine.DataBase.MSQLServer
         /// </summary>
         /// <param name="SQLStrings"></param>
         /// <returns>表示是否成功</returns>
-        public static bool ExecuteTransaction(string[] SQLStrings) {
+        public static bool ExecuteTransaction(IList<string> SQLStrings) {
             using (SqlConnection myConnection = new SqlConnection(ConnectionString)) {
                 myConnection.Open();
                 //启动一个事务
@@ -961,7 +962,7 @@ namespace YTS.Engine.DataBase.MSQLServer
                 myCommand.Connection = myConnection;
                 myCommand.Transaction = myTrans;
                 try {
-                    if (SQLStrings.Length <= 0)
+                    if (SQLStrings.Count <= 0)
                         return false;
 
                     foreach (string sqlCommendstr in SQLStrings) {
@@ -980,5 +981,169 @@ namespace YTS.Engine.DataBase.MSQLServer
             }
         }
         #endregion
+
+
+        /// <summary>
+        /// SQL Server 数据库
+        /// 执行多条SQL语句，实现数据库事务
+        /// https://blog.csdn.net/wzcool273509239/article/details/51821341
+        /// </summary>
+        /// <param name="SQLStringList">多条SQL语句</param>
+        public static int Transaction_SQLServer(IList<string> SQLStringList) {
+            using (SqlConnection conn = new SqlConnection(ConnectionString)) {
+                int result = 0;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                SqlTransaction tx = conn.BeginTransaction();
+                cmd.Transaction = tx;
+                try {
+                    for (int n = 0; n < SQLStringList.Count; n++) {
+                        string strsql = SQLStringList[n].ToString();
+                        if (strsql.Trim().Length > 1) {
+                            cmd.CommandText = strsql;
+                            result += cmd.ExecuteNonQuery();
+                        }
+                        //后来加上的
+                        if (n > 0 && (n % 500 == 0 || n == SQLStringList.Count - 1)) {
+                            tx.Commit();
+
+                            //二次事务处理
+                            tx = conn.BeginTransaction();
+                            cmd.Transaction = tx;
+                        }
+                    }
+                    //最后一次提交（网上提供的这句话是被注释掉的，大爷的，错了。该句必须有，不然最后一个循环的数据无法提交）
+                    tx.Commit();
+                } catch (System.Data.SqlClient.SqlException E) {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(E.Message);
+                } catch (Exception ex) {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+
+                return result;
+            }
+        }
+
+        /*
+        /// <summary>
+        /// mysql数据库
+        /// 执行多条SQL语句，实现数据库事务
+        /// https://blog.csdn.net/wzcool273509239/article/details/51821341
+        /// </summary>
+        /// <param name="SQLStringList">多条SQL语句</param>
+        public static int Transaction_MySQL(IList<string> SQLStringList)
+        {
+            using (MySqlConnection conn = new MySqlConnection(m_connectionString))
+            {
+                int result = 0;
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                MySqlTransaction tx = conn.BeginTransaction();
+                cmd.Transaction = tx;
+                try
+                {
+                    for (int n = 0; n < SQLStringList.Count; n++)
+                    {
+                        string strsql = SQLStringList[n].ToString();
+                        if (strsql.Trim().Length > 1)
+                        {
+                            cmd.CommandText = strsql;
+                            result += cmd.ExecuteNonQuery();
+                        }
+                        //后来加上的，防止数据量过大，事务卡死现象
+                        if (n > 0 && (n % 500 == 0 || n == SQLStringList.Count - 1))
+                        {
+                            tx.Commit();
+                            //二次事务处理
+                            tx = conn.BeginTransaction();
+                            cmd.Transaction = tx;
+                        }
+                    }
+                    //最后一次提交（网上提供的这句话是被注释掉的，大爷的，错了。该句必须有，不然最后一个循环的数据无法提交）
+                    tx.Commit();
+                }
+                catch (System.Data.SqlClient.SqlException E)
+                {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(E.Message);
+                }
+                catch (Exception ex)
+                {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Oracle
+        /// 执行多条SQL语句，实现数据库事务
+        /// https://blog.csdn.net/wzcool273509239/article/details/51821341
+        /// </summary>
+        /// <param name="SQLStringList">多条SQL语句</param>
+        public static int Transaction_Oracle(IList<string> SQLStringList)
+        {
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(m_ConnectString))
+                {
+                    int result = 0;
+                    conn.Open();
+                    OracleCommand cmd = new OracleCommand();
+                    cmd.Connection = conn;
+                    OracleTransaction tx = conn.BeginTransaction();
+                    cmd.Transaction = tx;
+                    try
+                    {
+                        for (int n = 0; n < SQLStringList.Count; n++)
+                        {
+                            string strsql = SQLStringList[n].ToString();
+                            if (strsql.Trim().Length > 1)
+                            {
+                                cmd.CommandText = strsql;
+                                result += cmd.ExecuteNonQuery();
+                            }
+                            //后来加上的  ，500条提交一次事务，防止数据量过大，程序卡死
+                            if (n > 0 && (n % 500 == 0 || n == SQLStringList.Count - 1))
+                            {
+                                tx.Commit();
+                                tx = conn.BeginTransaction();
+                            }
+                        }
+                        //最后一次提交（网上提供的这句话是被注释掉的，大爷的，错了。该句必须有，不然最后一个循环的数据无法提交）
+                        tx.Commit();
+                    }
+                    catch (System.Data.SqlClient.SqlException E)
+                    {
+                        LogLib.LogHelper.WriteErrorLog(typeof(OracleHelper), E);
+                        result = -1;
+                        tx.Rollback();
+                    }
+                    catch (Exception ex)
+                    {
+                        LogLib.LogHelper.WriteErrorLog(typeof(OracleHelper), ex);
+                        result = -1;
+                        tx.Rollback();
+                    }
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogLib.LogHelper.WriteErrorLog(typeof(OracleHelper), ex);
+                return -1;
+            }
+        }
+        */
     }
 }

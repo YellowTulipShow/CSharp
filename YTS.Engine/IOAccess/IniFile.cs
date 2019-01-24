@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using YTS.Engine.ShineUpon;
 using YTS.Tools;
 using YTS.Tools.Model;
 
@@ -85,12 +86,11 @@ namespace YTS.Engine.IOAccess
         }
 
         public Encoding GetEncoding() {
-            return Encoding.UTF8;
+            return YTS.Tools.Const.Format.FILE_ENCODING;
         }
         #endregion
 
         #region === Basic ===
-
         /// <summary>
         /// 写入一条记录
         /// </summary>
@@ -211,6 +211,42 @@ namespace YTS.Engine.IOAccess
             //return keys.Contains(key);
             string value = ReadString(section, key);
             return !CheckData.IsStringNull(key);
+        }
+        #endregion
+
+        #region === Reflex ===
+        /// <summary>
+        /// 读取: ini.file => model
+        /// </summary>
+        public void IniConfig_Read(AbsShineUpon model) {
+            Type mtype = model.GetType();
+            string section_name = mtype.FullName;
+            ShineUponParser perser = new ShineUponParser(mtype);
+            foreach (ShineUponInfo info in perser.GetDictionary().Values) {
+                string sinival = ReadString(section_name, info.Name, string.Empty);
+                if (CheckData.IsStringNull(sinival)) {
+                    continue;
+                }
+                perser.SetValue_Object(info, model, sinival);
+            }
+        }
+        /// <summary>
+        /// 读取: model => ini.file
+        /// </summary>
+        public void IniConfig_Write<M>(M model) where M : AbsShineUpon {
+            if (CheckData.IsObjectNull(model)) {
+                return;
+            }
+            Type mtype = model.GetType();
+            string section_name = mtype.FullName;
+            ShineUponParser perser = new ShineUponParser(mtype);
+            foreach (ShineUponInfo info in perser.GetDictionary().Values) {
+                KeyString ks = perser.GetValue_KeyString(info, model);
+                if (CheckData.IsObjectNull(ks)) {
+                    continue;
+                }
+                WriteString(section_name, info.Name, ks.Value);
+            }
         }
         #endregion
     }

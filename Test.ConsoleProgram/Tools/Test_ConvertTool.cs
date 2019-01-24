@@ -11,344 +11,194 @@ namespace Test.ConsoleProgram.Tools
     public class Test_ConvertTool : CaseModel
     {
         public Test_ConvertTool() {
-            base.NameSign = @"转化工具";
+            base.NameSign = @"转化";
             base.SonCases = new CaseModel[] {
-                Func_GetIListRange(),
+                new ObjectToObject(),
+                Func_ToRangeIndex(),
+                new ToRangeList(),
+                DateTimeToString(),
             };
         }
 
-        #region old method
-        #region === DataTypeConvert ===
-        public CaseModel DataTypeConvert() {
-            return new CaseModel() {
-                NameSign = @"数据类型转换",
-                ExeEvent = () => {
-                    Print.WriteLine(@"ConvertTool 的类型转化工具");
-                    return true;
-                },
-                SonCases = new CaseModel[] {
-                    new StringToInt(),
-                    new StringToInt_ErrorValue(),
-                    new StringToString(),
-                    new StringToString_ErrorValue(),
-                    new StringToFloat(),
-                    new StringToDecimal(),
-                    new StringToBoolean(),
-                    new DataTableToString(),
-                    new DictionaryToString(),
-                },
-            };
-        }
-        #region Son Test Case
-        private static string Srource() {
-            return ",15,8,3,-1,,,r,2,0,ssss,55,5,4,34M,350,0,";
-        }
-        public class StringToInt : CaseModel
+        public class ObjectToObject : CaseModel
         {
-            public StringToInt() {
-                base.NameSign = @"测试 String 转 Int";
-                base.ExeEvent = Method;
-            }
+            public class OTO : AbsBasicDataModel
+            {
+                public object Source;
+                public Type Aims_Type;
+                public object Aims_Value;
 
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0));
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-        public class StringToInt_ErrorValue : CaseModel
-        {
-            public StringToInt_ErrorValue() {
-                base.NameSign = @"测试 String 转 Int 加入检测 故意的排除值错误值: -1";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                int[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToInt(s, 0), errorValue: -1);
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-
-        public class StringToString : CaseModel
-        {
-            public StringToString() {
-                base.NameSign = @"测试 String 转 String";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s);
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-        public class StringToString_ErrorValue : CaseModel
-        {
-            public StringToString_ErrorValue() {
-                base.NameSign = @"测试 String 转 String 加入检测 故意的排除值错误值: '0'";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                string[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => s, "0");
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-
-        public class StringToFloat : CaseModel
-        {
-            public StringToFloat() {
-                base.NameSign = @"测试 String 转 Float 故意的排除值错误值: '0f'";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                float[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToFloat(s, 0f), errorValue: 0f);
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-        public class StringToDecimal : CaseModel
-        {
-            public StringToDecimal() {
-                base.NameSign = @"测试 String 转 Decimal 故意的排除值错误值: '0m'";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = Srource();
-                Print.WriteLine("SourceData: {0}", str);
-                decimal[] array = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToDecimal(s, 0m), errorValue: 0m);
-                Print.WriteLine("Result: {0}", array.ToJson());
-                return true;
-            }
-        }
-        public class StringToBoolean : CaseModel
-        {
-            public StringToBoolean() {
-                base.NameSign = @"测试 String 转 Boolean";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                string str = @"true,false,flsea,0,1,sliw,trus";
-
-                Print.WriteLine("SourceData: {0}", str);
-                bool[] array_1 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, true));
-                Print.WriteLine("Default: true Result: {0}", array_1.ToJson());
-
-                bool[] array_2 = ConvertTool.ListConvertType(str.ToArrayList(','), s => ConvertTool.ObjToBool(s, false));
-                Print.WriteLine("Default: false Result: {0}", array_2.ToJson());
-                return true;
-            }
-        }
-        public class DataTableToString : CaseModel
-        {
-            public DataTableToString() {
-                base.NameSign = @"测试 DataTable 转 String";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                DataTable dt = DataTableSource(new Dictionary<string, string>() {
-                    { "捐赠人姓名", "name:sjifwjelifjwief" },
-                    { "捐赠人电话", "telephone:2349873941" },
-                    { "发件地址-省", "省将自己死的法恩发觉我:" },
-                    { "发件地址_市", "dafwefa" },
-                });
-                Print.WriteLine(@"转换 DataTable 的 捐赠人电话前面加上 ***: ");
-                string[] tels = ConvertTool.ListConvertType(dt, r => string.Format(@"***{0}", r["捐赠人电话"]));
-                foreach (string k in tels) {
-                    Print.WriteLine("tels Array: {0}", k);
-                }
-                return true;
-            }
-            private DataTable DataTableSource(Dictionary<string, string> dic) {
-                List<Dictionary<String, String>> dbSource = new List<Dictionary<String, String>>();
-                for (int i = 0; i < 10; i++) {
-                    dbSource.Add(dic);
+                public enum SexEnum
+                {
+                    /// <summary>
+                    /// 保密
+                    /// </summary>
+                    [Explain(@"保密")]
+                    Secrecy,
+                    /// <summary>
+                    /// 男
+                    /// </summary>
+                    [Explain(@"男")]
+                    Male = 1,
+                    /// <summary>
+                    /// 女
+                    /// </summary>
+                    [Explain(@"女")]
+                    Female = 81,
                 }
 
-                Type StringType = Type.GetType("System.String");
-                DataTable newdt = new DataTable("SurveyUserInfo" + DateTime.Now.Day.ToString());
-                DataColumn dc = newdt.Columns.Add("id", Type.GetType("System.Int32"));
-                dc.AutoIncrement = true;//自动增加
-                dc.AutoIncrementSeed = 1;//起始为1
-                dc.AutoIncrementStep = 1;//步长为1
-                dc.AllowDBNull = false;//是否允许为空
-                foreach (KeyValuePair<String, String> keyVal in dbSource[0]) {
-                    newdt.Columns.Add(new DataColumn(keyVal.Key, StringType));
+                public OTO(object source, Type aims_type, object aims_value) {
+                    this.Source = source;
+                    this.Aims_Type = aims_type;
+                    this.Aims_Value = aims_value;
                 }
-                foreach (Dictionary<String, String> dicAry in dbSource) {
-                    DataRow dr = newdt.NewRow();
-                    foreach (KeyValuePair<String, String> keyVal in dicAry) {
-                        dr[keyVal.Key] = keyVal.Value;
+            }
+            public ObjectToObject() {
+                this.NameSign = @"对象 转 对象";
+                this.ExeEvent = () => {
+                    OTO[] list = new OTO[] {
+                        //new OTO(null, typeof(int), default(int)),
+                        //new OTO(null, typeof(OTO), default(OTO)),
+                        //new OTO(null, typeof(string), null),
+                        //new OTO(null, typeof(DateTime), default(DateTime)),
+                        //new OTO(null, typeof(GS.SexEnum), default(GS.SexEnum)),
+                        new OTO(10, typeof(int), 10),
+                        new OTO("10", typeof(int), 10),
+                        new OTO("rrr10", typeof(int), default(int)),
+                        new OTO(OTO.SexEnum.Male, typeof(int), default(int)),
+                        new OTO((int)OTO.SexEnum.Male, typeof(OTO.SexEnum), (int)OTO.SexEnum.Male),
+                        new OTO(((int)OTO.SexEnum.Male).ToString(), typeof(OTO.SexEnum), (int)OTO.SexEnum.Male),
+                        new OTO(OTO.SexEnum.Male, typeof(OTO.SexEnum), (int)OTO.SexEnum.Male),
+                        new OTO(10, typeof(float), 10f),
+                        new OTO("10", typeof(float), 10f),
+                        new OTO(65, typeof(double), 65.00),
+                        new OTO("10", typeof(double), 10.0),
+                        new OTO("50.25", typeof(double), 50.25),
+                        new OTO("s50.25", typeof(double), default(double)),
+                        new OTO("s50.25", typeof(string), "s50.25"),
+                        new OTO("2018-06-01 14:52:22", typeof(DateTime), new DateTime(2018,06,01,14,52,22)),
+                        new OTO(new DateTime(2018,06,01,14,52,22), typeof(DateTime), new DateTime(2018,06,01,14,52,22)),
+                    };
+                    for (int i = 1; i <= list.Length; i++) {
+                        OTO oto = list[i - 1];
+                        object result = ConvertTool.ToObject(oto.Aims_Type, oto.Source);
+                        if (!oto.Aims_Value.Equals(result)) {
+                            string source_type_fullname = oto.Source.GetType().FullName;
+                            string aims_value_type_fullname = oto.Aims_Value.GetType().FullName;
+                            string result_type_fullname = result.GetType().FullName;
+                            Console.WriteLine("i:{0}结果不相等: oto.source:{1}  oto.aims_type:{2}  oto.aims_value:{3}  result:{4}  source_type_fullname:{5}  aims_value_type_fullname:{6}  result_type_fullname:{7}",
+                                i, oto.Source, oto.Aims_Type, oto.Aims_Value, result, source_type_fullname, aims_value_type_fullname, result_type_fullname);
+                            return false;
+                        }
                     }
-                    newdt.Rows.Add(dr);
-                }
-                return newdt;
-            }
-        }
-        public class DictionaryToString : CaseModel
-        {
-            public DictionaryToString() {
-                base.NameSign = @"测试 Dictionary 转 String";
-                base.ExeEvent = Method;
-            }
-
-            public bool Method() {
-                Dictionary<string, int> dic = new Dictionary<string, int>() {
-                    { "key1", 343 },
-                    { "key2_ss", 41243 },
+                    return true;
                 };
-                Print.WriteLine(@"转换 Dictionary<string, int> 的 Key 键值前面加上 ***: ");
-                string[] keys = ConvertTool.ListConvertType(dic, d => string.Format(@"***{0}", d.Key));
-                foreach (string k in keys) {
-                    Print.WriteLine("Key Array: {0}", k);
-                }
-                return true;
             }
         }
-        #endregion
-        #endregion
 
-        public CaseModel Event_Test_Unicode_Format_String() {
-            return new CaseModel() {
-                NameSign = @"测试 Unicode 格式字符转换",
-                ExeEvent = () => {
-                    char[] word_chars = CommonData.ASCII_WordText();
-                    List<string> Sour_Str = new List<string>();
-                    for (int i = 0; i < 10; i++) {
-                        Sour_Str.Add(RandomData.GetString(word_chars, RandomData.R.Next(3, 15)));
-                    }
-                    foreach (string item in Sour_Str) {
-                        string sour = string.Empty;
-                        sour = item;
-                        string repl = ConvertTool.StringToHexadecimal(sour);
-                        string unicode = ConvertTool.UnicodeFormatString(repl);
-                        Print.WriteLine("{0} : {1} : {2}", item, repl, unicode);
-                    }
-                    return true;
-                },
-            };
-        }
-        #endregion
-
-        public class GetIListRangeItem
+        public class ToRangeList : CaseModel
         {
-            public int index = 1;
-            public int count = 10;
-            public string[] result = new string[] { };
+            public class ToRangeListItem
+            {
+                public int index = 1;
+                public int count = 10;
+                public string[] result = new string[] { };
 
-            public static int DataSumCount = 47;
-            public static GetIListRangeItem[] ResultAnswer() {
-                return new GetIListRangeItem[] {
-                    new GetIListRangeItem() {
+                public static int DataSumCount = 47;
+                public static ToRangeListItem[] ResultAnswer() {
+                    return new ToRangeListItem[] {
+                    new ToRangeListItem() {
                         index = -1,
                         count = 10,
                         result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 0,
                         count = 10,
                         result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 1,
                         count = 10,
                         result = new string[] { "第0项","第1项","第2项","第3项","第4项","第5项","第6项","第7项","第8项","第9项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 2,
                         count = 10,
                         result = new string[] { "第10项","第11项","第12项","第13项","第14项","第15项","第16项","第17项","第18项","第19项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 3,
                         count = 10,
                         result = new string[] { "第20项","第21项","第22项","第23项","第24项","第25项","第26项","第27项","第28项","第29项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 5,
                         count = 10,
                         result = new string[] { "第40项","第41项","第42项","第43项","第44项","第45项","第46项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 6,
                         count = 10,
                         result = new string[] {  },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 7,
                         count = 10,
                         result = new string[] {  },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 8,
                         count = 10,
                         result = new string[] {  },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 2,
                         count = 11,
                         result = new string[] { "第11项","第12项","第13项","第14项","第15项","第16项","第17项","第18项","第19项","第20项","第21项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 3,
                         count = 11,
                         result = new string[] { "第22项","第23项","第24项","第25项","第26项","第27项","第28项","第29项","第30项","第31项","第32项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 4,
                         count = 11,
                         result = new string[] { "第33项","第34项","第35项","第36项","第37项","第38项","第39项","第40项","第41项","第42项","第43项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 6,
                         count = 11,
                         result = new string[] {  },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 2,
                         count = 9,
                         result = new string[] { "第9项","第10项","第11项","第12项","第13项","第14项","第15项","第16项","第17项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 3,
                         count = 9,
                         result = new string[] { "第18项","第19项","第20项","第21项","第22项","第23项","第24项","第25项","第26项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 5,
                         count = 9,
                         result = new string[] { "第36项","第37项","第38项","第39项","第40项","第41项","第42项","第43项","第44项" },
                     },
-                    new GetIListRangeItem() {
+                    new ToRangeListItem() {
                         index = 6,
                         count = 9,
                         result = new string[] { "第45项","第46项" },
                     },
                 };
+                }
             }
-        }
-
-        public CaseModel Func_GetIListRange() {
-            return new CaseModel() {
-                NameSign = @"获取列表范围",
-                ExeEvent = () => {
-                    int sumcount = GetIListRangeItem.DataSumCount;
+            public ToRangeList() {
+                this.NameSign = @"获取列表范围";
+                this.ExeEvent = () => {
+                    int sumcount = ToRangeListItem.DataSumCount;
                     string[] source = new string[sumcount];
                     for (int i = 0; i < source.Length; i++) {
                         source[i] = string.Format("第{0}项", i);
@@ -356,9 +206,9 @@ namespace Test.ConsoleProgram.Tools
 
                     // auto 规则测试
                     VerifyIList<string, string> verify = new VerifyIList<string, string>(CalcWayEnum.DoubleCycle);
-                    foreach (GetIListRangeItem item in GetIListRangeItem.ResultAnswer()) {
+                    foreach (ToRangeListItem item in ToRangeListItem.ResultAnswer()) {
                         verify.Answer = item.result;
-                        verify.Source = ConvertTool.GetIListRange(source, item.index, item.count);
+                        verify.Source = ConvertTool.ToRangePage(source, item.index, item.count);
                         if (!verify.Calc()) {
                             Console.WriteLine("Error: sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, item.index, item.count, JSON.Serializer(item.result));
                         }
@@ -366,13 +216,13 @@ namespace Test.ConsoleProgram.Tools
                     Console.WriteLine("自动化程序测试结果成功!");
 
                     // old 生成结果数据
-                    string absfile = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_GetIListRange.txt");
+                    string absfile = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_ToRangeList.txt");
                     File.Delete(absfile);
                     using (FileStream fileshream = new FileStream(absfile, FileMode.OpenOrCreate)) {
-                        using (StreamWriter writer = new StreamWriter(fileshream, Encoding.UTF8)) {
+                        using (StreamWriter writer = new StreamWriter(fileshream, YTS.Tools.Const.Format.FILE_ENCODING)) {
                             for (int count = 9; count <= 11; count++) {
                                 for (int index = -1; index < 11; index++) {
-                                    string[] result = ConvertTool.GetIListRange(source, index, count);
+                                    string[] result = ConvertTool.ToRangePage(source, index, count);
                                     writer.WriteLine("sum: {0}  index: {1}  count: {2}  result: {3}", source.Length, index, count, JSON.Serializer(result));
                                 }
                                 writer.WriteLine();
@@ -381,6 +231,158 @@ namespace Test.ConsoleProgram.Tools
                         }
                     }
                     Console.WriteLine("生成结果数据: {0}", absfile);
+                    return true;
+                };
+            }
+        }
+
+        public CaseModel DateTimeToString() {
+            return new CaseModel() {
+                NameSign = @"时间转字符串",
+                ExeEvent = () => {
+                    for (int i = 0; i < 1000; i++) {
+                        DateTime time = new DateTime(2018, 5, 30, 14, 42, 33, i);
+                        string str = ConvertTool.ToString(time);
+                        //Convert.ToString(time);
+                        DateTime ct = ConvertTool.ToDateTime(str, DateTime.Now);
+                        if (time != ct) {
+                            throw new Exception("error");
+                        }
+                    }
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_ToRangeIndex() {
+            return new CaseModel() {
+                NameSign = @"指定范围索引长度",
+                ExeEvent = () => {
+                    StringBuilder str = new StringBuilder();
+
+                    int[] list = new int[] { 0, 1, 2, 3, 4, 5 };
+                    str.AppendFormat("list: {0}\n\n", JSON.Serializer(list));
+                    for (int index = -2; index < list.Length + 2; index++) {
+                        for (int length = -2; length < list.Length + 2; length++) {
+                            int[] result = ConvertTool.ToRangeIndex(list, index, length);
+                            str.AppendFormat("index: {0} length: {1} result: {2}\n", index, length, JSON.Serializer(result));
+                        }
+                    }
+
+                    string path = PathHelp.CreateUseFilePath(@"/auto/tools/Test_ConvertTool", @"Func_ToRangeIndex.txt");
+                    this.ClearAndWriteFile(path, str.ToString());
+
+                    VerifyIList<int, int> verify = new VerifyIList<int, int>(CalcWayEnum.DoubleCycle);
+                    Action<int, int, int[]> method = (index, length, source) => {
+                        verify.Answer = source;
+                        verify.Source = ConvertTool.ToRangeIndex(list, index, length);
+                        if (!verify.Calc()) {
+                            Console.WriteLine("Error! index: {0} length: {1} result: {2}", index, length, JSON.Serializer(verify.Source));
+                            throw new Exception("错误!");
+                        }
+                    };
+
+                    method(-2, -2, new int[] { });
+                    method(-2, -1, new int[] { });
+                    method(-2, 0, new int[] { });
+                    method(-2, 1, new int[] { 0 });
+                    method(-2, 2, new int[] { 0, 1 });
+                    method(-2, 3, new int[] { 0, 1, 2 });
+                    method(-2, 4, new int[] { 0, 1, 2, 3 });
+                    method(-2, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(-2, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-2, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-1, -2, new int[] { });
+                    method(-1, -1, new int[] { });
+                    method(-1, 0, new int[] { });
+                    method(-1, 1, new int[] { 0 });
+                    method(-1, 2, new int[] { 0, 1 });
+                    method(-1, 3, new int[] { 0, 1, 2 });
+                    method(-1, 4, new int[] { 0, 1, 2, 3 });
+                    method(-1, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(-1, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(-1, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(0, -2, new int[] { });
+                    method(0, -1, new int[] { });
+                    method(0, 0, new int[] { });
+                    method(0, 1, new int[] { 0 });
+                    method(0, 2, new int[] { 0, 1 });
+                    method(0, 3, new int[] { 0, 1, 2 });
+                    method(0, 4, new int[] { 0, 1, 2, 3 });
+                    method(0, 5, new int[] { 0, 1, 2, 3, 4 });
+                    method(0, 6, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(0, 7, new int[] { 0, 1, 2, 3, 4, 5 });
+                    method(1, -2, new int[] { });
+                    method(1, -1, new int[] { });
+                    method(1, 0, new int[] { });
+                    method(1, 1, new int[] { 1 });
+                    method(1, 2, new int[] { 1, 2 });
+                    method(1, 3, new int[] { 1, 2, 3 });
+                    method(1, 4, new int[] { 1, 2, 3, 4 });
+                    method(1, 5, new int[] { 1, 2, 3, 4, 5 });
+                    method(1, 6, new int[] { 1, 2, 3, 4, 5 });
+                    method(1, 7, new int[] { 1, 2, 3, 4, 5 });
+                    method(2, -2, new int[] { });
+                    method(2, -1, new int[] { });
+                    method(2, 0, new int[] { });
+                    method(2, 1, new int[] { 2 });
+                    method(2, 2, new int[] { 2, 3 });
+                    method(2, 3, new int[] { 2, 3, 4 });
+                    method(2, 4, new int[] { 2, 3, 4, 5 });
+                    method(2, 5, new int[] { 2, 3, 4, 5 });
+                    method(2, 6, new int[] { 2, 3, 4, 5 });
+                    method(2, 7, new int[] { 2, 3, 4, 5 });
+                    method(3, -2, new int[] { });
+                    method(3, -1, new int[] { });
+                    method(3, 0, new int[] { });
+                    method(3, 1, new int[] { 3 });
+                    method(3, 2, new int[] { 3, 4 });
+                    method(3, 3, new int[] { 3, 4, 5 });
+                    method(3, 4, new int[] { 3, 4, 5 });
+                    method(3, 5, new int[] { 3, 4, 5 });
+                    method(3, 6, new int[] { 3, 4, 5 });
+                    method(3, 7, new int[] { 3, 4, 5 });
+                    method(4, -2, new int[] { });
+                    method(4, -1, new int[] { });
+                    method(4, 0, new int[] { });
+                    method(4, 1, new int[] { 4 });
+                    method(4, 2, new int[] { 4, 5 });
+                    method(4, 3, new int[] { 4, 5 });
+                    method(4, 4, new int[] { 4, 5 });
+                    method(4, 5, new int[] { 4, 5 });
+                    method(4, 6, new int[] { 4, 5 });
+                    method(4, 7, new int[] { 4, 5 });
+                    method(5, -2, new int[] { });
+                    method(5, -1, new int[] { });
+                    method(5, 0, new int[] { });
+                    method(5, 1, new int[] { 5 });
+                    method(5, 2, new int[] { 5 });
+                    method(5, 3, new int[] { 5 });
+                    method(5, 4, new int[] { 5 });
+                    method(5, 5, new int[] { 5 });
+                    method(5, 6, new int[] { 5 });
+                    method(5, 7, new int[] { 5 });
+                    method(6, -2, new int[] { });
+                    method(6, -1, new int[] { });
+                    method(6, 0, new int[] { });
+                    method(6, 1, new int[] { });
+                    method(6, 2, new int[] { });
+                    method(6, 3, new int[] { });
+                    method(6, 4, new int[] { });
+                    method(6, 5, new int[] { });
+                    method(6, 6, new int[] { });
+                    method(6, 7, new int[] { });
+                    method(7, -2, new int[] { });
+                    method(7, -1, new int[] { });
+                    method(7, 0, new int[] { });
+                    method(7, 1, new int[] { });
+                    method(7, 2, new int[] { });
+                    method(7, 3, new int[] { });
+                    method(7, 4, new int[] { });
+                    method(7, 5, new int[] { });
+                    method(7, 6, new int[] { });
+                    method(7, 7, new int[] { });
+
                     return true;
                 },
             };

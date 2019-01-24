@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram.Tools
                 Func_IsAbsolute(),
                 Func_ToAbsolute(),
                 Func_UseFilePath(),
+                Func_DirectoryFileInfo(),
             };
         }
 
@@ -71,6 +72,18 @@ namespace Test.ConsoleProgram.Tools
                             Value = basic_dir + "test\\wlif\\jiw\\name.txt",
                         },
                         new KeyString() {
+                            Key = "//",
+                            Value = basic_dir,
+                        },
+                        new KeyString() {
+                            Key = "/test//wlif/jiw/name.txt",
+                            Value = basic_dir + "test\\wlif\\jiw\\name.txt",
+                        },
+                        new KeyString() {
+                            Key = "/test//wlif//jiw////name.txt",
+                            Value = basic_dir + "test\\wlif\\jiw\\name.txt",
+                        },
+                        new KeyString() {
                             Key = basic_dir+"test\\wlif\\jiw\\name.txt",
                             Value = basic_dir + "test\\wlif\\jiw\\name.txt",
                         },
@@ -92,7 +105,7 @@ namespace Test.ConsoleProgram.Tools
                         },
                         new KeyString() {
                             Key = "C://",
-                            Value = "C:\\\\",
+                            Value = "C:\\",
                         },
                     };
                     foreach (KeyString item in paths) {
@@ -168,6 +181,7 @@ namespace Test.ConsoleProgram.Tools
                                 return false;
                             }
                         }
+                        PathHelp.CreateFileExists(absfilepath);
                         if (!File.Exists(absfilepath)) {
                             Console.WriteLine("文件并没有被创建", item.Key);
                             Console.WriteLine("directory: {0}", item.Key);
@@ -176,6 +190,34 @@ namespace Test.ConsoleProgram.Tools
                             return false;
                         }
                     }
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_DirectoryFileInfo() {
+            return new CaseModel() {
+                NameSign = @"文件夹文件遍历",
+                ExeEvent = () => {
+                    return true;
+                    string abspath = @"D:\auto\circleoffriends";
+
+                    DirectoryInfo dir = new DirectoryInfo(abspath);
+
+                    // 最新的三条
+                    DirectoryInfo[] sondir = PathHelp.UpToDateDirectorys(dir, 2, 3);
+
+                    foreach (DirectoryInfo info in sondir) {
+                        Console.WriteLine("Directory name: {0}, create time: {1}", info.Name, info.CreationTime);
+
+                        FileInfo[] fis = PathHelp.PatternFileInfo(info, @".*\.(jpg|png|gif)");
+                        foreach (FileInfo fi in fis) {
+                            Console.WriteLine("  File name: {0}, create time: {1}", fi.Name, fi.CreationTime);
+                        }
+
+                        Console.WriteLine(string.Empty);
+                    }
+
                     return true;
                 },
             };

@@ -8,14 +8,14 @@ namespace YTS.Engine.IOAccess
     /// <summary>
     /// Microsoft SQL Server 2008 数据库-业务逻辑层(Business Logic Layer)
     /// </summary>
-    /// <typeparam name="D">调用的DAL类型</typeparam>
     /// <typeparam name="M">数据映射模型</typeparam>
-    public class BLL_MSSQLServer<D, M> :
+    /// <typeparam name="D">调用的DAL类型</typeparam>
+    public class BLL_MSSQLServer<M, D> :
         AbsBLL<M, D, string, ColumnModelParser<M>, ColumnInfo>,
         ITableName,
         IDataBaseResult<M>
-        where D : DAL_MSSQLServer<M>
-        where M : AbsShineUpon, ITableName
+        where M : AbsShineUpon, ITableName, new()
+        where D : DAL_MSSQLServer<M>, new()
     {
         public BLL_MSSQLServer() : base() { }
 

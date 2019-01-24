@@ -5,27 +5,17 @@ namespace YTS.Tools.Const
     /// <summary>
     /// 类库方法中: 常量组: 键名
     /// </summary>
-    public class Names
+    public static class Names
     {
         /// <summary>
-        /// 系统版本号
+        /// 系统自动生成路径(用于源代码统一屏蔽)
         /// </summary>
-        public const string SystemVersionNumber = "1.0.0";
+        public const string SYSTEM_AUTO_GENERATES_PATH = @"/SYSAUTOG";
 
         /// <summary>
         /// 系统作者
         /// </summary>
-        public const string SystemAuthor = "YellowTulipShow";
-
-        /// <summary>
-        /// 配置文件[站点]路径(从web.config appSettings节点中读取)
-        /// </summary>
-        public const string FileSiteConfigPath = "SiteConfigpath";
-
-        /// <summary>
-        /// 配置文件[URL重写]路径(从web.config appSettings节点中读取)
-        /// </summary>
-        public const string FileUrlsConfigPath = "Urlspath";
+        public const string SYSTEM_AUTHOR = @"YellowTulipShow";
 
         #region 以前的
         //系统版本

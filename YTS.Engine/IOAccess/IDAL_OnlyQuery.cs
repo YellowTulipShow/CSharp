@@ -13,7 +13,7 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="PI">解析信息数据模型</typeparam>
     public interface IDAL_OnlyQuery<M, W, P, PI>
         where M : AbsShineUpon
-        where P : ShineUponParser<M, PI>
+        where P : ShineUponParser
         where PI : ShineUponInfo
     {
         /// <summary>

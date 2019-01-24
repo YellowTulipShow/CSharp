@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'iconFA';
+  src:  url('fonts/iconFA.eot?fk6yq5');
+  src:  url('fonts/iconFA.eot?fk6yq5#iefix') format('embedded-opentype'),
+    url('fonts/iconFA.ttf?fk6yq5') format('truetype'),
+    url('fonts/iconFA.woff?fk6yq5') format('woff'),
+    url('fonts/iconFA.svg?fk6yq5#iconFA') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.iconFA,
+.iconFA:before {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'iconFA' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    text-align: center;
+}
+
+.iconFA-search:before {
+  content: "\f002";
+}
+.iconFA-heart:before {
+  content: "\f004";
+}
+.iconFA-power-off:before {
+  content: "\f011";
+}
+.iconFA-clock-o:before {
+  content: "\f017";
+}
+.iconFA-camera:before {
+  content: "\f030";
+}
+.iconFA-video-camera:before {
+  content: "\f03d";
+}
+.iconFA-map-marker:before {
+  content: "\f041";
+}
+.iconFA-chevron-left:before {
+  content: "\f053";
+}
+.iconFA-chevron-right:before {
+  content: "\f054";
+}
+.iconFA-arrow-left:before {
+  content: "\f060";
+}
+.iconFA-arrow-right:before {
+  content: "\f061";
+}
+.iconFA-eye:before {
+  content: "\f06e";
+}
+.iconFA-plane:before {
+  content: "\f072";
+}
+.iconFA-calendar:before {
+  content: "\f073";
+}
+.iconFA-heart-o:before {
+  content: "\f08a";
+}
+.iconFA-phone:before {
+  content: "\f095";
+}
+.iconFA-envelope:before {
+  content: "\f0e0";
+}
+.iconFA-location-arrow:before {
+  content: "\f124";
+}
+.iconFA-cny:before {
+  content: "\f157";
+}
+.iconFA-jpy:before {
+  content: "\f157";
+}
+.iconFA-rmb:before {
+  content: "\f157";
+}
+.iconFA-yen:before {
+  content: "\f157";
+}
+.iconFA-weibo:before {
+  content: "\f18a";
+}
+.iconFA-qq:before {
+  content: "\f1d6";
+}
+.iconFA-wechat:before {
+  content: "\f1d7";
+}
+.iconFA-weixin:before {
+  content: "\f1d7";
+}
+.iconFA-map-pin:before {
+  content: "\f276";
+}
+.iconFA-user-circle-o:before {
+  content: "\f2be";
+}

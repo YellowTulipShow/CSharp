@@ -40,7 +40,7 @@ namespace Test.ConsoleProgram.Tools
 
         public CaseModel Obj_XML() {
             return new CaseModel() {
-                NameSign = @"JSON",
+                NameSign = @"XML",
                 ExeEvent = () => {
                     return CalcMethod(XML.Serializer<Person[]>, XML.Deserialize<Person[]>);
                 },

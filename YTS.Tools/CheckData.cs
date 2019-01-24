@@ -70,72 +70,55 @@ namespace YTS.Tools
 
         #region === IsType ===
         /// <summary>
-        /// 检查两个类型是否相同
+        /// 比较两个类型是否是一样的
         /// </summary>
-        /// <param name="tV1">值类型</param>
-        /// <param name="tV2">值类型</param>
-        /// <returns></returns>
-        public static bool IsTypeEqual(Type tV1, Type tV2) {
-            return tV1.Equals(tV2);
-        }
-        /// <summary>
-        /// 检查两个类型是否相同
-        /// </summary>
-        /// <typeparam name="T1">泛型类型</typeparam>
-        /// <typeparam name="T2">泛型类型</typeparam>
-        /// <returns></returns>
-        public static bool IsTypeEqual<T1, T2>() {
-            return IsTypeEqual(typeof(T1), typeof(T2));
-        }
-        /// <summary>
-        /// 检查两个类型是否相同
-        /// </summary>
-        /// <typeparam name="T">泛型类型</typeparam>
-        /// <param name="tV">值类型</param>
-        /// <returns></returns>
-        public static bool IsTypeEqual<T>(Type tV) {
-            return IsTypeEqual(typeof(T), tV);
-        }
-        /// <summary>
-        /// 检查两个类型是否相同(是否深入递归检查每层父级) 只检查了类的继承(不包括结果)
-        /// </summary>
-        /// <typeparam name="T">泛型类型</typeparam>
-        /// <param name="tV">值类型</param>
-        /// <param name="isDepth">是否深入递归检查每层父级</param>
-        /// <returns></returns>
-        public static bool IsTypeEqual<T>(Type tV, bool isDepth) {
-            if (!isDepth) {
-                return IsTypeEqual<T>(tV);
-            }
-            if (IsTypeEqual<T>(tV) || IsTypeEqual<T, object>()) {
+        /// <param name="t1">类型: 1</param>
+        /// <param name="t2">类型: 2</param>
+        /// <returns>是否相同</returns>
+        public static bool IsTypeEqual(Type t1, Type t2) {
+            if (CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2)) {
+                // 都为空
                 return true;
             }
-            if (IsTypeEqual<object>(tV)) {
+            if (CheckData.IsObjectNull(t1) && !CheckData.IsObjectNull(t2)) {
+                // t1为空 t2不为空
                 return false;
             }
-            return IsTypeEqual<T>(tV.BaseType, true);
+            if (!CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2)) {
+                // t1不为空 t2为空
+                return false;
+            }
+            // 都不为空
+            return t1.Equals(t2) && t1.FullName == t2.FullName;
         }
 
         /// <summary>
-        /// 检查数据值的类型
+        /// 比较两个类型是否是一样的 深入查询类型的继承链 (递归)
         /// </summary>
-        /// <typeparam name="T">要检查的类型</typeparam>
-        /// <param name="v_object">要检查的数据</param>
-        public static bool IsTypeEqual<T>(object v_object) {
-            return IsTypeEqual(typeof(T), v_object.GetType());
-        }
-        /// <summary>
-        /// 检查数据值的类型(递归检查每层父级)
-        /// </summary>
-        /// <typeparam name="T">要检查的类型</typeparam>
-        /// <param name="v_object">要检查的数据</param>
-        public static bool IsTypeEqual<T>(object v_object, bool isDepth) {
-            if (!isDepth) {
-                return IsTypeEqual<T>(v_object);
+        /// <param name="depth_find_type">需要递归查询的类型</param>
+        /// <param name="type">用于比较的类型</param>
+        /// <param name="is_depth">是否深入查询</param>
+        /// <returns>是否相同</returns>
+        public static bool IsTypeEqualDepth(Type depth_find_type, Type type, bool is_depth) {
+            if (IsTypeEqual(typeof(object), type)) {
+                return true;
             }
-            return IsTypeEqual<T>(v_object.GetType(), true);
+            if (!is_depth) {
+                return IsTypeEqual(depth_find_type, type);
+            }
+            if (IsTypeEqual(depth_find_type, type)) {
+                return true;
+            }
+            if (CheckData.IsObjectNull(depth_find_type) ||
+                CheckData.IsObjectNull(type)) {
+                return false;
+            }
+            return IsTypeEqualDepth(depth_find_type.BaseType, type, true);
         }
         #endregion
+
+
+
 
         /// <summary>
         /// 判断对象是否可以转成int型

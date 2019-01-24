@@ -19,7 +19,7 @@ namespace YTS.Engine.IOAccess
         ITableName,
         IDataBaseResult<M>,
         ISupplementaryStructure
-        where M : AbsShineUpon, ITableName
+        where M : AbsShineUpon, ITableName, new()
     {
         public DAL_MSSQLServer()
             : base() {
@@ -45,7 +45,7 @@ namespace YTS.Engine.IOAccess
         /// <param name="model">数据映射模型</param>
         /// <returns>是否成功 是:True 否:False</returns>
         public override bool Insert(M model) {
-            string sqlinsert = ConvertTool.StrToStrTrim(SQLInsert(model, false));
+            string sqlinsert = ConvertTool.ToTrim(SQLInsert(model, false));
             return CheckData.IsStringNull(sqlinsert) ? false : DbHelperSQL.ExecuteSql(sqlinsert) > 0;
         }
 
@@ -58,14 +58,13 @@ namespace YTS.Engine.IOAccess
         public string SQLInsert(M model, bool isResultID) {
             List<string> fieldArr = new List<string>();
             List<string> valueArr = new List<string>();
-            foreach (ColumnInfo item in this.Parser.GetColumn_CanWrite()) {
-                KeyObject im = this.Parser.GetModelValue(item, model);
-                if (CheckData.IsObjectNull(im) || CheckData.IsStringNull(im.Key)) {
+            foreach (ColumnInfo item in this.Parser.GetListCanWrite()) {
+                KeyString ks = this.Parser.GetValue_KeyString(item, model);
+                if (CheckData.IsObjectNull(ks) || CheckData.IsStringNull(ks.Key)) {
                     continue;
                 }
-                fieldArr.Add(im.Key);
-                string str_value = ModelValueToDataBaseValue(im.Value);
-                valueArr.Add(string.Format("'{0}'", str_value));
+                fieldArr.Add(ks.Key);
+                valueArr.Add(string.Format("'{0}'", ks.Value));
             }
             if ((fieldArr.Count != valueArr.Count) || CheckData.IsSizeEmpty(fieldArr)) {
                 return string.Empty;
@@ -113,10 +112,10 @@ namespace YTS.Engine.IOAccess
                 if (CheckData.IsStringNull(item.Key)) {
                     return null;
                 }
-                string str_value = ModelValueToDataBaseValue(item.Value);
+                string str_value = ConvertTool.ToString(item.Value);
                 return string.Format("{0} = '{1}'", item.Key, item.Value);
             }, null);
-            string set_str = ConvertTool.IListToString(expressions, ',');
+            string set_str = ConvertTool.ToString(expressions, ',');
             string sql_update = CreateSQL.Update(this.GetTableName(), set_str, where);
             return CheckData.IsStringNull(sql_update) ? false : DbHelperSQL.ExecuteSql(sql_update) > 0;
         }
@@ -140,12 +139,11 @@ namespace YTS.Engine.IOAccess
         public KeyBoolean[] GetDefaultSortWhere() {
             return new KeyBoolean[] {
                 new KeyBoolean() {
-                    Key = this.Parser.GetSortResult()[0].Name,
+                    Key = this.Parser.GetList()[0].Name,
                     Value = false,
                 },
             };
         }
-
 
         /// <summary>
         /// 查询
@@ -177,7 +175,7 @@ namespace YTS.Engine.IOAccess
                 return errorint;
             }
             object value = DbHelperSQL.GetSingle(sql_select);
-            return ConvertTool.ObjToInt(value, errorint);
+            return ConvertTool.ToInt(value, errorint);
         }
         #endregion
 
@@ -255,13 +253,13 @@ namespace YTS.Engine.IOAccess
                 return null;
             }
             M model = ReflexHelp.CreateNewObject<M>();
-            ColumnInfo[] columninfos = this.Parser.GetSortResult();
+            ColumnInfo[] columninfos = this.Parser.GetList();
             foreach (ColumnInfo item in columninfos) {
                 if (CheckData.IsObjectNull(item)) {
                     continue;
                 }
                 object value = row[item.Property.Name];
-                model = this.Parser.SetModelValue(item, model, value);
+                this.Parser.SetValue_Object(item, model, value);
             }
             return model;
         }
@@ -270,13 +268,14 @@ namespace YTS.Engine.IOAccess
         /// <summary>
         /// 执行-SQL字符串事务处理
         /// </summary>
-        /// <param name="sqllist">SQL字符串列表</param>
+        /// <param name="sqls">SQL字符串列表</param>
         /// <returns>是否成功</returns>
-        public bool Transaction(string[] sqllist) {
-            if (CheckData.IsSizeEmpty(sqllist)) {
+        public bool Transaction(IList<string> sqls) {
+            if (CheckData.IsSizeEmpty(sqls)) {
                 return false;
             }
-            bool resu = DbHelperSQL.ExecuteTransaction(sqllist);
+            return DbHelperSQL.Transaction_SQLServer(sqls) == sqls.Count;
+            bool resu = DbHelperSQL.ExecuteTransaction(sqls);
             return resu;
         }
 
@@ -306,6 +305,9 @@ namespace YTS.Engine.IOAccess
             string SQL_AlterColumns = SQLAlterColumns(columns);
 
             string sql = CreateSQL.If(str_if_where, SQL_CreateTable, SQL_AlterColumns);
+            if (CheckData.IsStringNull(sql)) {
+                return;
+            }
             DbHelperSQL.GetSingle(sql);
         }
 
@@ -314,7 +316,7 @@ namespace YTS.Engine.IOAccess
         /// </summary>
         private Dictionary<string, string> GetCreateColumns() {
             Dictionary<string, string> resuDic = new Dictionary<string, string>();
-            foreach (ColumnInfo item in this.Parser.GetSortResult()) {
+            foreach (ColumnInfo item in this.Parser.GetList()) {
                 string fieldName = item.Property.Name;
                 if (resuDic.ContainsKey(fieldName)) {
                     continue;
@@ -327,7 +329,7 @@ namespace YTS.Engine.IOAccess
                     !item.Attribute.IsCanBeNull ? @"not null" : null,
                     item.Attribute.IsIDentity ? @"identity(1,1)" : null,
                 };
-                resuDic[fieldName] = ConvertTool.IListToString(vals, @" ");
+                resuDic[fieldName] = ConvertTool.ToString(vals, @" ");
             }
             return resuDic;
         }
@@ -339,17 +341,18 @@ namespace YTS.Engine.IOAccess
         /// <returns>数据库对应数据类型</returns>
         private string GetMemberInfoMSQLServerDataType(ColumnInfo info) {
             Type detype = info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(int), true) ||
+                CheckData.IsTypeEqualDepth(detype, typeof(Enum), true)) {
                 return @"int";
             }
-            if (CheckData.IsTypeEqual<float>(detype)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(float), true)) {
                 return @"money";
             }
-            if (CheckData.IsTypeEqual<double>(detype)) {
+            if (CheckData.IsTypeEqualDepth(detype, typeof(double), true)) {
                 return @"float";
             }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return @"datetime";
+            if (CheckData.IsTypeEqualDepth(detype, typeof(DateTime), true)) {
+                return @"datetime2";
             }
             string charlen = !info.Attribute.IsPrimaryKey ? "max" : info.Attribute.CharLength.ToString();
             string str = string.Format("nvarchar({0})", charlen);
@@ -366,7 +369,7 @@ namespace YTS.Engine.IOAccess
                 string sql = CreateSQL.If(if_where, CreateSQL.AlterColumn(GetTableName(), item.Value));
                 ifExists.Add(sql);
             }
-            return ConvertTool.IListToString(ifExists, @" ");
+            return ConvertTool.ToString(ifExists, @" ");
         }
         #endregion
     }

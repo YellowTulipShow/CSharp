@@ -113,5 +113,38 @@ namespace YTS.Tools
             }
             return null;
         }
+
+        /// <summary>
+        /// 是否存在这种名称的枚举选项
+        /// </summary>
+        /// <typeparam name="E">枚举类型</typeparam>
+        /// <param name="keyname">枚举名称</param>
+        /// <returns>是否存在</returns>
+        public static bool IsContains<E>(string keyname) {
+            if (!typeof(E).IsEnum || CheckData.IsStringNull(keyname)) {
+                return false;
+            }
+            EnumInfo[] array = AnalysisList<E>();
+            foreach (EnumInfo info in array) {
+                if (info.Name == keyname) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 输出为键值对集合 <枚举名称, 枚举信息>
+        /// </summary>
+        /// <typeparam name="E">枚举类型</typeparam>
+        /// <returns></returns>
+        public static Dictionary<string, EnumInfo> ToDictionary<E>() {
+            EnumInfo[] array = AnalysisList<E>();
+            Dictionary<string, EnumInfo> dic = new Dictionary<string, EnumInfo>();
+            for (int i = 0; i < array.Length; i++) {
+                dic.Add(array[i].Name, array[i]);
+            }
+            return dic;
+        }
     }
 }

@@ -8,6 +8,11 @@ namespace YTS.Tools.Model
     public class KeyObject : KeyBasic
     {
         public KeyObject() : base() { }
+        public KeyObject(string key, object value)
+            : base() {
+            this.Key = key;
+            this.Value = value;
+        }
 
         /// <summary>
         /// Object 类型值:

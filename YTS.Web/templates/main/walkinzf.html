@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%template src="_meta_config.html"%>
+
+    <title>{site.seo_title}</title>
+    <meta name="Keywords" content="{site.seo_keyword}" />
+    <meta name="Description" content="{site.seo_description}" />
+
+    <%template src="_using_link_file.html"%>
+    <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/AllPageJS.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Btype =  window.InfoCollect.BorwserType();
+            var win_w = window.PageInfo.Get_Page_Width();
+            var isMobile = (Btype == "Mobile" && win_w <= 1200);
+            // 乐视视频调用
+            try {
+                var letvPlayer = new window.VideoUse({
+                    info: {
+                        auto_play: false,
+                        is_blackShady_fullScreen: isMobile,
+                        address: {
+                            "uu": "qtevp3utiw",
+                            "vu": "b22d49712c",
+                            "pu": "9e0d901162",
+                        }
+                    },
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
+</head>
+<body class="body">
+    <div class="ModelBox_MAX body">
+        <!-- 头部 固定悬浮 -->
+        <%template src="_header.html"%>
+
+        <!-- 轮播图部分 -->
+        <div class="ModelBox_MAX Banner zix-1">
+            <div class="ShowRegion">
+                <img class="img Style_IsMobile_Hide" src="<%templateskin%>/images/banner-7.jpg" />
+                <img class="img Style_IsPC_Hide" src="<%templateskin%>/images/banner/walkinzf.jpg" />
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="ModelBox_MAX Nav">
+            <div class="ModelBox">
+                <div class="Name">
+                    <span class="span"><%=get_channel_title("walkinzf")%></span>
+                </div>
+                <div class="Links">
+                    <a class="a span" href='<%linkurl("index")%>'>首页</a>
+                    <span class="span">></span>
+                    <a class="a span" href='<%linkurl("walkinzf")%>'><%=get_channel_title("walkinzf")%></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 走进珍峰 -->
+        <div class="ModelBox_MAX">
+            <div class="ModelBox">
+                <div class="brand_page">
+                    <div class="brand_title">
+                        <span>创办民族品牌</span><span>&nbsp;服务全人类的健康事业</span>
+                    </div>
+                    <!-- 视频 -->
+                    <div class="brand_video">
+                        <!-- 视频 -->
+                        <div id="ID_Box_VideoRegion" class="VideoRegion box_shadow">
+                            <div class="Content">
+                                <img id="ID_Btn_VideoCloseFullScreen" class="img button close_fullscreen" src="<%templateskin%>/images/CloseBtn.png" />
+                                <div id="ID_MainPlayer" class="MainPlayer"></div>
+                            </div>
+                            <div id="ID_Box_Video_CoverImg" class="CoverImg">
+                                <img class="img center video_cover" src="<%templateskin%>/images/video-2.jpg" />
+                                <div class="loading">
+                                    <div class="ShadyBlack opacity-6"></div>
+                                    <div class="bgimg LoadingGif" style="background-image: url('<%templateskin%>/images/icon_loading.png');"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 品牌战略 -->
+                    <div class="brand_strategy">
+                        <div class="brand_strategy_title">
+                            <span>品牌战略</span>
+                        </div>
+                        <div class="brand_strategy_list">
+                            <div class="brand_strategy_list_li">
+                                <strong>定<i class="text-hide">空空</i>位：</strong><span>世界一流的冬虫夏草品牌</span>
+                            </div>
+                            <div class="brand_strategy_list_li">
+                                <strong>使<i class="text-hide">空空</i>命：</strong><span>创办民族品牌服务全人类的健康事业</span>
+                            </div>
+                            <div class="brand_strategy_list_li">
+                                <strong>胜<i class="text-hide">x</i>任<i class="text-hide">x</i>力：</strong><span>实效第一</span>
+                            </div>
+                            <div class="brand_strategy_list_li">
+                                <strong>用人理念：</strong><span>高标准、高激励、高绩效</span>
+                            </div>
+                        </div>
+                        <div class="brand_strategy_list">
+                            <div class="brand_strategy_list_li">
+                                <strong>愿<i class="text-hide">空空</i>景：</strong><span>让人们能吃到放心的冬虫夏草</span>
+                            </div>
+                            <div class="brand_strategy_list_li">
+                                <strong>价<i class="text-hide">x</i>值<i class="text-hide">x</i>观：</strong><span>诚信创造基业长青</span>
+                            </div>
+                            <div class="brand_strategy_list_li">
+                                <strong>岗位<i class="text-hide">x</i>KPI：</strong><span>每人每天每件事</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 杂多雪景 -->
+                    <div class="brand_showimg">
+                        <img src="<%templateskin%>/images/brand/show-6.jpg"/>
+                    </div>
+                    <!-- 品牌故事 -->
+                    <div class="brand_story">
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_bold">品牌故事</span>
+                            </div>
+                            <div class="brand_story_section_content">
+                                <p>“珍峰”始于1999年10月18日，收草基地位于青海省玉树州杂多县，18年来，它已经成为全杂多最知名的虫草收购聚集地。新中国成立后，杂多以其冬虫夏草的品质和产量双优，被国务院钦定为“中国冬虫夏草之乡”、“中国冬虫夏草第一县”。</p>
+                                <p>杂多县，是澜沧江源头，每年5~6月份，当青藏高原冰雪开始消融，牧民便拎着镢头唱着歌，进山寻找冬虫夏草。杂多县海拔4200米以上，山势陡峭，氧气稀薄，群狼共舞，雪豹出没，每年挖草，都有人再也没有回来。</p>
+                                <p>千金易得，好草难寻，高品质的冬虫夏草，要有对道地产区宗教般的虔诚，为了确保每一根冬虫夏草都是藏民亲手采挖，18年来，广阔的三江源，到处留下了珍峰人的足迹，他们匠人般坚守，凝练出今日珍峰品牌的2个坚守：</p>
+                            </div>
+                        </div>
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_adhereto">收草虽艰，必不敢省人工</span>
+                            </div>
+                            <div class="brand_story_section_content">
+                                <p>公司自创立以来，始终认为：藏家现收的冬虫夏草才是最好的冬虫夏草。藏民居住分散、路况艰难，但为找到一根道地的虫草，翻山越岭，亦在所不惜！</p>
+                            </div>
+                        </div>
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_adhereto">虫草虽贵，但不敢牟暴利</span>
+                            </div>
+                            <div class="brand_story_section_content">
+                                <p>虫草价格堪比黄金，价高，则惠及者寡，价平，则惠及者众，我们深知每一根冬虫夏草背后都是对生命的守望。珍峰冬虫夏草，由于坚守源头，并无多层流通成本，一直以低于市场价40%的价格出售！</p>
+                            </div>
+                        </div>
+                        <div class="brand_story_section">
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_bold">品牌释义</span>
+                            </div>
+                            <div class="brand_story_section_title">
+                                <span class="brand_story_section_title_adhereto">“珍”者，珍品也，“峰”者，极致也；“珍峰”者，极致珍品。</span>
+                            </div>
+                            <div class="brand_story_section_content" style="text-align: center;">
+                                <p>珍峰冬虫夏草隶属于青海源祖生物科技有限公司，“源祖”二字，代表了企业孜孜不倦的对源头的坚持——溯源求真，旨求道地。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 民众相册 -->
+                    <div class="brand_album">
+                        <img src="<%templateskin%>/images/brand/album_1.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_2.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_3.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_4.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_5.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_6.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_7.jpg"/>
+                        <img src="<%templateskin%>/images/brand/album_8.jpg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <%template src="_footer.html"%>
+    </div>
+</body>
+</html>

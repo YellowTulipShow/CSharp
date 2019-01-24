@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace YTS.Tools.Const
 {
@@ -8,10 +9,13 @@ namespace YTS.Tools.Const
     public static class Format
     {
         /// <summary>
-        /// 时间格式 精确至: 毫秒 (取前三位)
+        /// 时间格式 精确至: 毫秒 (取七位)
         /// </summary>
-        //public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.fff";
-        public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.ff";
+        public const string DATETIME_MILLISECOND_SEVEN = "yyyy-MM-dd HH:mm:ss.fffffff";
+        /// <summary>
+        /// 时间格式 精确至: 毫秒 (取三位)
+        /// </summary>
+        public const string DATETIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.fff";
         /// <summary>
         /// 时间格式 精确至: 秒
         /// </summary>
@@ -36,5 +40,10 @@ namespace YTS.Tools.Const
         /// 时间格式 精确至: 年
         /// </summary>
         public const string DATETIME_YEAR = "yyyy";
+
+        /// <summary>
+        /// 文件内容统一编码
+        /// </summary>
+        public static readonly Encoding FILE_ENCODING = Encoding.UTF8;
     }
 }

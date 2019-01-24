@@ -3,6 +3,7 @@ using System.Reflection;
 using YTS.Engine.DataBase;
 using YTS.Model.DB;
 using YTS.Tools;
+using YTS.Engine.ShineUpon;
 
 namespace Test.ConsoleProgram.Tools
 {
@@ -14,6 +15,7 @@ namespace Test.ConsoleProgram.Tools
                 Func_Name(),
                 Func_CloneModelData(),
                 Func_AttributeFindOnly(),
+                Func_CreateInstance(),
             };
         }
 
@@ -201,6 +203,23 @@ namespace Test.ConsoleProgram.Tools
                     if (!method(new B(), false, true)) {
                         return false;
                     }
+                    return true;
+                },
+            };
+        }
+
+        public CaseModel Func_CreateInstance() {
+            return new CaseModel() {
+                NameSign = @"创建对象",
+                ExeEvent = () => {
+
+                    ShineUponParser parser = null;
+                    Type pt = typeof(ShineUponParser);
+                    object[] oar = new object[] { typeof(ShineUponInfo) };
+                    parser = (ShineUponParser)System.Activator.CreateInstance(pt, oar);
+
+                    Console.WriteLine("parser: {0}", parser);
+
                     return true;
                 },
             };

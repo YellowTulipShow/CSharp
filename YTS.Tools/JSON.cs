@@ -15,7 +15,7 @@ namespace YTS.Tools
         /// </summary>
         /// <param name="obj">对象</param>
         /// <returns>json字符串</returns>
-        public static String Serializer(Object obj) {
+        public static string Serializer(object obj) {
             return JsonConvert.SerializeObject(obj);
         }
 
@@ -25,7 +25,7 @@ namespace YTS.Tools
         /// <typeparam name="T">对象类型 可以是数据</typeparam>
         /// <param name="json">json字符串(eg.{"ID":"112","Name":"石子儿"})</param>
         /// <returns>对象实体</returns>
-        public static T Deserialize<T>(String json) where T : class {
+        public static T Deserialize<T>(string json) where T : class {
             JsonSerializer serializer = new JsonSerializer();
             StringReader sr = new StringReader(json);
             object o = serializer.Deserialize(new JsonTextReader(sr), typeof(T));
@@ -40,7 +40,7 @@ namespace YTS.Tools
         /// <param name="json">json字符串</param>
         /// <param name="anonymousTypeObject">匿名对象</param>
         /// <returns>匿名对象</returns>
-        public static T Deserialize<T>(String json, T anonymousTypeObject) {
+        public static T Deserialize<T>(string json, T anonymousTypeObject) {
             T t = JsonConvert.DeserializeAnonymousType(json, anonymousTypeObject);
             return t;
 
@@ -48,9 +48,9 @@ namespace YTS.Tools
                 DeserializeAnonymousType 使用方法:
                 //匿名对象解析
                 var tempEntity = new { ID = 0, Name = String.Empty };
-                String json5 = JsonHelper.SerializeObject(tempEntity);
+                string json5 = JSON.SerializeObject(tempEntity);
                 //json5 : {"ID":0,"Name":""}
-                tempEntity = JsonHelper.DeserializeAnonymousType("{\"ID\":\"112\",\"Name\":\"石子儿\"}", tempEntity);
+                tempEntity = JSON.Deserialize("{\"ID\":\"112\",\"Name\":\"石子儿\"}", tempEntity);
                 Console.WriteLine(tempEntity.ID + ":" + tempEntity.Name);
             */
         }

@@ -15,8 +15,8 @@ namespace YTS.Engine.IOAccess
     public abstract class AbsDAL<M, W, P, PI> :
         AbsDAL_OnlyQuery<M, W, P, PI>,
         IDAL<M, W, P, PI>
-        where M : AbsShineUpon
-        where P : ShineUponParser<M, PI>
+        where M : AbsShineUpon, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
         public AbsDAL() : base() { }

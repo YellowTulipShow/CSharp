@@ -1,0 +1,180 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta charset="utf-8" />
+    <title>珍峰冬虫夏草,原产地直供,朋友圈全程直播</title>
+    <meta name="Keywords" content="冬虫夏草价格,虫草功效,冬虫夏草的功效,冬虫夏草" />
+    <meta name="Description" content="珍峰冬虫夏草,专注冬虫夏草源头采收,直接从藏民手中收购,省去中间环节,全国低价!朋友圈直播收购虫草的全过程!为您解答冬虫夏草正确吃法及其功效。" />
+    <!--引用百度地图API-->
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .iw_poi_title {
+            color: #cc5522;
+            font-size: 14px;
+            font-weight: bold;
+            overflow: hidden;
+            padding-right: 13px;
+            white-space: nowrap;
+        }
+
+        .iw_poi_content {
+            font: 12px arial,sans-serif;
+            overflow: visible;
+            padding-top: 4px;
+            white-space: -moz-pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #dituContent {
+            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            height:100vh;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&amp;v=1.1&amp;services=true"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.1&amp;ak=&amp;services=true&amp;t=20130716024058"></script>
+    <script type="text/javascript" src="/scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="./js/PluginToolJS.js"></script>
+    <script type="text/javascript" src="./js/AllPageJS.js"></script>
+    <script type="text/javascript">
+        (function() {
+            window.Baidu_Map_Use = function() {
+                this.map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+
+                var zf_address = "地址: 青海省玉树州杂多县日历寺路与然子路交叉口 珍峰大院";
+                var zf_banquan = "版权: ZF 2018 珍峰收草基地 青ICP备17000060号-1";
+                var remark = zf_address;
+                if (window.InfoCollect.BorwserType() == "PC") {
+                    remark += "<br/>" + zf_banquan;
+                }
+                //标注点数组
+                this.markerArr = [{
+                    title: "珍峰收草基地",
+                    content: remark,
+                    point: "95.298943|32.89854",
+                    isOpen: 0,
+                    icon: {
+                        w: 23,
+                        h: 25,
+                        l: 46,
+                        t: 21,
+                        x: 9,
+                        lb: 12
+                    }
+                }];
+                this.initMap();//创建和初始化地图
+            }
+            window.Baidu_Map_Use.prototype = {
+                //创建和初始化地图函数：
+                initMap: function() {
+                    var self = this;
+                    self.customize_BaiduMap_CenterAndZoom();
+                    self.setMapEvent();//设置地图事件
+                    self.addMapControl();//向地图添加控件
+                    self.addMarker();//向地图中添加marker
+                },
+                customize_BaiduMap_CenterAndZoom: function() {
+                    var self = this;
+                    var point = new BMap.Point(95.299747, 32.897828);//定义一个中心点坐标
+                    self.map.centerAndZoom(point, 5);//设定地图的中心点和坐标并将地图显示在地图容器中
+                },
+                //地图事件设置函数：
+                setMapEvent: function() {
+                    var self = this;
+                    self.map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+                    self.map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+                    self.map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+                    self.map.enableKeyboard();//启用键盘上下左右键移动地图
+                },
+                //地图控件添加函数：
+                addMapControl: function() {
+                    var self = this;
+                    //向地图中添加缩放控件
+                    var ctrl_nav = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE });
+                    self.map.addControl(ctrl_nav);
+                    if (window.InfoCollect.BorwserType() == "PC") {
+                        //向地图中添加缩略图控件
+                        var ctrl_ove = new BMap.OverviewMapControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: 1 });
+                        self.map.addControl(ctrl_ove);
+                    }
+                    //向地图中添加比例尺控件
+                    var ctrl_sca = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT });
+                    self.map.addControl(ctrl_sca);
+                },
+                //创建marker
+                addMarker: function() {
+                    var self = this;
+                    for (var i = 0; i < self.markerArr.length; i++) {
+                        var json = self.markerArr[i];
+                        var p0 = json.point.split("|")[0];
+                        var p1 = json.point.split("|")[1];
+                        var point = new BMap.Point(p0, p1);
+                        var iconImg = self.createIcon(json.icon);
+                        var marker = new BMap.Marker(point, { icon: iconImg });
+                        var iw = self.createInfoWindow(i);
+                        var label = new BMap.Label(json.title, { "offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20) });
+                        marker.setLabel(label);
+                        self.map.addOverlay(marker);
+                        label.setStyle({
+                            borderColor: "#808080",
+                            color: "#333",
+                            cursor: "pointer"
+                        });
+
+                        (function () {
+                            var index = i;
+                            var _iw = self.createInfoWindow(i);
+                            var _marker = marker;
+                            _marker.addEventListener("click", function () {
+                                _marker.openInfoWindow(_iw);
+                            });
+                            _iw.addEventListener("open", function () {
+                                _marker.getLabel().hide();
+                            })
+                            _iw.addEventListener("close", function () {
+                                _marker.getLabel().show();
+                            })
+                            label.addEventListener("click", function () {
+                                _marker.openInfoWindow(_iw);
+                            })
+                            if (!!json.isOpen) {
+                                label.hide();
+                                _marker.openInfoWindow(_iw);
+                            }
+                        })()
+                    }
+                },
+                //创建InfoWindow
+                createInfoWindow: function(i) {
+                    var self = this;
+                    var json = self.markerArr[i];
+                    var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+                    return iw;
+                },
+                //创建一个Icon
+                createIcon: function(json) {
+                    var self = this;
+                    var icon = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(json.w, json.h), { imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h) })
+                    return icon;
+                },
+            };
+        })();
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.baidu_map = new Baidu_Map_Use();
+        });
+    </script>
+</head>
+
+<body>
+    <!--百度地图容器-->
+    <div id="dituContent"></div>
+</body>
+</html>

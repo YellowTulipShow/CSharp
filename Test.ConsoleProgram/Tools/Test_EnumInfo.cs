@@ -11,6 +11,7 @@ namespace Test.ConsoleProgram.Tools
                 Func_AnalysisList(),
                 Func_AnalysisItem(),
                 Func_GetALLItem(),
+                Func_Bit_Calc_MultipleSelection(),
             };
         }
 
@@ -126,6 +127,21 @@ namespace Test.ConsoleProgram.Tools
                             Console.WriteLine("answer item enum name: {0}", a_item.ToString());
                         },
                     }.Calc();
+                },
+            };
+        }
+
+        public CaseModel Func_Bit_Calc_MultipleSelection() {
+            return new CaseModel() {
+                NameSign = @"多项选择",
+                ExeEvent = () => {
+                    //???
+                    Console.WriteLine("TestEnum.Test | TestEnum.Male : {0}", TestEnum.Test | TestEnum.Male);
+                    Console.WriteLine("TestEnum.Test | TestEnum.Secrecy : {0}", TestEnum.Test | TestEnum.Secrecy);
+                    Console.WriteLine("TestEnum.Test | TestEnum.Male | TestEnum.Female : {0}", TestEnum.Test | TestEnum.Male | TestEnum.Female);
+                    Console.WriteLine("TestEnum.Test | TestEnum.Male | TestEnum.Female | TestEnum.Secrecy : {0}", TestEnum.Test | TestEnum.Male | TestEnum.Female | TestEnum.Secrecy);
+                    Console.WriteLine("TestEnum.Male | TestEnum.Secrecy : {0}", TestEnum.Male | TestEnum.Secrecy);
+                    return true;
                 },
             };
         }

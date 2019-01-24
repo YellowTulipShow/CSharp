@@ -16,13 +16,21 @@ namespace Test.ConsoleProgram.Learn
             SonCases = new CaseModel[] {
                 Func_XmlSerializer(),
             };
-
-            //XmlSerializer xmlser = XmlSerializerFactory
         }
 
         public class Person
         {
+            [XmlAttribute]
+            public int Attribute { get; set; }
+
+            [XmlIgnore]
+            public int Ignore { get; set; }
+
+            [XmlElement]
+            public int Element { get; set; }
+
             public int Age { get; set; }
+
             public Customer Bill { get; set; }
         }
         public class Customer
@@ -46,22 +54,19 @@ namespace Test.ConsoleProgram.Learn
                     }
 
                     string absfile = PathHelp.CreateUseFilePath("/auto/XML/XmlSerializer", "testmodel.xml");
-                    XmlDocument xmldoc = new XmlDocument();
-                    xmldoc.Load(absfile);
-
                     XmlWriterSettings settings = new XmlWriterSettings() {
                         CheckCharacters = true,
                         CloseOutput = true,
                         ConformanceLevel = ConformanceLevel.Document,
-                        Encoding = Encoding.UTF8,
+                        Encoding = YTS.Tools.Const.Format.FILE_ENCODING,
                         Indent = true,
                         IndentChars = @"    ",
                         NamespaceHandling = NamespaceHandling.Default,
-                        NewLineOnAttributes = true, // NewLineChars = @"\n", 不要设置, 设置也只能设置为: \r\n
+                        NewLineOnAttributes = false,
                         NewLineHandling = NewLineHandling.Replace,
-                        OmitXmlDeclaration = true,
+                        OmitXmlDeclaration = false,
                     };
-                    
+
                     using (XmlWriter writer = XmlWriter.Create(absfile, settings)) {
                         XmlSerializer xmlser = new XmlSerializer(typeof(Person[]));
                         xmlser.Serialize(writer, list);
@@ -70,7 +75,5 @@ namespace Test.ConsoleProgram.Learn
                 },
             };
         }
-
     }
-
 }

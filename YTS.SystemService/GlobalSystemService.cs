@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YTS.Engine.Config;
+using YTS.Tools;
 
 namespace YTS.SystemService
 {
@@ -10,36 +12,35 @@ namespace YTS.SystemService
     /// </summary>
     public class GlobalSystemService
     {
-        #region ====== Single Model Core: ======
+        #region === Config ===
+        /// <summary>
+        /// 配置 分析器
+        /// </summary>
+        public ConfigParser Config {
+            get {
+                if (CheckData.IsObjectNull(_config)) {
+                    _config = new ConfigParser();
+                }
+                return _config;
+            }
+        }
+        private ConfigParser _config = null;
+        #endregion
+
+        #region === Single Model Core: ===
         /// <summary>
         /// 获得 实例 对象
         /// </summary>
         public static GlobalSystemService GetInstance() {
-            return HolderClass.sysConfig;
+            return HolderClass.instance;
         }
         private static class HolderClass
         {
-            public static GlobalSystemService sysConfig = new GlobalSystemService();
+            public static GlobalSystemService instance = new GlobalSystemService();
         }
         #endregion
         
         private GlobalSystemService() {
-            // 获得配置信息
-            _configModel = CreateSystemConfigModel();
-        }
-
-        /// <summary>
-        /// 配置 数据 模型
-        /// </summary>
-        public SystemConfigModel ConfigModel { get { return _configModel; } }
-        private SystemConfigModel _configModel;
-
-        /// <summary>
-        /// 创建系统配置模型参数内容
-        /// </summary>
-        private SystemConfigModel CreateSystemConfigModel() {
-            // 根据 Config.xml 文件内容 构造 ConfigModel 数据模型
-            return new SystemConfigModel();
         }
     }
 }

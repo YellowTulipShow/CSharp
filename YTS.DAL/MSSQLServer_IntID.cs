@@ -14,7 +14,7 @@ namespace YTS.DAL
     public class MSSQLServer_IntID<M> :
         DAL_MSSQLServer<M>,
         IRecordIDPrimaryKey<M, int>
-        where M : AbsTable_IntID
+        where M : AbsTable_IntID, new()
     {
         public readonly string ColName_IID;
 
@@ -38,7 +38,7 @@ namespace YTS.DAL
                 return false;
             }
             object obj = DbHelperSQL.GetSingle(sqlinsert);
-            id = CheckData.IsObjectNull(obj) ? defid : ConvertTool.ObjToInt(obj, defid);
+            id = CheckData.IsObjectNull(obj) ? defid : ConvertTool.ToInt(obj, defid);
             return id != defid;
         }
 

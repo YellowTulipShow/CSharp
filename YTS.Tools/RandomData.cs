@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -22,11 +23,11 @@ namespace YTS.Tools
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
         /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
-        public static T Item<T>(T[] source) {
+        public static T Item<T>(IList<T> source) {
             if (CheckData.IsSizeEmpty(source)) {
                 return default(T);
             }
-            return source[R.Next(0, source.Length)];
+            return source[R.Next(0, source.Count)];
         }
 
         /// <summary>
@@ -36,12 +37,12 @@ namespace YTS.Tools
         /// <param name="slist">数据源序列</param>
         /// <param name="need_num">需要的结果数量 如小于等于零取值序列个数</param>
         /// <returns>结果序列</returns>
-        public static T[] Sample<T>(T[] slist, int need_num = 0) {
+        public static T[] Sample<T>(IList<T> slist, int need_num = 0) {
             if (CheckData.IsSizeEmpty(slist)) {
                 return new T[] { };
             }
             List<T> rlist = new List<T>();
-            int slen_size = slist.Length;
+            int slen_size = slist.Count;
             if (need_num <= 0) {
                 need_num = slen_size;
             }
@@ -72,16 +73,33 @@ namespace YTS.Tools
         /// <summary>
         /// 随机获取 Int 值
         /// </summary>
-        /// <param name="minval">最小值, 默认为 [int.MinValue + 1]</param>
-        /// <param name="maxval">最大值, 默认为 [int.MaxValue] 计算时不取其值</param>
-        /// <returns></returns>
-        public static int GetInt(int minval = int.MinValue + 1, int maxval = int.MaxValue) {
-            if (minval > maxval) {
-                int zhong = minval;
-                minval = maxval;
-                maxval = zhong;
+        /// <returns>取自: int.MinValue+1 和 int.MaxValue-1 并包括</returns>
+        public static int GetInt() {
+            return GetInt(int.MinValue + 1, int.MaxValue);
+        }
+
+        /// <summary>
+        /// 随机获取 Int 值
+        /// </summary>
+        /// <param name="max">最大值(不取该上界值)</param>
+        /// <returns>取自: 0 和 max-1 并包括</returns>
+        public static int GetInt(int max) {
+            return GetInt(0, max);
+        }
+
+        /// <summary>
+        /// 随机获取 Int 值
+        /// </summary>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值(不取该上界值)</param>
+        /// <returns>取自: min 和 max-1 并包括</returns>
+        public static int GetInt(int min, int max) {
+            if (min > max) {
+                int zhong = min;
+                min = max;
+                max = zhong;
             }
-            return R.Next(minval, maxval);
+            return R.Next(min, max);
         }
 
         /// <summary>
@@ -224,7 +242,7 @@ namespace YTS.Tools
             for (int i = 0; i < 4; i++) {
                 list.Add(GetInt(0, 255 + 1));
             }
-            return ConvertTool.IListToString(list, '.');
+            return ConvertTool.ToString(list, '.');
         }
         #endregion
 
@@ -240,18 +258,6 @@ namespace YTS.Tools
 
         #region ====== Color: ======
         /// <summary>
-        /// RGB颜色 三项数字值0-255
-        /// </summary>
-        public static int[] RGBColor_NumberList() {
-            const int min = 0;
-            const int max = 255;
-            return new int[3] {
-                GetInt(min, max + 1),
-                GetInt(min, max + 1),
-                GetInt(min, max + 1),
-            };
-        }
-        /// <summary>
         /// RGB颜色 六位字符串
         /// </summary>
         /// <param name="isNeedAdd_Hashtag">是否需要加 '#' 号</param>
@@ -265,6 +271,22 @@ namespace YTS.Tools
                 str.Append(Item(clist));
             }
             return str.ToString();
+        }
+        public static Color ColorRGB() {
+            const int min = 0;
+            const int max = 255 + 1;
+            int red = RandomData.GetInt(min, max);
+            int green = RandomData.GetInt(min, max);
+            int blue = RandomData.GetInt(min, max);
+            Color nc = Color.FromArgb(red, green, blue);
+            return nc;
+        }
+        public static Color ColorRGBA() {
+            const int min = 0;
+            const int max = 255 + 1;
+            int alpha = RandomData.GetInt(min, max);
+            Color nc = Color.FromArgb(alpha, ColorRGB());
+            return nc;
         }
         #endregion
     }

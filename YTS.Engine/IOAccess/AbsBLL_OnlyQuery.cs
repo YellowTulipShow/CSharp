@@ -13,19 +13,33 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="W">查询条件</typeparam>
     /// <typeparam name="P">解析器</typeparam>
     /// <typeparam name="PI">解析信息数据模型</typeparam>
-    public abstract class AbsBLL_OnlyQuery<M, D, W, P, PI> : IBLL_OnlyQuery<M, D, W, P, PI>
-        where M : AbsShineUpon
-        where D : AbsDAL<M, W, P, PI>
-        where P : ShineUponParser<M, PI>
+    public abstract class AbsBLL_OnlyQuery<M, D, W, P, PI> :
+        IBLL_OnlyQuery<M, D, W, P, PI>
+        where M : AbsShineUpon, new()
+        where D : AbsDAL<M, W, P, PI>, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
         /// <summary>
         /// 当前-数据访问层(Data Access Layer)对象
         /// </summary>
-        public D SelfDAL = null;
+        public D SelfDAL {
+            get {
+                if (CheckData.IsObjectNull(_selfdal)) {
+                    _selfdal = InitCreateDAL();
+                }
+                return _selfdal;
+            }
+        }
+        private D _selfdal = null;
 
-        public AbsBLL_OnlyQuery() {
-            this.SelfDAL = ReflexHelp.CreateNewObject<D>();
+        public AbsBLL_OnlyQuery() { }
+
+        /// <summary>
+        /// 初始化创建 数据访问层DAL 对象
+        /// </summary>
+        public virtual D InitCreateDAL() {
+            return new D();
         }
 
         /// <summary>

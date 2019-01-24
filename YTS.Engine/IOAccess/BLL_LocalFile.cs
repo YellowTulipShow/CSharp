@@ -10,33 +10,14 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="M">数据映射模型</typeparam>
     /// <typeparam name="D">抽象-数据访问层(Data Access Layer)</typeparam>
     public class BLL_LocalFile<M, D> :
-        AbsBLL<M, D, Func<M, bool>, ShineUponParser<M, ShineUponInfo>, ShineUponInfo>,
-        IFileInfo
-        where M : AbsShineUpon, IFileInfo
-        where D : DAL_LocalFile<M>
+        AbsBLL<M, D, Func<M, bool>, ShineUponParser, ShineUponInfo>
+        where M : AbsShineUpon, IFileInfo, new()
+        where D : DAL_LocalFile<M>, new()
     {
         public BLL_LocalFile() : base() { }
         public BLL_LocalFile(FileShare fileShare)
             : base() {
             this.SelfDAL.FileShare = fileShare;
         }
-
-        #region ====== using:IFileInfo ======
-        /// <summary>
-        /// 获取 /(根目录) 相对路径文件夹 格式: /xxx/xxx
-        /// </summary>
-        /// <returns>相对路径</returns>
-        public string GetPathFolder() {
-            return this.SelfDAL.GetPathFolder();
-        }
-
-        /// <summary>
-        /// 获取文件名称 (只是名称, 不需要后缀)
-        /// </summary>
-        /// <returns>文件名</returns>
-        public string GetFileName() {
-            return this.SelfDAL.GetFileName();
-        }
-        #endregion
     }
 }

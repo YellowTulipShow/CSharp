@@ -63,14 +63,43 @@ namespace YTS.Web.UI.Template
             r[22] = new Regex(@"<%(?:write |=)(?:\s*)(.*?)(?:\s*)%>", options);
         }
 
+        ///// <summary>
+        ///// 根据模板信息模型生成对应的模板
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //public static string GetTemplate(Model.URLReWriter model)
+        //{
+        //    string sitePath = @"/";
+        //    string tempPath = "templets";
+        //    string skinName = "YTSTemp";
+        //    string templet = model.Templet;
+        //    string fromPage = model.Page;
+        //    string inherit = model.Inherit;
+        //    string buildPath = "YTSTemp";
+        //    string channelName = model.Channel;
+        //    string pageSize = model.PageSize;
+        //    int nest = 1;
+        //    return GetTemplate(sitePath, tempPath, skinName, templet, fromPage, inherit, buildPath, channelName, pageSize, nest);
+        //}
+
         /// <summary>
         /// 根据模板信息模型生成对应的模板
         /// </summary>
         /// <param name="urlReModel"></param>
         /// <returns></returns>
-        public static string GetTemplate(UrlRewriteModel urlReModel)
-        {
-            return GetTemplate("/", LibrayConfigKey.FolderName_Template, LibrayConfigKey.FolderName_MainSite, urlReModel.templet, urlReModel.page, urlReModel.inherit, LibrayConfigKey.FolderName_MainSite, urlReModel.channel, urlReModel.pagesize, 1);
+        public static string GetTempate(UrlRewriteModel urlReModel) {
+            string sitePath = @"/";
+            string tempPath = "templets";
+            string skinName = "YTSTemp";
+            string templet = urlReModel.templet;
+            string fromPage = urlReModel.page;
+            string inherit = urlReModel.inherit;
+            string buildPath = "YTSTemp";
+            string channelName = urlReModel.channel;
+            string pageSize = urlReModel.pagesize;
+            int nest = 1;
+            return GetTemplate(sitePath, tempPath, skinName, templet, fromPage, inherit, buildPath, channelName, pageSize, nest);
         }
 
         /// <summary>
@@ -110,7 +139,7 @@ namespace YTS.Web.UI.Template
             }
 
             //开始读写文件
-            using (StreamReader objReader = new StreamReader(templetFullPath, Encoding.UTF8))
+            using (StreamReader objReader = new StreamReader(templetFullPath, YTS.Tools.Const.Format.FILE_ENCODING))
             {
                 StringBuilder extNamespace = new StringBuilder(); //命名空间标签转换容器
                 StringBuilder textOutput = new StringBuilder(70000);
@@ -153,7 +182,7 @@ namespace YTS.Web.UI.Template
                     {
                         constStr.Append("\r\n\tconst string channel = \"" + channelName + "\";");
                     }
-                    if (pageSize != string.Empty && ConvertTool.StrToInt(pageSize, 0) > 0)
+                    if (pageSize != string.Empty && ConvertTool.ToInt(pageSize, 0) > 0)
                     {
                         constStr.Append("\r\n\tconst int pagesize = " + pageSize + ";");
                     }
@@ -164,8 +193,8 @@ namespace YTS.Web.UI.Template
                         "<%@ Import namespace=\"System.Data\" %>\r\n" +
                         "<%@ Import namespace=\"YTS.Tools\" %>{1}\r\n\r\n" +
                         "<script runat=\"server\">\r\noverride protected void OnInit(EventArgs e)\r\n" +
-                        "{{\r\n\r\n\t/* \r\n\t\tThis page was created by DTcms Template Engine at {2}.\r\n\t\t" +
-                        "本页面代码借由DTcms模板引擎生成于 {2}. \r\n\t*/\r\n\r\n\tbase.OnInit(e);\r\n\t" +
+                        "{{\r\n\r\n\t/* \r\n\t\tThis page was created by YTS Template Engine at {2}.\r\n\t\t" +
+                        "本页面代码借由YTS模板引擎生成于 {2}. \r\n\t*/\r\n\r\n\tbase.OnInit(e);\r\n\t" +
                         "StringBuilder templateBuilder = new StringBuilder({3});{4}\r\n{5}\r\n\t" +
                         "Response.Write(templateBuilder.ToString());\r\n}}\r\n</script>\r\n", inherit, extNamespace.ToString(), DateTime.Now, strReturn.Capacity,
                         constStr.ToString(), Regex.Replace(strReturn.ToString(), @"\r\n\s*templateBuilder\.Append\(""""\);", ""));
@@ -177,10 +206,10 @@ namespace YTS.Web.UI.Template
                         Directory.CreateDirectory(pageDir);
                     }
                     //保存写入文件
-                    File.WriteAllText(outputPath, template, Encoding.UTF8);
+                    File.WriteAllText(outputPath, template, YTS.Tools.Const.Format.FILE_ENCODING);
                     //using (FileStream fs = new FileStream(outputPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
                     //{
-                    //    Byte[] info = Encoding.UTF8.GetBytes(template);
+                    //    Byte[] info = YTS.Tools.Const.Format.FILE_ENCODING.GetBytes(template);
                     //    fs.Write(info, 0, info.Length);
                     //    fs.Close();
                     //}
@@ -371,7 +400,7 @@ namespace YTS.Web.UI.Template
             {
                 IsCodeLine = true;
                 strTemplate = strTemplate.Replace(m.Groups[0].ToString(),
-                    "Utils.StrToInt(" + m.Groups[2] + ", 0)");
+                    "ConvertTool.ToInt(" + m.Groups[2] + ", 0)");
             }
             #endregion
 

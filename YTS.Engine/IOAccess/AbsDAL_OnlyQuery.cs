@@ -12,24 +12,54 @@ namespace YTS.Engine.IOAccess
     /// <typeparam name="W">查询条件</typeparam>
     /// <typeparam name="P">解析器</typeparam>
     /// <typeparam name="PI">解析信息数据模型</typeparam>
-    public abstract class AbsDAL_OnlyQuery<M, W, P, PI> : IDAL_OnlyQuery<M, W, P, PI>
-        where M : AbsShineUpon
-        where P : ShineUponParser<M, PI>
+    public abstract class AbsDAL_OnlyQuery<M, W, P, PI> :
+        IDAL_OnlyQuery<M, W, P, PI>
+        where M : AbsShineUpon, new()
+        where P : ShineUponParser, new()
         where PI : ShineUponInfo
     {
+        public AbsDAL_OnlyQuery() { }
+
         /// <summary>
         /// 初始化自动生成默认数据映射模型
         /// </summary>
-        public readonly M DefaultModel = null;
+        public M DefaultModel {
+            get {
+                if (CheckData.IsObjectNull(_default_model)) {
+                    _default_model = InitCreateModel();
+                }
+                return _default_model;
+            }
+        }
+        private M _default_model = null;
+
+        /// <summary>
+        /// 初始化创建 默认数据模型Model 对象
+        /// </summary>
+        public virtual M InitCreateModel() {
+            return new M();
+        }
 
         /// <summary>
         /// 数据映射模型解析器
         /// </summary>
-        public readonly P Parser = null;
+        public P Parser {
+            get {
+                if (CheckData.IsObjectNull(_parser)) {
+                    _parser = InitCreateParser();
+                }
+                return _parser;
+            }
+        }
+        private P _parser = null;
 
-        public AbsDAL_OnlyQuery() {
-            this.DefaultModel = ReflexHelp.CreateNewObject<M>();
-            this.Parser = ReflexHelp.CreateNewObject<P>();
+        /// <summary>
+        /// 初始化创建 解析器Parser 对象
+        /// </summary>
+        public virtual P InitCreateParser() {
+            P parser = new P();
+            parser.NeedParserType = typeof(M);
+            return parser;
         }
 
         /// <summary>
@@ -68,38 +98,6 @@ namespace YTS.Engine.IOAccess
         public virtual M GetModel(W where, KeyBoolean[] sorts) {
             M[] list = Select(1, where, sorts);
             return (CheckData.IsSizeEmpty(list)) ? null : list[0];
-        }
-
-        /// <summary>
-        /// 数据映射模型值 - 转 - 数据库可用类型值
-        /// </summary>
-        /// <param name="model_value">数据映射模型值</param>
-        /// <returns>数据库可用类型值</returns>
-        public string ModelValueToDataBaseValue(object model_value) {
-            if (CheckData.IsTypeEqual<DateTime>(model_value, true)) {
-                return ((DateTime)model_value).ToString(Tools.Const.Format.DATETIME_MILLISECOND);
-            }
-            if (CheckData.IsTypeEqual<Enum>(model_value, true)) {
-                return ((int)model_value).ToString();
-            }
-            return ConvertTool.ObjToString(model_value);
-        }
-
-        public object DataBaseValueToModelValue(PI parser_info, string field_value) {
-            Type detype = parser_info.Property.PropertyType;
-            if (CheckData.IsTypeEqual<int>(detype) || CheckData.IsTypeEqual<Enum>(detype, true)) {
-                return ConvertTool.ObjToInt(field_value, default(int));
-            }
-            if (CheckData.IsTypeEqual<float>(detype) || CheckData.IsTypeEqual<double>(detype)) {
-                return ConvertTool.ObjToFloat(field_value, default(float));
-            }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return ConvertTool.ObjToDateTime(field_value, default(DateTime));
-            }
-            if (CheckData.IsTypeEqual<DateTime>(detype)) {
-                return ConvertTool.ObjToBool(field_value, default(bool));
-            }
-            return field_value;
         }
     }
 }
