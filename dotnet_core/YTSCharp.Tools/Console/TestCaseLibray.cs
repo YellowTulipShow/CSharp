@@ -10,7 +10,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 在这里面手动设置要测试的实例
         /// </summary>
-        private AbsTestCase[] InitTestCaseSource() {
+        private AbsTestCase[] InitTestCaseSource()
+        {
             return new AbsTestCase[] {
             };
         }
@@ -18,13 +19,15 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 自动获取测试实例-(不用更改)
         /// </summary>
-        public ITestCase[] GetTestCase(bool isGetITestCase) {
+        public ITestCase[] GetTestCase(bool isGetITestCase)
+        {
             AbsTestCase[] initCases = InitTestCaseSource();
             if (!isGetITestCase)
                 return initCases;
 
             List<ITestCase> list = new List<ITestCase>();
-            foreach (AbsTestCase item in initCases) {
+            foreach (AbsTestCase item in initCases)
+            {
                 if (CheckData.IsObjectNull(item))
                     continue;
                 list.Add(item);

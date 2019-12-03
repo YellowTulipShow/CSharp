@@ -21,7 +21,8 @@ namespace YTSCharp.Tools
     {
         public abstract string TestNameSign();
         public abstract void TestMethod();
-        public virtual ITestCase[] SonTestCase() {
+        public virtual ITestCase[] SonTestCase()
+        {
             return new ITestCase[] { };
         }
     }

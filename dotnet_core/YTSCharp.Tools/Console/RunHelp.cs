@@ -16,8 +16,10 @@ namespace YTSCharp.Tools
         /// </summary>
         /// <param name="method">需要执行的方法</param>
         /// <returns>执行方法所需的时间 单位: 秒</returns>
-        public static double GetRunTime(Action method) {
-            if (CheckData.IsObjectNull(method)) {
+        public static double GetRunTime(Action method)
+        {
+            if (CheckData.IsObjectNull(method))
+            {
                 method = () => { };
             }
             Stopwatch stopwatch = new Stopwatch();

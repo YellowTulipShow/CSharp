@@ -27,18 +27,21 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 添加执行事件
         /// </summary>
-        public void SetEventHandlers(EventHandler eventArr) {
+        public void SetEventHandlers(EventHandler eventArr)
+        {
             this.eventMethod = eventArr;
         }
 
         /// <summary>
         /// 执行事件处理程序
         /// </summary>
-        public void ExecuteEventHandler() {
+        public void ExecuteEventHandler()
+        {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); // 开始
 
-            if (!CheckData.IsObjectNull(this.eventMethod)) {
+            if (!CheckData.IsObjectNull(this.eventMethod))
+            {
                 this.eventMethod();
             }
 
@@ -49,7 +52,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 获得运行时间的整秒数和秒的小数部分值
         /// </summary>
-        public double GetRunTimeTotalSeconds() {
+        public double GetRunTimeTotalSeconds()
+        {
             return this.runtimeSpan.TotalSeconds;
         }
     }

@@ -41,8 +41,10 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 方法: 单个选项是否相等
         /// </summary>
-        public Func<TA, TS, bool> Func_isEquals {
-            get {
+        public Func<TA, TS, bool> Func_isEquals
+        {
+            get
+            {
                 return !CheckData.IsObjectNull(_func_isEquals) ? _func_isEquals : (a, s) => a.Equals(s);
             }
             set { _func_isEquals = value; }
@@ -52,9 +54,12 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 方法: 长度不相等时执行回调
         /// </summary>
-        public Action<int, int> Func_lengthNotEquals {
-            get {
-                return !CheckData.IsObjectNull(_func_lengthNotEquals) ? _func_lengthNotEquals : (alen, slen) => {
+        public Action<int, int> Func_lengthNotEquals
+        {
+            get
+            {
+                return !CheckData.IsObjectNull(_func_lengthNotEquals) ? _func_lengthNotEquals : (alen, slen) =>
+                {
                     Console.WriteLine("answer_length: {0} source_length: {1} 不相等", alen, slen);
                 };
             }
@@ -65,8 +70,10 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 方法: 查找失败时回调
         /// </summary>
-        public Action<TA> Func_notFind {
-            get {
+        public Action<TA> Func_notFind
+        {
+            get
+            {
                 if (!CheckData.IsObjectNull(_func_notFind))
                 {
                     return _func_notFind;
@@ -89,11 +96,13 @@ namespace YTSCharp.Tools
         public CalcWayEnum ArgCalcWay = CalcWayEnum.DoubleCycle;
         #endregion
 
-        public VerifyIList(CalcWayEnum calc_way) {
+        public VerifyIList(CalcWayEnum calc_way)
+        {
             this.ArgCalcWay = calc_way;
         }
 
-        public VerifyIList(CalcWayEnum calc_way, IList<TA> answer, IList<TS> source) {
+        public VerifyIList(CalcWayEnum calc_way, IList<TA> answer, IList<TS> source)
+        {
             this.ArgCalcWay = calc_way;
             this.Answer = answer;
             this.Source = source;
@@ -103,21 +112,26 @@ namespace YTSCharp.Tools
         /// 批量比较计算 答案和数据源 选项是否都相等
         /// </summary>
         /// <returns>都相等: True, 有错误or其中有一个不相等: False</returns>
-        public bool Calc() {
-            if (CheckData.IsObjectNull(Answer)) {
+        public bool Calc()
+        {
+            if (CheckData.IsObjectNull(Answer))
+            {
                 Console.WriteLine("Answer 答案为空");
                 return false;
             }
-            if (CheckData.IsObjectNull(Source)) {
+            if (CheckData.IsObjectNull(Source))
+            {
                 Console.WriteLine("Source 数据源为空");
                 return false;
             }
 
-            if (CheckData.IsSizeEmpty(Answer) && CheckData.IsSizeEmpty(Source)) {
+            if (CheckData.IsSizeEmpty(Answer) && CheckData.IsSizeEmpty(Source))
+            {
                 return true;
             }
 
-            if (Answer.Count != Source.Count) {
+            if (Answer.Count != Source.Count)
+            {
                 Func_lengthNotEquals(Answer.Count, Source.Count);
                 return false;
             }
@@ -126,19 +140,26 @@ namespace YTSCharp.Tools
             return method();
         }
 
-        public Func<bool> GetCalcWayExeMethod() {
-            switch (ArgCalcWay) {
+        public Func<bool> GetCalcWayExeMethod()
+        {
+            switch (ArgCalcWay)
+            {
                 case CalcWayEnum.DoubleCycle:
-                    return () => {
-                        foreach (TA a in Answer) {
+                    return () =>
+                    {
+                        foreach (TA a in Answer)
+                        {
                             bool isfind = false;
-                            foreach (TS s in Source) {
-                                if (Func_isEquals(a, s)) {
+                            foreach (TS s in Source)
+                            {
+                                if (Func_isEquals(a, s))
+                                {
                                     isfind = true;
                                     break;
                                 }
                             }
-                            if (!isfind) {
+                            if (!isfind)
+                            {
                                 Func_notFind(a);
                                 return false;
                             }
@@ -146,9 +167,12 @@ namespace YTSCharp.Tools
                         return true;
                     };
                 case CalcWayEnum.SingleCycle:
-                    return () => {
-                        for (int i = 0; i < Answer.Count; i++) {
-                            if (!Func_isEquals(Answer[i], Source[i])) {
+                    return () =>
+                    {
+                        for (int i = 0; i < Answer.Count; i++)
+                        {
+                            if (!Func_isEquals(Answer[i], Source[i]))
+                            {
                                 Func_notFind(Answer[i]);
                                 return false;
                             }
@@ -156,15 +180,19 @@ namespace YTSCharp.Tools
                         return true;
                     };
                 case CalcWayEnum.Random:
-                    return () => {
+                    return () =>
+                    {
                         List<int> list = new List<int>();
                         list.Add(0);
                         list.Add(Answer.Count - 1);
-                        for (int i = 0; i < RandomData.GetInt(3, 6); i++) {
+                        for (int i = 0; i < RandomData.GetInt(3, 6); i++)
+                        {
                             list.Add(RandomData.GetInt(0, Answer.Count));
                         }
-                        foreach (int i in list) {
-                            if (!Func_isEquals(Answer[i], Source[i])) {
+                        foreach (int i in list)
+                        {
+                            if (!Func_isEquals(Answer[i], Source[i]))
+                            {
                                 Func_notFind(Answer[i]);
                                 return false;
                             }
@@ -172,7 +200,8 @@ namespace YTSCharp.Tools
                         return true;
                     };
                 default:
-                    return () => {
+                    return () =>
+                    {
                         throw new Exception("对比计算, 没有可执行方法");
                     };
             }
