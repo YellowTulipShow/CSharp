@@ -6,7 +6,7 @@ using YTSCharp.Tools;
 
 namespace Test.ConsoleProgram
 {
-    public class MainProram
+    public class MainProgram
     {
         public static void Main(string[] args)
         {
@@ -59,7 +59,7 @@ namespace Test.ConsoleProgram
                     Console.WriteLine(@"(→_→) => 并没有需要测试实例子弹, 怎么打仗? 快跑吧~ running~ running~ running~ ");
                     return;
                 }
-                if (AnalyticCaseModel(case_list, string.Empty))
+                if (AnalyticItem(case_list, string.Empty))
                 {
                     Console.WriteLine(@"[+] 测试成功, 完美!");
                 }
@@ -75,48 +75,58 @@ namespace Test.ConsoleProgram
             /// <param name="cases">测试实例集合</param>
             /// <param name="upper_layer_name">上层级名称</param>
             /// <returns>是否成功</returns>
-            public bool AnalyticCaseModel(List<CaseModel> cases, string upper_layer_name)
+            public bool AnalyticItem(List<CaseModel> cases, string upper_layer_name)
             {
                 upper_layer_name = ConvertTool.ToString(upper_layer_name);
                 foreach (CaseModel model in cases)
                 {
-                    // 获取名称
-                    string name = model.NameSign;
-                    if (!CheckData.IsStringNull(upper_layer_name))
+                    bool isSuccess = AnalyticItem(model, upper_layer_name);
+                    if (!isSuccess)
                     {
-                        name = string.Format("{0}: {1}", upper_layer_name, name);
-                    }
-
-                    double exe_time = RunHelp.GetRunTime(() =>
-                    {
-                        model.onInit();
-                    });
-                    Console.WriteLine("[-] Name: [{0}] 初始化准备函数用时: Time: {1}s", name, exe_time);
-
-                    // 执行自身方法
-                    if (CheckData.IsObjectNull(model.ExeEvent))
-                    {
-                        Console.WriteLine("\n[-] Name: [{0}] ExeEvent Is NULL", name);
-                    }
-                    else
-                    {
-                        bool isby = AnalyticCaseModelOneItem(model.ExeEvent, name);
-                        if (!isby)
-                        {
-                            return false;
-                        }
-                    }
-
-                    // 执行含有子方法
-                    if (!CheckData.IsSizeEmpty(model.SonCases))
-                    {
-                        if (!AnalyticCaseModel(model.SonCases, name))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
                 return true;
+            }
+
+            public bool AnalyticItem(CaseModel model, string upper_layer_name)
+            {
+                // 获取名称
+                string name = model.NameSign;
+                if (!CheckData.IsStringNull(upper_layer_name))
+                {
+                    name = string.Format("{0}: {1}", upper_layer_name, name);
+                    // 加入一个空行, 与上一条进行区分
+                    Console.WriteLine(string.Empty);
+                }
+
+                // 执行初始化准备函数
+                double exe_time = RunHelp.GetRunTime(() =>
+                {
+                    model.onInit();
+                });
+                Console.WriteLine("[~] Name: [{0}] 初始化准备函数用时: Time: {1}s", name, exe_time);
+
+                // 执行自身方法
+                if (CheckData.IsObjectNull(model.ExeEvent))
+                {
+                    Console.WriteLine("[~] Name: [{0}] ExeEvent Is NULL", name);
+                }
+                else
+                {
+                    bool isSuccess = AnalyticItem(model.ExeEvent, name);
+                    if (!isSuccess)
+                    {
+                        return false;
+                    }
+                }
+
+                // 执行含有子方法
+                if (CheckData.IsSizeEmpty(model.SonCases))
+                {
+                    return true;
+                }
+                return AnalyticItem(model.SonCases, name);
             }
 
             /// <summary>
@@ -125,7 +135,7 @@ namespace Test.ConsoleProgram
             /// <param name="method">执行方法</param>
             /// <param name="name">执行名称</param>
             /// <returns>是否成功</returns>
-            public bool AnalyticCaseModelOneItem(Func<bool> method, string name)
+            public bool AnalyticItem(Func<bool> method, string name)
             {
                 bool isby = false;
                 double exe_time = RunHelp.GetRunTime(() =>

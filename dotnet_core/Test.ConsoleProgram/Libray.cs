@@ -14,17 +14,18 @@ namespace Test.ConsoleProgram
         public List<CaseModel> GetALLCases()
         {
             List<CaseModel> list = new List<CaseModel>();
-            list.AddRange(Bases());
+            list.AddRange(GetBases());
             return list;
         }
 
         /* ================================== ~华丽的间隔线~ ================================== */
 
-        public List<CaseModel> Bases()
+        public List<CaseModel> GetBases()
         {
             return new List<CaseModel>()
             {
                 new Base.HelloWorld(),
+                new Base.BaseProgram(),
             };
         }
     }
