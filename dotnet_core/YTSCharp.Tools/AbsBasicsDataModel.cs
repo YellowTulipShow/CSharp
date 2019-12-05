@@ -19,7 +19,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 深度克隆一个数据模型对象
         /// </summary>
-        public AbsBasicDataModel CloneModelData() {
+        public AbsBasicDataModel CloneModelData()
+        {
             return ReflexHelper.CloneAllAttribute<AbsBasicDataModel>(this);
         }
     }

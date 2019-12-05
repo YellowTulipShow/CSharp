@@ -19,13 +19,15 @@ namespace YTSCharp.Tools
         /// <summary>
         /// ASCII 所有常用 字符 33-127
         /// </summary>
-        public static char[] ASCII_ALL() {
+        public static char[] ASCII_ALL()
+        {
             return ASCII_IndexRegion(33, 127);
         }
         /// <summary>
         /// ASCII 常用文本字符
         /// </summary>
-        public static char[] ASCII_WordText() {
+        public static char[] ASCII_WordText()
+        {
             List<char> charArr = new List<char>();
             charArr.AddRange(ASCII_Number());
             charArr.AddRange(ASCII_LowerEnglish());
@@ -35,25 +37,29 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 阿拉伯数字
         /// </summary>
-        public static char[] ASCII_Number() {
+        public static char[] ASCII_Number()
+        {
             return ASCII_IndexRegion(48, 58);
         }
         /// <summary>
         /// 大写英文
         /// </summary>
-        public static char[] ASCII_UpperEnglish() {
+        public static char[] ASCII_UpperEnglish()
+        {
             return ASCII_IndexRegion(65, 91);
         }
         /// <summary>
         /// 小写英文
         /// </summary>
-        public static char[] ASCII_LowerEnglish() {
+        public static char[] ASCII_LowerEnglish()
+        {
             return ASCII_IndexRegion(97, 123);
         }
         /// <summary>
         /// 特别字符
         /// </summary>
-        public static char[] ASCII_Special() {
+        public static char[] ASCII_Special()
+        {
             List<char> charArr = new List<char>();
             charArr.AddRange(ASCII_IndexRegion(33, 48));
             charArr.AddRange(ASCII_IndexRegion(58, 65));
@@ -66,10 +72,12 @@ namespace YTSCharp.Tools
         /// </summary>
         /// <param name="min">最小值(包含)</param>
         /// <param name="max">最大值(不包含)</param>
-        public static char[] ASCII_IndexRegion(int min, int max) {
+        public static char[] ASCII_IndexRegion(int min, int max)
+        {
             List<char> cl = new List<char>();
             byte[] array = new byte[1];
-            for (int i = min; i < max; i++) {
+            for (int i = min; i < max; i++)
+            {
                 array[0] = (byte)i; //ASCII码强制转换二进制
                 string str = Encoding.ASCII.GetString(array);
                 cl.Add(Convert.ToChar(str));
@@ -81,20 +89,23 @@ namespace YTSCharp.Tools
         /// <summary>
         /// ASCII 码十六进制组成字符
         /// </summary>
-        public static char[] ASCII_Hexadecimal() {
+        public static char[] ASCII_Hexadecimal()
+        {
             return new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
         }
 
         /// <summary>
         /// Unicode 中文字符集 最小 十六进制字符串
         /// </summary>
-        public static string Unicode_Chinese_MIN_Hexadecimal() {
+        public static string Unicode_Chinese_MIN_Hexadecimal()
+        {
             return @"4e00";
         }
         /// <summary>
         /// Unicode 中文字符集 最小 十进制标识
         /// </summary>
-        public static int Unicode_Chinese_MIN_Decimal() {
+        public static int Unicode_Chinese_MIN_Decimal()
+        {
             return ConvertTool.HexadecimalToDecimal(Unicode_Chinese_MIN_Hexadecimal());
         }
 
@@ -102,14 +113,16 @@ namespace YTSCharp.Tools
         /// Unicode 中文字符集 最大 十六进制字符串
         /// </summary>
         /// <returns></returns>
-        public static string Unicode_Chinese_MAX_Hexadecimal() {
+        public static string Unicode_Chinese_MAX_Hexadecimal()
+        {
             return @"9fa5";
         }
         /// <summary>
         /// Unicode 中文字符集 最大 十进制标识
         /// </summary>
         /// <returns></returns>
-        public static int Unicode_Chinese_MAX_Decimal() {
+        public static int Unicode_Chinese_MAX_Decimal()
+        {
             return ConvertTool.HexadecimalToDecimal(Unicode_Chinese_MAX_Hexadecimal());
         }
 
@@ -119,8 +132,10 @@ namespace YTSCharp.Tools
         /// <param name="year">年份</param>
         /// <param name="month">月份</param>
         /// <returns>条件的最大天数</returns>
-        public static int GetMaxDayCount(int year, int month) {
-            if (month == 2) {
+        public static int GetMaxDayCount(int year, int month)
+        {
+            if (month == 2)
+            {
                 int calc_num = year % 100 == 0 ? 400 : 4;
                 return (year % calc_num == 0) ? 29 : 28;
             }

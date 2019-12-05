@@ -18,7 +18,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 随机获取布尔值
         /// </summary>
-        public static bool GetBoolean() {
+        public static bool GetBoolean()
+        {
             return GetItem(new bool[] { true, false });
         }
 
@@ -28,8 +29,10 @@ namespace YTSCharp.Tools
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="source">数据源</param>
         /// <returns>结果选项, 数据源为空返回:数据类型默认值</returns>
-        public static T GetItem<T>(T[] source) {
-            if (CheckData.IsSizeEmpty(source)) {
+        public static T GetItem<T>(T[] source)
+        {
+            if (CheckData.IsSizeEmpty(source))
+            {
                 return default(T);
             }
             return source[R.Next(0, source.Length)];
@@ -56,12 +59,15 @@ namespace YTSCharp.Tools
         /// <param name="source">指定字符进行拼接</param>
         /// <param name="max_charlength">指定字符个数</param>
         /// <returns>拼接结果</returns>
-        public static string GetString(char[] source, int max_charlength) {
-            if (CheckData.IsSizeEmpty(source)) {
+        public static string GetString(char[] source, int max_charlength)
+        {
+            if (CheckData.IsSizeEmpty(source))
+            {
                 return string.Empty;
             }
             StringBuilder strbu = new StringBuilder();
-            for (int i = 0; i < max_charlength; i++) {
+            for (int i = 0; i < max_charlength; i++)
+            {
                 strbu.Append(source[R.Next(0, source.Length)]);
             }
             return strbu.ToString();
@@ -71,7 +77,8 @@ namespace YTSCharp.Tools
         /// </summary>
         /// <param name="max_charlength">指定字符个数, 默认32个</param>
         /// <returns>拼接结果</returns>
-        public static string GetString(int max_charlength = 32) {
+        public static string GetString(int max_charlength = 32)
+        {
             return GetString(CommonData.ASCII_ALL(), max_charlength);
         }
         /// <summary>
@@ -79,15 +86,18 @@ namespace YTSCharp.Tools
         /// </summary>
         /// <param name="source">指定字符进行拼接</param>
         /// <returns>拼接结果</returns>
-        public static string GetString(char[] source) {
+        public static string GetString(char[] source)
+        {
             return GetString(source, source.Length);
         }
 
         /// <summary>
         /// 随机获取日期, 指定时间范围区间
         /// </summary>
-        public static DateTime GetDateTime(DateTime min, DateTime max) {
-            if (min > max) {
+        public static DateTime GetDateTime(DateTime min, DateTime max)
+        {
+            if (min > max)
+            {
                 DateTime zhong = min;
                 min = max;
                 max = zhong;
@@ -102,14 +112,17 @@ namespace YTSCharp.Tools
             int r_Millisecond = TimeRangeSelect(ref upstatue, 0, 999 + 1, min.Millisecond, max.Millisecond);
             return new DateTime(r_Year, r_Month, r_Day, r_Hour, r_Minute, r_Second, r_Millisecond);
         }
-        private static int TimeRangeSelect(ref int upstatue, int min, int max, int start, int end) {
-            if (upstatue == 4) {
+        private static int TimeRangeSelect(ref int upstatue, int min, int max, int start, int end)
+        {
+            if (upstatue == 4)
+            {
                 return R.Next(min, max);
             }
 
             int minvalue = (upstatue == 3) ? min : start;
             int maxvalue = (upstatue == 2) ? max - 1 : end;
-            if (minvalue > maxvalue) {
+            if (minvalue > maxvalue)
+            {
                 int zhong = minvalue;
                 minvalue = maxvalue;
                 maxvalue = zhong;
@@ -117,16 +130,20 @@ namespace YTSCharp.Tools
             int result = R.Next(minvalue, maxvalue + 1);
 
             int selfstatus = 0;
-            if (minvalue == result && result == maxvalue) {
+            if (minvalue == result && result == maxvalue)
+            {
                 selfstatus = 1;
             }
-            if (minvalue == result && result < maxvalue) {
+            if (minvalue == result && result < maxvalue)
+            {
                 selfstatus = (upstatue == 3) ? 4 : 2;
             }
-            if (minvalue < result && result == maxvalue) {
+            if (minvalue < result && result == maxvalue)
+            {
                 selfstatus = (upstatue == 2) ? 4 : 3;
             }
-            if (minvalue < result && result < maxvalue) {
+            if (minvalue < result && result < maxvalue)
+            {
                 selfstatus = 4;
             }
             upstatue = (selfstatus < upstatue) ? upstatue : selfstatus;
@@ -135,13 +152,15 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 随机获取日期
         /// </summary>
-        public static DateTime GetDateTime() {
+        public static DateTime GetDateTime()
+        {
             return GetDateTime(DateTime.MinValue, DateTime.MaxValue);
         }
         /// <summary>
         /// 随机获取日期, 指定最大时间区间
         /// </summary>
-        public static DateTime GetDateTime(DateTime maxtime) {
+        public static DateTime GetDateTime(DateTime maxtime)
+        {
             return GetDateTime(DateTime.MinValue, maxtime);
         }
 
@@ -151,8 +170,10 @@ namespace YTSCharp.Tools
         /// <param name="minval">最小值, 默认为 [int.MinValue + 1]</param>
         /// <param name="maxval">最大值, 默认为 [int.MaxValue] 计算时不取其值</param>
         /// <returns></returns>
-        public static int GetInt(int minval = int.MinValue + 1, int maxval = int.MaxValue) {
-            if (minval > maxval) {
+        public static int GetInt(int minval = int.MinValue + 1, int maxval = int.MaxValue)
+        {
+            if (minval > maxval)
+            {
                 int zhong = minval;
                 minval = maxval;
                 maxval = zhong;
@@ -163,7 +184,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 随机获取 double 值, 范围在 0.0 和 0.1 之间, 
         /// </summary>
-        public static double GetDouble(int multiplication_number = 1000) {
+        public static double GetDouble(int multiplication_number = 1000)
+        {
             return GetDouble(multiplication_number, GetBoolean());
         }
         public static double GetDouble(int multiplication_number, bool IsNegativeNumber)
@@ -182,7 +204,8 @@ namespace YTSCharp.Tools
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <returns></returns>
-        public static double GetDouble(double min, double max) {
+        public static double GetDouble(double min, double max)
+        {
             if (min > max)
             {
                 double zhong = max;
@@ -196,9 +219,11 @@ namespace YTSCharp.Tools
         /// 获取中文随机字符串
         /// </summary>
         /// <param name="length">长度</param>
-        public static string GetChineseString(int length = 5) {
+        public static string GetChineseString(int length = 5)
+        {
             StringBuilder result_str = new StringBuilder();
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++)
+            {
                 int hexa_int_min_sign = CommonData.Unicode_Chinese_MIN_Decimal();
                 int hexa_int_max_sign = CommonData.Unicode_Chinese_MAX_Decimal();
                 int random_value = R.Next(hexa_int_min_sign, hexa_int_max_sign + 1);
@@ -214,7 +239,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// RGB颜色 三项数字值0-255
         /// </summary>
-        public static int[] RGBColor_NumberList() {
+        public static int[] RGBColor_NumberList()
+        {
             const int min = 0;
             const int max = 255;
             return new int[3] {
@@ -227,13 +253,16 @@ namespace YTSCharp.Tools
         /// RGB颜色 六位字符串
         /// </summary>
         /// <param name="isNeedAdd_Hashtag">是否需要加 '#' 号</param>
-        public static string RGBColor_SixDigitString(bool isNeedAdd_Hashtag = true) {
+        public static string RGBColor_SixDigitString(bool isNeedAdd_Hashtag = true)
+        {
             char[] clist = CommonData.ASCII_Hexadecimal();
             StringBuilder str = new StringBuilder();
-            if (isNeedAdd_Hashtag) {
+            if (isNeedAdd_Hashtag)
+            {
                 str.Append('#');
             }
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 6; i++)
+            {
                 str.Append(GetItem(clist));
             }
             return str.ToString();

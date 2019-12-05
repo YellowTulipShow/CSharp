@@ -31,31 +31,36 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 判断是否: IList.T 泛型集合 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty<T>(this IList<T> list) {
+        public static bool IsSizeEmpty<T>(this IList<T> list)
+        {
             return IsObjectNull(list) || list.Count <= 0;
         }
         /// <summary>
         /// 判断是否: DataSet 数据集 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(this DataSet ds) {
+        public static bool IsSizeEmpty(this DataSet ds)
+        {
             return IsObjectNull(ds) || ds.Tables.Count <= 0;
         }
         /// <summary>
         /// 判断是否: DataTable 数据表 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(this DataTable dt) {
+        public static bool IsSizeEmpty(this DataTable dt)
+        {
             return IsObjectNull(dt) || dt.Rows.Count <= 0;
         }
         /// <summary>
         /// 判断是否: DataRow 数据行 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty(this DataRow row) {
+        public static bool IsSizeEmpty(this DataRow row)
+        {
             return IsObjectNull(row) || row.Table.Rows.Count <= 0;
         }
         /// <summary>
         /// 判断是否: Dictionary 数据行 大小 为 '空'
         /// </summary>
-        public static bool IsSizeEmpty<K, V>(this Dictionary<K, V> dic) {
+        public static bool IsSizeEmpty<K, V>(this Dictionary<K, V> dic)
+        {
             return IsObjectNull(dic) || dic.Count <= 0;
         }
         #endregion
@@ -64,7 +69,8 @@ namespace YTSCharp.Tools
         /// <summary>
         /// 是否错误的SQL时间
         /// </summary>
-        public static bool IsErrorSQLDateTime(this DateTime date) {
+        public static bool IsErrorSQLDateTime(this DateTime date)
+        {
             return date < SqlDateTime.MinValue.Value || SqlDateTime.MaxValue.Value < date;
         }
 
@@ -267,16 +273,20 @@ namespace YTSCharp.Tools
         /// <param name="t1">类型: 1</param>
         /// <param name="t2">类型: 2</param>
         /// <returns>是否相同</returns>
-        public static bool IsTypeEqual(Type t1, Type t2) {
-            if (CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2)) {
+        public static bool IsTypeEqual(Type t1, Type t2)
+        {
+            if (CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2))
+            {
                 // 都为空
                 return true;
             }
-            if (CheckData.IsObjectNull(t1) && !CheckData.IsObjectNull(t2)) {
+            if (CheckData.IsObjectNull(t1) && !CheckData.IsObjectNull(t2))
+            {
                 // t1为空 t2不为空
                 return false;
             }
-            if (!CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2)) {
+            if (!CheckData.IsObjectNull(t1) && CheckData.IsObjectNull(t2))
+            {
                 // t1不为空 t2为空
                 return false;
             }
@@ -291,18 +301,23 @@ namespace YTSCharp.Tools
         /// <param name="type">用于比较的类型</param>
         /// <param name="is_depth">是否深入查询</param>
         /// <returns>是否相同</returns>
-        public static bool IsTypeEqualDepth(Type depth_find_type, Type type, bool is_depth) {
-            if (IsTypeEqual(typeof(object), type)) {
+        public static bool IsTypeEqualDepth(Type depth_find_type, Type type, bool is_depth)
+        {
+            if (IsTypeEqual(typeof(object), type))
+            {
                 return true;
             }
-            if (!is_depth) {
+            if (!is_depth)
+            {
                 return IsTypeEqual(depth_find_type, type);
             }
-            if (IsTypeEqual(depth_find_type, type)) {
+            if (IsTypeEqual(depth_find_type, type))
+            {
                 return true;
             }
             if (CheckData.IsObjectNull(depth_find_type) ||
-                CheckData.IsObjectNull(type)) {
+                CheckData.IsObjectNull(type))
+            {
                 return false;
             }
             return IsTypeEqualDepth(depth_find_type.BaseType, type, true);

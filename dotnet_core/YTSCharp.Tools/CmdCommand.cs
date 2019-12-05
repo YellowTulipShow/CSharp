@@ -8,13 +8,15 @@ namespace YTSCharp.Tools
 {
     public class CmdCommand
     {
-        public CmdCommand() {
+        public CmdCommand()
+        {
         }
 
         /// <summary>
         /// 执行命令, 返回字符串结果
         /// </summary>
-        public string Execute(string str_command) {
+        public string Execute(string str_command)
+        {
             str_command = ConvertTool.ObjToString(str_command);
             Process p = new Process();
             // 设定程序名
