@@ -5,8 +5,13 @@ using System.Text;
 
 namespace YTSCharp.Tools
 {
-    public class LogModel : AbsBasicDataModel
+    /// <summary>
+    /// 系统日志记录
+    /// </summary>
+    public class Logs : AbsBasicDataModel
     {
+        public Logs() { }
+
         /// <summary>
         /// 日志 类型枚举
         /// </summary>
@@ -17,17 +22,20 @@ namespace YTSCharp.Tools
             /// </summary>
             [Explain(@"记录")]
             Record = 0,
+
             /// <summary>
             /// 错误
             /// </summary>
             [Explain(@"错误")]
             Error = 1,
+
             /// <summary>
             /// 异常
             /// </summary>
             [Explain(@"异常")]
             Exception = 2,
         }
+
         /// <summary>
         /// 日志类型 (默认为 LogEnum.Error 错误)
         /// </summary>
@@ -47,14 +55,6 @@ namespace YTSCharp.Tools
         /// 添加时间 (默认添加当前时间)
         /// </summary>
         public DateTime AddTime { get; set; } = DateTime.Now;
-    }
-
-    /// <summary>
-    /// 系统日志记录
-    /// </summary>
-    public class Logs : LogModel
-    {
-        public Logs() { }
 
         /// <summary>
         /// 写入一个日志
