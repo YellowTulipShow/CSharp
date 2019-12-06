@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 文件,文件夹路径操作类

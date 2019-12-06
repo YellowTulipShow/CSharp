@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlTypes;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 基础数据模型

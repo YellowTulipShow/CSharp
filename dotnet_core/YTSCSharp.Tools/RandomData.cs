@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 随机帮助类
@@ -182,7 +182,7 @@ namespace YTSCharp.Tools
         }
 
         /// <summary>
-        /// 随机获取 double 值, 范围在 0.0 和 0.1 之间, 
+        /// 随机获取 double 值, 范围在 0.0 和 0.1 之间,
         /// </summary>
         public static double GetDouble(int multiplication_number = 1000)
         {

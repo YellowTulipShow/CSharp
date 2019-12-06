@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 测试实例模型

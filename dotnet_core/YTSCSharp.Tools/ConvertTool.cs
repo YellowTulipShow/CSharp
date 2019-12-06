@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Data.SqlTypes;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 转化工具

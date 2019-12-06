@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 系统日志记录

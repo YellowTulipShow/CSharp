@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlTypes;
 using System.Text.RegularExpressions;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     /// <summary>
     /// 检查数据 Is: True为符合条件 False不匹配条件
@@ -216,11 +216,11 @@ namespace YTSCharp.Tools
             return output;
         }
 
-        /// <summary> 
+        /// <summary>
         /// 检查过滤设定的危险字符
-        /// </summary> 
-        /// <param name="InText">要过滤的字符串 </param> 
-        /// <returns>如果参数存在不安全字符，则返回true </returns> 
+        /// </summary>
+        /// <param name="InText">要过滤的字符串 </param>
+        /// <returns>如果参数存在不安全字符，则返回true </returns>
         public static bool SqlFilter(string word, string InText)
         {
             if (InText == null)

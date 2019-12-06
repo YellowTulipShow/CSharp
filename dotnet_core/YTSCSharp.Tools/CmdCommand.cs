@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace YTSCharp.Tools
+namespace YTSCSharp.Tools
 {
     public class CmdCommand
     {

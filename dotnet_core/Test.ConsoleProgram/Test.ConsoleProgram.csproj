@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\YTSCharp.Tools\YTSCharp.Tools.csproj" />
+    <ProjectReference Include="..\YTSCSharp.Tools\YTSCSharp.Tools.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
