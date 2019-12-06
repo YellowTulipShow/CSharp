@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace YTSCSharp.Tools
+namespace YTS.Tools
 {
     public class TestCaseLibray
     {

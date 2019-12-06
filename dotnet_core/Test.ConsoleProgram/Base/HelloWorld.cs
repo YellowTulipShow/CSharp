@@ -1,5 +1,5 @@
 using System;
-using YTSCSharp.Tools;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Base
 {

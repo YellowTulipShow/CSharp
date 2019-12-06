@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YTSCSharp.Tools
+namespace YTS.Tools
 {
     /// <summary>
     /// 常用数据

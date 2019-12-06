@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace YTSCSharp.Tools
+namespace YTS.Tools
 {
     /// <summary>
     /// 反射帮助操作类

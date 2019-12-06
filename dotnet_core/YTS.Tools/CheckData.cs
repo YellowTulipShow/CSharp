@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlTypes;
 using System.Text.RegularExpressions;
 
-namespace YTSCSharp.Tools
+namespace YTS.Tools
 {
     /// <summary>
     /// 检查数据 Is: True为符合条件 False不匹配条件

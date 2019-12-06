@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace YTSCSharp.Tools
+namespace YTS.Tools
 {
     /// <summary>
     /// 解释特性 同一程序不能多个解释。

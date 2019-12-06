@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using YTSCSharp.Tools;
+using YTS.Tools;
 
 namespace Test.ConsoleProgram.Base
 {
