@@ -8,8 +8,12 @@ using Microsoft.Extensions.Logging;
 namespace YTS.AdminWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("api/[controller]")]
+    public class ApiControllerBase : ControllerBase
+    {
+    }
+
+    public class WeatherForecastController : ApiControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -23,7 +27,7 @@ namespace YTS.AdminWebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet] // UseLink: https://localhost:5001/api/WeatherForecast
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -34,6 +38,18 @@ namespace YTS.AdminWebApi.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        [Route("RandomValue")] // UseLink: https://localhost:5001/api/WeatherForecast/RandomValue
+        public object RandomValue() {
+            var rng = new Random();
+            return new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(1),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            };
         }
     }
 }
