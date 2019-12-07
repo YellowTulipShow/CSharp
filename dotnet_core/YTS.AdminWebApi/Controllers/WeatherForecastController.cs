@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace YTS.AdminWebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
     public class ApiControllerBase : ControllerBase
     {
     }
@@ -28,6 +28,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet] // UseLink: https://localhost:5001/api/WeatherForecast
+        [Route("Get")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
