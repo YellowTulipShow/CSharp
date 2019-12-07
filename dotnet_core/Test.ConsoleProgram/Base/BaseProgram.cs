@@ -55,12 +55,20 @@ namespace Test.ConsoleProgram.Base
                     new Son1(),
                     new Son2(),
                     new Son1(),
+                    new CaseModel() {
+                        NameSign = @"结束子程序",
+                        ExeEvent = () =>
+                        {
+                            Console.WriteLine("返回失败的标识");
+                            return false;
+                        },
+                    },
                 };
                 this.ExeEvent = () =>
                 {
                     Console.WriteLine("有本体执行程序 + 俩个子程序1 + 一个子程序2!");
                     Console.WriteLine("返回失败的标识");
-                    return false;
+                    return true;
                 };
             }
         }
