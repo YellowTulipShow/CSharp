@@ -84,7 +84,7 @@ namespace YTS.AdminWebApi
             // }
 
             //2、 没有标记 RouteAttribute 的 Controller
-            var unmatchedSelectors = action.Selectors.Where(x => x.AttributeRouteModel != null).ToList();
+            var unmatchedSelectors = action.Selectors.Where(x => x.AttributeRouteModel == null).ToList();
             if (unmatchedSelectors.Any())
             {
                 foreach (var selectorModel in unmatchedSelectors)
