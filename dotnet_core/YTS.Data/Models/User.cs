@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
 namespace YTS.Data.Models
 {
     public class User
