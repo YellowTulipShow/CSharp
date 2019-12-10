@@ -20,9 +20,9 @@ namespace YTS.AdminWebApi.Controllers
             };
         }
 
-        private object RandomGetUser(int Id)
+        private User RandomGetUser(int Id)
         {
-            return new
+            return new User
             {
                 Id = Id,
                 UserName = RandomData.GetChineseString(3),
