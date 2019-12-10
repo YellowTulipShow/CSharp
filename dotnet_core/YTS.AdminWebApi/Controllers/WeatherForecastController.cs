@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class WeatherForecastController : DefaultRouteController
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {

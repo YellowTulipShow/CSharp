@@ -27,7 +27,10 @@ namespace YTS.AdminWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(option =>
+            {
+                option.EnableEndpointRouting = false;
+            });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -57,6 +60,13 @@ namespace YTS.AdminWebApi
             });
 
             app.UseRouting();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "/api/{controller=Home}/{action=Index}");
+            });
 
             app.UseAuthorization();
 
