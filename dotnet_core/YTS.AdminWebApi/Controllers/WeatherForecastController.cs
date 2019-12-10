@@ -7,13 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    [ApiController]
-    // [Route("api/[controller]")]
-    public class ApiControllerBase : ControllerBase
-    {
-    }
-
-    public class WeatherForecastController : ApiControllerBase
+    public class WeatherForecastController : DefaultRouteController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -27,8 +21,11 @@ namespace YTS.AdminWebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet] // UseLink: https://localhost:5001/api/WeatherForecast
-        [Route("Get")]
+        /// <summary>
+        /// 获取序列队列值
+        /// </summary>
+        /// <returns>队列</returns>
+        [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -41,15 +38,33 @@ namespace YTS.AdminWebApi.Controllers
             .ToArray();
         }
 
+        /// <summary>
+        /// 随机一个值
+        /// </summary>
+        /// <returns>值</returns>
         [HttpGet]
-        [Route("RandomValue")] // UseLink: https://localhost:5001/api/WeatherForecast/RandomValue
-        public object RandomValue() {
+        public object RandomValue()
+        {
             var rng = new Random();
             return new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(1),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
+            };
+        }
+
+        /// <summary>
+        /// 测试是否没有指定 Http* 特性也可以访问
+        /// </summary>
+        public object RanValue()
+        {
+            return new
+            {
+                IsSuccess = true,
+                ErrorCode = 0,
+                Data = 111,
+                Message = "成功值",
             };
         }
     }
