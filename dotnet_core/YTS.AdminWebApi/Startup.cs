@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using YTS.AdminWebApi.Models;
 
 namespace YTS.AdminWebApi
 {
