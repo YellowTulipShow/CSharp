@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using YTS.Tools;
+using YTS.Data.Models;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class User
-    {
-        public int Id;
-        public string UserName;
-        public string Sex;
-        public string Phone;
-        public int? Age;
-        public decimal? Money;
-    }
-
     public class UsersController : BaseApiController
     {
         [HttpGet]
@@ -53,7 +40,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<int> EditUser(int Id, [FromBody] User model)
+        public Result<int> EditUser(int Id, User model)
         {
             var result = new Result<int>();
             if (model == null)

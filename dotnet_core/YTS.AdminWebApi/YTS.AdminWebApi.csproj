@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj" />
+    <ProjectReference Include="..\YTS.Data\YTS.Data.csproj" />
     <ProjectReference Include="..\YTS.AlgorithmLogic\YTS.AlgorithmLogic.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YTS.Tools\YTS.Tools.csproj" />
-    <ProjectReference Include="..\YTS.Data\YTS.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

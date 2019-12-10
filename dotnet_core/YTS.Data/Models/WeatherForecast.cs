@@ -1,6 +1,6 @@
 using System;
 
-namespace YTS.AdminWebApi
+namespace YTS.Data.Models
 {
     public class WeatherForecast
     {
