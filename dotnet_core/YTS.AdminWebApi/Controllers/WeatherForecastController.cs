@@ -57,6 +57,7 @@ namespace YTS.AdminWebApi.Controllers
         /// <summary>
         /// 测试是否没有指定 Http* 特性也可以访问
         /// </summary>
+        [HttpGet]
         public object RanValue()
         {
             return new
