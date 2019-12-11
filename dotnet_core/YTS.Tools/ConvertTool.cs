@@ -716,7 +716,9 @@ namespace YTS.Tools
                 bool isHavefirstValue = false;
                 for (int i = firstSign; i < list.Count; i++)
                 {
-                    if (CheckData.IsObjectNull(list[i]) || CheckData.IsStringNull(list[i].ToString()))
+                    T item = list[i];
+                    string sValue = ToString(item);
+                    if (CheckData.IsObjectNull(item) || CheckData.IsStringNull(sValue))
                     {
                         if (!isHavefirstValue)
                         {
@@ -732,7 +734,7 @@ namespace YTS.Tools
                     {
                         isHavefirstValue = true;
                     }
-                    strs.Append(list[i].ToString());
+                    strs.Append(sValue);
                 }
                 return strs.ToString();
             }
