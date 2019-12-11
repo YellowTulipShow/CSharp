@@ -7,6 +7,10 @@ namespace YTS.AdminWebApi.Controllers
 {
     public class UsersController : BaseApiController
     {
+        /// <summary>
+        /// 获取用户列表数据信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public object GetUsers()
         {
@@ -33,12 +37,23 @@ namespace YTS.AdminWebApi.Controllers
             };
         }
 
+        /// <summary>
+        /// 获取一个用户信息
+        /// </summary>
+        /// <param name="Id">用户标识ID</param>
+        /// <returns></returns>
         [HttpGet]
         public object GetItem(int? Id)
         {
             return RandomGetUser(Id ?? 0);
         }
 
+        /// <summary>
+        /// 编辑用户信息
+        /// </summary>
+        /// <param name="Id">用户标识ID, 如果为0则为增加一个用户</param>
+        /// <param name="model">编辑的用户信息</param>
+        /// <returns>返回执行结果</returns>
         [HttpPost]
         public Result<object> EditUser(int Id, User model)
         {
@@ -62,7 +77,12 @@ namespace YTS.AdminWebApi.Controllers
             return result;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// 删除多个用户信息
+        /// </summary>
+        /// <param name="Ids">用户标识Id列表</param>
+        /// <returns>返回执行结果</returns>
+        [HttpDelete]
         public Result DeleteUsers(int[] Ids)
         {
             var result = new Result();

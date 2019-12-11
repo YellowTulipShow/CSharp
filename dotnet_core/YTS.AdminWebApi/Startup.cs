@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +30,28 @@ namespace YTS.AdminWebApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "后台管理API",
+                    Description = "使用 ASP.NET Core Web API 构建的后台管理API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "YellowTulipShow (赵瑞青)",
+                        Email = "main@yellowtulipshow.site",
+                        Url = new Uri("https://github.com/YellowTulipShow"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "使用 Apache License 许可证",
+                        Url = new Uri("http://www.apache.org/licenses/"),
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var name = Assembly.GetExecutingAssembly().GetName().Name;
+                var xmlFile = $"{name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -51,7 +75,7 @@ namespace YTS.AdminWebApi
             // 指定Swagger JSON端点。
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdminWebApi v1");
                 c.RoutePrefix = string.Empty;
             });
 

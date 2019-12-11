@@ -57,6 +57,7 @@ namespace YTS.AdminWebApi
         /// 直接输出成功提示
         /// </summary>
         /// <param name="message">成功内容</param>
+        /// /// <param name="data">数据值</param>
         /// <returns>返回一个指定成功内容的默认成功结果对象</returns>
         public static Result<T> Success(string message, T data)
         {
