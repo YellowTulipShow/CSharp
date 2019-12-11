@@ -61,7 +61,7 @@ namespace YTS.AdminWebApi
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "/api/{controller=Home}/{action=Index}");
+                    template: ApiConfig.APIRoute);
             });
 
             app.UseAuthorization();

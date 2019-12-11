@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace YTS.AdminWebApi
 {
     [ApiController]
-    [Route("/api/[controller]/[action]")]
+    [Route(ApiConfig.APIRoute)]
     public abstract class BaseApiController : ControllerBase
     {
     }

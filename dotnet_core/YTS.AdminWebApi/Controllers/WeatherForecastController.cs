@@ -7,6 +7,7 @@ using YTS.Data.Models;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    [Route("/v1/[controller]/data/[action]")]
     public class WeatherForecastController : BaseApiController
     {
         private static readonly string[] Summaries = new[]
