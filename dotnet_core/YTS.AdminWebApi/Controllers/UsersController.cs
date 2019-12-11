@@ -34,15 +34,15 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet]
-        public object GetItem()
+        public object GetItem(int? Id)
         {
-            return RandomGetUser(RandomData.GetInt(1, 5));
+            return RandomGetUser(Id ?? 0);
         }
 
         [HttpPost]
-        public Result<int> EditUser(int Id, User model)
+        public Result<object> EditUser(int Id, User model)
         {
-            var result = new Result<int>();
+            var result = new Result<object>();
             if (model == null)
             {
                 result.ErrorCode = 1;
@@ -56,7 +56,8 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
             result.ErrorCode = 0;
-            result.Data = RandomData.GetInt(1, 5);
+            model.Id = Id == 0 ? RandomData.GetInt(1, 5) : model.Id;
+            result.Data = model;
             result.Message = (Id == 0 ? "添加" : "修改") + "成功!";
             return result;
         }
@@ -72,7 +73,7 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
             result.ErrorCode = 0;
-            result.Message = "删除成功！";
+            result.Message = "删除成功！Ids:" + ConvertTool.ToString(Ids, ",");
             return result;
         }
     }

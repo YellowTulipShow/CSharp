@@ -42,10 +42,13 @@ namespace YTS.AdminWebApi
             app.UseHttpsRedirection();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // 启用中间件以将生成的Swagger用作JSON端点。
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
+            // 启用中间件以提供swagger-ui（HTML，JS，CSS等），
+            // 指定Swagger JSON端点。
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
