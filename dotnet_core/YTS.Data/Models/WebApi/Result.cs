@@ -266,7 +266,6 @@ namespace YTS.Data.Models.WebApi
 
     public class Result
     {
-        public int ErrorCode { get; set; }
         public ResultCode Code { get; set; }
         public string Message { get; set; }
     }
