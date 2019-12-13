@@ -94,6 +94,7 @@ namespace YTS.AdminWebApi
                 c.RoutePrefix = string.Empty;
             });
 
+            // 启用路由
             app.UseRouting();
 
             // 使用MVC

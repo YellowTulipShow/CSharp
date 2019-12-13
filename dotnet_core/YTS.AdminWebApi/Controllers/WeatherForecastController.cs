@@ -57,9 +57,10 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         /// <summary>
-        /// 测试是否没有指定 Http* 特性也可以访问
+        /// 测试单独设置一个方法的路由
         /// </summary>
         [HttpGet]
+        [Route("/v1/RanValue/[controller]/data/WEWE/[action]")]
         public object RanValue()
         {
             return new
