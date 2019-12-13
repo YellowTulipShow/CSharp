@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace YTS.AdminWebApi
+namespace YTS.Data.Models.WebApi
 {
     [ApiController]
     [Route(ApiConfig.APIRoute)]

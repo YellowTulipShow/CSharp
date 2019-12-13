@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using YTS.Tools;
 using YTS.Data.Models;
+using YTS.Data.Models.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -60,18 +61,17 @@ namespace YTS.AdminWebApi.Controllers
             var result = new Result<object>();
             if (model == null)
             {
-                result.ErrorCode = 1;
+                result.Code = ResultCode.BadRequest;
                 result.Message = "模型为空!";
                 return result;
             }
             if (CheckData.IsStringNull(model.UserName))
             {
-                result.ErrorCode = 1;
+                result.Code = ResultCode.BadRequest;
                 result.Message = "用户名称为空!";
                 return result;
             }
-            result.ErrorCode = 0;
-            model.Id = Id == 0 ? RandomData.GetInt(1, 5) : model.Id;
+            result.Code = ResultCode.OK;
             result.Data = model;
             result.Message = (Id == 0 ? "添加" : "修改") + "成功!";
             return result;
@@ -88,11 +88,11 @@ namespace YTS.AdminWebApi.Controllers
             var result = new Result();
             if (Ids == null)
             {
-                result.ErrorCode = 1;
+                result.Code = ResultCode.BadRequest;
                 result.Message = "删除失败, Ids为空!";
                 return result;
             }
-            result.ErrorCode = 0;
+            result.Code = ResultCode.OK;
             result.Message = "删除成功！Ids:" + ConvertTool.ToString(Ids, ",");
             return result;
         }

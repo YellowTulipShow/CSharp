@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using YTS.Data.Models;
+using YTS.Data.Models.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
