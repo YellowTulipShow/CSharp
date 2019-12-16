@@ -18,7 +18,7 @@
     "YTS.AdminWeb": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "https://localhost:6111;http://localhost:6112",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
