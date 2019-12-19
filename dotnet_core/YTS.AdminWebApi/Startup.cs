@@ -73,10 +73,11 @@ namespace YTS.AdminWebApi
         /// <param name="env">IWebHost环境</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
@@ -106,7 +107,7 @@ namespace YTS.AdminWebApi
                     template: ApiConfig.APIRoute);
             });
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -24,9 +24,9 @@
     <script type="text/javascript">
         $.ajax({
             type: 'get',
-            url: '',
+            url: 'https://localhost:6121/api/ResultCode/GetResultCodes',
             data: '',
-            contentType: 'https://localhost:6121/api/ResultCode/GetResultCodes',
+            contentType: 'application/json',
             beforeSend: function () {
             },
             //必须有这项的配置，不然cookie无法发送至服务端
@@ -36,6 +36,9 @@
             success: function (json) {
                 var strjson = JSON.stringify(json);
                 document.write(strjson);
+            },
+            complete: function (json) {
+                console.log(json);
             }
         });
     </script>
