@@ -6,7 +6,7 @@ namespace YTS.Data.Models.WebApi
 {
     [ApiController]
     [Route(ApiConfig.APIRoute)]
-    [EnableCors("AllowSameDomain")]
+    [EnableCors("AllowAnyOrigin")]
     public abstract class BaseApiController : ControllerBase
     {
     }

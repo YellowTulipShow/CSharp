@@ -18,6 +18,8 @@ namespace YTS.AdminWebApi
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         /// <summary>
@@ -27,6 +29,15 @@ namespace YTS.AdminWebApi
         /// <param name="services">服务</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("*");
+                    });
+            });
+
             // 增加 Controller 注册启用
             services.AddControllers(option =>
             {
@@ -73,11 +84,10 @@ namespace YTS.AdminWebApi
         /// <param name="env">IWebHost环境</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
-            app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseHttpsRedirection();
 
@@ -98,6 +108,9 @@ namespace YTS.AdminWebApi
             // 启用路由
             app.UseRouting();
 
+            // 使用跨域策略
+            app.UseCors();
+
             // 使用MVC
             app.UseMvc(routes =>
             {
@@ -111,7 +124,9 @@ namespace YTS.AdminWebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints
+                    .MapControllers()
+                    .RequireCors("policy-name");
             });
         }
     }
