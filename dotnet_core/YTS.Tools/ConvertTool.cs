@@ -578,6 +578,20 @@ namespace YTS.Tools
         }
 
         /// <summary>
+        /// 获取字典的值
+        /// </summary>
+        /// <param name="dict">字典数据源</param>
+        /// <param name="key">键</param>
+        /// <param name="default_value">默认值</param>
+        /// <typeparam name="K">字典键类型</typeparam>
+        /// <typeparam name="V">字典值类型</typeparam>
+        /// <returns>如果指定的键不存在则返回默认值</returns>
+        public static V GetValue<K, V>(this Dictionary<K, V> dict, K key, V default_value)
+        {
+            return dict.ContainsKey(key) ? dict[key] : default_value;
+        }
+
+        /// <summary>
         /// 过滤禁用的字符
         /// </summary>
         /// <param name="source">需要处理的字符串</param>
