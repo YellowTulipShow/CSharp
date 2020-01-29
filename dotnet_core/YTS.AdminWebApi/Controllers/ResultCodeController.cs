@@ -28,7 +28,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         /// <summary>
-        /// 测试获取测试全局单例数据实例哈希码
+        /// 测试获取测试全局单例数据库实例哈希码
         /// </summary>
         /// <returns>实例-哈希码</returns>
         [HttpGet]

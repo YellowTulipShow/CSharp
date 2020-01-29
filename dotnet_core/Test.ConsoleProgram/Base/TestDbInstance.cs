@@ -8,7 +8,7 @@ namespace Test.ConsoleProgram.Base
     {
         public TestDbInstance()
         {
-            this.NameSign = "测试全局单例数据实例!";
+            this.NameSign = "测试全局单例数据库实例!";
             this.ExeEvent = () =>
             {
                 DbInstance dbInstance = DbInstance.GetInstance();

@@ -2,7 +2,10 @@ using System;
 
 namespace YTS.AlgorithmLogic.Global
 {
-    public class DbInstance
+    /// <summary>
+    /// 全局单例数据库实例
+    /// </summary>
+    public sealed class DbInstance
     {
         /// <summary>
         /// 获得 实例 对象
@@ -29,9 +32,9 @@ namespace YTS.AlgorithmLogic.Global
             string connstr = @"";
             IFreeSql fsql = new FreeSql.FreeSqlBuilder()
                 .UseConnectionString(FreeSql.DataType.Sqlite, connstr)
-                .UseAutoSyncStructure(true) //自动同步实体结构到数据库
+                .UseAutoSyncStructure(true) // 自动同步实体结构到数据库
+                .UseNoneCommandParameter(false) // 不使用命令参数化执行，针对 Insert/Update
                 .Build(); //请务必定义成 Singleton 单例
-            fsql.CodeFirst.IsNoneCommandParameter = false;
             return fsql;
         }
     }
