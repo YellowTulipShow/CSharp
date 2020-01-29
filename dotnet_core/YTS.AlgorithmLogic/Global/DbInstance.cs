@@ -1,3 +1,5 @@
+using System;
+
 namespace YTS.AlgorithmLogic.Global
 {
     public class DbInstance
@@ -16,7 +18,8 @@ namespace YTS.AlgorithmLogic.Global
 
         private DbInstance()
         {
-            this.testDb = OnInitTestDb();
+            // this.testDb = OnInitTestDb();
+            Console.WriteLine("\nTest DbInstance 初始化程序步骤\n");
         }
 
         public readonly IFreeSql testDb;
