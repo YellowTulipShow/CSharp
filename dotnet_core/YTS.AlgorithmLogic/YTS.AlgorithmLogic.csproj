@@ -6,6 +6,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSql" Version="1.0.1" />
+    <PackageReference Include="FreeSql.Extensions.BaseEntity" Version="1.0.1" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />
   </ItemGroup>
 
