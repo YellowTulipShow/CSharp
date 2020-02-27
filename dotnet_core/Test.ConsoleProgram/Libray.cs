@@ -15,6 +15,7 @@ namespace Test.ConsoleProgram
         {
             List<CaseModel> list = new List<CaseModel>();
             list.AddRange(GetBases());
+            list.AddRange(TestTools());
             return list;
         }
 
@@ -27,6 +28,13 @@ namespace Test.ConsoleProgram
                 new Base.HelloWorld(),
                 // new Base.BaseProgram(),
                 new Base.TestDbInstance(),
+            };
+        }
+        public List<CaseModel> TestTools()
+        {
+            return new List<CaseModel>()
+            {
+                new TestTools.TestConvertTool(),
             };
         }
     }

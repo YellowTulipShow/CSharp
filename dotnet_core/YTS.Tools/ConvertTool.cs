@@ -15,6 +15,24 @@ namespace YTS.Tools
     /// </summary>
     public static class ConvertTool
     {
+        /// <summary>
+        /// 计算最大值
+        /// </summary>
+        /// <param name="calcMethod">两个值进行比较, 返回最大值</param>
+        /// <param name="value1"></param>
+        /// <param name="values">值列表</param>
+        /// <typeparam name="T">值数据类型</typeparam>
+        /// <returns>最大值</returns>
+        public static T ToMaxValue<T>(Func<T, T, T> calcMethod, T value1, params T[] values)
+        {
+            T max = value1;
+            for (int i = 0; i < values.Length; i++)
+            {
+                max = calcMethod(max, values[i]);
+            }
+            return max;
+        }
+
         #region === List Array String Convert ===
         /// <summary>
         /// 数组列表转字符串
