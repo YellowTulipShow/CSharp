@@ -20,7 +20,8 @@ def main():
         print('地址不正确: {}'.format(address))
         return
     projects = config.get('projects', [])
-    root = os.path.abspath('')
+    root = os.path.abspath(sys.argv[0])
+    root = os.path.split(root)[0]
     for path in projects:
         source = os.path.join(root, path)
         os.chdir(source)
