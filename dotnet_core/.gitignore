@@ -351,3 +351,4 @@ MigrationBackup/
 
 # YellowTulipShow add file:
 .vscode/
+release.projects.json
