@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace YTS.Data.Models.WebApi
+namespace YTS.WebApi
 {
     [ApiController]
     [Route(ApiConfig.APIRoute)]

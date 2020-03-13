@@ -1,7 +1,7 @@
 using System;
 using YTS.Tools;
 
-namespace YTS.Data.Models.WebApi
+namespace YTS.WebApi
 {
     /// <summary>
     /// HTTP状态结果码

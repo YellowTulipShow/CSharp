@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using YTS.Data.Models;
-using YTS.Data.Models.WebApi;
+using YTS.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -71,5 +70,16 @@ namespace YTS.AdminWebApi.Controllers
                 Message = "成功值",
             };
         }
+    }
+
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        public string Summary { get; set; }
     }
 }

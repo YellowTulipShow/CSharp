@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.AdminWeb", "YTS.AdminWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.AdminWebApi", "YTS.AdminWebApi\YTS.AdminWebApi.csproj", "{B3F0BE98-6C8B-488A-9C9B-CB37224F0FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.AlgorithmLogic", "YTS.AlgorithmLogic\YTS.AlgorithmLogic.csproj", "{7DC48F11-B409-4FF5-A10E-4B8F7634B9ED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.Data", "YTS.Data\YTS.Data.csproj", "{D6E550C4-DC28-4E79-AE04-4610825A8399}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.Tools", "YTS.Tools\YTS.Tools.csproj", "{6E37999A-8018-4FEC-8FBB-B237CBD54377}"
 EndProject
 Global

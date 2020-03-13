@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using YTS.Tools;
-using YTS.Data.Models;
-using YTS.Data.Models.WebApi;
+using YTS.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -96,5 +95,15 @@ namespace YTS.AdminWebApi.Controllers
             result.Message = "删除成功！Ids:" + ConvertTool.ToString(Ids, ",");
             return result;
         }
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Sex { get; set; }
+        public string Phone { get; set; }
+        public int? Age { get; set; }
+        public decimal? Money { get; set; }
     }
 }

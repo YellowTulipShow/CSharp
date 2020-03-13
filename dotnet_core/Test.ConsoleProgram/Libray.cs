@@ -27,7 +27,6 @@ namespace Test.ConsoleProgram
             {
                 new Base.HelloWorld(),
                 // new Base.BaseProgram(),
-                new Base.TestDbInstance(),
             };
         }
         public List<CaseModel> TestTools()

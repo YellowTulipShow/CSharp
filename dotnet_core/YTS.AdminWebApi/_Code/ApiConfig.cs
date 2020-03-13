@@ -1,4 +1,4 @@
-namespace YTS.Data.Models.WebApi
+namespace YTS.WebApi
 {
     public static class ApiConfig
     {

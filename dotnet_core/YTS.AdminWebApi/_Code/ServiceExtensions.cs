@@ -4,9 +4,8 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using YTS.Data.Models.WebApi;
 
-namespace YTS.AlgorithmLogic.WebApi
+namespace YTS.WebApi
 {
     public static class ServiceExtensions
     {
