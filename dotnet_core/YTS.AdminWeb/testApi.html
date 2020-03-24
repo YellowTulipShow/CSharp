@@ -24,15 +24,15 @@
     <script type="text/javascript">
         $.ajax({
             type: 'get',
-            url: 'https://localhost:6121/api/ResultCode/GetResultCodes',
+            // url: 'https://localhost:6121/api/ResultCode/GetResultCodes',
+            url: 'https://localhost:6121/api/Users/GetUsers',
             data: '',
             contentType: 'application/json',
+            headers: {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJleHAiOjE1ODUwMzczMTksImlzcyI6IndlYmFwaS5jbiIsImF1ZCI6IldlYkFwaSJ9.NQ8ddt21Vf7sYaw3kNle-CLWAkvfVJEGVGTgMBAvI5w",
+            },
             beforeSend: function () {
             },
-            //必须有这项的配置，不然cookie无法发送至服务端
-            // xhrFields: {
-            //     withCredentials: true
-            // },
             success: function (json) {
                 var strjson = JSON.stringify(json);
                 document.write(strjson);

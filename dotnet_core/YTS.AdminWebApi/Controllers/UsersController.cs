@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YTS.Tools;
 using YTS.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    [Authorize]
     public class UsersController : BaseApiController
     {
         /// <summary>
