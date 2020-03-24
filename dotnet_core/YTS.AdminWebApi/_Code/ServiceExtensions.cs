@@ -1,15 +1,22 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace YTS.WebApi
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureControllers(this IServiceCollection services)
+        /// <summary>
+        /// 注入服务 Controllers 配置
+        /// </summary>
+        public static void EnterServiceControllers(this IServiceCollection services)
         {
             // 增加 Controller 注册启用
             services.AddControllers(option =>
@@ -19,7 +26,28 @@ namespace YTS.WebApi
             });
         }
 
-        public static void ConfigureCors(this IServiceCollection services)
+        /// <summary>
+        /// 应用程序启用 API 路由路径模板
+        /// </summary>
+        public static void StartEnableRoute(this IApplicationBuilder app)
+        {
+            // 启用路由
+            app.UseRouting();
+
+            // 使用MVC
+            app.UseMvc(routes =>
+            {
+                // 配置默认MVC路由模板
+                routes.MapRoute(
+                name: "default",
+                template: ApiConfig.APIRoute);
+            });
+        }
+
+        /// <summary>
+        /// 注入服务 跨域配置
+        /// </summary>
+        public static void EnterServiceCors(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -29,8 +57,19 @@ namespace YTS.WebApi
                 });
             });
         }
+        /// <summary>
+        /// 应用程序启用跨域策略
+        /// </summary>
+        public static void StartEnableCors(this IApplicationBuilder app)
+        {
+            // 使用跨域策略
+            app.UseCors(ApiConfig.CorsName);
+        }
 
-        public static void ConfigureSwagger(this IServiceCollection services)
+        /// <summary>
+        /// 注入服务 Swagger API 浏览配置
+        /// </summary>
+        public static void EnterServiceSwagger(this IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents
             // 注册Swagger生成器，定义1个或多个Swagger文档
@@ -62,29 +101,11 @@ namespace YTS.WebApi
                 c.IncludeXmlComments(xmlPath);
             });
         }
-
-        public static void ConfigureRoute(this IApplicationBuilder app)
-        {
-            // 启用路由
-            app.UseRouting();
-
-            // 使用MVC
-            app.UseMvc(routes =>
-            {
-                // 配置默认MVC路由模板
-                routes.MapRoute(
-                    name: "default",
-                    template: ApiConfig.APIRoute);
-            });
-        }
-
-        public static void ConfigureCors(this IApplicationBuilder app)
-        {
-            // 使用跨域策略
-            app.UseCors(ApiConfig.CorsName);
-        }
-
-        public static void ConfigureSwagger(this IApplicationBuilder app)
+        /// <summary>
+        /// 应用程序启用 Swagger API 文档浏览
+        /// </summary>
+        /// <param name="app"></param>
+        public static void StartEnableSwagger(this IApplicationBuilder app)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             // 启用中间件以将生成的Swagger用作JSON端点。
@@ -96,9 +117,39 @@ namespace YTS.WebApi
             // 指定Swagger JSON端点。
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdminWebApi v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", ApiConfig.SwaggerEndpointName);
                 c.RoutePrefix = string.Empty;
             });
+        }
+
+        /// <summary>
+        /// 注入服务 Jwt Token 请求验证
+        /// </summary>
+        public static void EnterServiceJWTAuthentication(this IServiceCollection services, IConfiguration Configuration)
+        {
+            var tokenManagement = Configuration.GetSection(ApiConfig.APPSettingName_JWTTokenManagement);
+            services.Configure<TokenManagement>(tokenManagement);
+            var token = tokenManagement.Get<TokenManagement>();
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(token.Secret)),
+                    ValidIssuer = token.Issuer,
+                    ValidAudience = token.Audience,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
+            services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

@@ -6,7 +6,6 @@ using YTS.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    [Authorize]
     public class UsersController : BaseApiController
     {
         /// <summary>

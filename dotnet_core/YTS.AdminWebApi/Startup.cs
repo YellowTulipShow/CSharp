@@ -1,11 +1,8 @@
-using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using YTS.WebApi;
 
 namespace YTS.AdminWebApi
@@ -26,32 +23,11 @@ namespace YTS.AdminWebApi
         /// <param name="services">服务</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureControllers();
-            services.ConfigureCors();
-            services.ConfigureSwagger();
-
-            services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
-            var token = Configuration.GetSection("tokenManagement").Get<TokenManagement>();
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(token.Secret)),
-                    ValidIssuer = token.Issuer,
-                    ValidAudience = token.Audience,
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
-            services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
-            services.AddScoped<IUserService, UserService>();
+            // 自定义注入服务
+            services.EnterServiceControllers();
+            services.EnterServiceCors();
+            services.EnterServiceSwagger();
+            services.EnterServiceJWTAuthentication(Configuration);
         }
 
         /// <summary>
@@ -71,9 +47,10 @@ namespace YTS.AdminWebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.ConfigureRoute();
-            app.ConfigureCors();
-            app.ConfigureSwagger();
+            // 自定义配置启用
+            app.StartEnableRoute();
+            app.StartEnableCors();
+            app.StartEnableSwagger();
 
             app.UseEndpoints(endpoints =>
             {

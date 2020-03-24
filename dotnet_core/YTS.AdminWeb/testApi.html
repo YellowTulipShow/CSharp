@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,16 +21,17 @@
     <![endif]-->
     <script type="text/javascript" src="Scripts/jquery/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
     <script type="text/javascript">
         $.ajax({
             type: 'get',
-            // url: 'https://localhost:6121/api/ResultCode/GetResultCodes',
-            url: 'https://localhost:6121/api/Users/GetUsers',
+            url: 'https://localhost:6121/v1/WeatherForecast/data/Get',
+            // url: 'https://localhost:6121/api/Users/GetUsers',
             data: '',
             contentType: 'application/json',
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJleHAiOjE1ODUwMzczMTksImlzcyI6IndlYmFwaS5jbiIsImF1ZCI6IldlYkFwaSJ9.NQ8ddt21Vf7sYaw3kNle-CLWAkvfVJEGVGTgMBAvI5w",
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3RyaW5nIiwiZXhwIjoxNTg1MDQzNDU5LCJpc3MiOiJ3ZWJhcGkuY24iLCJhdWQiOiJXZWJBcGkifQ.-DKxzzvcQpQsnlgJXlMjxIa1iKyuAQcOTBCNCI1geXU",
             },
             beforeSend: function () {
             },
@@ -43,4 +45,5 @@
         });
     </script>
 </body>
+
 </html>

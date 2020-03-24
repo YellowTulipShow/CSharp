@@ -7,7 +7,7 @@ namespace YTS.WebApi
     {
         [Required]
         [JsonProperty("username")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
 
         [Required]

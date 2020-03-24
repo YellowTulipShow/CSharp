@@ -5,15 +5,16 @@ using YTS.WebApi;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : BaseApiController
     {
         private readonly IAuthenticateService _authService;
         public AuthenticationController(IAuthenticateService authService)
         {
             this._authService = authService;
         }
+
         [AllowAnonymous]
-        [HttpPost, Route("requestToken")]
+        [HttpPost]
         public ActionResult RequestToken([FromBody] LoginRequestDTO request)
         {
             if (!ModelState.IsValid)

@@ -7,6 +7,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace YTS.WebApi
 {
+    public interface IAuthenticateService
+    {
+        bool IsAuthenticated(LoginRequestDTO request, out string token);
+    }
+
     public class TokenAuthenticationService : IAuthenticateService
     {
         private readonly IUserService _userService;
@@ -23,16 +28,16 @@ namespace YTS.WebApi
                 return false;
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name,request.Username)
+                new Claim(ClaimTypes.Name,request.UserName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var jwtToken = new JwtSecurityToken(_tokenManagement.Issuer, _tokenManagement.Audience, claims, expires: DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration), signingCredentials: credentials);
-
+            var expiresTime = DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration);
+            var jwtToken = new JwtSecurityToken(_tokenManagement.Issuer, _tokenManagement.Audience, claims,
+                expires: expiresTime,
+                signingCredentials: credentials);
             token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-
             return true;
-
         }
     }
 }
