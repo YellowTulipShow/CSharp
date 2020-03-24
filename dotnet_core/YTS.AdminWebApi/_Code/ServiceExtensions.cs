@@ -120,7 +120,7 @@ namespace YTS.WebApi
             // 指定Swagger JSON端点。
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", ApiConfig.SwaggerEndpointName);
+                c.SwaggerEndpoint(ApiConfig.SwaggerEndpointUrl, ApiConfig.SwaggerEndpointName);
                 c.RoutePrefix = string.Empty;
             });
         }
