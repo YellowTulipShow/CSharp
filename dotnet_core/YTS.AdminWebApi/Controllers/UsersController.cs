@@ -44,9 +44,12 @@ namespace YTS.AdminWebApi.Controllers
         /// <param name="Id">用户标识ID</param>
         /// <returns></returns>
         [HttpGet]
-        public object GetItem(int? Id)
+        public Result<object> GetItem(int? Id)
         {
-            return RandomGetUser(Id ?? 0);
+            var result = new Result<object>();
+            result.Code = ResultCode.OK;
+            result.Data = result.Code = ResultCode.OK;
+            return result;
         }
 
         /// <summary>

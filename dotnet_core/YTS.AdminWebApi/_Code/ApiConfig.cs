@@ -5,6 +5,8 @@ namespace YTS.WebApi
         public const string APIRoute = "/api/[controller]/[action]";
         public const string CorsName = "YTSAllowSpecificOrigins";
         public const string SwaggerEndpointName = "AdminWebApi v1";
-        public const string APPSettingName_JWTTokenManagement = "tokenManagement";
+        public const string APPSettingName_SwaggerInfo = "SwaggerInfo";
+        public const string APPSettingName_JWTTokenManagement = "TokenManagement";
+
     }
 }

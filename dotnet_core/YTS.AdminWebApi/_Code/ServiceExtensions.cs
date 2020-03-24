@@ -69,28 +69,31 @@ namespace YTS.WebApi
         /// <summary>
         /// 注入服务 Swagger API 浏览配置
         /// </summary>
-        public static void EnterServiceSwagger(this IServiceCollection services)
+        public static void EnterServiceSwagger(this IServiceCollection services, IConfiguration Configuration)
         {
+            var swaggerInfo = Configuration.GetSection(ApiConfig.APPSettingName_SwaggerInfo);
+            var model = swaggerInfo.Get<SwaggerInfo>();
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             // 注册Swagger生成器，定义1个或多个Swagger文档
             services.AddSwaggerGen(c =>
             {
                 // 配置 v1文档
-                c.SwaggerDoc("v1", new OpenApiInfo
+                c.SwaggerDoc(model.Version, new OpenApiInfo
                 {
-                    Version = "v1",
-                    Title = "后台管理API",
-                    Description = "使用 ASP.NET Core Web API 构建的后台管理API",
+                    Version = model.Version,
+                    Title = model.Title,
+                    Description = model.Description,
                     Contact = new OpenApiContact
                     {
-                        Name = "YellowTulipShow (赵瑞青)",
-                        Email = "main@yellowtulipshow.site",
-                        Url = new Uri("https://github.com/YellowTulipShow"),
+                        Name = model.Contact.Name,
+                        Email = model.Contact.Email,
+                        Url = new Uri(model.Contact.Url),
                     },
                     License = new OpenApiLicense
                     {
-                        Name = "使用 Apache License 许可证",
-                        Url = new Uri("http://www.apache.org/licenses/"),
+                        Name = model.License.Name,
+                        Url = new Uri(model.License.Url),
                     }
                 });
                 // Set the comments path for the Swagger JSON and UI.
