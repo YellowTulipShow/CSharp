@@ -34,6 +34,7 @@ namespace Test.ConsoleProgram
             return new List<CaseModel>()
             {
                 new TestTools.TestConvertTool(),
+                new TestTools.TestJsonHelper(),
             };
         }
     }

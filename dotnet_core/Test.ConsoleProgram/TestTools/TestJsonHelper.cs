@@ -11,24 +11,32 @@ namespace Test.ConsoleProgram.TestTools
             this.NameSign = "测试JSON解析";
             this.SonCases = new List<CaseModel>()
             {
+                new TestToString(),
+                new TestToObject(),
+                new TestToAnonymousType(),
             };
+        }
+
+        public class Model
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
         }
 
         public class TestToString : CaseModel
         {
             public TestToString()
             {
-                this.NameSign = "计算最大值";
+                this.NameSign = "对象转字符串";
                 this.ExeEvent = () =>
                 {
-                    Func<decimal, decimal, decimal> calcF = (v1, v2) => v1 > v2 ? v1 : v2;
-                    List<bool> results = new List<bool>()
+                    var rstr = JsonHelper.ToString(new Model()
                     {
-                        222M == ConvertTool.ToMaxValue(calcF, 12.3M, 222M, 41M, 33M, 22M),
-                        4M == ConvertTool.ToMaxValue(calcF, 1M, 4M, 2M, 3M, 2M),
-                        1M == ConvertTool.ToMaxValue(calcF, 1M),
-                    };
-                    return !results.Contains(false);
+                        Name = "张三",
+                        Age = 23,
+                    });
+                    var tstr = "{\"Name\":\"张三\",\"Age\":23}";
+                    return Assert.IsEqual(rstr, tstr);
                 };
             }
         }
@@ -37,17 +45,17 @@ namespace Test.ConsoleProgram.TestTools
         {
             public TestToObject()
             {
-                this.NameSign = "转为:数值类型:Decimal";
+                this.NameSign = "字符串转对象";
                 this.ExeEvent = () =>
                 {
-                    List<bool> results = new List<bool>()
+                    var strmodel = "{Name:\"张三\",Age:\"23\"}";
+                    var rmodel = JsonHelper.ToObject<Model>(strmodel);
+                    var tmodel = new Model()
                     {
-                        35.1M == ConvertTool.ToDecimal("35.1", 99),
-                        99M == ConvertTool.ToDecimal("eee", 99),
-                        99.2M == ConvertTool.ToDecimal(DateTime.Now, 99.2M),
-                        45.2M == ConvertTool.ToDecimal(45.2M, 99.2M),
+                        Name = "张三",
+                        Age = 23,
                     };
-                    return !results.Contains(false);
+                    return Assert.IsEqual(rmodel, tmodel, (rm, tm) => rm.Name == tm.Name && rm.Age == tm.Age);
                 };
             }
         }
@@ -56,17 +64,21 @@ namespace Test.ConsoleProgram.TestTools
         {
             public TestToAnonymousType()
             {
-                this.NameSign = "转为:数值类型:Decimal";
+                this.NameSign = "字符串转匿名对象";
                 this.ExeEvent = () =>
                 {
-                    List<bool> results = new List<bool>()
+                    var strmodel = "{Name:\"张三\",Age:\"23\"}";
+                    var rmodel = JsonHelper.ToAnonymousType(strmodel, new
                     {
-                        35.1M == ConvertTool.ToDecimal("35.1", 99),
-                        99M == ConvertTool.ToDecimal("eee", 99),
-                        99.2M == ConvertTool.ToDecimal(DateTime.Now, 99.2M),
-                        45.2M == ConvertTool.ToDecimal(45.2M, 99.2M),
+                        Name = "",
+                        Age = 0,
+                    });
+                    var tmodel = new
+                    {
+                        Name = "张三",
+                        Age = 23,
                     };
-                    return !results.Contains(false);
+                    return Assert.IsEqual(rmodel, tmodel, (rm, tm) => rm.Name == tm.Name && rm.Age == tm.Age);
                 };
             }
         }
