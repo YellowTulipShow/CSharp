@@ -4,15 +4,19 @@ namespace YTS.WebApi
 {
     public interface IUserService
     {
+        /// <summary>
+        /// 判断是否验证通过
+        /// </summary>
         bool IsValid(LoginRequestDTO req);
     }
 
     public class UserService : IUserService
     {
-        //模拟测试，默认都是人为验证有效
         public bool IsValid(LoginRequestDTO req)
         {
-            return true;
+            if (string.IsNullOrWhiteSpace(req.UserName) || string.IsNullOrWhiteSpace(req.Password))
+                return false;
+            return req.UserName == "admin" && req.Password == "zrq.yts.pwd";
         }
     }
 }

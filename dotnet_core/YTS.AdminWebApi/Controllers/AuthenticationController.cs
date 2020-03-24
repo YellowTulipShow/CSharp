@@ -21,8 +21,7 @@ namespace YTS.AdminWebApi.Controllers
             {
                 return BadRequest("Invalid Request");
             }
-            string token;
-            if (_authService.IsAuthenticated(request, out token))
+            if (_authService.IsAuthenticated(request, out string token))
             {
                 return Ok(token);
             }
