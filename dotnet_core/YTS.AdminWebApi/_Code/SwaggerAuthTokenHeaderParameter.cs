@@ -18,7 +18,7 @@ namespace YTS.WebApi
             if (descriptor == null)
                 return;
             var customAttrs = descriptor.MethodInfo.GetCustomAttributes(inherit: true);
-            var typeAllowAnonymous =  typeof(AllowAnonymousAttribute);
+            var typeAllowAnonymous = typeof(AllowAnonymousAttribute);
             bool isHaveAllowAnonymous = customAttrs.Any(a => a.GetType().Equals(typeAllowAnonymous));
             if (isHaveAllowAnonymous)
                 return;

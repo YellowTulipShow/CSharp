@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -99,20 +98,7 @@ namespace YTS.WebApi
                 });
 
                 // //swagger中控制请求的时候发是否需要在url中增加accesstoken
-                // c.OperationFilter<SwaggerAuthTokenHeaderParameter>();
-
-                // var securityScheme = new OpenApiSecurityScheme
-                // {
-                //     In = ParameterLocation.Header,
-                //     Description = "请输入OAuth接口返回的Token，前置Bearer。示例：Bearer {Roken}",
-                //     Name = "Authorization",
-                //     Type = SecuritySchemeType.ApiKey,
-                // };
-                // c.AddSecurityDefinition("Bearer", securityScheme);
-                // c.AddSecurityRequirement(
-                //     new OpenApiSecurityRequirement() {
-                //         { securityScheme, new List<string>() { "Bearer", string.Empty, } },
-                //     });
+                c.OperationFilter<SwaggerAuthTokenHeaderParameter>();
 
                 // Set the comments path for the Swagger JSON and UI.
                 // 设置Swagger JSON和UI的注释路径。读取代码XML注释文档
