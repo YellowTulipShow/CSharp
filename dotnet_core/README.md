@@ -47,3 +47,6 @@ dotnet publish -o D:\wwwroot\YTSCSharpDotNetCore\YTS.AdminWebApi
 * [AJAX请求中出现OPTIONS请求](https://www.cnblogs.com/wanghuijie/p/preflighted_request.html)
 * [OPTIONS 方法在跨域请求（CORS）中的应用](https://blog.csdn.net/qizhiqq/article/details/71171916)
 * [dotNET Core Web API+JWT(Bearer Token)认证+Swagger UI](https://blog.csdn.net/qq_35904166/article/details/84591227)
+* [EF Core 入门](https://docs.microsoft.com/zh-cn/ef/core/get-started/?tabs=netcore-cli)
+* [ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）](https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio-code)
+* [SQLite Browser 数据库浏览器](https://sqlitebrowser.org/)
