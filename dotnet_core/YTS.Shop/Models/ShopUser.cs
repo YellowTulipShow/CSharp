@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace YTS.Shop
@@ -9,9 +10,15 @@ namespace YTS.Shop
     public class ShopUser
     {
         /// <summary>
-        /// Id
+        /// ID
         /// </summary>
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        /// <summary>
+        /// 店铺信息ID
+        /// </summary>
+        public int ShopInfoID { get; set; }
 
         /// <summary>
         /// 账号
@@ -57,5 +64,10 @@ namespace YTS.Shop
         /// UnionID
         /// </summary>
         public string UnionID { get; set; }
+
+        /// <summary>
+        /// 店铺信息实体
+        /// </summary>
+        public ShopInfo ShopInfo { get; set; }
     }
 }

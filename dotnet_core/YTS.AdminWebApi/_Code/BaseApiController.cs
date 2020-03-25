@@ -7,7 +7,7 @@ namespace YTS.WebApi
     [ApiController]
     [Route(ApiConfig.APIRoute)]
     [EnableCors(ApiConfig.CorsName)]
-    [Authorize]
+    // [Authorize]
     public abstract class BaseApiController : ControllerBase
     {
     }

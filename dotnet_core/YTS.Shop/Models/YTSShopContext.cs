@@ -8,17 +8,20 @@ namespace YTS.Shop
     public class YTSShopContext : DbContext
     {
         private IConfiguration _configuration;
-        public YTSShopContext(IConfiguration configuration)
+        public YTSShopContext(DbContextOptions<YTSShopContext> options) : base(options) { }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder options)
+        // {
+        //     options.UseSqlite("Data Source=YTSShop.db");
+        // }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            this._configuration = configuration;
+            modelBuilder.Entity<ShopInfo>().ToTable("ShopInfo");
+            modelBuilder.Entity<ShopUser>().ToTable("ShopUser");
         }
 
         public DbSet<ShopInfo> ShopInfo { get; set; }
         public DbSet<ShopUser> ShopUser { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlite("Data Source=YTSShop.db");
-        }
     }
 }
