@@ -31,18 +31,8 @@ namespace YTS.Shop
         public DateTime? AddTime { get; set; }
 
         /// <summary>
-        /// 更新人Id
-        /// </summary>
-        public int? UpdateUserID { get; set; }
-
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        public DateTime? UpdateTime { get; set; }
-
-        /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        public string Remarks { get; set; }
     }
 }

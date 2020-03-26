@@ -70,8 +70,8 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            model.UpdateTime = DateTime.Now;
-            model.UpdateUserID = RandomData.GetInt();
+            // model.UpdateTime = DateTime.Now;
+            // model.UpdateUserID = RandomData.GetInt();
 
             if (ID == 0)
             {

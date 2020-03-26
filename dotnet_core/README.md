@@ -34,6 +34,18 @@ dotnet publish -o D:\wwwroot\YTSCSharpDotNetCore\YTS.AdminWeb
 dotnet publish -o D:\wwwroot\YTSCSharpDotNetCore\YTS.AdminWebApi
 ```
 
+## 数据库更新命令
+
+```shell
+cd ../YTS.AdminWebApi
+dotnet ef dbcontext list
+dotnet ef database drop --force
+cd ../YTS.Shop
+dotnet ef migrations add InitialCreate --startup-project ../YTS.AdminWebApi
+dotnet ef database update --startup-project ../YTS.AdminWebApi
+dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
+```
+
 ## 学习链接
 
 * [.NET Core简单读取json配置文件](https://www.jb51.net/article/137517.htm)
