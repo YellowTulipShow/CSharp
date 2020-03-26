@@ -4,12 +4,10 @@ using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using YTS.Shop;
 
 namespace YTS.WebApi
 {
@@ -159,15 +157,6 @@ namespace YTS.WebApi
             });
             services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
             services.AddScoped<IUserService, UserService>();
-        }
-
-        /// <summary>
-        /// 注入服务 数据库设置
-        /// </summary>
-        public static void EnterServiceDataBases(this IServiceCollection services, IConfiguration Configuration)
-        {
-            services.AddDbContext<YTSShopContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("YTSShopContext")));
         }
     }
 }
