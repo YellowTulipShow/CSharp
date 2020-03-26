@@ -24,6 +24,13 @@ namespace YTS.WebApi
                 // 关闭 启用端点路由
                 option.EnableEndpointRouting = false;
             });
+            services.AddMvc().AddJsonOptions(option =>
+            {
+                // 获取或设置一个值，该值确定反序列化期间属性名称是否使用不区分大小写的比较。 默认值为false。
+                option.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
+                // 获取或设置一个值，该值指定用于将对象上的属性名称转换为另一种格式（例如骆驼套）的策略，或者为null以保持属性名称不变。
+                option.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
         }
 
         /// <summary>
