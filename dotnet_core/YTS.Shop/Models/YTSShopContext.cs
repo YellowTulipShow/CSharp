@@ -7,13 +7,7 @@ namespace YTS.Shop
 {
     public class YTSShopContext : DbContext
     {
-        private IConfiguration _configuration;
         public YTSShopContext(DbContextOptions<YTSShopContext> options) : base(options) { }
-
-        // protected override void OnConfiguring(DbContextOptionsBuilder options)
-        // {
-        //     options.UseSqlite("Data Source=YTSShop.db");
-        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
