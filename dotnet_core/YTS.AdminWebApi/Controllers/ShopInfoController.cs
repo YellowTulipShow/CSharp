@@ -37,30 +37,25 @@ namespace YTS.AdminWebApi.Controllers
         [HttpGet]
         public Result<object> GetShopInfo(int? ID)
         {
-            var result = new Result<object>();
-            if (ID == null || ID <= 0)
+            if ((ID ?? 0) <= 0)
             {
-                result.Code = ResultCode.BadRequest;
-                result.Message = @"获取失败，ID为空。";
-                return result;
+                return new Result<object>()
+                {
+                    Code = ResultCode.BadRequest,
+                    Message = @"ID为空!",
+                };
             }
-            try
+            var model = db.ShopInfo.Where(m => m.ID == ID).FirstOrDefault();
+            return new Result<object>()
             {
-                result.Code = ResultCode.OK;
-                result.Data = db.ShopInfo.Where(m => m.ID == ID).FirstOrDefault();
-                result.Message = @"获取成功！";
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.Code = ResultCode.BadRequest;
-                result.Message = @"获取失败！" + ex.Message;
-                return result;
-            }
+                Code = ResultCode.OK,
+                Data = model,
+                Message = model != null ? @"获取成功!" : @"数据获取为空!",
+            };
         }
 
         [HttpPost]
-        public Result<object> EditShopInfo(int ID, [FromBody] ShopInfo model)
+        public Result<object> EditShopInfo([FromBody] ShopInfo model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -69,11 +64,8 @@ namespace YTS.AdminWebApi.Controllers
                 result.Message = "模型为空!";
                 return result;
             }
-
-            // model.UpdateTime = DateTime.Now;
-            // model.UpdateUserID = RandomData.GetInt();
-
-            if (ID == 0)
+            var ID = model.ID;
+            if (ID <= 0)
             {
                 model.AddTime = DateTime.Now;
                 model.AddUserID = 1;
@@ -89,7 +81,7 @@ namespace YTS.AdminWebApi.Controllers
             }
             db.SaveChanges();
             result.Data = model.ID;
-            result.Message = (ID == 0 ? "添加" : "修改") + "成功！";
+            result.Message = (ID == 0 ? "添加" : "修改") + "成功!";
             return result;
         }
 

@@ -46,11 +46,6 @@ namespace YTS.Shop
         public string Phone { get; set; }
 
         /// <summary>
-        /// 用户状态
-        /// </summary>
-        public int? Status { get; set; }
-
-        /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime? AddTime { get; set; }

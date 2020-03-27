@@ -37,30 +37,25 @@ namespace YTS.AdminWebApi.Controllers
         [HttpGet]
         public Result<object> GetShopUser(int? ID)
         {
-            var result = new Result<object>();
-            if (ID == null || ID <= 0)
+            if ((ID ?? 0) <= 0)
             {
-                result.Code = ResultCode.BadRequest;
-                result.Message = @"获取失败，ID为空。";
-                return result;
+                return new Result<object>()
+                {
+                    Code = ResultCode.BadRequest,
+                    Message = @"ID为空!",
+                };
             }
-            try
+            var model = db.ShopUser.Where(m => m.ID == ID).FirstOrDefault();
+            return new Result<object>()
             {
-                result.Code = ResultCode.OK;
-                result.Data = db.ShopUser.Where(m => m.ID == ID).FirstOrDefault();
-                result.Message = @"获取成功！";
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.Code = ResultCode.BadRequest;
-                result.Message = @"获取失败！" + ex.Message;
-                return result;
-            }
+                Code = ResultCode.OK,
+                Data = model,
+                Message = model != null ? @"获取成功!" : @"数据获取为空!",
+            };
         }
 
         [HttpPost]
-        public Result<object> EditShopUser(int ID, [FromBody] ShopUser model)
+        public Result<object> EditShopUser([FromBody] ShopUser model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -69,8 +64,8 @@ namespace YTS.AdminWebApi.Controllers
                 result.Message = "模型为空!";
                 return result;
             }
-
-            if (ID == 0)
+            var ID = model.ID;
+            if (ID <= 0)
             {
                 model.AddTime = DateTime.Now;
                 // model.AddUserID = 1;
