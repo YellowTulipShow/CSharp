@@ -25,6 +25,7 @@ namespace YTS.AdminWebApi
         {
             // 自定义注入服务
             services.EnterServiceControllers();
+            services.EnterServiceJson();
             services.EnterServiceCors();
             services.EnterServiceSwagger(Configuration);
             services.EnterServiceJWTAuthentication(Configuration);

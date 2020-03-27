@@ -24,6 +24,13 @@ namespace YTS.WebApi
                 // 关闭 启用端点路由
                 option.EnableEndpointRouting = false;
             });
+        }
+
+        /// <summary>
+        /// 配置 JSON 序列化设置
+        /// </summary>
+        public static void EnterServiceJson(this IServiceCollection services)
+        {
             services.AddMvc().AddJsonOptions(option =>
             {
                 // 获取或设置一个值，该值确定反序列化期间属性名称是否使用不区分大小写的比较。 默认值为false。
@@ -46,8 +53,8 @@ namespace YTS.WebApi
             {
                 // 配置默认MVC路由模板
                 routes.MapRoute(
-                name: "default",
-                template: ApiConfig.APIRoute);
+                    name: "default",
+                    template: ApiConfig.APIRoute);
             });
         }
 
