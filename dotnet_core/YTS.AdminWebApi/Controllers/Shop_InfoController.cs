@@ -10,19 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    [AllowAnonymous]
-    public class ShopUserController : BaseApiController
+    public class Shop_InfoController : BaseApiController
     {
         protected YTSShopContext db;
-        public ShopUserController(YTSShopContext db)
+        public Shop_InfoController(YTSShopContext db)
         {
             this.db = db;
         }
 
         [HttpGet]
-        public object GetShopUserList()
+        public object GetShop_InfoList()
         {
-            var list = db.ShopUser.AsQueryable();
+            var list = db.Shop_Info.AsQueryable();
             int total = list.Count();
             var result = list
                 .OrderByDescending(m => m.ID)
@@ -31,11 +30,12 @@ namespace YTS.AdminWebApi.Controllers
             {
                 rows = result,
                 total,
+                manager = GetManager(db),
             };
         }
 
         [HttpGet]
-        public Result<object> GetShopUser(int? ID)
+        public Result<object> GetShop_Info(int? ID)
         {
             if ((ID ?? 0) <= 0)
             {
@@ -45,7 +45,7 @@ namespace YTS.AdminWebApi.Controllers
                     Message = @"ID为空!",
                 };
             }
-            var model = db.ShopUser.Where(m => m.ID == ID).FirstOrDefault();
+            var model = db.Shop_Info.Where(m => m.ID == ID).FirstOrDefault();
             return new Result<object>()
             {
                 Code = ResultCode.OK,
@@ -55,7 +55,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> EditShopUser([FromBody] ShopUser model)
+        public Result<object> EditShop_Info([FromBody] Shop_Info model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -68,25 +68,25 @@ namespace YTS.AdminWebApi.Controllers
             if (ID <= 0)
             {
                 model.AddTime = DateTime.Now;
-                // model.AddUserID = 1;
-                db.ShopUser.Add(model);
+                model.AddManagerID = 1;
+                db.Shop_Info.Add(model);
             }
             else
             {
-                db.ShopUser.Attach(model);
-                EntityEntry<ShopUser> entry = db.Entry(model);
+                db.Shop_Info.Attach(model);
+                EntityEntry<Shop_Info> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
                 entry.Property(gp => gp.AddTime).IsModified = false;
-                // entry.Property(gp => gp.AddUserID).IsModified = false;
+                entry.Property(gp => gp.AddManagerID).IsModified = false;
             }
             db.SaveChanges();
             result.Data = model.ID;
-            result.Message = (ID == 0 ? "添加" : "修改") + "成功！";
+            result.Message = (ID == 0 ? "添加" : "修改") + "成功!";
             return result;
         }
 
         [HttpPost]
-        public Result DeleteShopUsers(int[] IDs)
+        public Result DeleteShop_Infos(int[] IDs)
         {
             var result = new Result();
             if (IDs == null)
@@ -96,7 +96,7 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            db.ShopUser.RemoveRange(db.ShopUser.Where(a => IDs.Contains(a.ID)).ToList());
+            db.Shop_Info.RemoveRange(db.Shop_Info.Where(a => IDs.Contains(a.ID)).ToList());
 
             db.SaveChanges();
             result.Code = ResultCode.OK;

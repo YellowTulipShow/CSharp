@@ -8,5 +8,7 @@ namespace YTS.WebApi
         public const string SwaggerEndpointUrl = "/swagger/v1/swagger.json";
         public const string APPSettingName_SwaggerInfo = "SwaggerInfo";
         public const string APPSettingName_JWTTokenManagement = "TokenManagement";
+        public const string ClainKey_ManagerID = "ClainKeyManagerID";
+        public const string ClainKey_ManagerName = "ClainKeyManagerName";
     }
 }

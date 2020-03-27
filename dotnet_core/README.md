@@ -63,3 +63,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）](https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio-code)
 * [SQLite Browser 数据库浏览器](https://sqlitebrowser.org/)
 * [6个宝藏级Vue管理后台框架 必须收藏](https://zhuanlan.zhihu.com/p/91825869)
+* [asp.net core 集成JWT（一）](https://www.cnblogs.com/7tiny/p/11012035.html)

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using YTS.Shop;
 
 namespace YTS.WebApi
 {
@@ -16,20 +17,20 @@ namespace YTS.WebApi
     {
         private readonly IUserService _userService;
         private readonly TokenManagement _tokenManagement;
+
         public TokenAuthenticationService(IUserService userService, IOptions<TokenManagement> tokenManagement)
         {
             _userService = userService;
             _tokenManagement = tokenManagement.Value;
         }
+
         public bool IsAuthenticated(LoginRequestDTO request, out string token)
         {
             token = string.Empty;
-            if (!_userService.IsValid(request))
+            Shop_Manager manager = _userService.IsValid(request);
+            if (manager == null)
                 return false;
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,request.UserName)
-            };
+            var claims = ShopClainInfos(manager);
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiresTime = DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration);
@@ -38,6 +39,15 @@ namespace YTS.WebApi
                 signingCredentials: credentials);
             token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return true;
+        }
+
+        public Claim[] ShopClainInfos(Shop_Manager manager)
+        {
+            return new Claim[]
+            {
+                new Claim(ApiConfig.ClainKey_ManagerID, manager.ID.ToString()),
+                new Claim(ApiConfig.ClainKey_ManagerName, manager.Account),
+            };
         }
     }
 }

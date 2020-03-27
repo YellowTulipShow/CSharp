@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace YTS.Shop
 {
     /// <summary>
-    /// 店铺下属用户
+    /// 用户
     /// </summary>
-    public class ShopUser
+    public class Shop_User
     {
         /// <summary>
         /// ID
@@ -19,6 +19,11 @@ namespace YTS.Shop
         /// 店铺信息ID
         /// </summary>
         public int ShopInfoID { get; set; }
+
+        /// <summary>
+        /// 店铺信息实体
+        /// </summary>
+        public Shop_Info ShopInfo { get; set; }
 
         /// <summary>
         /// 账号
@@ -51,18 +56,8 @@ namespace YTS.Shop
         public DateTime? AddTime { get; set; }
 
         /// <summary>
-        /// OpenID
+        /// 添加人Id
         /// </summary>
-        public string OpenID { get; set; }
-
-        /// <summary>
-        /// UnionID
-        /// </summary>
-        public string UnionID { get; set; }
-
-        /// <summary>
-        /// 店铺信息实体
-        /// </summary>
-        public ShopInfo ShopInfo { get; set; }
+        public int? AddManagerID { get; set; }
     }
 }

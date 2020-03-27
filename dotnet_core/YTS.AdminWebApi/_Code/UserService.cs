@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using YTS.Shop;
 
 namespace YTS.WebApi
 {
@@ -7,16 +9,25 @@ namespace YTS.WebApi
         /// <summary>
         /// 判断是否验证通过
         /// </summary>
-        bool IsValid(LoginRequestDTO req);
+        Shop_Manager IsValid(LoginRequestDTO req);
     }
 
     public class UserService : IUserService
     {
-        public bool IsValid(LoginRequestDTO req)
+        protected YTSShopContext db;
+        public UserService(YTSShopContext db)
+        {
+            this.db = db;
+        }
+
+        public Shop_Manager IsValid(LoginRequestDTO req)
         {
             if (string.IsNullOrWhiteSpace(req.UserName) || string.IsNullOrWhiteSpace(req.Password))
-                return false;
-            return req.UserName == "admin" && req.Password == "zrq.yts.pwd";
+                return null;
+            var encryPwd = Shop_Manager.EncryptionPassword(req.Password);
+            return db.Shop_Manager
+                .Where(m => m.Account == req.UserName && m.Password == encryPwd)
+                .FirstOrDefault();
         }
     }
 }

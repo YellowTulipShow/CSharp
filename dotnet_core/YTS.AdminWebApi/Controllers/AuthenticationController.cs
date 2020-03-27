@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using YTS.Tools;
 using YTS.WebApi;
@@ -9,8 +10,11 @@ namespace YTS.AdminWebApi.Controllers
     /// <summary>
     /// 认证方式
     /// </summary>
+    [ApiController]
+    [Route("/SystemAuthentication")]
+    [EnableCors(ApiConfig.CorsName)]
     [AllowAnonymous]
-    public class AuthenticationController : BaseApiController
+    public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticateService _authService;
         public AuthenticationController(IAuthenticateService authService)
@@ -23,7 +27,7 @@ namespace YTS.AdminWebApi.Controllers
         /// </summary>
         /// <param name="request">账户信息</param>
         /// <returns>返回结果</returns>
-        [HttpPost]
+        [HttpPost, Route("RequestToken")]
         public ActionResult RequestToken([FromBody] LoginRequestDTO request)
         {
             if (!ModelState.IsValid)
@@ -35,24 +39,6 @@ namespace YTS.AdminWebApi.Controllers
                 return Ok(token);
             }
             return BadRequest("Invalid Request");
-        }
-
-        /// <summary>
-        /// 获取所有请求代码的详情
-        /// </summary>
-        [HttpGet]
-        public object ResultCodes()
-        {
-            EnumInfo[] infos = EnumInfo.AnalysisList<ResultCode>();
-            var list = infos
-                .Select(info => new
-                {
-                    code = info.IntValue,
-                    name = info.Name,
-                    remark = info.Explain,
-                })
-                .ToList();
-            return list;
         }
     }
 }

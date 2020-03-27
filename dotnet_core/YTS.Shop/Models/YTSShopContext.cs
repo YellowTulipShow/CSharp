@@ -11,11 +11,21 @@ namespace YTS.Shop
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ShopInfo>().ToTable("ShopInfo");
-            modelBuilder.Entity<ShopUser>().ToTable("ShopUser");
+            modelBuilder.Entity<Shop_Info>().ToTable("Shop_Info");
+            modelBuilder.Entity<Shop_ManagerGroup>().ToTable("Shop_ManagerGroup");
+            modelBuilder.Entity<Shop_Manager>().ToTable("Shop_Manager");
+            modelBuilder.Entity<Shop_Administrator>().ToTable("Shop_Administrator");
+            modelBuilder.Entity<Shop_UserGroup>().ToTable("Shop_UserGroup");
+            modelBuilder.Entity<Shop_User>().ToTable("Shop_User");
+            modelBuilder.Entity<Shop_Product>().ToTable("Shop_Product");
         }
 
-        public DbSet<ShopInfo> ShopInfo { get; set; }
-        public DbSet<ShopUser> ShopUser { get; set; }
+        public DbSet<Shop_Info> Shop_Info { get; set; }
+        public DbSet<Shop_ManagerGroup> Shop_ManagerGroup { get; set; }
+        public DbSet<Shop_Manager> Shop_Manager { get; set; }
+        public DbSet<Shop_Administrator> Shop_Administrator { get; set; }
+        public DbSet<Shop_UserGroup> Shop_UserGroup { get; set; }
+        public DbSet<Shop_User> Shop_User { get; set; }
+        public DbSet<Shop_Product> Shop_Product { get; set; }
     }
 }
