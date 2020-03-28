@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace YTS.WebApi
 {
@@ -111,8 +114,21 @@ namespace YTS.WebApi
                     }
                 });
 
-                // //swagger中控制请求的时候发是否需要在url中增加accesstoken
-                c.OperationFilter<SwaggerAuthTokenHeaderParameter>();
+                // 开启加权小锁
+                c.OperationFilter<AddResponseHeadersFilter>();
+                c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+
+                // 在header中添加token，传递到后台
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+
+                // 必须是 oauth2
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
+                    Name = "Authorization", // jwt默认的参数名称
+                    In = ParameterLocation.Header, // jwt默认存放Authorization信息的位置(请求头中)
+                    Type = SecuritySchemeType.ApiKey
+                });
 
                 // Set the comments path for the Swagger JSON and UI.
                 // 设置Swagger JSON和UI的注释路径。读取代码XML注释文档
@@ -159,6 +175,14 @@ namespace YTS.WebApi
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
+                x.Events = new JwtBearerEvents()
+                {
+                    OnMessageReceived = context =>
+                    {
+                        context.Token = context.Request.Query["access_token"];
+                        return Task.CompletedTask;
+                    }
+                };
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

@@ -64,3 +64,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [SQLite Browser 数据库浏览器](https://sqlitebrowser.org/)
 * [6个宝藏级Vue管理后台框架 必须收藏](https://zhuanlan.zhihu.com/p/91825869)
 * [asp.net core 集成JWT（一）](https://www.cnblogs.com/7tiny/p/11012035.html)
+* [从壹开始前后端分离【 .NET Core2.2/3.0 +Vue2.0 】框架之五 || Swagger的使用 3.3 JWT权限验证【必看】 - 老张的哲学 - 博客园](https://www.cnblogs.com/laozhang-is-phi/p/9511869.html#autoid-4-0-0)
