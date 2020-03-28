@@ -27,7 +27,7 @@ namespace YTS.WebApi
         public bool IsAuthenticated(LoginRequestDTO request, out string token)
         {
             token = string.Empty;
-            Shop_Manager manager = _userService.IsValid(request);
+            Manager manager = _userService.IsValid(request);
             if (manager == null)
                 return false;
             var claims = ShopClainInfos(manager);
@@ -41,7 +41,7 @@ namespace YTS.WebApi
             return true;
         }
 
-        public Claim[] ShopClainInfos(Shop_Manager manager)
+        public Claim[] ShopClainInfos(Manager manager)
         {
             return new Claim[]
             {

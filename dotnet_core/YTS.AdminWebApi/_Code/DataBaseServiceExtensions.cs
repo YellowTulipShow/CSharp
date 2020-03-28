@@ -18,7 +18,7 @@ namespace YTS.WebApi
         /// </summary>
         public static void EnterHostDataBases(this IHost host)
         {
-            host.CreateDbIfNotExists<YTSShopContext, YTS.AdminWebApi.Program>();
+            host.CreateDbIfNotExists<YTSEntityContext, YTS.AdminWebApi.Program>();
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace YTS.WebApi
         /// </summary>
         public static void EnterServiceDataBases(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<YTSShopContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("YTSShopContext")));
+            services.AddDbContext<YTSEntityContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString(ApiConfig.DataBase_YTSEntity)));
         }
     }
 }

@@ -9,23 +9,23 @@ namespace YTS.WebApi
         /// <summary>
         /// 判断是否验证通过
         /// </summary>
-        Shop_Manager IsValid(LoginRequestDTO req);
+        Manager IsValid(LoginRequestDTO req);
     }
 
     public class UserService : IUserService
     {
-        protected YTSShopContext db;
-        public UserService(YTSShopContext db)
+        protected YTSEntityContext db;
+        public UserService(YTSEntityContext db)
         {
             this.db = db;
         }
 
-        public Shop_Manager IsValid(LoginRequestDTO req)
+        public Manager IsValid(LoginRequestDTO req)
         {
             if (string.IsNullOrWhiteSpace(req.UserName) || string.IsNullOrWhiteSpace(req.Password))
                 return null;
-            var encryPwd = Shop_Manager.EncryptionPassword(req.Password);
-            return db.Shop_Manager
+            var encryPwd = Manager.EncryptionPassword(req.Password);
+            return db.Manager
                 .Where(m => m.Account == req.UserName && m.Password == encryPwd)
                 .FirstOrDefault();
         }

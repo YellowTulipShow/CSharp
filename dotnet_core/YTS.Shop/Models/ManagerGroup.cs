@@ -7,18 +7,13 @@ namespace YTS.Shop
     /// <summary>
     /// 店铺管理员组
     /// </summary>
-    public class Shop_ManagerGroup
+    public class ManagerGroup
     {
         /// <summary>
         /// ID
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-
-        /// <summary>
-        /// 店铺信息ID
-        /// </summary>
-        public int? ShopInfoID { get; set; }
 
         /// <summary>
         /// 组名
@@ -39,5 +34,10 @@ namespace YTS.Shop
         /// 添加人Id
         /// </summary>
         public int? AddManagerID { get; set; }
+
+        /// <summary>
+        /// 店铺信息ID
+        /// </summary>
+        public int? ShopInfoID { get; set; }
     }
 }

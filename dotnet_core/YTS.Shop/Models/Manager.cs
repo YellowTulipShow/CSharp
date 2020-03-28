@@ -8,23 +8,13 @@ namespace YTS.Shop
     /// <summary>
     /// 店铺管理员
     /// </summary>
-    public class Shop_Manager
+    public class Manager
     {
         /// <summary>
         /// ID
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-
-        /// <summary>
-        /// 店铺信息ID
-        /// </summary>
-        public int ShopInfoID { get; set; }
-
-        /// <summary>
-        /// 店铺信息实体
-        /// </summary>
-        public Shop_Info ShopInfo { get; set; }
 
         /// <summary>
         /// 用户组
@@ -65,6 +55,11 @@ namespace YTS.Shop
         /// 添加人Id
         /// </summary>
         public int? AddManagerID { get; set; }
+
+        /// <summary>
+        /// 店铺信息ID
+        /// </summary>
+        public int? ShopInfoID { get; set; }
 
         /// <summary>
         /// 加密密码

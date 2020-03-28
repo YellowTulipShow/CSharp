@@ -12,8 +12,8 @@ namespace YTS.AdminWebApi.Controllers
 {
     public class Shop_InfoController : BaseApiController
     {
-        protected YTSShopContext db;
-        public Shop_InfoController(YTSShopContext db)
+        protected YTSEntityContext db;
+        public Shop_InfoController(YTSEntityContext db)
         {
             this.db = db;
         }
@@ -68,7 +68,7 @@ namespace YTS.AdminWebApi.Controllers
             if (ID <= 0)
             {
                 model.AddTime = DateTime.Now;
-                model.AddManagerID = 1;
+                model.AddManagerID = GetManager(db).ID;
                 db.Shop_Info.Add(model);
             }
             else

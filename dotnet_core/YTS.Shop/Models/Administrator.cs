@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace YTS.Shop
 {
     /// <summary>
-    /// 店铺最高管理员
+    /// 最高管理员
     /// </summary>
-    public class Shop_Administrator
+    public class Administrator
     {
         /// <summary>
         /// ID

@@ -10,18 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class Shop_UserController : BaseApiController
+    public class ManagerController : BaseApiController
     {
-        protected YTSShopContext db;
-        public Shop_UserController(YTSShopContext db)
+        protected YTSEntityContext db;
+        public ManagerController(YTSEntityContext db)
         {
             this.db = db;
         }
 
         [HttpGet]
-        public object GetShop_UserList()
+        public object GetManagerList()
         {
-            var list = db.Shop_User.AsQueryable();
+            var list = db.Manager.AsQueryable();
             int total = list.Count();
             var result = list
                 .OrderByDescending(m => m.ID)
@@ -34,7 +34,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet]
-        public Result<object> GetShop_User(int? ID)
+        public Result<object> GetManager(int? ID)
         {
             if ((ID ?? 0) <= 0)
             {
@@ -44,7 +44,7 @@ namespace YTS.AdminWebApi.Controllers
                     Message = @"ID为空!",
                 };
             }
-            var model = db.Shop_User.Where(m => m.ID == ID).FirstOrDefault();
+            var model = db.Manager.Where(m => m.ID == ID).FirstOrDefault();
             return new Result<object>()
             {
                 Code = ResultCode.OK,
@@ -54,7 +54,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> EditShop_User([FromBody] Shop_User model)
+        public Result<object> EditManager([FromBody] Manager model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -67,12 +67,13 @@ namespace YTS.AdminWebApi.Controllers
             if (ID <= 0)
             {
                 model.AddTime = DateTime.Now;
-                db.Shop_User.Add(model);
+                model.AddManagerID = GetManager(db).ID;
+                db.Manager.Add(model);
             }
             else
             {
-                db.Shop_User.Attach(model);
-                EntityEntry<Shop_User> entry = db.Entry(model);
+                db.Manager.Attach(model);
+                EntityEntry<Manager> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
                 entry.Property(gp => gp.AddTime).IsModified = false;
             }
@@ -83,7 +84,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result DeleteShop_Users(int[] IDs)
+        public Result DeleteManagers(int[] IDs)
         {
             var result = new Result();
             if (IDs == null)
@@ -93,7 +94,7 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            db.Shop_User.RemoveRange(db.Shop_User.Where(a => IDs.Contains(a.ID)).ToList());
+            db.Manager.RemoveRange(db.Manager.Where(a => IDs.Contains(a.ID)).ToList());
 
             db.SaveChanges();
             result.Code = ResultCode.OK;
