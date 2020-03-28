@@ -65,3 +65,6 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [6个宝藏级Vue管理后台框架 必须收藏](https://zhuanlan.zhihu.com/p/91825869)
 * [asp.net core 集成JWT（一）](https://www.cnblogs.com/7tiny/p/11012035.html)
 * [从壹开始前后端分离【 .NET Core2.2/3.0 +Vue2.0 】框架之五 || Swagger的使用 3.3 JWT权限验证【必看】 - 老张的哲学 - 博客园](https://www.cnblogs.com/laozhang-is-phi/p/9511869.html#autoid-4-0-0)
+* [easyUI datagrid携带token](https://blog.csdn.net/zcwforali/article/details/79866181)
+* [easyui jquery ajax的全局设置token](https://blog.csdn.net/mutourenoo/article/details/84921154)
+* [ajax 全局设置token，并且判断是或否登录 $.ajaxSetup设置](https://blog.csdn.net/qq_32674347/article/details/88415757)
