@@ -76,6 +76,7 @@ namespace YTS.AdminWebApi.Controllers
                 EntityEntry<Shop_UserGroup> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
                 entry.Property(gp => gp.AddTime).IsModified = false;
+                entry.Property(gp => gp.AddManagerID).IsModified = false;
             }
             db.SaveChanges();
             result.Data = model.ID;

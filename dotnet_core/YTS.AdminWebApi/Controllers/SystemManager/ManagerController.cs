@@ -68,6 +68,7 @@ namespace YTS.AdminWebApi.Controllers
             {
                 model.AddTime = DateTime.Now;
                 model.AddManagerID = GetManager(db).ID;
+                model.Password = Manager.EncryptionPassword(model.Password);
                 db.Manager.Add(model);
             }
             else
@@ -76,6 +77,8 @@ namespace YTS.AdminWebApi.Controllers
                 EntityEntry<Manager> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
                 entry.Property(gp => gp.AddTime).IsModified = false;
+                entry.Property(gp => gp.AddManagerID).IsModified = false;
+                entry.Property(gp => gp.Password).IsModified = false;
             }
             db.SaveChanges();
             result.Data = model.ID;

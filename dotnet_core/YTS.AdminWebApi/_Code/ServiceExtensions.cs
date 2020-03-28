@@ -112,7 +112,7 @@ namespace YTS.WebApi
                 });
 
                 // //swagger中控制请求的时候发是否需要在url中增加accesstoken
-                // c.OperationFilter<SwaggerAuthTokenHeaderParameter>();
+                c.OperationFilter<SwaggerAuthTokenHeaderParameter>();
 
                 // Set the comments path for the Swagger JSON and UI.
                 // 设置Swagger JSON和UI的注释路径。读取代码XML注释文档

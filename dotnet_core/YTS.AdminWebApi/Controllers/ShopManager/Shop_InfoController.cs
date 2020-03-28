@@ -30,7 +30,6 @@ namespace YTS.AdminWebApi.Controllers
             {
                 rows = result,
                 total,
-                manager = GetManager(db),
             };
         }
 

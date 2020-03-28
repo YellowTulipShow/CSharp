@@ -27,6 +27,7 @@ namespace YTS.AdminWebApi.Controllers
         /// </summary>
         /// <param name="request">账户信息</param>
         /// <returns>返回结果</returns>
+        [AllowAnonymous]
         [HttpPost, Route("RequestToken")]
         public ActionResult RequestToken([FromBody] LoginRequestDTO request)
         {

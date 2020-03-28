@@ -26,12 +26,11 @@
     <script type="text/javascript">
         $.ajax({
             type: 'get',
-            url: 'https://localhost:6121/v1/WeatherForecast/data/Get',
-            // url: 'https://localhost:6121/api/Users/GetUsers',
+            url: 'https://localhost:6121/api/Shop_Info/GetShop_InfoList',
             data: '',
             contentType: 'application/json',
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3RyaW5nIiwiZXhwIjoxNTg1MDQzNDU5LCJpc3MiOiJ3ZWJhcGkuY24iLCJhdWQiOiJXZWJBcGkifQ.-DKxzzvcQpQsnlgJXlMjxIa1iKyuAQcOTBCNCI1geXU",
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbktleU1hbmFnZXJJRCI6IjEiLCJDbGFpbktleU1hbmFnZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE1ODUzNzg1MzUsImlzcyI6IlllbGxvd1R1bGlwU2hvdyIsImF1ZCI6IlVzZXJzIn0.Nv6yiA2xRPWap1IH5GA4nQOJUqyW2ZMdBOGPJ5jHGAU",
             },
             beforeSend: function () {
             },
