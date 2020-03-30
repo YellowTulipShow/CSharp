@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="skin/icon/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="skin/default/style.css" />
     <script type="text/javascript" src="extends/jquery-v1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
     <script type="text/javascript" src="scripts/base.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
 </head>
@@ -19,12 +20,12 @@
             <div class="login-logo">LOGO</div>
             <div class="login-form">
                 <div class="col">
-                    <input type="text" id="txtUserName" name="UserName" class="login-input" placeholder="管理员账号" />
-                    <label class="icon" for="txtUserName"><i class="iconfont icon-user"></i></label>
+                    <input type="text" name="UserName" class="login-input" placeholder="管理员账号" />
+                    <label class="icon"><i class="iconfont icon-user"></i></label>
                 </div>
                 <div class="col">
-                    <input type="password" id="txtPassword" name="Password" class="login-input" placeholder="管理员密码" />
-                    <label class="icon" for="txtPassword"><i class="iconfont icon-key"></i></label>
+                    <input type="password" name="Password" class="login-input" placeholder="管理员密码" />
+                    <label class="icon"><i class="iconfont icon-key"></i></label>
                 </div>
                 <div class="col">
                     <div id="btnSubmit" class="login-btn">登&nbsp;录</div>
@@ -42,10 +43,7 @@
                         type: 'POST',
                         contentType: 'application/json',
                         url: Api('/SystemAuthentication/RequestToken'),
-                        data: JSON.stringify({
-                            'UserName': $('#txtUserName').val(),
-                            'Password': $('#txtPassword').val(),
-                        }),
+                        data: JSON.stringify($('#form1').serializeJSON()),
                         success: function (token) {
                             localStorage.setItem('jwtToken', token);
                             var target = callbackURL ?
