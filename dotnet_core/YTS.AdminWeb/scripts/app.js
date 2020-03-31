@@ -1,3 +1,22 @@
+(function () {
+    try {
+        var browser = navigator.appName
+        var b_version = navigator.appVersion
+        var version = b_version.split(";");
+        var trim_Version = version[1].replace(/[ ]/g, "");
+        var isie = browser == "Microsoft Internet Explorer";
+        if (isie && trim_Version == "MSIE6.0") {
+            window.location.href = '/ie6update.html';
+        } else if (isie && trim_Version == "MSIE7.0") {
+            window.location.href = '/ie6update.html';
+        } else if (isie && trim_Version == "MSIE8.0") {
+            window.location.href = '/ie6update.html';
+        } else if (isie && trim_Version == "MSIE9.0") {
+            window.location.href = '/ie6update.html';
+        }
+    } catch(err) { }
+})();
+
 (function() {
     $.ajaxSetup({
         beforeSend: function (xhr) {
