@@ -28,6 +28,12 @@
 
 <body>
     <script type="text/javascript">
+        function funcSuccess(json) {
+            var strjson = JSON.stringify(json);
+            document.write("<br/>" + strjson);
+        }
+    </script>
+    <script type="text/javascript">
         Api.CallPost({
             'url': '/api/TestLearn/SubmitIdAndModel',
             'data': {
@@ -36,10 +42,27 @@
                     "Name": "水水水水水",
                 },
             },
-            success: function (json) {
-                var strjson = JSON.stringify(json);
-                document.write(strjson);
+            'success': funcSuccess,
+        });
+    </script>
+    <script type="text/javascript">
+        Api.CallPost({
+            'url': '/api/TestLearn/SubmitArray',
+            'data': {
+                'ID': 85,
+                "array": [2, 233, 34],
             },
+            'success': funcSuccess,
+        });
+    </script>
+    <script type="text/javascript">
+        Api.CallPost({
+            'url': '/api/TestLearn/SubmitStringAndArray',
+            'data': {
+                'name': '85',
+                "array": [2, 233, 34],
+            },
+            'success': funcSuccess,
         });
     </script>
 </body>
