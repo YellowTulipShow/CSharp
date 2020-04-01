@@ -36,12 +36,64 @@
 })();
 
 (function() {
-    var domain = 'https://localhost:6121';
+    var appConfig = Object.get(window, 'appConfig', {});
     window.Api = {
-        BaseUrl: domain,
-        Call: function(url) {
+        BaseUrl: Object.get(appConfig, 'BaseUrl', ''),
+        UrlFormat: function(url) {
             url = (url || '').trim('/');
-            return domain + '/' + url;
+            return this.BaseUrl + '/' + url;
+        },
+        CallGet: function(args) {
+            args = args || {};
+            var url = Object.get(args, 'url', '');
+            if (!url) {
+                throw "url is null!";
+                return;
+            }
+            $.ajax({
+                type: 'get',
+                url: this.UrlFormat(url),
+                data: Object.get(args, 'data', {}),
+                contentType: Object.get(args, 'contentType', 'application/json'),
+                success: Object.get(args, 'success', function(result) {}),
+                error: Object.get(args, 'error', function(xhr) {}),
+                complete: Object.get(args, 'complete', function(xhr) {})
+            });
+        },
+        CallPost: function(args) {
+            args = args || {};
+            var url = Object.get(args, 'url', '');
+            console.log('url:', url);
+            if (!url) {
+                throw "url is null!";
+                return;
+            }
+            url = this.UrlFormat(url);
+            var data = Object.get(args, 'data', {});
+            var model = null;
+            for (var key in data) {
+                var value = data[key];
+                if (typeof obj === "object") {
+                    if (model == null) {
+                        model = value;
+                    } else {
+                        throw "Not allowed to pass in two model/array parameters!";
+                        return;
+                    }
+                    delete data[key];
+                }
+            }
+            url = url.trimEnd('\\?') + "?";
+            url += PageInfo.ToHttpGETParameter(data);
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: JSON.stringify(model),
+                contentType: Object.get(args, 'contentType', 'application/json'),
+                success: Object.get(args, 'success', function(result) {}),
+                error: Object.get(args, 'error', function(xhr) {}),
+                complete: Object.get(args, 'complete', function(xhr) {})
+            });
         },
     }
 })();

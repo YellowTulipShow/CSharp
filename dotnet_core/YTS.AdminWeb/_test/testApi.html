@@ -19,28 +19,27 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="Scripts/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../extends/jquery-v1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
+    <script type="text/javascript" src="../scripts/base.js"></script>
+    <script type="text/javascript" src="../scripts/appConfig.js"></script>
+    <script type="text/javascript" src="../scripts/app.js"></script>
 </head>
 
 <body>
     <script type="text/javascript">
-        $.ajax({
-            type: 'get',
-            url: 'https://localhost:6121/api/Shop_Info/GetShop_InfoList',
-            data: '',
-            contentType: 'application/json',
-            headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbktleU1hbmFnZXJJRCI6IjEiLCJDbGFpbktleU1hbmFnZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE1ODUzODE3NjYsImlzcyI6IlllbGxvd1R1bGlwU2hvdyIsImF1ZCI6IlVzZXJzIn0.inYtGxd9f00cayYToFkwfGARmrk-j4tYXylUOb1jvQU",
-            },
-            beforeSend: function () {
+        Api.CallPost({
+            'url': '/api/TestLearn/SubmitIdAndModel',
+            'data': {
+                'ID': 85,
+                "model": {
+                    "Name": "水水水水水",
+                },
             },
             success: function (json) {
                 var strjson = JSON.stringify(json);
                 document.write(strjson);
             },
-            complete: function (json) {
-                console.log(json);
-            }
         });
     </script>
 </body>

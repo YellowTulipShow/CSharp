@@ -300,6 +300,14 @@
             }
             return "Unrecognized"; // 无法识别
         },
+        ToHttpGETParameter: function(object) {
+            var strs = [];
+            for (var key in object) {
+                var value = encodeURIComponent(object[key]);
+                strs.push(key + "=" + value);
+            }
+            return strs.join('&');
+        },
     };
 })();
 
@@ -509,14 +517,6 @@
 
             s_date = s_date.replace(/-/g,"/");
             return new Date(s_date);
-        },
-        ToHttpGETParameter: function(object) {
-            var str = "";
-            for (var key in object) {
-                var value = object[key];
-                str += "&" + key + "=" + value;
-            }
-            return str.substr(1);
         },
         getBase64Chars: function (argument) {
             return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
