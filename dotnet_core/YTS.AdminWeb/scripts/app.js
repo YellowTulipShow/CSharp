@@ -25,7 +25,8 @@
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             }
         },
-        complete: function(xhr) {
+        complete: function(xhr, status) {
+            console.log('xhr:',xhr);
             if(xhr.status == 401){
                 window.localStorage.setItem('jwtToken', null);
                 var uri_encode = encodeURIComponent(window.location.href);
@@ -57,8 +58,10 @@
                 data: Object.get(args, 'data', {}),
                 contentType: Object.get(args, 'contentType', 'application/json'),
                 success: Object.get(args, 'success', function(result) {}),
-                error: Object.get(args, 'error', self.funcError),
-                complete: Object.get(args, 'complete', function(xhr) {})
+                error: function(xhr) {
+                    self.funcError(xhr);
+                    Object.get(args, 'error', function(xhr) {})(xhr);
+                },
             });
         },
         CallPost: function(args) {
@@ -84,8 +87,8 @@
                     delete data[key];
                 }
             }
-            url = url.trimEnd('\\?') + "?";
             if (model) {
+                url = url.trimEnd('\\?') + "?";
                 url += PageInfo.ToHttpGETParameter(data);
             }
             $.ajax({
@@ -94,8 +97,10 @@
                 data: model ? JSON.stringify(model) : data,
                 contentType: Object.get(args, 'contentType', 'application/json'),
                 success: Object.get(args, 'success', function(result) {}),
-                error: Object.get(args, 'error', self.funcError),
-                complete: Object.get(args, 'complete', function(xhr) {})
+                error: function(xhr) {
+                    self.funcError(xhr);
+                    Object.get(args, 'error', function(xhr) {})(xhr);
+                },
             });
         },
         funcError: function(xhr) {
@@ -104,7 +109,7 @@
             var responseTitle = Object.get(responseJSON, 'title', '');
             var status = Object.get(xhr, 'status', 0);
             var statusText = Object.get(xhr, 'statusText', '');
-            console.log('status: {0}, errorMessage: {1}'.format(
+            console.error('status: {0}, errorMessage: {1}'.format(
                 responseStatus || status,
                 responseTitle || statusText));
         },

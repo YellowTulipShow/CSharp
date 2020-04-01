@@ -29,7 +29,7 @@ namespace YTS.AdminWebApi.Controllers
         /// <returns>返回结果</returns>
         [AllowAnonymous]
         [HttpPost, Route("RequestToken")]
-        public ActionResult RequestToken([FromBody] LoginRequestDTO request)
+        public ActionResult RequestToken(LoginRequestDTO request)
         {
             if (!ModelState.IsValid)
             {

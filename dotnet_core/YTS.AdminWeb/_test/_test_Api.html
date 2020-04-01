@@ -60,9 +60,22 @@
             'url': '/api/TestLearn/SubmitStringAndArray',
             'data': {
                 'name': '85',
-                "array": [2, 233, 34],
+                "array": [2, 233, 94],
             },
             'success': funcSuccess,
+        });
+    </script>
+    <script type="text/javascript">
+        Api.CallPost({
+            'url': '/api/TestLearn/SubmitStringAndArray',
+            'data': {
+                'name': '85',
+                "array": [2, 233, '34'],
+            },
+            'success': funcSuccess,
+            'error': function(xhr) {
+                document.write(xhr.status);
+            }
         });
     </script>
 </body>
