@@ -26,7 +26,6 @@
             }
         },
         complete: function(xhr, status) {
-            console.log('xhr:',xhr);
             if(xhr.status == 401){
                 window.localStorage.setItem('jwtToken', null);
                 var uri_encode = encodeURIComponent(window.location.href);

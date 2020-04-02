@@ -22,24 +22,32 @@
         .layoutBoxLeft { width: 20%; }
     </style>
 </head>
-<body class="easyui-panel winHtml" fit="true">
-    <div class="easyui-panel winBody" fit="true">
-        <div class="easyui-layout winBody" fit="true">
-            <div data-options="region:'north',split:true,title:'顶部'," class="layoutBoxTop"></div>
-            <div data-options="region:'west',split:true,title:'右边'," class="layoutBoxLeft"></div>
-            <div data-options="region:'center',split:true,title:'中间',"></div>
+<body>
+    <div class="easyui-panel winHtml" data-options="border: false, fit:true,">
+        <div class="easyui-panel winBody" data-options="border: false, fit:true">
+            <div class="easyui-layout winBody" fit="true">
+                <div data-options="region:'north',split:true,title:'顶部'," class="layoutBoxTop">
+
+                </div>
+                <div data-options="region:'west',split:true,title:'右边'," class="layoutBoxLeft">
+
+                </div>
+                <div data-options="region:'center',split:true,title:'中间',">
+                </div>
+            </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            Api.CallGet({
-                'url': '/api/Shop_Info/GetShop_InfoList',
-                success: function (token) {
-                },
-                error: function (xhr) {
-                },
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // return;
+                Api.CallGet({
+                    'url': '/api/Shop_Info/GetShop_InfoList',
+                    success: function (json) {
+                    },
+                    error: function (xhr) {
+                    },
+                });
             });
-        });
-    </script>
+        </script>
+    </div>
 </body>
 </html>
