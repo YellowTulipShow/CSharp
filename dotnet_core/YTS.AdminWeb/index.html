@@ -22,42 +22,77 @@
     <script type="text/javascript" charset="utf-8" src="scripts/base.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/appConfig.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/app.js"></script>
+    <style type="text/css">
+        .layoutBoxTop {
+            height: 42px;
+            background-color: #fafafa;
+            border-bottom: 1px solid #eee;
+        }
+        .layoutBoxLeft {
+            width: 180px;
+            background-color: #267cb7;
+            border-right: 1px solid #eee;
+        }
+        .layoutBoxLeft.LOGO {
+            background-color: transparent;
+        }
+        .easyui-layout {
+            background: #fafafa;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+            -moz-box-sizing: inherit;
+            -webkit-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+    </style>
 </head>
+<body>
+    <div class="easyui-panel winHtml" data-options="border: false, fit:true,">
+        <div class="easyui-panel winBody" data-options="border: false, fit:true,">
+            <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                <div data-options="region:'west', border: false," class="layoutBoxLeft">
+                    <div class="easyui-layout winBody">
+                        <div data-options="region:'north', border: false," class="layoutBoxTop">
+                            <div data-options="region:'west', border: false," class="layoutBoxLeft LOGO">
+                                <span>LOGO</span>
+                            </div>
+                        </div>
+                    </div>
 
-<body class="indexbody">
-    <form id="form1">
-        <div class="main-top">
-            <div class="nav-right">
-                <div class="info">
-                    <h4><i class="iconfont icon-user"></i></h4>
-                    <span>您好, <i>管理员</i><br/><i>组名</i></span>
+                    <div class="main-left">
+                        <h1 class="logo"></h1>
+                        <div id="sidebar-nav" class="sidebar-nav">
+                        </div>
+                    </div>
                 </div>
-                <div class="option">
-                    <i class="iconfont icon-arrow-down"></i>
-                    <div class="drop-wrap">
-                        <ul class="item">
-                            <li>
-                                <a href="manager/manager_pwd.aspx" onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
-                            </li>
-                            <li>
-                                <a href="" onclick="">注销登录</a>
-                            </li>
-                        </ul>
+                <div data-options="region:'center', border: false," style="position: relative;">
+                    <div class="main-top">
+                        <div class="nav-right">
+                            <div class="info">
+                                <h4><i class="iconfont icon-user"></i></h4>
+                                <span>您好, <i>管理员</i><br/><i>组名</i></span>
+                            </div>
+                            <div class="option">
+                                <i class="iconfont icon-arrow-down"></i>
+                                <div class="drop-wrap">
+                                    <ul class="item">
+                                        <li>
+                                            <a href="manager/manager_pwd.aspx" onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
+                                        </li>
+                                        <li>
+                                            <a href="" onclick="">注销登录</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-container" style="-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:scroll;">
+                        <iframe id="mainframe" name="mainframe" frameborder="0" src=""></iframe>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="main-left">
-            <h1 class="logo"></h1>
-            <div id="sidebar-nav" class="sidebar-nav">
-
-            </div>
-        </div>
-
-        <div class="main-container" style="-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:scroll;">
-            <iframe id="mainframe" name="mainframe" frameborder="0" src=""></iframe>
-        </div>
-    </form>
+    </div>
 </body>
 </html>
