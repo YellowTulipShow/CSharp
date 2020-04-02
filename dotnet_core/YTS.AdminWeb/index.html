@@ -49,23 +49,25 @@
     <div class="easyui-panel winHtml" data-options="border: false, fit:true,">
         <div class="easyui-panel winBody" data-options="border: false, fit:true,">
             <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                <!-- 左边导航栏 -->
                 <div data-options="region:'west', border: false," class="layoutBoxLeft">
-                    <div class="easyui-layout winBody">
-                        <div data-options="region:'north', border: false," class="layoutBoxTop">
-                            <div data-options="region:'west', border: false," class="layoutBoxLeft LOGO">
-                                <span>LOGO</span>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 顶部LOGO -->
+                    <h1 class="logo"></h1>
 
-                    <div class="main-left">
-                        <h1 class="logo"></h1>
-                        <div id="sidebar-nav" class="sidebar-nav">
-                        </div>
+                    <!-- 导航栏内容 -->
+                    <div class="easyui-panel" style="padding:5px">
+                        <ul id="IDTreeMenu" class="easyui-tree"
+                            data-options="
+                            url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
+                            method:'get',
+                            animate:true,"></ul>
                     </div>
                 </div>
+
+                <!-- 右边Body内容 -->
                 <div data-options="region:'center', border: false," style="position: relative;">
-                    <div class="main-top">
+                    <!-- 顶部标题部分 -->
+                    <div class="main-top" style="position: relative; height: 42px;">
                         <div class="nav-right">
                             <div class="info">
                                 <h4><i class="iconfont icon-user"></i></h4>
@@ -87,8 +89,31 @@
                         </div>
                     </div>
 
-                    <div class="main-container" style="-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:scroll;">
-                        <iframe id="mainframe" name="mainframe" frameborder="0" src=""></iframe>
+                    <!-- 正文标签内容 -->
+                    <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                        <div data-options="region:'center', border: false,">
+                            <div class="easyui-panel winBody" data-options="border: false, fit:true,">
+                                <div class="easyui-tabs" data-options="tools:'#tab-tools'," style="width: 100%; height: 100%;">
+                                    <div title="Iframe" data-options="closable:true" style="-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:scroll;">
+                                        <iframe frameborder="0" src="https://www.baidu.com/" style="width: 100%; height: 100%;"></iframe>
+                                    </div>
+                                    <div title="Iframe" data-options="closable:true" style="overflow:scroll">
+                                        <iframe scrolling="yes" frameborder="0"  src="https://www.baidu.com/" style="width:100%;height:100%;"></iframe>
+                                    </div>
+                                    <div title="Iframe" data-options="closable:true" style="overflow:hidden">
+                                        <iframe scrolling="yes" frameborder="0"  src="http://baidu.com" style="width:100%;height:100%;"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="easyui-menubutton" data-options="menu:'#mm1', iconCls:'icon-edit'">Edit</a>
+                            <div id="mm1" style="width:150px;">
+                                <div class="menu-sep"></div>
+                                <div>Cut</div>
+                                <div>Copy</div>
+                                <div>Paste</div>
+                                <div>Select All</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
