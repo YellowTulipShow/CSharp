@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>后台管理中心</title>
+
+    <link rel="stylesheet" type="text/css" href="extends/jquery-easyui-1.8.6/themes/insdep/easyui.css">
+    <link rel="stylesheet" type="text/css" href="extends/jquery-easyui-1.8.6/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/default/style.css" />
+    <link rel="stylesheet" type="text/css" href="style/base.css">
+
+    <script type="text/javascript" src="extends/jquery-v1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
+    <script type="text/javascript" src="extends/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="scripts/base.js"></script>
+    <script type="text/javascript" src="scripts/appConfig.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <style type="text/css">
+        .layoutBoxTop {
+            height: 42px;
+            background-color: #fafafa;
+            border-bottom: 1px solid #eee;
+        }
+        .layoutBoxLeft {
+            width: 180px;
+            background-color: #267cb7;
+            border-right: 1px solid #eee;
+        }
+        .layoutBoxLeft.LOGO {
+            background-color: transparent;
+        }
+        .easyui-layout {
+            background: #fafafa;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+            -moz-box-sizing: inherit;
+            -webkit-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="easyui-panel winHtml" data-options="border: false, fit:true,">
+        <div class="easyui-panel winBody" data-options="border: false, fit:true,">
+            <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                <div data-options="region:'north', border: false," class="layoutBoxTop">
+                    <div class="easyui-layout winBody">
+                        <div data-options="region:'west', border: false," class="layoutBoxLeft LOGO">
+                            <span>LOGO</span>
+                        </div>
+
+
+        <div class="main-top">
+            <!-- <a class="icon-menu"><i class="iconfont icon-nav"></i></a> -->
+            <!-- <div id="main-nav" class="main-nav"></div> -->
+            <div class="nav-right">
+                <div class="info">
+                    <h4><i class="iconfont icon-user"></i></h4>
+                    <span>您好, <i>管理员</i><br/><i>组名</i></span>
+                </div>
+                <div class="option">
+                    <i class="iconfont icon-arrow-down"></i>
+                    <div class="drop-wrap">
+                        <ul class="item">
+                            <li>
+                                <a href="../" target="_blank">预览网站</a>
+                            </li>
+                            <li>
+                                <a href="center.aspx" target="mainframe">管理中心</a>
+                            </li>
+                            <li>
+                                <a href="manager/manager_pwd.aspx" onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
+                            </li>
+                            <li>
+                                <asp:LinkButton ID="lbtnExit" runat="server" OnClick="lbtnExit_Click">注销登录</asp:LinkButton>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    </div>
+                </div>
+                <div data-options="region:'west', border: false," class="layoutBoxLeft">
+                </div>
+                <div data-options="region:'center', border: false,">
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // return;
+                Api.CallGet({
+                    'url': '/api/Shop_Info/GetShop_InfoList',
+                    success: function (json) {
+                    },
+                    error: function (xhr) {
+                    },
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
