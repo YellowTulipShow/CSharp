@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YTS.Shop;
+using YTS.Shop.Models;
+using YTS.Shop.Tools;
 using YTS.Tools;
 using YTS.WebApi;
 
@@ -41,23 +43,22 @@ namespace YTS.AdminWebApi.Controllers
         [HttpGet]
         public ActionResult InitFirstManager()
         {
-            if (db.Manager.Count() > 0)
+            if (db.Managers.Count() > 0)
             {
                 return BadRequest("无须初始化!");
             }
-            var manager = new Manager()
+            var manager = new Managers()
             {
                 Account = "admin",
                 Password = "123456",
                 NickName = "admin",
                 TrueName = "admin",
+                Phone = "",
                 AddManagerID = 0,
                 AddTime = DateTime.Now,
-                Phone = "",
-                UserGroupID = null,
             };
-            manager.Password = Manager.EncryptionPassword(manager.Password);
-            db.Manager.Add(manager);
+            manager.Password = ManageAuthentication.EncryptionPassword(manager.Password);
+            db.Managers.Add(manager);
             db.SaveChanges();
             return Ok("初始化成功!");
         }

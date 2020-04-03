@@ -7,6 +7,7 @@ using YTS.Shop;
 using System;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using YTS.Shop.Models;
 
 namespace YTS.AdminWebApi.Controllers
 {

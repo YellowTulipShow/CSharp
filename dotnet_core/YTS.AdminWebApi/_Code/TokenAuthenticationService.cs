@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using YTS.Shop;
+using YTS.Shop.Models;
 
 namespace YTS.WebApi
 {
@@ -27,7 +27,7 @@ namespace YTS.WebApi
         public bool IsAuthenticated(LoginRequestDTO request, out string token)
         {
             token = string.Empty;
-            Manager manager = _userService.IsValid(request);
+            Managers manager = _userService.IsValid(request);
             if (manager == null)
                 return false;
             var claims = ShopClainInfos(manager);
@@ -41,7 +41,7 @@ namespace YTS.WebApi
             return true;
         }
 
-        public Claim[] ShopClainInfos(Manager manager)
+        public Claim[] ShopClainInfos(Managers manager)
         {
             return new Claim[]
             {

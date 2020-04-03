@@ -1,8 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace YTS.Shop
+namespace YTS.Shop.Models
 {
     /// <summary>
     /// 最高管理员

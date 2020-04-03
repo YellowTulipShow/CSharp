@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using YTS.Shop;
+using YTS.Shop.Models;
 using YTS.Tools;
 
 namespace YTS.WebApi
@@ -26,19 +27,19 @@ namespace YTS.WebApi
             return auth.Result.Principal.Claims.FirstOrDefault(m => m.Type.Equals(keyName))?.Value;
         }
 
-        private Manager _manager;
+        private Managers _manager;
 
         /// <summary>
         /// 获取管理员信息
         /// </summary>
         /// <param name="db">需要传入的数据库上下文</param>
-        protected Manager GetManager(YTSEntityContext db)
+        protected Managers GetManager(YTSEntityContext db)
         {
             if (_manager != null)
                 return _manager;
             int ID = ConvertTool.ToInt(GetJwtPayloadValue(ApiConfig.ClainKey_ManagerID), 0);
             string Account = GetJwtPayloadValue(ApiConfig.ClainKey_ManagerName);
-            var model = db.Manager.Where(m => m.ID == ID && m.Account == m.Account).FirstOrDefault();
+            var model = db.Managers.Where(m => m.ID == ID && m.Account == m.Account).FirstOrDefault();
             if (model == null)
                 throw new NullReferenceException("身份验证已过期!");
             _manager = model;

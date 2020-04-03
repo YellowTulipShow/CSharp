@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using YTS.Shop;
+using YTS.Shop.Models;
+using YTS.Shop.Tools;
 
 namespace YTS.WebApi
 {
@@ -9,7 +11,7 @@ namespace YTS.WebApi
         /// <summary>
         /// 判断是否验证通过
         /// </summary>
-        Manager IsValid(LoginRequestDTO req);
+        Managers IsValid(LoginRequestDTO req);
     }
 
     public class UserService : IUserService
@@ -20,12 +22,12 @@ namespace YTS.WebApi
             this.db = db;
         }
 
-        public Manager IsValid(LoginRequestDTO req)
+        public Managers IsValid(LoginRequestDTO req)
         {
             if (string.IsNullOrWhiteSpace(req.UserName) || string.IsNullOrWhiteSpace(req.Password))
                 return null;
-            var encryPwd = Manager.EncryptionPassword(req.Password);
-            return db.Manager
+            var encryPwd = ManageAuthentication.EncryptionPassword(req.Password);
+            return db.Managers
                 .Where(m => m.Account == req.UserName && m.Password == encryPwd)
                 .FirstOrDefault();
         }

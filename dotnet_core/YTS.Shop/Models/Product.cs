@@ -1,13 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace YTS.Shop
+namespace YTS.Shop.Models
 {
     /// <summary>
-    /// 店铺信息
+    /// 产品
     /// </summary>
-    public class Shop_Info
+    public class Product
     {
         /// <summary>
         /// ID
@@ -16,19 +15,34 @@ namespace YTS.Shop
         public int ID { get; set; }
 
         /// <summary>
-        /// 店铺名称
+        /// 产品名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 备注
+        /// 产品价格
         /// </summary>
-        public string Remark { get; set; }
+        public string Price { get; set; }
+
+        /// <summary>
+        /// 产品数量
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
+        /// 是否无限数量
+        /// </summary>
+        public bool IsUnlimitedNumber { get; set; }
+
+        /// <summary>
+        /// 是否实物产品
+        /// </summary>
+        public bool IsPhysicalEntity  { get; set; }
 
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime? AddTime { get; set; }
+        public DateTime AddTime { get; set; }
 
         /// <summary>
         /// 添加人Id

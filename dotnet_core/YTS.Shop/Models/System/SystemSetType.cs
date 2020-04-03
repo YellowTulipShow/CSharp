@@ -1,13 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace YTS.Shop
+namespace YTS.Shop.Models
 {
     /// <summary>
-    /// 用户组
+    /// 最高管理员
     /// </summary>
-    public class Shop_UserGroup
+    public class SystemSetType
     {
         /// <summary>
         /// ID
@@ -16,33 +15,33 @@ namespace YTS.Shop
         public int ID { get; set; }
 
         /// <summary>
-        /// 店铺信息ID
+        /// 上级ID
         /// </summary>
-        public int ShopInfoID { get; set; }
+        public int? ParentID { get; set; }
 
         /// <summary>
-        /// 店铺信息实体
+        /// 关键字
         /// </summary>
-        public Shop_Info ShopInfo { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
-        /// 组名
+        /// 值内容
         /// </summary>
-        public string GroupName { get; set; }
+        public string Value { get; set; }
+
+        /// <summary>
+        /// 解释
+        /// </summary>
+        public string Explain { get; set; }
+
+        /// <summary>
+        /// 排序顺序
+        /// </summary>
+        public string Ordinal { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
         public string Remark { get; set; }
-
-        /// <summary>
-        /// 添加时间
-        /// </summary>
-        public DateTime? AddTime { get; set; }
-
-        /// <summary>
-        /// 添加人Id
-        /// </summary>
-        public int? AddManagerID { get; set; }
     }
 }

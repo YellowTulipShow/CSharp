@@ -1,12 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 using YTS.Tools;
 using YTS.WebApi;
 using YTS.Shop;
-using System;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore;
+using YTS.Shop.Models;
+using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -21,7 +23,7 @@ namespace YTS.AdminWebApi.Controllers
         [HttpGet]
         public object GetManagerList()
         {
-            var list = db.Manager.AsQueryable();
+            var list = db.Managers.AsQueryable();
             int total = list.Count();
             var result = list
                 .OrderByDescending(m => m.ID)
@@ -44,7 +46,7 @@ namespace YTS.AdminWebApi.Controllers
                     Message = @"ID为空!",
                 };
             }
-            var model = db.Manager.Where(m => m.ID == ID).FirstOrDefault();
+            var model = db.Managers.Where(m => m.ID == ID).FirstOrDefault();
             return new Result<object>()
             {
                 Code = ResultCode.OK,
@@ -54,7 +56,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> EditManager([FromBody] Manager model)
+        public Result<object> EditManager(Managers model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -68,13 +70,13 @@ namespace YTS.AdminWebApi.Controllers
             {
                 model.AddTime = DateTime.Now;
                 model.AddManagerID = GetManager(db).ID;
-                model.Password = Manager.EncryptionPassword(model.Password);
-                db.Manager.Add(model);
+                model.Password = ManageAuthentication.EncryptionPassword(model.Password);
+                db.Managers.Add(model);
             }
             else
             {
-                db.Manager.Attach(model);
-                EntityEntry<Manager> entry = db.Entry(model);
+                db.Managers.Attach(model);
+                EntityEntry<Managers> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
                 entry.Property(gp => gp.AddTime).IsModified = false;
                 entry.Property(gp => gp.AddManagerID).IsModified = false;
@@ -97,7 +99,7 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            db.Manager.RemoveRange(db.Manager.Where(a => IDs.Contains(a.ID)).ToList());
+            db.Managers.RemoveRange(db.Managers.Where(a => IDs.Contains(a.ID)).ToList());
 
             db.SaveChanges();
             result.Code = ResultCode.OK;
