@@ -18,6 +18,9 @@ namespace YTS.Shop
             modelBuilder.Entity<SystemSetType>().ToTable("SystemSetType");
 
             modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<ProductDamagedRecord>().ToTable("ProductDamagedRecord");
+            modelBuilder.Entity<ProductEnterWarehouseRecord>().ToTable("ProductEnterWarehouseRecord");
+            modelBuilder.Entity<ProductNumberRecord>().ToTable("ProductNumberRecord");
             modelBuilder.Entity<ShopInfo>().ToTable("ShopInfo");
             modelBuilder.Entity<UserExpensesRecord>().ToTable("UserExpensesRecord");
             modelBuilder.Entity<UserGroup>().ToTable("UserGroup");
@@ -35,6 +38,9 @@ namespace YTS.Shop
         public DbSet<SystemSetType> SystemSetType { get; set; }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<ProductDamagedRecord> ProductDamagedRecord { get; set; }
+        public DbSet<ProductEnterWarehouseRecord> ProductEnterWarehouseRecord { get; set; }
+        public DbSet<ProductNumberRecord> ProductNumberRecord { get; set; }
         public DbSet<ShopInfo> ShopInfo { get; set; }
         public DbSet<UserExpensesRecord> UserExpensesRecord { get; set; }
         public DbSet<UserGroup> UserGroup { get; set; }

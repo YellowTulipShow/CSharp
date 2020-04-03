@@ -39,7 +39,6 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 用户充值设置
         /// </summary>
-        [NotMapped]
         [ForeignKey("UserRechargeSetID")]
         public UserRechargeSet UserRechargeSet { get; set; }
 

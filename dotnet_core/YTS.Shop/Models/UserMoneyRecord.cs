@@ -22,7 +22,6 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 用户
         /// </summary>
-        [NotMapped]
         [ForeignKey("UserID")]
         public Users User { get; set; }
 

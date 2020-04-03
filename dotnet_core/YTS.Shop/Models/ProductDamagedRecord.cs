@@ -4,41 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace YTS.Shop.Models
 {
     /// <summary>
-    /// 用户消费记录
+    /// 产品报损记录
     /// </summary>
-    public class UserExpensesRecord
+    public class ProductDamagedRecord
     {
         /// <summary>
         /// ID
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-
-        /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// 用户
-        /// </summary>
-        [ForeignKey("UserID")]
-        public Users User { get; set; }
-
-        /// <summary>
-        /// 用户名称
-        /// </summary>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// 批次号
-        /// </summary>
-        public string BatchNo { get; set; }
-
-        /// <summary>
-        /// 消费单号
-        /// </summary>
-        public string ExpensesOrderNo { get; set; }
 
         /// <summary>
         /// 产品ID
@@ -57,24 +31,14 @@ namespace YTS.Shop.Models
         public string ProductName { get; set; }
 
         /// <summary>
-        /// 产品价格
+        /// 批次号
         /// </summary>
-        public decimal ProductPrice { get; set; }
+        public string BatchNo { get; set; }
 
         /// <summary>
-        /// 产品购买数量
+        /// 报损数量
         /// </summary>
-        public int ProductBuyNumber { get; set; }
-
-        /// <summary>
-        /// 产品消费金额
-        /// </summary>
-        public decimal ProductExpensesMoney { get; set; }
-
-        /// <summary>
-        /// 产品实际购买支付金额
-        /// </summary>
-        public decimal ProductPayMoney { get; set; }
+        public int Number { get; set; }
 
         /// <summary>
         /// 添加时间

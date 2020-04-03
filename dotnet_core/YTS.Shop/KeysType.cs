@@ -22,5 +22,26 @@ namespace YTS.Shop
             /// </summary>
             Refund = 3,
         }
+
+        /// <summary>
+        /// 产品数量修改记录操作类型
+        /// </summary>
+        public enum ProductNumberRecordOperateType
+        {
+            /// <summary>
+            /// 入库
+            /// </summary>
+            EnterWarehouse = 1,
+
+            /// <summary>
+            /// 售出
+            /// </summary>
+            Sold = 2,
+
+            /// <summary>
+            /// 报损
+            /// </summary>
+            Damaged = 3,
+        }
     }
 }

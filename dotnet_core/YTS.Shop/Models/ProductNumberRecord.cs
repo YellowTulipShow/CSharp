@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace YTS.Shop.Models
 {
     /// <summary>
-    /// 用户退货记录
+    /// 产品数量修改记录
     /// </summary>
-    public class UserReturnGoodsRecord
+    public class ProductNumberRecord
     {
         /// <summary>
         /// ID
@@ -15,35 +15,15 @@ namespace YTS.Shop.Models
         public int ID { get; set; }
 
         /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// 用户
-        /// </summary>
-        [ForeignKey("UserID")]
-        public Users User { get; set; }
-
-        /// <summary>
-        /// 用户名称
-        /// </summary>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// 用户消费记录ID
-        /// </summary>
-        public int? UserExpensesRecordID { get; set; }
-
-        /// <summary>
-        /// 用户消费记录单号
-        /// </summary>
-        public string UserExpensesRecordOrderNo { get; set; }
-
-        /// <summary>
         /// 产品ID
         /// </summary>
-        public int? ProductID { get; set; }
+        public int ProductID { get; set; }
+
+        /// <summary>
+        /// 产品
+        /// </summary>
+        [ForeignKey("ProductID")]
+        public Product Product { get; set; }
 
         /// <summary>
         /// 产品名称
@@ -51,24 +31,24 @@ namespace YTS.Shop.Models
         public string ProductName { get; set; }
 
         /// <summary>
-        /// 产品价格
+        /// 操作类型
         /// </summary>
-        public decimal? ProductPrice { get; set; }
+        public int OperateType { get; set; }
 
         /// <summary>
-        /// 产品退货数量
+        /// 操作产品数量
         /// </summary>
-        public int? ReturnNumber { get; set; }
+        public int OperateNumber { get; set; }
 
         /// <summary>
-        /// 退货金额
+        /// 是否无限数量
         /// </summary>
-        public decimal? ReturnMoney { get; set; }
+        public bool IsUnlimitedNumber { get; set; }
 
         /// <summary>
-        /// 实际退货金额
+        /// 相关标识
         /// </summary>
-        public decimal ActualReturnMoney { get; set; }
+        public string RelatedSign { get; set; }
 
         /// <summary>
         /// 添加时间
