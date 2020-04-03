@@ -26,6 +26,7 @@ namespace Test.ConsoleProgram
             return new List<CaseModel>()
             {
                 new Base.HelloWorld(),
+                new Base.Test_FilePath(),
                 // new Base.BaseProgram(),
             };
         }
