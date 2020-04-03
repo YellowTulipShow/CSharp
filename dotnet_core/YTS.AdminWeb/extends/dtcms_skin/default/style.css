@@ -46,7 +46,7 @@ a:active, a:hover{ color:#0065D9; text-decoration:underline; }
         .nav-right .option i{ display:block; width:20px; height:42px; text-align:center; color:#666; font-size:18px; line-height:42px; }
         .nav-right .option:hover{ background:#fff; }
         .nav-right .option:hover .drop-wrap{ display:block; }
-        .drop-wrap{ display:none; position:absolute; top:42px; right:1px; }
+        .drop-wrap{ display:none; position:fixed; top:42px; right:1px; }
         .drop-wrap .item{ margin-top:0px; padding:10px; border:1px solid #dbdbdb; background:#fff; box-shadow:0 0 4px 0 rgba(0, 0, 0, 0.1); }
         .drop-wrap .item li a{ display:block; padding:8px 15px; color:#686f7f; font-size:12px; line-height:1em; text-align:center; white-space:nowrap; }
         .drop-wrap .item li a:hover{ color:#fff; text-decoration:none; background:#16a0d3; }

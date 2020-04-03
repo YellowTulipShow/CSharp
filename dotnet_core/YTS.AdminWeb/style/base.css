@@ -15,11 +15,7 @@
     box-sizing: inherit;
 }
 html { -webkit-text-size-adjust: none; overflow-y: scroll; }
-a {
-    text-decoration: none;
-    display: block;
-    width: 100%;
-}
+a { text-decoration: none; }
 .a:active,
 .a:hover,
 a:active,

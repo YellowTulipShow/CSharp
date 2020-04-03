@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>后台管理中心</title>
 
@@ -10,13 +12,15 @@
     <link rel="stylesheet" type="text/css" href="extends/jquery-easyui-1.8.6/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/icon/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/default/style.css" />
+    <link rel="stylesheet" type="text/css" href="style/base.css" />
 
     <script type="text/javascript" src="extends/jquery-v1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
     <script type="text/javascript" src="extends/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/jquery/jquery.nicescroll.js"></script>
-    <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/artdialog/dialog-plus-min.js"></script>
+    <script type="text/javascript" charset="utf-8"
+        src="extends/dtcms_skin/script/artdialog/dialog-plus-min.js"></script>
     <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/layindex.js"></script> -->
     <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/common.js"></script> -->
     <script type="text/javascript" charset="utf-8" src="scripts/base.js"></script>
@@ -28,14 +32,17 @@
             background-color: #fafafa;
             border-bottom: 1px solid #eee;
         }
+
         .layoutBoxLeft {
             width: 180px;
             background-color: #267cb7;
             border-right: 1px solid #eee;
         }
+
         .layoutBoxLeft.LOGO {
             background-color: transparent;
         }
+
         .easyui-layout {
             background: #fafafa;
             box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
@@ -45,6 +52,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="easyui-panel winHtml" data-options="border: false, fit:true,">
         <div class="easyui-panel winBody" data-options="border: false, fit:true,">
@@ -56,8 +64,7 @@
 
                     <!-- 导航栏内容 -->
                     <div class="easyui-panel" style="padding:5px">
-                        <ul id="IDTreeMenu" class="easyui-tree"
-                            data-options="
+                        <ul id="IDTreeMenu" class="easyui-tree" data-options="
                             url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
                             method:'get',
                             animate:true,"></ul>
@@ -65,53 +72,60 @@
                 </div>
 
                 <!-- 右边Body内容 -->
-                <div data-options="region:'center', border: false," style="position: relative;">
-                    <!-- 顶部标题部分 -->
-                    <div class="main-top" style="position: relative; height: 42px;">
-                        <div class="nav-right">
-                            <div class="info">
-                                <h4><i class="iconfont icon-user"></i></h4>
-                                <span>您好, <i>管理员</i><br/><i>组名</i></span>
-                            </div>
-                            <div class="option">
-                                <i class="iconfont icon-arrow-down"></i>
-                                <div class="drop-wrap">
-                                    <ul class="item">
-                                        <li>
-                                            <a href="manager/manager_pwd.aspx" onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
-                                        </li>
-                                        <li>
-                                            <a href="" onclick="">注销登录</a>
-                                        </li>
-                                    </ul>
+                <div data-options="region:'center', border: false,">
+                    <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                        <!-- 顶部标题部分 -->
+                        <div data-options="region:'north', border: false,">
+                            <div class="main-top" style="position: relative; height: 42px;">
+                                <div class="nav-right">
+                                    <div class="info">
+                                        <h4><i class="iconfont icon-user"></i></h4>
+                                        <span>您好, <i>管理员</i><br /><i>组名</i></span>
+                                    </div>
+                                    <div class="option">
+                                        <i class="iconfont icon-arrow-down"></i>
+                                        <div class="drop-wrap">
+                                            <ul class="item">
+                                                <li>
+                                                    <a href="manager/manager_pwd.aspx"
+                                                        onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
+                                                </li>
+                                                <li>
+                                                    <a href="" onclick="">注销登录</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 正文标签内容 -->
-                    <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                        <!-- 正文标签内容 -->
                         <div data-options="region:'center', border: false,">
                             <div class="easyui-panel winBody" data-options="border: false, fit:true,">
-                                <div class="easyui-tabs" data-options="tools:'#tab-tools'," style="width: 100%; height: 100%;">
-                                    <div title="Iframe" data-options="closable:true" style="-webkit-overflow-scrolling:touch;overflow-y:scroll;overflow-x:scroll;">
-                                        <iframe frameborder="0" src="https://www.baidu.com/" style="width: 100%; height: 100%;"></iframe>
-                                    </div>
-                                    <div title="Iframe" data-options="closable:true" style="overflow:scroll">
-                                        <iframe scrolling="yes" frameborder="0"  src="https://www.baidu.com/" style="width:100%;height:100%;"></iframe>
-                                    </div>
-                                    <div title="Iframe" data-options="closable:true" style="overflow:hidden">
-                                        <iframe scrolling="yes" frameborder="0"  src="http://baidu.com" style="width:100%;height:100%;"></iframe>
+                                <div class="easyui-tabs"
+                                     style="width: 100%; height: 100%;"
+                                     data-options="
+                                        tools:'#IDTabsTools',
+                                        toolPosition:'right',
+                                        tabPosition:'top',
+                                        ">
+
+                                    <div title="Iframe" data-options="closable:true"
+                                         style="width: 100%; height: 100%; overflow:hidden;">
+                                        <iframe frameborder="0" src="https://www.baidu.com/"
+                                                style="width: 100%; height: 100%;"></iframe>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" class="easyui-menubutton" data-options="menu:'#mm1', iconCls:'icon-edit'">Edit</a>
-                            <div id="mm1" style="width:150px;">
-                                <div class="menu-sep"></div>
-                                <div>Cut</div>
-                                <div>Copy</div>
-                                <div>Paste</div>
-                                <div>Select All</div>
+                            <div id="IDTabsTools">
+                                <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">Edit</a>
+                                <div id="IDTabsToolsMenu" style="width:150px;">
+                                    <div>Cut</div>
+                                    <div>Copy</div>
+                                    <div>Paste</div>
+                                    <div>Select All</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,4 +134,5 @@
         </div>
     </div>
 </body>
+
 </html>
