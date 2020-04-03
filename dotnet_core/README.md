@@ -48,6 +48,9 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 
 ## 学习链接
 
+* [微软官网 - .NET Core 指南](https://docs.microsoft.com/zh-cn/dotnet/core/)
+* [微软官网 - .NET Core SDK 概述](https://docs.microsoft.com/zh-cn/dotnet/core/sdk)
+* [微软官网 - Entity Framework Core](https://docs.microsoft.com/zh-cn/ef/core/)
 * [.NET Core简单读取json配置文件](https://www.jb51.net/article/137517.htm)
 * [.net core 使用Newtonsoft.Json 读取Json文件数据](https://blog.csdn.net/liwan09/article/details/102952990)
 * [.net core读取json格式的配置文件](https://www.cnblogs.com/dotnet261010/p/10172961.html)
@@ -68,3 +71,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [easyUI datagrid携带token](https://blog.csdn.net/zcwforali/article/details/79866181)
 * [easyui jquery ajax的全局设置token](https://blog.csdn.net/mutourenoo/article/details/84921154)
 * [ajax 全局设置token，并且判断是或否登录 $.ajaxSetup设置](https://blog.csdn.net/qq_32674347/article/details/88415757)
+* [ASP.NET CORE系列【六】Entity Framework Core 之数据迁移](https://www.cnblogs.com/shumin/p/8877297.html)
