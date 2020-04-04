@@ -73,6 +73,8 @@ namespace YTS.AdminWebApi.Controllers
             var ID = model.ID;
             if (ID <= 0)
             {
+                model.AddTime = DateTime.Now;
+                model.AddManagerID = GetManager(db).ID;
                 db.UserGroup.Add(model);
             }
             else
@@ -80,6 +82,8 @@ namespace YTS.AdminWebApi.Controllers
                 db.UserGroup.Attach(model);
                 EntityEntry<UserGroup> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
+                entry.Property(gp => gp.AddTime).IsModified = false;
+                entry.Property(gp => gp.AddManagerID).IsModified = false;
             }
             db.SaveChanges();
             result.Data = model.ID;
