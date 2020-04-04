@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +20,13 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet]
-        public object GetManagerList()
+        public object GetManagerList(int? page = null, int? rows = null, string sort = null, string order = null)
         {
             var list = db.Managers.AsQueryable();
-            int total = list.Count();
+            int total = 0;
             var result = list
-                .OrderByDescending(m => m.ID)
+                .ToOrderBy(sort, order)
+                .ToPager(page, rows, a => total = a)
                 .ToList();
             return new
             {
