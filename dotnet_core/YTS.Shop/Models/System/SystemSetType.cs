@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YTS.Shop.Models
@@ -20,6 +21,12 @@ namespace YTS.Shop.Models
         public int? ParentID { get; set; }
 
         /// <summary>
+        /// 下级实体列表
+        /// </summary>
+        [ForeignKey("ParentID")]
+        public ICollection<SystemSetType> Belows { get; set; }
+
+        /// <summary>
         /// 关键字
         /// </summary>
         public string Key { get; set; }
@@ -37,7 +44,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 排序顺序
         /// </summary>
-        public string Ordinal { get; set; }
+        public int Ordinal { get; set; }
 
         /// <summary>
         /// 备注

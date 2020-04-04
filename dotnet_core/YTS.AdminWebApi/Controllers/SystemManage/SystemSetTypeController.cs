@@ -9,6 +9,7 @@ using YTS.Shop;
 using YTS.Shop.Models;
 using YTS.Shop.Tools;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -104,21 +105,17 @@ namespace YTS.AdminWebApi.Controllers
             return result;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public Result InitSystemSetType()
         {
             var result = new Result();
-
-            var dict = new Dictionary<string, List<EnumInfo>>();
-
-
+            var setTypeExtend = new SystemSetTypeExtend(db);
+            EditSystemSetType(setTypeExtend.EnumToSystemSetType<KeysType.ProductNumberRecordOperateType>());
+            EditSystemSetType(setTypeExtend.EnumToSystemSetType<KeysType.UserMoneyRecordOperateType>());
             result.Code = ResultCode.OK;
             result.Message = "初始化字典成功!";
             return result;
         }
-
-        // private List<SystemSetType> EnumToSetType<T>() where T : Enum
-        // {
-        // }
     }
 }
