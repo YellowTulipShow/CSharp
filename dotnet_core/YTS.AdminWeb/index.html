@@ -110,7 +110,7 @@
                         <!-- 正文标签内容 -->
                         <div data-options="region:'center', border: false,">
                             <div class="easyui-panel winBody" data-options="border: false, fit:true,">
-                                <div class="easyui-tabs"
+                                <div id="IDTabs" class="easyui-tabs"
                                      style="width: 100%; height: 100%;"
                                      data-options="
                                         tools:'#IDTabsTools',
@@ -128,7 +128,7 @@
                             <div id="IDTabsTools">
                                 <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
                                 <div id="IDTabsToolsMenu" style="width:150px;">
-                                    <div>刷新当前选项卡</div>
+                                    <div onclick="AddTabs()">刷新当前选项卡</div>
                                     <div>关闭全部选项卡</div>
                                     <div>关闭其他选项卡</div>
                                 </div>
@@ -136,7 +136,19 @@
                         </div>
 
                         <script type="text/javascript">
-
+                            function AddTabs() {
+                                $('#IDTabs').tabs('add',{
+                                    title:'New Tab',
+                                    content:'Tab Body',
+                                    closable:true,
+                                    tools:[{
+                                        iconCls:'icon-mini-refresh',
+                                        handler:function(){
+                                            alert('refresh');
+                                        }
+                                    }]
+                                });
+                            }
                         </script>
                     </div>
                 </div>
