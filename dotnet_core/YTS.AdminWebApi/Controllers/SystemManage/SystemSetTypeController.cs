@@ -8,6 +8,7 @@ using YTS.WebApi;
 using YTS.Shop;
 using YTS.Shop.Models;
 using YTS.Shop.Tools;
+using System.Collections.Generic;
 
 namespace YTS.AdminWebApi.Controllers
 {
@@ -102,5 +103,22 @@ namespace YTS.AdminWebApi.Controllers
             result.Message = "删除成功！IDs:" + ConvertTool.ToString(IDs, ",");
             return result;
         }
+
+        [HttpPost]
+        public Result InitSystemSetType()
+        {
+            var result = new Result();
+
+            var dict = new Dictionary<string, List<EnumInfo>>();
+
+
+            result.Code = ResultCode.OK;
+            result.Message = "初始化字典成功!";
+            return result;
+        }
+
+        // private List<SystemSetType> EnumToSetType<T>() where T : Enum
+        // {
+        // }
     }
 }

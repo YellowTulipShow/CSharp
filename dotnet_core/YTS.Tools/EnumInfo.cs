@@ -34,7 +34,8 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="E">枚举类型</typeparam>
         /// <returns>解析结果</returns>
-        public static EnumInfo[] AnalysisList<E>() {
+        public static EnumInfo[] AnalysisList<E>()
+        {
             Type type = typeof(E);
             return AnalysisList(type);
         }
@@ -44,16 +45,20 @@ namespace YTS.Tools
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <returns>解析结果</returns>
-        public static EnumInfo[] AnalysisList(Type type) {
-            if (!type.IsEnum) {
+        public static EnumInfo[] AnalysisList(Type type)
+        {
+            if (!type.IsEnum)
+            {
                 return new EnumInfo[] { };
             }
             List<EnumInfo> list = new List<EnumInfo>();
-            foreach (int ival in Enum.GetValues(type)) {
+            foreach (int ival in Enum.GetValues(type))
+            {
                 string name = Enum.GetName(type, ival);
                 FieldInfo info = type.GetField(name);
                 ExplainAttribute exp = ExplainAttribute.Extract(info);
-                list.Add(new EnumInfo() {
+                list.Add(new EnumInfo()
+                {
                     Name = name,
                     IntValue = ival,
                     Explain = exp.Text,
@@ -67,16 +72,20 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="E">枚举类型</typeparam>
         /// <returns>枚举类型的所有选项</returns>
-        public static E[] GetALLItem<E>() where E : struct {
+        public static E[] GetALLItem<E>() where E : struct
+        {
             Type type = typeof(E);
-            if (!type.IsEnum) {
+            if (!type.IsEnum)
+            {
                 return new E[] { };
             }
             List<E> list = new List<E>();
-            foreach (int ival in Enum.GetValues(type)) {
+            foreach (int ival in Enum.GetValues(type))
+            {
                 string name = Enum.GetName(type, ival);
                 E v;
-                if (Enum.TryParse<E>(name, out v)) {
+                if (Enum.TryParse<E>(name, out v))
+                {
                     list.Add(v);
                 }
             }
@@ -89,20 +98,25 @@ namespace YTS.Tools
         /// <typeparam name="E">枚举类型</typeparam>
         /// <param name="item">需要解析的选项</param>
         /// <returns>解析结果</returns>
-        public static EnumInfo AnalysisItem<E>(E item) {
+        public static EnumInfo AnalysisItem<E>(E item)
+        {
             Type type = typeof(E);
-            if (!type.IsEnum) {
+            if (!type.IsEnum)
+            {
                 return null;
             }
             string item_name = item.ToString();
-            foreach (int ival in Enum.GetValues(type)) {
+            foreach (int ival in Enum.GetValues(type))
+            {
                 string name = Enum.GetName(type, ival);
-                if (item_name != name) {
+                if (item_name != name)
+                {
                     continue;
                 }
                 FieldInfo info = type.GetField(name);
                 ExplainAttribute exp = ExplainAttribute.Extract(info);
-                return new EnumInfo() {
+                return new EnumInfo()
+                {
                     Name = name,
                     IntValue = ival,
                     Explain = exp.Text,
@@ -117,13 +131,17 @@ namespace YTS.Tools
         /// <typeparam name="E">枚举类型</typeparam>
         /// <param name="keyname">枚举名称</param>
         /// <returns>是否存在</returns>
-        public static bool IsContains<E>(string keyname) {
-            if (!typeof(E).IsEnum || CheckData.IsStringNull(keyname)) {
+        public static bool IsContains<E>(string keyname)
+        {
+            if (!typeof(E).IsEnum || CheckData.IsStringNull(keyname))
+            {
                 return false;
             }
             EnumInfo[] array = AnalysisList<E>();
-            foreach (EnumInfo info in array) {
-                if (info.Name == keyname) {
+            foreach (EnumInfo info in array)
+            {
+                if (info.Name == keyname)
+                {
                     return true;
                 }
             }
@@ -135,10 +153,12 @@ namespace YTS.Tools
         /// </summary>
         /// <typeparam name="E">枚举类型</typeparam>
         /// <returns></returns>
-        public static Dictionary<string, EnumInfo> ToDictionary<E>() {
+        public static Dictionary<string, EnumInfo> ToDictionary<E>()
+        {
             EnumInfo[] array = AnalysisList<E>();
             Dictionary<string, EnumInfo> dic = new Dictionary<string, EnumInfo>();
-            for (int i = 0; i < array.Length; i++) {
+            for (int i = 0; i < array.Length; i++)
+            {
                 dic.Add(array[i].Name, array[i]);
             }
             return dic;
