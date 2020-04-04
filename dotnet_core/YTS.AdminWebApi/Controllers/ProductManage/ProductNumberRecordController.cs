@@ -11,37 +11,24 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class ManagerGroupController : BaseApiController
+    public class ProductNumberRecordController : BaseApiController
     {
         protected YTSEntityContext db;
-        public ManagerGroupController(YTSEntityContext db)
+        public ProductNumberRecordController(YTSEntityContext db)
         {
             this.db = db;
         }
 
         [HttpGet]
-        public object GetManagerGroupList(
+        public object GetProductNumberRecordList(
             int? page = null, int? rows = null,
             string sort = null, string order = null)
         {
-            var list = db.ManagerGroup.AsQueryable();
+            var list = db.ProductNumberRecord.AsQueryable();
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
-                .ToList()
-                .Select(m => new
-                {
-                    m.ID,
-                    m.GroupName,
-                    m.Remark,
-                    m.AddTime,
-                    m.AddManagerID,
-                    AddManagerGroupName = db.Managers
-                        .Where(a => a.ID == m.AddManagerID)
-                        .Select(a => a.TrueName ?? a.NickName)
-                        .FirstOrDefault(),
-                })
                 .ToList();
             return new
             {
@@ -51,7 +38,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet]
-        public Result<object> GetManagerGroup(int? ID)
+        public Result<object> GetProductNumberRecord(int? ID)
         {
             if ((ID ?? 0) <= 0)
             {
@@ -61,7 +48,7 @@ namespace YTS.AdminWebApi.Controllers
                     Message = @"ID为空!",
                 };
             }
-            var model = db.ManagerGroup.Where(m => m.ID == ID).FirstOrDefault();
+            var model = db.ProductNumberRecord.Where(m => m.ID == ID).FirstOrDefault();
             return new Result<object>()
             {
                 Code = ResultCode.OK,
@@ -71,7 +58,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> EditManagerGroup(ManagerGroup model)
+        public Result<object> EditProductNumberRecord(ProductNumberRecord model)
         {
             var result = new Result<object>();
             if (model == null)
@@ -83,17 +70,13 @@ namespace YTS.AdminWebApi.Controllers
             var ID = model.ID;
             if (ID <= 0)
             {
-                model.AddTime = DateTime.Now;
-                model.AddManagerID = GetManager(db).ID;
-                db.ManagerGroup.Add(model);
+                db.ProductNumberRecord.Add(model);
             }
             else
             {
-                db.ManagerGroup.Attach(model);
-                EntityEntry<ManagerGroup> entry = db.Entry(model);
+                db.ProductNumberRecord.Attach(model);
+                EntityEntry<ProductNumberRecord> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
-                entry.Property(gp => gp.AddTime).IsModified = false;
-                entry.Property(gp => gp.AddManagerID).IsModified = false;
             }
             db.SaveChanges();
             result.Data = model.ID;
@@ -102,7 +85,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result DeleteManagerGroup(int[] IDs)
+        public Result DeleteProductNumberRecord(int[] IDs)
         {
             var result = new Result();
             if (IDs == null)
@@ -112,7 +95,7 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            db.ManagerGroup.RemoveRange(db.ManagerGroup.Where(a => IDs.Contains(a.ID)).ToList());
+            db.ProductNumberRecord.RemoveRange(db.ProductNumberRecord.Where(a => IDs.Contains(a.ID)).ToList());
             db.SaveChanges();
 
             result.Code = ResultCode.OK;
