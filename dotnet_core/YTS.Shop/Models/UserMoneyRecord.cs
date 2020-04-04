@@ -41,6 +41,11 @@ namespace YTS.Shop.Models
         public string RelatedSign { get; set; }
 
         /// <summary>
+        /// 金额变动值
+        /// </summary>
+        public decimal OperateMoney { get; set; }
+
+        /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime AddTime { get; set; }

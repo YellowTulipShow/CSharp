@@ -61,52 +61,30 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> EditUserRefundMoneyRecord(UserRefundMoneyRecord model)
+        public Result<object> AddUserRefundMoneyRecord(UserRefundMoneyRecord model)
         {
             var result = new Result<object>();
-            if (model == null)
+            if (model.ID > 0)
             {
-                result.Code = ResultCode.BadRequest;
-                result.Message = "模型为空!";
+                result.Code = ResultCode.Forbidden;
+                result.Message = "不能修改报损记录!";
                 return result;
             }
-            var ID = model.ID;
-            if (ID <= 0)
+
+            // 用户查询
+            Users user = db.Users.Where(a => a.ID == model.UserID).FirstOrDefault();
+            if (user == null)
             {
-                model.AddTime = DateTime.Now;
-                model.AddManagerID = GetManager(db).ID;
-                db.UserRefundMoneyRecord.Add(model);
+                result.Code = ResultCode.BadRequest;
+                result.Message = "用户查询为空!";
+                return result;
             }
-            else
-            {
-                db.UserRefundMoneyRecord.Attach(model);
-                EntityEntry<UserRefundMoneyRecord> entry = db.Entry(model);
-                entry.State = EntityState.Modified;
-                entry.Property(gp => gp.AddTime).IsModified = false;
-                entry.Property(gp => gp.AddManagerID).IsModified = false;
-            }
-            db.SaveChanges();
+
+            var userOperate = new UserOperate(db, GetManager(db));
+            userOperate.AddUserRefundMoneyRecord(user, model);
+
             result.Data = model.ID;
-            result.Message = (ID == 0 ? "添加" : "修改") + "成功！";
-            return result;
-        }
-
-        [HttpPost]
-        public Result DeleteUserRefundMoneyRecord(int[] IDs)
-        {
-            var result = new Result();
-            if (IDs == null)
-            {
-                result.Code = ResultCode.BadRequest;
-                result.Message = "删除失败, IDs为空!";
-                return result;
-            }
-
-            db.UserRefundMoneyRecord.RemoveRange(db.UserRefundMoneyRecord.Where(a => IDs.Contains(a.ID)).ToList());
-            db.SaveChanges();
-
-            result.Code = ResultCode.OK;
-            result.Message = "删除成功！IDs:" + ConvertTool.ToString(IDs, ",");
+            result.Message = "添加成功!";
             return result;
         }
     }
