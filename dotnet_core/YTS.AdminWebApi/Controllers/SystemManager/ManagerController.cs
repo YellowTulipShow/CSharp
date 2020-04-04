@@ -20,13 +20,30 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpGet]
-        public object GetManagerList(int? page = null, int? rows = null, string sort = null, string order = null)
+        public object GetManagerList(
+            int? page = null, int? rows = null,
+            string sort = null, string order = null)
         {
             var list = db.Managers.AsQueryable();
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.Account,
+                    m.NickName,
+                    m.TrueName,
+                    m.Phone,
+                    m.AddTime,
+                    m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
+                })
                 .ToList();
             return new
             {
@@ -100,10 +117,31 @@ namespace YTS.AdminWebApi.Controllers
             }
 
             db.Managers.RemoveRange(db.Managers.Where(a => IDs.Contains(a.ID)).ToList());
-
             db.SaveChanges();
+
             result.Code = ResultCode.OK;
             result.Message = "删除成功！IDs:" + ConvertTool.ToString(IDs, ",");
+            return result;
+        }
+
+        [HttpPost]
+        public Result ManagerChangePassword(int ID, string Account, string Password)
+        {
+            var result = new Result();
+            var model = GetManager(db);
+            if (model.ID != ID || model.Account != Account)
+            {
+                result.Code = ResultCode.BadRequest;
+                result.Message = "请勿伪造身份修改账户密码!";
+                return result;
+            }
+
+            var encryPwd = ManageAuthentication.EncryptionPassword(Password);
+            model.Password = encryPwd;
+            db.SaveChanges();
+
+            result.Code = ResultCode.OK;
+            result.Message = "修改密码成功";
             return result;
         }
     }
