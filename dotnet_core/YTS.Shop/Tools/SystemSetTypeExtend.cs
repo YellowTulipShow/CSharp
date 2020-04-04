@@ -26,19 +26,27 @@ namespace YTS.Shop.Tools
             Type enumType = typeof(T);
             EnumInfo[] enumInfos = EnumInfo.AnalysisList<T>();
             var explain = ExplainAttribute.Extract(enumType);
-            int ID = db.SystemSetType
-                .Where(a => a.Key == enumType.FullName)
-                .Select(a => (int?)a.ID)
-                .FirstOrDefault() ?? 0;
             string key = enumType.FullName.Replace('+', '.');
-            return new SystemSetType()
+            var km = db.SystemSetType
+                .Where(a => a.Key == key)
+                .Select(a => new
+                {
+                    ID = a.ID,
+                    Ordinal = a.Ordinal,
+                })
+                .FirstOrDefault() ?? new
+                {
+                    ID = 0,
+                    Ordinal = (db.SystemSetType.Where(a => a.ParentID == null).Max(a => (int?)a.Ordinal) ?? 0) + 1,
+                };
+            var model = new SystemSetType()
             {
-                ID = ID,
+                ID = km.ID,
                 ParentID = null,
                 Explain = explain?.Text,
                 Key = key,
                 Value = null,
-                Ordinal = 0,
+                Ordinal = km.Ordinal,
                 Remark = null,
                 Belows = enumInfos
                     .Select(m =>
@@ -50,16 +58,17 @@ namespace YTS.Shop.Tools
                                 .Where(a => a.Key == belowKey)
                                 .Select(a => (int?)a.ID)
                                 .FirstOrDefault() ?? 0,
-                            ParentID = ID,
+                            ParentID = km.ID,
                             Explain = m.Explain,
                             Key = belowKey,
                             Value = m.IntValue.ToString(),
-                            Ordinal = 0,
+                            Ordinal = m.IntValue,
                             Remark = null,
                         };
                     })
                     .ToList(),
             };
+            return model;
         }
     }
 }

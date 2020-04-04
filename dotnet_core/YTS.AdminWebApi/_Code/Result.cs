@@ -6,6 +6,7 @@ namespace YTS.WebApi
     /// HTTP状态结果码
     /// 参考取自: https://www.runoob.com/http/http-status-codes.html
     /// </summary>
+    [Explain("HTTP状态结果码")]
     public enum ResultCode
     {
         /**
