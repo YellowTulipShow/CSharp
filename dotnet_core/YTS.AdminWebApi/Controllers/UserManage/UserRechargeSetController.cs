@@ -79,6 +79,8 @@ namespace YTS.AdminWebApi.Controllers
             }
             else
             {
+                model.UpdateTime = DateTime.Now;
+                model.UpdateManagerID = GetManager(db).ID;
                 db.UserRechargeSet.Attach(model);
                 EntityEntry<UserRechargeSet> entry = db.Entry(model);
                 entry.State = EntityState.Modified;
