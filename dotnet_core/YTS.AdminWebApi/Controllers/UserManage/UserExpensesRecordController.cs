@@ -41,17 +41,45 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result<object> AddUserExpensesRecords(UserExpensesRecord[] models)
+        public Result AddUserExpensesRecords(UserExpensesRecord[] models)
         {
-            var result = new Result<object>();
-            if (models == null)
-            {
-                result.Code = ResultCode.Forbidden;
-                result.Message = "增加记录为空!";
-                return result;
-            }
+            var result = new Result();
+            models = new UserExpensesRecord[] {};
+            var manager = GetManager(db);
 
-            result.Data = 0;
+            UserProductOperate userProductOperate = new UserProductOperate(db, GetManager(db));
+            string BatchNo = OrderForm.CreateOrderNumber();
+            foreach (var model in models)
+            {
+                if (model.ID > 0)
+                {
+                    result.Code = ResultCode.Forbidden;
+                    result.Message = "不能修改报损记录!";
+                    return result;
+                }
+
+                // 用户查询
+                Users user = db.Users.Where(a => a.ID == model.UserID).FirstOrDefault();
+                if (user == null)
+                {
+                    result.Code = ResultCode.BadRequest;
+                    result.Message = "用户查询为空!";
+                    return result;
+                }
+
+                // 产品查询
+                Product product = db.Product.Where(a => a.ID == model.ProductID).FirstOrDefault();
+                if (product == null)
+                {
+                    result.Code = ResultCode.BadRequest;
+                    result.Message = "产品查询为空!";
+                    return result;
+                }
+
+                userProductOperate.AddUserExpensesRecord(BatchNo, user, product, model);
+            }
+            db.SaveChanges();
+
             result.Message = "添加成功!";
             return result;
         }

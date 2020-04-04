@@ -69,6 +69,7 @@ namespace YTS.AdminWebApi.Controllers
 
             var productOperate = new ProductOperate(db, GetManager(db));
             productOperate.AddProductEnterWarehouseRecord(product, model);
+            db.SaveChanges();
 
             result.Data = model.ID;
             result.Message = "添加成功!";

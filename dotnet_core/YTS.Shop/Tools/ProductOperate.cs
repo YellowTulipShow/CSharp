@@ -51,8 +51,6 @@ namespace YTS.Shop.Tools
                 RelatedSign = model.BatchNo,
                 Remark = string.Format("产品({0})报损:{1}", product.Name, OperateNumber),
             });
-
-            db.SaveChanges();
         }
 
         /// <summary>
@@ -92,8 +90,6 @@ namespace YTS.Shop.Tools
                 RelatedSign = model.BatchNo,
                 Remark = string.Format("产品({0})入库:{1}", product.Name, OperateNumber),
             });
-
-            db.SaveChanges();
         }
     }
 }

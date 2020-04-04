@@ -22,7 +22,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 产品价格
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// 产品数量

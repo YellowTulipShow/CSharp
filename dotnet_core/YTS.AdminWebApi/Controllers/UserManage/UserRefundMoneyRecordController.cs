@@ -82,6 +82,7 @@ namespace YTS.AdminWebApi.Controllers
 
             var userOperate = new UserOperate(db, GetManager(db));
             userOperate.AddUserRefundMoneyRecord(user, model);
+            db.SaveChanges();
 
             result.Data = model.ID;
             result.Message = "添加成功!";

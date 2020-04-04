@@ -48,8 +48,6 @@ namespace YTS.Shop.Tools
                 OperateMoney = RechargeMoney,
                 Remark = $"用户({model.UserName})充值:{RechargeMoney}",
             });
-
-            db.SaveChanges();
         }
 
         /// <summary>
@@ -77,15 +75,13 @@ namespace YTS.Shop.Tools
             {
                 AddManagerID = manager.ID,
                 AddTime = DateTime.Now,
-                OperateType = (int)KeysType.UserMoneyRecordOperateType.Refund,
+                OperateType = (int)KeysType.UserMoneyRecordOperateType.RechargeRefund,
                 RelatedSign = "",
                 UserID = user.ID,
                 UserName = user.Name ?? user.NickName,
                 OperateMoney = RefundMoney,
                 Remark = $"用户({model.UserName})退款:{RefundMoney}",
             });
-
-            db.SaveChanges();
         }
     }
 }

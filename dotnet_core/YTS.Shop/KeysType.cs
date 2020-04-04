@@ -23,10 +23,16 @@ namespace YTS.Shop
             Consumption = 2,
 
             /// <summary>
-            /// 退款
+            /// 充值退款
             /// </summary>
-            [Explain("退款")]
-            Refund = 3,
+            [Explain("充值退款")]
+            RechargeRefund = 3,
+
+            /// <summary>
+            /// 产品退货
+            /// </summary>
+            [Explain("产品退货")]
+            ProductReturnGoods = 4,
         }
 
         /// <summary>
