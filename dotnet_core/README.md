@@ -72,3 +72,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [easyui jquery ajax的全局设置token](https://blog.csdn.net/mutourenoo/article/details/84921154)
 * [ajax 全局设置token，并且判断是或否登录 $.ajaxSetup设置](https://blog.csdn.net/qq_32674347/article/details/88415757)
 * [ASP.NET CORE系列【六】Entity Framework Core 之数据迁移](https://www.cnblogs.com/shumin/p/8877297.html)
+* [Jquery EasyUI插件](http://www.jeasyui.net/plugins)

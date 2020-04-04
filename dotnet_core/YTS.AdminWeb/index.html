@@ -67,7 +67,15 @@
                         <ul id="IDTreeMenu" class="easyui-tree" data-options="
                             url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
                             method:'get',
-                            animate:true,"></ul>
+                            animate:true,
+                            onClick:function(node) {
+                                console.log(node);
+                                if (node.state == 'closed') {
+                                    $(this).tree('expand', node.target);
+                                } else {
+                                    $(this).tree('collapse', node.target);
+                                }
+                            }"></ul>
                     </div>
                 </div>
 
@@ -87,11 +95,10 @@
                                         <div class="drop-wrap">
                                             <ul class="item">
                                                 <li>
-                                                    <a href="manager/manager_pwd.aspx"
-                                                        onclick="linkMenuTree(false, '');" target="mainframe">修改密码</a>
+                                                    <a href="javascript:void();" onclick="linkMenuTree(false, '');">修改密码</a>
                                                 </li>
                                                 <li>
-                                                    <a href="" onclick="">注销登录</a>
+                                                    <a href="javascript:void();" onclick="window.JWTManager.SignOut()">注销登录</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -113,21 +120,24 @@
 
                                     <div title="Iframe" data-options="closable:true"
                                          style="width: 100%; height: 100%; overflow:hidden;">
-                                        <iframe frameborder="0" src="https://www.baidu.com/"
+                                        <iframe frameborder="0" src=""
                                                 style="width: 100%; height: 100%;"></iframe>
                                     </div>
                                 </div>
                             </div>
                             <div id="IDTabsTools">
-                                <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">Edit</a>
+                                <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
                                 <div id="IDTabsToolsMenu" style="width:150px;">
-                                    <div>Cut</div>
-                                    <div>Copy</div>
-                                    <div>Paste</div>
-                                    <div>Select All</div>
+                                    <div>刷新当前选项卡</div>
+                                    <div>关闭全部选项卡</div>
+                                    <div>关闭其他选项卡</div>
                                 </div>
                             </div>
                         </div>
+
+                        <script type="text/javascript">
+
+                        </script>
                     </div>
                 </div>
             </div>

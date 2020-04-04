@@ -18,18 +18,24 @@
 })();
 
 (function() {
+    window.JWTManager = {
+        TokenKeyName: 'jwtToken',
+        SignOut: function() {
+            window.localStorage.setItem(this.TokenKeyName, null);
+            var uri_encode = encodeURIComponent(window.location.href);
+            window.location.href = '/login.html?callback=' + uri_encode;
+        },
+    }
     $.ajaxSetup({
         beforeSend: function (xhr) {
-            var token = window.localStorage.getItem('jwtToken');
+            var token = window.localStorage.getItem(window.JWTManager.TokenKeyName);
             if (token) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             }
         },
         complete: function(xhr, status) {
             if(xhr.status == 401){
-                window.localStorage.setItem('jwtToken', null);
-                var uri_encode = encodeURIComponent(window.location.href);
-                window.location.href = '/login.html?callback=' + uri_encode;
+                window.JWTManager.SignOut();
             }
         }
     });
