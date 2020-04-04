@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 产品报损记录
+    /// </summary>
     public class ProductDamagedRecordController : BaseApiController
     {
         protected YTSEntityContext db;

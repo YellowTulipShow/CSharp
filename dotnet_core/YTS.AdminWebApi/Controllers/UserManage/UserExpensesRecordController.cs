@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 用户消费记录
+    /// </summary>
     public class UserExpensesRecordController : BaseApiController
     {
         protected YTSEntityContext db;

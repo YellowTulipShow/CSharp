@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 用户组
+    /// </summary>
     public class UserGroupController : BaseApiController
     {
         protected YTSEntityContext db;

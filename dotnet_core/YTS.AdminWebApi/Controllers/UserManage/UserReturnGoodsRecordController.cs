@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 用户退货记录
+    /// </summary>
     public class UserReturnGoodsRecordController : BaseApiController
     {
         protected YTSEntityContext db;

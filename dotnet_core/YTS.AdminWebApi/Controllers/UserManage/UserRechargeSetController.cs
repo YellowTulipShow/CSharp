@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 用户充值设置
+    /// </summary>
     public class UserRechargeSetController : BaseApiController
     {
         protected YTSEntityContext db;

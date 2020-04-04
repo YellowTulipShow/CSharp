@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 产品数量修改记录
+    /// </summary>
     public class ProductNumberRecordController : BaseApiController
     {
         protected YTSEntityContext db;

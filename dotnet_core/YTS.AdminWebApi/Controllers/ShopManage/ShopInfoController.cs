@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 店铺信息
+    /// </summary>
     public class ShopInfoController : BaseApiController
     {
         protected YTSEntityContext db;

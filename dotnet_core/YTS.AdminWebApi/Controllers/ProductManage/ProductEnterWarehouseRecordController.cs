@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 产品入库记录
+    /// </summary>
     public class ProductEnterWarehouseRecordController : BaseApiController
     {
         protected YTSEntityContext db;

@@ -11,6 +11,9 @@ using YTS.Shop.Tools;
 
 namespace YTS.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 产品
+    /// </summary>
     public class ProductController : BaseApiController
     {
         protected YTSEntityContext db;
