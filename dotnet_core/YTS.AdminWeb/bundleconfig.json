@@ -1,0 +1,67 @@
+[
+    {
+        "outputFileName": "extends/release/Scripts/jquery",
+        "inputFiles": [
+            "extends/etss/Scripts/polyfill.min.js",
+            "extends/etss/Scripts/formdata.js",
+            "extends/etss/Scripts/jquery-2.2.4.min.js",
+            "extends/etss/Scripts/bootstrap.min.js",
+            "extends/etss/Scripts/jquery.cookie.js",
+            "extends/etss/Scripts/jquery.metisMenu.js",
+            "extends/etss/Scripts/jquery.serializejson.min.js",
+            "extends/etss/Scripts/jquery.slimscroll.min.js",
+            "extends/etss/Scripts/jquery.validate.min.js"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Scripts/indexjs",
+        "inputFiles": [
+            "extends/etss/Scripts/swfobject.js",
+            "extends/etss/Scripts/web_socket.js",
+            "extends/etss/Scripts/hplus.min.js",
+            "extends/etss/Scripts/contabs.min.js",
+            "extends/etss/Scripts/linq.js",
+            "extends/etss/Scripts/md5.js",
+            "extends/etss/Scripts/common.js"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Scripts/js",
+        "inputFiles": [
+            "extends/etss/Scripts/hplus.min.js",
+            "extends/etss/Scripts/contabs.min.js",
+            "extends/etss/Scripts/pace.min.js",
+            "extends/etss/Scripts/linq.js",
+            "extends/etss/Scripts/md5.js",
+            "extends/etss/Scripts/common.js",
+            "extends/etss/Scripts/init.js"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Scripts/common",
+        "inputFiles": [
+            "extends/etss/Scripts/linq.js",
+            "extends/etss/Scripts/md5.js",
+            "extends/etss/Scripts/common.js"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Content/css",
+        "inputFiles": [
+            "extends/etss/Content/font-awesome.css",
+            "extends/etss/Content/bootstrap.min.css",
+            "extends/etss/Content/style.css"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/css",
+        "inputFiles": [
+            "extends/jquery-easyui-1.8.6/themes/insdep/easyui.css",
+            "extends/jquery-easyui-1.8.6/themes/insdep/easyui_animation.css",
+            "extends/jquery-easyui-1.8.6/themes/insdep/easyui_plus.css",
+            "extends/jquery-easyui-1.8.6/themes/insdep/icon.css",
+            "extends/jquery-easyui-1.8.6/themes/insdep/insdep_tables.css",
+            "extends/jquery-easyui-1.8.6/themes/insdep/IconExtension.css"
+        ]
+    }
+]
