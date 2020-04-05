@@ -1,6 +1,6 @@
 [
     {
-        "outputFileName": "extends/release/Scripts/jquery",
+        "outputFileName": "extends/release/Scripts/jquery.js",
         "inputFiles": [
             "extends/etss/Scripts/polyfill.min.js",
             "extends/etss/Scripts/formdata.js",
@@ -14,7 +14,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Scripts/indexjs",
+        "outputFileName": "extends/release/Scripts/indexjs.js",
         "inputFiles": [
             "extends/etss/Scripts/swfobject.js",
             "extends/etss/Scripts/web_socket.js",
@@ -26,7 +26,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Scripts/js",
+        "outputFileName": "extends/release/Scripts/js.js",
         "inputFiles": [
             "extends/etss/Scripts/hplus.min.js",
             "extends/etss/Scripts/contabs.min.js",
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Scripts/common",
+        "outputFileName": "extends/release/Scripts/common.js",
         "inputFiles": [
             "extends/etss/Scripts/linq.js",
             "extends/etss/Scripts/md5.js",
@@ -46,7 +46,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Content/css",
+        "outputFileName": "extends/release/Content/css.css",
         "inputFiles": [
             "extends/etss/Content/font-awesome.css",
             "extends/etss/Content/bootstrap.min.css",
@@ -55,7 +55,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/css",
+        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/css.css",
         "inputFiles": [
             "extends/jquery-easyui-1.8.6/themes/insdep/easyui.css",
             "extends/jquery-easyui-1.8.6/themes/insdep/easyui_animation.css",
@@ -66,7 +66,7 @@
         ]
     },
     {
-        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/js",
+        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/js.js",
         "inputFiles": [
             "extends/jquery-easyui-1.8.6/jquery.easyui.min.js",
             "extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"

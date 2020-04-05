@@ -216,7 +216,7 @@ function dateUtcFormat(date, fmt) {
         "m+": date.getUTCMinutes(),
         "s+": date.getUTCSeconds(),
         "q+": Math.floor((date.getUTCMonth() + 3) / 3),
-        "f+": date.getUTCMilliseconds() //毫秒 
+        "f+": date.getUTCMilliseconds() //毫秒
     };
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getUTCFullYear() + "").substr(4 - RegExp.$1.length));
@@ -238,7 +238,7 @@ function dateFormat(date, fmt) {
         "m+": date.getMinutes(),
         "s+": date.getSeconds(),
         "q+": Math.floor((date.getMonth() + 3) / 3),
-        "f+": date.getMilliseconds() //毫秒 
+        "f+": date.getMilliseconds() //毫秒
     };
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -310,36 +310,12 @@ function pad(num, n) {
         tbl[len] = (new Array(len + 1)).join('0');
     return tbl[len] + num;
 }
-function SetApiAjaxOption(option) {
-    var url = option.url + '';
-    var headers = null;
-    if (url.indexOf(AdminWebApi.BaseUrl) == 0) {
-        headers = AdminWebApi.Headers;
-    }
-    if (url.indexOf(ShopWebApi.BaseUrl) == 0) {
-        headers = ShopWebApi.Headers;
-    }
-    if (headers) {
-        var method = (option.type + '').toLowerCase();
-        var urlData = Enumerable.from(parseQuery(url.substring(url.indexOf('?') + 1))).orderBy(function (a) { return a.key.toLowerCase(); }).toArray();
-        var sortData = method == 'post' ? urlData : Enumerable.from($.merge(urlData, parseObjectToQueryList(option.data))).orderBy(function (a) { return a.key.toLowerCase(); }).toArray();
-        var sortQueryString = jQuery.map(sortData, function (v) { return v.key + "=" + v.value; }).join('&');
-        var body = method == 'post' ? option.data == 'null' || option.data == null ? '' : option.data instanceof FormData ? '' : option.data : '';
-        var signstr = dateUtcFormat(new Date(), "yyyyMMddHHmm") + sortQueryString + body;
-        option.headers = $.extend({}, option.headers, headers);
-        option.headers['Api.Sign'] = md5(signstr);
-    }
-}
+
 function addDays(date, number) {
     var adjustDate = new Date(date.getTime() + 24 * 60 * 60 * 1000 * number);
     return adjustDate;
 }
-jQuery.support.cors = true;
-jQuery._ajax = jQuery.ajax;
-jQuery.ajax = function (option) {
-    SetApiAjaxOption(option);
-    return jQuery._ajax(option);
-};
+
 function cloneObject(obj) {
     // Handle null or undefined or function
     if (null == obj || "object" != typeof obj)
