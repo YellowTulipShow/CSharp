@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace YTS.AdminWebApi.Controllers
 {
-    public class ManagerController : BaseApiController
+    public class ManagersController : BaseApiController
     {
         protected YTSEntityContext db;
-        public ManagerController(YTSEntityContext db)
+        public ManagersController(YTSEntityContext db)
         {
             this.db = db;
         }

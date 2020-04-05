@@ -1,5 +1,6 @@
 [{
-	"id": 1,
+	"code": "user.info.manger",
+	"url": "/user/info/manger.html",
 	"text": "分为氛围分为氛围分为氛围分为氛围",
 	"children": [{
 		"id": 11,

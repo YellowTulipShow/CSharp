@@ -68,8 +68,11 @@
                             <!-- 导航栏内容 -->
                             <div class="easyui-panel winBody">
                                 <ul id="IDTreeMenu" class="easyui-tree" data-options="
-                                    url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
+                                    url:'/api/Menus/GetMenusList',
                                     method:'get',
+                                    queryParams:{
+                                        NameSpaces:'YTS.AdminWeb',
+                                    },
                                     animate:true,
                                     onClick:function(node) {
                                         console.log(node);
@@ -122,13 +125,19 @@
                                         toolPosition:'right',
                                         tabPosition:'top',
                                         ">
-
-                                    <div title="Iframe" data-options="closable:true"
+                                    <div title="首页"
                                          style="width: 100%; height: 100%; overflow:hidden;">
-                                        <iframe frameborder="0" src=""
+                                        <iframe frameborder="0" src="/welcome.html"
                                                 style="width: 100%; height: 100%;"></iframe>
                                     </div>
                                 </div>
+                                <script id="IDTabTemplate" type="text/html">
+                                    <div title="[title]" data-options="closable:true"
+                                         style="width: 100%; height: 100%; overflow:hidden;">
+                                        <iframe frameborder="0" src="[url]"
+                                                style="width: 100%; height: 100%;"></iframe>
+                                    </div>
+                                </script>
                             </div>
                             <div id="IDTabsTools">
                                 <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
@@ -139,24 +148,33 @@
                                 </div>
                             </div>
                         </div>
-
-                        <script type="text/javascript">
-                            function AddTabs() {
-                                $('#IDTabs').tabs('add',{
-                                    title:'New Tab',
-                                    content:'Tab Body',
-                                    closable:true,
-                                    tools:[{
-                                        iconCls:'icon-mini-refresh',
-                                        handler:function(){
-                                            alert('refresh');
-                                        }
-                                    }]
-                                });
-                            }
-                        </script>
                     </div>
                 </div>
+
+                <script type="text/javascript">
+                    function AddTabs(mdoel) {
+                        var IDTabTemplate = $("#IDTabTemplate");
+                        var url = Object.get(model, 'url', '');
+                        var title = Object.get(model, 'text', '空标题');
+                        if (!url) {
+                            return;
+                        }
+                        $('#IDTabs').tabs('add',{
+                            title: title,
+                            content:window.PageInfo.RenderingHTML(IDTabTemplate, {
+                                'title': title,
+                                'url': url,
+                            }),
+                            closable:true,
+                            tools:[{
+                                iconCls:'icon-mini-refresh',
+                                handler:function(){
+                                    alert('refresh');
+                                }
+                            }]
+                        });
+                    }
+                </script>
             </div>
         </div>
     </div>

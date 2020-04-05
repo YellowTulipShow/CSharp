@@ -16,6 +16,7 @@ namespace YTS.Shop
             modelBuilder.Entity<ManagerGroup>().ToTable("ManagerGroup");
             modelBuilder.Entity<Managers>().ToTable("Managers");
             modelBuilder.Entity<SystemSetType>().ToTable("SystemSetType");
+            modelBuilder.Entity<Menus>().ToTable("Menus");
 
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<ProductDamagedRecord>().ToTable("ProductDamagedRecord");
@@ -36,6 +37,7 @@ namespace YTS.Shop
         public DbSet<ManagerGroup> ManagerGroup { get; set; }
         public DbSet<Managers> Managers { get; set; }
         public DbSet<SystemSetType> SystemSetType { get; set; }
+        public DbSet<Menus> Menus { get; set; }
 
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductDamagedRecord> ProductDamagedRecord { get; set; }

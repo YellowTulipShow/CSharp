@@ -73,3 +73,5 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [ajax 全局设置token，并且判断是或否登录 $.ajaxSetup设置](https://blog.csdn.net/qq_32674347/article/details/88415757)
 * [ASP.NET CORE系列【六】Entity Framework Core 之数据迁移](https://www.cnblogs.com/shumin/p/8877297.html)
 * [Jquery EasyUI插件](http://www.jeasyui.net/plugins)
+* [asp.net core合并压缩资源文件引发的学习之旅](https://www.cnblogs.com/morang/p/7604612.html)
+* [ASP.NET Core 中的捆绑和缩小静态资产](https://docs.microsoft.com/zh-cn/aspnet/core/client-side/bundling-and-minification?view=aspnetcore-3.1&tabs=netcore-cli)

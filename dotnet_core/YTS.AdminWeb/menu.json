@@ -1,0 +1,133 @@
+[{
+    "id": 0,
+    "text": "系统管理",
+    "code": "SystemManage",
+    "state": "closed",
+    "children": [{
+        "id": 0,
+        "text": "菜单管理",
+        "code": "SystemManage.Menu",
+        "url": "/SystemManage/Menu.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "字典管理",
+        "code": "SystemManage.SystemSetType",
+        "url": "/SystemManage/SystemSetType.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "账户管理",
+        "code": "SystemManage.AccountManage",
+        "state": "closed",
+        "children": [{
+            "id": 0,
+            "text": "管理员组",
+            "code": "SystemManage.AccountManage.ManagerGroup",
+            "url": "/SystemManage/AccountManage/ManagerGroup.html",
+            "state": "closed"
+        },{
+            "id": 0,
+            "text": "管理员",
+            "code": "SystemManage.AccountManage.Managers",
+            "url": "/SystemManage/AccountManage/Managers.html",
+            "state": "closed"
+        }]
+    }]
+},{
+    "id": 0,
+    "text": "店铺管理",
+    "code": "ShopManage",
+    "state": "closed",
+    "children": [{
+        "id": 0,
+        "text": "店铺信息",
+        "code": "ShopManage.ShopInfo",
+        "url": "/ShopManage/ShopInfo.html",
+        "state": "closed"
+    }]
+},{
+    "id": 0,
+    "text": "用户管理",
+    "code": "UserManage",
+    "state": "closed",
+    "children": [{
+        "id": 0,
+        "text": "用户组",
+        "code": "UserManage.UserGroup",
+        "url": "/UserManage/UserGroup.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户信息",
+        "code": "UserManage.Users",
+        "url": "/UserManage/Users.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户消费记录",
+        "code": "UserManage.UserExpensesRecord",
+        "url": "/UserManage/UserExpensesRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户金额变动记录",
+        "code": "UserManage.UserMoneyRecord",
+        "url": "/UserManage/UserMoneyRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户充值记录",
+        "code": "UserManage.UserRechargeRecord",
+        "url": "/UserManage/UserRechargeRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户充值设置",
+        "code": "UserManage.UserRechargeSet",
+        "url": "/UserManage/UserRechargeSet.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户退款记录",
+        "code": "UserManage.UserRefundMoneyRecord",
+        "url": "/UserManage/UserRefundMoneyRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "用户退货记录",
+        "code": "UserManage.UserReturnGoodsRecord",
+        "url": "/UserManage/UserReturnGoodsRecord.html",
+        "state": "closed"
+    }]
+},{
+    "id": 0,
+    "text": "产品管理",
+    "code": "ProductManage",
+    "state": "closed",
+    "children": [{
+        "id": 0,
+        "text": "产品设置",
+        "code": "ProductManage.Product",
+        "url": "/ProductManage/Product.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "产品报损记录",
+        "code": "ProductManage.ProductDamagedRecord",
+        "url": "/ProductManage/ProductDamagedRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "产品入库记录",
+        "code": "ProductManage.ProductEnterWarehouseRecord",
+        "url": "/ProductManage/ProductEnterWarehouseRecord.html",
+        "state": "closed"
+    },{
+        "id": 0,
+        "text": "产品数量修改记录",
+        "code": "ProductManage.ProductNumberRecord",
+        "url": "/ProductManage/ProductNumberRecord.html",
+        "state": "closed"
+    }]
+}]

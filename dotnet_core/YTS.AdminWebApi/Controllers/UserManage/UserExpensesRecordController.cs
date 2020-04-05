@@ -54,7 +54,7 @@ namespace YTS.AdminWebApi.Controllers
                 if (model.ID > 0)
                 {
                     result.Code = ResultCode.Forbidden;
-                    result.Message = "不能修改报损记录!";
+                    result.Message = "不能修改消费记录!";
                     return result;
                 }
 
