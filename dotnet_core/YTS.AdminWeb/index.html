@@ -13,14 +13,14 @@
     <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/icon/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="extends/dtcms_skin/default/style.css" />
     <link rel="stylesheet" type="text/css" href="style/base.css" />
+    <link rel="stylesheet" type="text/css" href="style/index.css" />
 
     <script type="text/javascript" src="extends/jquery-v1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
     <script type="text/javascript" src="extends/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/jquery/jquery.nicescroll.js"></script>
-    <script type="text/javascript" charset="utf-8"
-        src="extends/dtcms_skin/script/artdialog/dialog-plus-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/artdialog/dialog-plus-min.js"></script>
     <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/layindex.js"></script> -->
     <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/common.js"></script> -->
     <script type="text/javascript" charset="utf-8" src="scripts/base.js"></script>
@@ -34,7 +34,7 @@
         }
 
         .layoutBoxLeft {
-            width: 180px;
+            width: 220px;
             background-color: #267cb7;
             border-right: 1px solid #eee;
         }
@@ -59,23 +59,28 @@
             <div class="easyui-layout winBody" data-options="border: false, fit:true,">
                 <!-- 左边导航栏 -->
                 <div data-options="region:'west', border: false," class="layoutBoxLeft">
-                    <!-- 顶部LOGO -->
-                    <h1 class="logo"></h1>
-
-                    <!-- 导航栏内容 -->
-                    <div class="easyui-panel" style="padding:5px">
-                        <ul id="IDTreeMenu" class="easyui-tree" data-options="
-                            url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
-                            method:'get',
-                            animate:true,
-                            onClick:function(node) {
-                                console.log(node);
-                                if (node.state == 'closed') {
-                                    $(this).tree('expand', node.target);
-                                } else {
-                                    $(this).tree('collapse', node.target);
-                                }
-                            }"></ul>
+                    <div class="easyui-layout winBody" data-options="border: false, fit:true,">
+                        <div data-options="region:'north', border: false," style="height: 42px; overflow: hidden;">
+                            <!-- 顶部LOGO -->
+                            <h1 class="logo"></h1>
+                        </div>
+                        <div class="winBody IndexPageMenu" data-options="region:'center', border: false,">
+                            <!-- 导航栏内容 -->
+                            <div class="easyui-panel winBody">
+                                <ul id="IDTreeMenu" class="easyui-tree" data-options="
+                                    url:'extends/jquery-easyui-1.8.6/demo/tree/tree_data1.json',
+                                    method:'get',
+                                    animate:true,
+                                    onClick:function(node) {
+                                        console.log(node);
+                                        if (node.state == 'closed') {
+                                            $(this).tree('expand', node.target);
+                                        } else {
+                                            $(this).tree('collapse', node.target);
+                                        }
+                                    }"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -127,7 +132,7 @@
                             </div>
                             <div id="IDTabsTools">
                                 <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
-                                <div id="IDTabsToolsMenu" style="width:150px;">
+                                <div id="IDTabsToolsMenu" class="IndexPageTabsTools" style="width:150px;">
                                     <div onclick="AddTabs()">刷新当前选项卡</div>
                                     <div>关闭全部选项卡</div>
                                     <div>关闭其他选项卡</div>
