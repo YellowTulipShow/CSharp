@@ -27,7 +27,7 @@
     <div class="ibox">
         <div class="ibox-content">
             <div class="easyui-panel CRUQBasicPage">
-                <div id="search" class="easyui-panel" title="查询条件" iconcls="icon-search" style="padding: 10px;">
+                <div id="search" class="easyui-panel" title="查询条件" iconcls="icon-search" style="padding: 10px; margin-bottom: 10px;">
                     <form id="search_form" onSubmit="return page.Search()">
                         <div class="search_item">
                             <label>添加时间:</label>
@@ -84,10 +84,10 @@
                 </table>
 
                 <div id="dialog" class="easyui-dialog" href="UserGroupEdit.html" cache="false"
-                     buttons="#dialog-buttons" style="width: 450px; padding: 10px;"
+                     buttons="#dialog-buttons" style="width: 450px;"
                      closed="true" modal="true" iconCls="icon-save"
                      data-options="
-                     onLoad:function(){ $(this).window('center'); $(this).data('loadData')(); },
+                     onLoad:function(){ $(this).window('center'); $(this).data('loadData'); },
                      onClose:function(){ }"></div>
                 <div id="dialog-buttons">
                     <button type="button" class="easyui-linkbutton" iconCls="icon-ok"

@@ -4,3 +4,16 @@
     padding: 10px 0 0 10px;
     display: inline-block;
 }
+
+.easyui-dialog {
+    padding: 20px;
+}
+.easyui-form {
+    width: 100%;
+}
+.form_item {
+    padding: 0;
+}
+.form_item label {
+    font-size: 1em;
+}
