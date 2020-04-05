@@ -50,6 +50,7 @@
         "inputFiles": [
             "extends/etss/Content/font-awesome.css",
             "extends/etss/Content/bootstrap.min.css",
+            "extends/etss/Content/style.min.css",
             "extends/etss/Content/style.css"
         ]
     },
@@ -62,6 +63,13 @@
             "extends/jquery-easyui-1.8.6/themes/insdep/icon.css",
             "extends/jquery-easyui-1.8.6/themes/insdep/insdep_tables.css",
             "extends/jquery-easyui-1.8.6/themes/insdep/IconExtension.css"
+        ]
+    },
+    {
+        "outputFileName": "extends/release/Scripts/jquery-easyui/themes/insdep/js",
+        "inputFiles": [
+            "extends/jquery-easyui-1.8.6/jquery.easyui.min.js",
+            "extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"
         ]
     }
 ]
