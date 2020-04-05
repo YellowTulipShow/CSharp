@@ -1,10 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport"
-        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>后台管理中心</title>
 
@@ -15,42 +13,15 @@
     <link rel="stylesheet" type="text/css" href="style/base.css" />
     <link rel="stylesheet" type="text/css" href="style/index.css" />
 
-    <script type="text/javascript" src="extends/jquery-v1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
-    <script type="text/javascript" src="extends/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" charset="utf-8" src="extends/jquery-v1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="extends/jquery.serializejson.2.9.0/jquery.serializejson.js"></script>
+    <script type="text/javascript" charset="utf-8" src="extends/jquery-easyui-1.8.6/jquery.easyui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="extends/jquery-easyui-1.8.6/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/jquery/jquery.nicescroll.js"></script>
     <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/script/artdialog/dialog-plus-min.js"></script>
-    <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/layindex.js"></script> -->
-    <!-- <script type="text/javascript" charset="utf-8" src="extends/dtcms_skin/js/common.js"></script> -->
     <script type="text/javascript" charset="utf-8" src="scripts/base.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/appConfig.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/app.js"></script>
-    <style type="text/css">
-        .layoutBoxTop {
-            height: 42px;
-            background-color: #fafafa;
-            border-bottom: 1px solid #eee;
-        }
-
-        .layoutBoxLeft {
-            width: 220px;
-            background-color: #267cb7;
-            border-right: 1px solid #eee;
-        }
-
-        .layoutBoxLeft.LOGO {
-            background-color: transparent;
-        }
-
-        .easyui-layout {
-            background: #fafafa;
-            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-            -moz-box-sizing: inherit;
-            -webkit-box-sizing: inherit;
-            box-sizing: inherit;
-        }
-    </style>
 </head>
 
 <body>
@@ -68,20 +39,28 @@
                             <!-- 导航栏内容 -->
                             <div class="easyui-panel winBody">
                                 <ul id="IDTreeMenu" class="easyui-tree" data-options="
-                                    url:'/api/Menus/GetMenusList',
+                                    url:Api.UrlFormat('/api/Menus/GetMenusList'),
                                     method:'get',
                                     queryParams:{
                                         NameSpaces:'YTS.AdminWeb',
                                     },
                                     animate:true,
+                                    onBeforeLoad:function(node,param) {
+                                        if (node) {
+                                            var childrenCount = parseInt(node['childrenCount']);
+                                            childrenCount = isNaN(childrenCount) ? 0 : childrenCount;
+                                            return childrenCount > 0;
+                                        }
+                                        return true;
+                                    },
                                     onClick:function(node) {
-                                        console.log(node);
                                         if (node.state == 'closed') {
                                             $(this).tree('expand', node.target);
                                         } else {
                                             $(this).tree('collapse', node.target);
                                         }
-                                    }"></ul>
+                                        AddTabs(node);
+                                    },"></ul>
                             </div>
                         </div>
                     </div>
@@ -134,7 +113,7 @@
                                 <script id="IDTabTemplate" type="text/html">
                                     <div title="[title]" data-options="closable:true"
                                          style="width: 100%; height: 100%; overflow:hidden;">
-                                        <iframe frameborder="0" src="[url]"
+                                        <iframe class="J_iframe" frameborder="0" src="[url]"
                                                 style="width: 100%; height: 100%;"></iframe>
                                     </div>
                                 </script>
@@ -142,7 +121,7 @@
                             <div id="IDTabsTools">
                                 <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
                                 <div id="IDTabsToolsMenu" class="IndexPageTabsTools" style="width:150px;">
-                                    <div onclick="AddTabs()">刷新当前选项卡</div>
+                                    <div onclick="$('.J_iframe:visible').get(0).contentWindow.location.reload()">刷新当前选项卡</div>
                                     <div>关闭全部选项卡</div>
                                     <div>关闭其他选项卡</div>
                                 </div>
@@ -152,7 +131,7 @@
                 </div>
 
                 <script type="text/javascript">
-                    function AddTabs(mdoel) {
+                    function AddTabs(model) {
                         var IDTabTemplate = $("#IDTabTemplate");
                         var url = Object.get(model, 'url', '');
                         var title = Object.get(model, 'text', '空标题');
@@ -179,5 +158,4 @@
         </div>
     </div>
 </body>
-
 </html>

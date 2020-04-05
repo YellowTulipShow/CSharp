@@ -20,8 +20,9 @@
     <button onclick="update()">上传菜单数据</button>
     <script type="text/javascript">
         function update() {
-            Api.CallGet({
-                'url': 'menu.json',
+            $.ajax({
+                type: 'get',
+                url: 'menu.json',
                 success: function(datas) {
                     Api.CallPost({
                         'url': '/api/Menus/UploadMenus',

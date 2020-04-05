@@ -31,6 +31,7 @@ namespace YTS.AdminWebApi.Controllers
             public string url { get; set; }
             public string state { get; set; }
             public bool? ishide { get; set; }
+            public int? childrenCount { get; set; }
             public IEnumerable<_menu> children { get; set; }
         }
 
@@ -59,6 +60,9 @@ namespace YTS.AdminWebApi.Controllers
                     code = m.Code,
                     url = m.Url,
                     state = _menu_status[0],
+                    childrenCount = list
+                        .Where(a => a.ParentID == m.ID)
+                        .Count(),
                 });
             return result;
         }
@@ -84,7 +88,7 @@ namespace YTS.AdminWebApi.Controllers
             return result;
         }
 
-        public int UpdateDBDatas(string NameSpaces, IEnumerable<_menu> models, int? parentID = null)
+        private int UpdateDBDatas(string NameSpaces, IEnumerable<_menu> models, int? parentID = null)
         {
             var menager = GetManager(db);
             int needDBCount = 0;
@@ -122,7 +126,7 @@ namespace YTS.AdminWebApi.Controllers
             return needDBCount;
         }
 
-        public Menus ToDBDatas(string NameSpaces, _menu _menu, int? parentID = null)
+        private Menus ToDBDatas(string NameSpaces, _menu _menu, int? parentID = null)
         {
             if (string.IsNullOrWhiteSpace(_menu.code))
                 return null;
@@ -140,7 +144,9 @@ namespace YTS.AdminWebApi.Controllers
                     Name = _menu.text,
                     Url = _menu.url,
                     IsHide = _menu.ishide ?? false,
-                    Ordinal = 0,
+                    Ordinal = (db.Menus
+                        .Where(a => a.NameSpaces == NameSpaces && a.ParentID == parentID)
+                        .Max(a => (int?)a.Ordinal) ?? 0) + 1,
                 };
             }
             else

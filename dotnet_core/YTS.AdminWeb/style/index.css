@@ -1,23 +1,49 @@
+.layoutBoxTop {
+    height: 42px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #eee;
+}
+
+.layoutBoxLeft {
+    width: 220px;
+    background-color: #267cb7;
+    border-right: 1px solid #eee;
+}
+
+.layoutBoxLeft.LOGO {
+    background-color: transparent;
+}
+
+.easyui-layout {
+    background: #fafafa;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
 
 .IndexPageMenu {
     width: 100%;
     height: 100%;
     background-color: #267cb7;
 }
+
 .IndexPageMenu .panel.panel-htop {
     width: 100%;
     height: 100%;
 }
-.IndexPageMenu .easyui-panel.panel-body  {
+
+.IndexPageMenu .easyui-panel.panel-body {
     background-color: transparent;
 }
 
 .IndexPageMenu .easyui-tree.tree {
     width: 100%;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 .IndexPageMenu .easyui-tree.tree li {
     width: 100%;
     background-color: rgba(255, 255, 255, .05);
@@ -27,20 +53,38 @@
     border-radius: .3em;
     overflow: hidden;
 }
+
 .IndexPageMenu .easyui-tree.tree ul {
     width: 100%;
     padding-left: .8em;
+    font-size: .8em;
 }
-.IndexPageMenu .easyui-tree.tree .tree-node {width: 100%;
-height: auto;
-padding: .7em;
-color: #fff;
+
+.IndexPageMenu .easyui-tree.tree .tree-node {
+    width: 100%;
+    height: auto;
+    padding: .7em;
+    color: #fff;
 }
-.IndexPageMenu .easyui-tree.tree .tree-node .tree-hit.tree-expanded { display: none; }
-.IndexPageMenu .easyui-tree.tree .tree-node .tree-hit.tree-collapsed { display: none; }
-.IndexPageMenu .easyui-tree.tree .tree-node .tree-icon.tree-file { display: none; }
-.IndexPageMenu .easyui-tree.tree .tree-node .tree-icon.tree-folder { display: none; }
+
+.IndexPageMenu .easyui-tree.tree .tree-node .tree-hit.tree-expanded {
+    display: none;
+}
+
+.IndexPageMenu .easyui-tree.tree .tree-node .tree-hit.tree-collapsed {
+    display: none;
+}
+
+.IndexPageMenu .easyui-tree.tree .tree-node .tree-icon.tree-file {
+    display: none;
+}
+
+.IndexPageMenu .easyui-tree.tree .tree-node .tree-icon.tree-folder {
+    display: none;
+}
+
 .IndexPageMenu .easyui-tree.tree .tree-node .tree-icon.tree-folder.tree-folder-open {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node .tree-title {
     display: inline;
     width: 100%;
@@ -52,8 +96,11 @@ color: #fff;
     word-break: normal;
     text-overflow: inherit;
     word-wrap: normal;
-    }
-.IndexPageMenu .easyui-tree.tree .tree-node .tree-indent { display: none; }
+}
+
+.IndexPageMenu .easyui-tree.tree .tree-node .tree-indent {
+    display: none;
+}
 
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected {
     color: #000;
@@ -62,12 +109,19 @@ color: #fff;
     -webkit-border-radius: .3em;
     border-radius: .3em;
 }
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-hit.tree-expanded {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-hit.tree-collapsed {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-icon.tree-file {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-icon.tree-folder {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-icon.tree-folder.tree-folder-open {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-title {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-selected .tree-indent {}
 
 
@@ -78,21 +132,29 @@ color: #fff;
     -webkit-border-radius: .3em;
     border-radius: .3em;
 }
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-hit.tree-expanded {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-hit.tree-collapsed {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-icon.tree-file {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-icon.tree-folder {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-icon.tree-folder.tree-folder-open {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-title {}
+
 .IndexPageMenu .easyui-tree.tree .tree-node.tree-node-hover .tree-indent {}
 
 
 .IndexPageTabsTools {}
+
 .IndexPageTabsTools .menu-item {}
+
 .IndexPageTabsTools .menu-text {
     display: block;
-
-width: 100%;
-
-text-align: center;
-padding: 0;}
+    width: 100%;
+    text-align: center;
+    padding: 0;
+}
