@@ -24,7 +24,7 @@ namespace YTS.Shop.Models
         /// 下级实体列表
         /// </summary>
         [ForeignKey("ParentID")]
-        public ICollection<SystemSetType> Belows { get; set; }
+        public ICollection<Menus> Belows { get; set; }
 
         /// <summary>
         /// 命名空间标识

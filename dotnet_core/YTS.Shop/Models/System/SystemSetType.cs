@@ -21,12 +21,6 @@ namespace YTS.Shop.Models
         public int? ParentID { get; set; }
 
         /// <summary>
-        /// 下级实体列表
-        /// </summary>
-        [ForeignKey("ParentID")]
-        public ICollection<SystemSetType> Belows { get; set; }
-
-        /// <summary>
         /// 关键字
         /// </summary>
         public string Key { get; set; }

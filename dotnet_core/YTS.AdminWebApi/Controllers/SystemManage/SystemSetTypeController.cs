@@ -172,8 +172,8 @@ namespace YTS.AdminWebApi.Controllers
         {
             var result = new Result();
             var setTypeExtend = new SystemSetTypeExtend(db);
-            EditSystemSetType(setTypeExtend.EnumToSystemSetType<KeysType.ProductNumberRecordOperateType>());
-            EditSystemSetType(setTypeExtend.EnumToSystemSetType<KeysType.UserMoneyRecordOperateType>());
+            setTypeExtend.UpdateEnumSetType<KeysType.ProductNumberRecordOperateType>();
+            setTypeExtend.UpdateEnumSetType<KeysType.UserMoneyRecordOperateType>();
             result.Code = ResultCode.OK;
             result.Message = "初始化字典成功!";
             return result;

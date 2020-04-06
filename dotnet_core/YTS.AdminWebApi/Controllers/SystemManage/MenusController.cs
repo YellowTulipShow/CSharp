@@ -21,20 +21,6 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        private readonly static string[] _menu_status = new string[] { "closed", "open" };
-
-        public class _menu
-        {
-            public int? id { get; set; }
-            public string text { get; set; }
-            public string code { get; set; }
-            public string url { get; set; }
-            public string state { get; set; }
-            public bool? ishide { get; set; }
-            public int? childrenCount { get; set; }
-            public IEnumerable<_menu> children { get; set; }
-        }
-
         [HttpGet]
         public object GetMenusList(
             int? page = null, int? rows = null,
@@ -53,13 +39,13 @@ namespace YTS.AdminWebApi.Controllers
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
                 .ToList()
-                .Select(m => new _menu()
+                .Select(m => new MenusExtend._menu()
                 {
                     id = m.ID,
                     text = m.Name,
                     code = m.Code,
                     url = m.Url,
-                    state = _menu_status[0],
+                    state = MenusExtend._menu_status[0],
                     childrenCount = list
                         .Where(a => a.ParentID == m.ID)
                         .Count(),
@@ -199,7 +185,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result UploadMenus(string NameSpaces, IEnumerable<_menu> models)
+        public Result UploadMenus(string NameSpaces, IEnumerable<MenusExtend._menu> models)
         {
             var result = new Result();
             if (models == null)
@@ -209,7 +195,8 @@ namespace YTS.AdminWebApi.Controllers
                 return result;
             }
 
-            int needDBCount = UpdateDBDatas(NameSpaces, models);
+            var menusExtend = new MenusExtend(db, GetManager(db));
+            int needDBCount = menusExtend.UpdateDBDatas(NameSpaces, models);
 
             result.Code = ResultCode.OK;
             if (needDBCount <= 0)
@@ -217,76 +204,6 @@ namespace YTS.AdminWebApi.Controllers
             else
                 result.Message = $"完成上传的菜单数量: {needDBCount}!";
             return result;
-        }
-
-        private int UpdateDBDatas(string NameSpaces, IEnumerable<_menu> models, int? parentID = null)
-        {
-            var menager = GetManager(db);
-            int needDBCount = 0;
-            if (models == null)
-                return needDBCount;
-            foreach (_menu item in models)
-            {
-                var menu = ToDBDatas(NameSpaces, item, parentID);
-                if (menu == null)
-                {
-                    continue;
-                }
-                needDBCount += 1;
-                if (menu.ID <= 0)
-                {
-                    menu.AddTime = DateTime.Now;
-                    menu.AddManagerID = menager.ID;
-                    db.Menus.Add(menu);
-                }
-                else
-                {
-                    db.Menus.Attach(menu);
-                    EntityEntry<Menus> entry = db.Entry(menu);
-                    entry.State = EntityState.Modified;
-                    entry.Property(gp => gp.AddTime).IsModified = false;
-                    entry.Property(gp => gp.AddManagerID).IsModified = false;
-                }
-                db.SaveChanges();
-
-                if (item.children != null)
-                {
-                    needDBCount += UpdateDBDatas(NameSpaces, item.children, menu.ID);
-                }
-            }
-            return needDBCount;
-        }
-
-        private Menus ToDBDatas(string NameSpaces, _menu _menu, int? parentID = null)
-        {
-            if (string.IsNullOrWhiteSpace(_menu.code))
-                return null;
-            var model = db.Menus
-                .Where(a => a.NameSpaces == NameSpaces && a.Code == _menu.code)
-                .FirstOrDefault();
-            if (model == null)
-            {
-                return new Menus()
-                {
-                    ID = 0,
-                    NameSpaces = NameSpaces,
-                    ParentID = parentID,
-                    Code = _menu.code,
-                    Name = _menu.text,
-                    Url = _menu.url,
-                    IsHide = _menu.ishide ?? false,
-                    Ordinal = (db.Menus
-                        .Where(a => a.NameSpaces == NameSpaces && a.ParentID == parentID)
-                        .Max(a => (int?)a.Ordinal) ?? 0) + 1,
-                };
-            }
-            else
-            {
-                model.IsHide = _menu.ishide ?? false;
-                model.Name = _menu.text;
-                model.Url = _menu.url;
-                return model;
-            }
         }
 
         [HttpPost]

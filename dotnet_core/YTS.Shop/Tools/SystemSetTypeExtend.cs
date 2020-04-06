@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using YTS.Shop.Models;
 using YTS.Tools;
 
@@ -16,59 +19,105 @@ namespace YTS.Shop.Tools
             this.db = db;
         }
 
+        public class _menu
+        {
+            public string Explain { get; set; }
+            public string Key { get; set; }
+            public string Value { get; set; }
+            public IEnumerable<_menu> children { get; set; }
+        }
+
         /// <summary>
         /// 枚举类型转为字典设置
         /// </summary>
         /// <typeparam name="T">枚举类型</typeparam>
         /// <returns>字典设置</returns>
-        public SystemSetType EnumToSystemSetType<T>() where T : Enum
+        public void UpdateEnumSetType<T>() where T : Enum
         {
             Type enumType = typeof(T);
             EnumInfo[] enumInfos = EnumInfo.AnalysisList<T>();
             var explain = ExplainAttribute.Extract(enumType);
             string key = enumType.FullName.Replace('+', '.');
-            var km = db.SystemSetType
-                .Where(a => a.Key == key)
-                .Select(a => new
-                {
-                    ID = a.ID,
-                    Ordinal = a.Ordinal,
-                })
-                .FirstOrDefault() ?? new
-                {
-                    ID = 0,
-                    Ordinal = (db.SystemSetType.Where(a => a.ParentID == null).Max(a => (int?)a.Ordinal) ?? 0) + 1,
-                };
-            var model = new SystemSetType()
+
+            var model = new _menu()
             {
-                ID = km.ID,
-                ParentID = null,
                 Explain = explain?.Text,
                 Key = key,
                 Value = null,
-                Ordinal = km.Ordinal,
-                Remark = null,
-                Belows = enumInfos
-                    .Select(m =>
+                children = enumInfos
+                    .Select(m =>new _menu()
                     {
-                        var belowKey = string.Join('.', new string[] { key, m.Name });
-                        return new SystemSetType()
-                        {
-                            ID = db.SystemSetType
-                                .Where(a => a.Key == belowKey)
-                                .Select(a => (int?)a.ID)
-                                .FirstOrDefault() ?? 0,
-                            ParentID = km.ID,
-                            Explain = m.Explain,
-                            Key = belowKey,
-                            Value = m.IntValue.ToString(),
-                            Ordinal = m.IntValue,
-                            Remark = null,
-                        };
+                        Explain = m.Explain,
+                        Key = string.Join('.', new string[] { key, m.Name }),
+                        Value = m.IntValue.ToString(),
                     })
-                    .ToList(),
+                    .ToList()
             };
-            return model;
+            UpdateDBDatas(new _menu[] { model });
+        }
+
+        public int UpdateDBDatas(IEnumerable<_menu> models, int? parentID = null)
+        {
+            int needDBCount = 0;
+            if (models == null)
+                return needDBCount;
+            foreach (_menu item in models)
+            {
+                var menu = ToDBDatas(item, parentID);
+                if (menu == null)
+                {
+                    continue;
+                }
+                needDBCount += 1;
+                if (menu.ID <= 0)
+                {
+                    db.SystemSetType.Add(menu);
+                }
+                else
+                {
+                    db.SystemSetType.Attach(menu);
+                    EntityEntry<SystemSetType> entry = db.Entry(menu);
+                    entry.State = EntityState.Modified;
+                }
+                db.SaveChanges();
+
+                if (item.children != null)
+                {
+                    needDBCount += UpdateDBDatas(item.children, menu.ID);
+                }
+            }
+            return needDBCount;
+        }
+
+        public SystemSetType ToDBDatas(_menu _menu, int? parentID = null)
+        {
+            if (string.IsNullOrWhiteSpace(_menu.Key))
+                return null;
+            var model = db.SystemSetType
+                .Where(a => a.ParentID == parentID && a.Key == _menu.Key && a.Value == _menu.Value)
+                .FirstOrDefault();
+            if (model == null)
+            {
+                return new SystemSetType()
+                {
+                    ID = 0,
+                    ParentID = parentID,
+                    Explain = _menu.Explain,
+                    Key = _menu.Key,
+                    Value = _menu.Value,
+                    Ordinal = (db.SystemSetType
+                        .Where(a => a.ParentID == parentID)
+                        .Max(a => (int?)a.Ordinal) ?? 0) + 1,
+                    Remark = null,
+                };
+            }
+            else
+            {
+                model.Explain = _menu.Explain;
+                model.Key = _menu.Key;
+                model.Value = _menu.Value;
+                return model;
+            }
         }
     }
 }
