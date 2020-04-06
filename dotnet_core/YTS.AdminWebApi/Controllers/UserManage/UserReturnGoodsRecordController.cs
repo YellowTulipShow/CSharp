@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<UserReturnGoodsRecord> QueryWhereUserReturnGoodsRecord(IQueryable<UserReturnGoodsRecord> list,
+        private IQueryable<UserReturnGoodsRecord> QueryWhereUserReturnGoodsRecord(IQueryable<UserReturnGoodsRecord> list,
             int? UserID = null,
             string UserName = null,
             int? UserExpensesRecordID = null,

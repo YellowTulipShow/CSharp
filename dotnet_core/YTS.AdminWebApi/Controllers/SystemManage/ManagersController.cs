@@ -20,7 +20,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<Managers> QueryWhereManagers(IQueryable<Managers> list,
+        private IQueryable<Managers> QueryWhereManagers(IQueryable<Managers> list,
             string Account = null,
             string Password = null,
             string NickName = null,

@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<Product> QueryWhereProduct(IQueryable<Product> list,
+        private IQueryable<Product> QueryWhereProduct(IQueryable<Product> list,
             string Name = null,
             int? PriceWhere = null,
             decimal? Price = null,

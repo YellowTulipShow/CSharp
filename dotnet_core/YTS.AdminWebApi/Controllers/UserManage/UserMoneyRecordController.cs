@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<UserMoneyRecord> QueryWhereUserMoneyRecord(IQueryable<UserMoneyRecord> list,
+        private IQueryable<UserMoneyRecord> QueryWhereUserMoneyRecord(IQueryable<UserMoneyRecord> list,
             int? UserID = null,
             string UserName = null,
             int? OperateType = null,

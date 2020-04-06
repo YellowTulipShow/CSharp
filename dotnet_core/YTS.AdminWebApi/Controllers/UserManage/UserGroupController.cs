@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<UserGroup> QueryWhereUserGroup(IQueryable<UserGroup> list,
+        private IQueryable<UserGroup> QueryWhereUserGroup(IQueryable<UserGroup> list,
             string GroupName = null,
             string Remark = null,
             DateTime? AddTimeStart = null,

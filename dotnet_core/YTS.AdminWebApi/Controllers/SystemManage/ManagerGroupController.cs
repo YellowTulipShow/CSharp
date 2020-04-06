@@ -19,7 +19,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<ManagerGroup> QueryWhereManagerGroup(IQueryable<ManagerGroup> list,
+        private IQueryable<ManagerGroup> QueryWhereManagerGroup(IQueryable<ManagerGroup> list,
             string GroupName = null,
             string Remark = null,
             DateTime? AddTimeStart = null,

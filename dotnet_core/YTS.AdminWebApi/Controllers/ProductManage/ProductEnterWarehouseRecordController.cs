@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<ProductEnterWarehouseRecord> QueryWhereProductEnterWarehouseRecord(IQueryable<ProductEnterWarehouseRecord> list,
+        private IQueryable<ProductEnterWarehouseRecord> QueryWhereProductEnterWarehouseRecord(IQueryable<ProductEnterWarehouseRecord> list,
             int? ProductID = null,
             string ProductName = null,
             string BatchNo = null,

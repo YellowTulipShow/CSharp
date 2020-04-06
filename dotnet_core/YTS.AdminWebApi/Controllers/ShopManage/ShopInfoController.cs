@@ -22,7 +22,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<ShopInfo> QueryWhereShopInfo(IQueryable<ShopInfo> list,
+        private IQueryable<ShopInfo> QueryWhereShopInfo(IQueryable<ShopInfo> list,
             string Name = null,
             string Remark = null,
             DateTime? AddTimeStart = null,

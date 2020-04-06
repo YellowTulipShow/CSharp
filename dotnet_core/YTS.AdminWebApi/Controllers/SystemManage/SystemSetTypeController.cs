@@ -21,7 +21,7 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        public IQueryable<SystemSetType> QueryWhereSystemSetType(IQueryable<SystemSetType> list,
+        private IQueryable<SystemSetType> QueryWhereSystemSetType(IQueryable<SystemSetType> list,
             int? ParentID = null,
             string Key = null,
             string Value = null,

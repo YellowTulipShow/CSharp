@@ -67,7 +67,7 @@ namespace YTS.AdminWebApi.Controllers
             return result;
         }
 
-        public IQueryable<Menus> QueryWhereMenus(IQueryable<Menus> list,
+        private IQueryable<Menus> QueryWhereMenus(IQueryable<Menus> list,
             int? ParentID = null,
             string NameSpaces = null,
             string Code = null,
