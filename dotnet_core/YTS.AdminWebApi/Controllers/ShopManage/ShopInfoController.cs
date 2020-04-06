@@ -90,7 +90,11 @@ namespace YTS.AdminWebApi.Controllers
                     m.Name,
                     m.Remark,
                     m.AddTime,
-                    m.AddManagerID
+                    m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                 })
                 .ToList();
 

@@ -202,6 +202,10 @@ namespace YTS.AdminWebApi.Controllers
                     m.ActualReturnMoney,
                     m.AddTime,
                     m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                     m.Remark
                 })
                 .ToList();

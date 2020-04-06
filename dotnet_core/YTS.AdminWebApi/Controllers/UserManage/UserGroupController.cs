@@ -90,7 +90,11 @@ namespace YTS.AdminWebApi.Controllers
                     m.GroupName,
                     m.Remark,
                     m.AddTime,
-                    m.AddManagerID
+                    m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                 })
                 .ToList();
 
@@ -147,6 +151,7 @@ namespace YTS.AdminWebApi.Controllers
                 entry.Property(gp => gp.AddManagerID).IsModified = false;
             }
             db.SaveChanges();
+            result.Code = ResultCode.OK;
             result.Data = model.ID;
             result.Message = (ID == 0 ? "添加" : "修改") + "成功！";
             return result;

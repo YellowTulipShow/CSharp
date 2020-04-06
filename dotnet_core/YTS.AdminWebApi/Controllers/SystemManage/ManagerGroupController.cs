@@ -87,6 +87,10 @@ namespace YTS.AdminWebApi.Controllers
                     m.Remark,
                     m.AddTime,
                     m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                     AddManagerGroupName = db.Managers
                         .Where(a => a.ID == m.AddManagerID)
                         .Select(a => a.TrueName ?? a.NickName)

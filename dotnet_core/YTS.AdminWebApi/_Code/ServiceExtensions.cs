@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace YTS.WebApi
@@ -26,6 +28,15 @@ namespace YTS.WebApi
             {
                 // 关闭 启用端点路由
                 option.EnableEndpointRouting = false;
+            })
+            .AddNewtonsoftJson(option =>
+            {
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                option.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                option.SerializerSettings.Converters.Add(new IsoDateTimeConverter()
+                {
+                    DateTimeFormat = "yyyy-MM-dd HH:mm:ss",
+                });
             });
         }
 

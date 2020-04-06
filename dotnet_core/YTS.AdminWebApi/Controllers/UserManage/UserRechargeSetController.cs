@@ -156,8 +156,16 @@ namespace YTS.AdminWebApi.Controllers
                     m.GiveAwayMoney,
                     m.AddTime,
                     m.AddManagerID,
+                    AddManagerName = db.Managers
+                        .Where(a => a.ID == m.AddManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                     m.UpdateTime,
                     m.UpdateManagerID,
+                    UpdateManagerName = db.Managers
+                        .Where(a => a.ID == m.UpdateManagerID)
+                        .Select(a => a.TrueName ?? a.NickName)
+                        .FirstOrDefault(),
                     m.Remark
                 })
                 .ToList();

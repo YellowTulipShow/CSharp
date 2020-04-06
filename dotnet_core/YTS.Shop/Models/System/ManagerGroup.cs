@@ -27,7 +27,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
 
         /// <summary>
         /// 添加人ID

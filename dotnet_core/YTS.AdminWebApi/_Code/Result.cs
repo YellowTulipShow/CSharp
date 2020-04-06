@@ -266,7 +266,7 @@ namespace YTS.WebApi
 
     public class Result
     {
-        public ResultCode Code { get; set; }
+        public ResultCode Code { get; set; } = ResultCode.OK;
         public string Message { get; set; }
     }
 

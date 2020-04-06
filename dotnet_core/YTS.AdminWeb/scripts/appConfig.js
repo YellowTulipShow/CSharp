@@ -1,3 +1,3 @@
 window.appConfig = {
-    'BaseUrl': 'https://localhost:6121',
+    'BaseUrl': 'http://localhost:6122',
 };
