@@ -218,10 +218,16 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
+        public Result AddUserExpensesRecord(UserExpensesRecord model)
+        {
+            return AddUserExpensesRecords(new UserExpensesRecord[] {  model, });
+        }
+
+        [HttpPost]
         public Result AddUserExpensesRecords(UserExpensesRecord[] models)
         {
             var result = new Result();
-            models = new UserExpensesRecord[] {};
+            models = models ?? new UserExpensesRecord[] {};
             var manager = GetManager(db);
 
             UserProductOperate userProductOperate = new UserProductOperate(db, GetManager(db));
