@@ -1,5 +1,10 @@
 ﻿<form id="dialog_form" class="easyui-form form_label_120" data-options="novalidate:true">
     <input type="hidden" name="ID" value="0" />
+    <input type="hidden" name="AddTime" value="" />
+    <input type="hidden" name="AddManagerID" value="" />
+    <input type="hidden" name="UpdateTime" value="" />
+    <input type="hidden" name="UpdateManagerID" value="" />
+
     <div class="form_item">
         <label>项目名称:</label>
         <input id="dialog_ProjectName" name="ProjectName" type="text" class="easyui-textbox" />
@@ -11,22 +16,6 @@
     <div class="form_item">
         <label>赠送金额：</label>
         <input id="dialog_GiveAwayMoney" type="text" name="GiveAwayMoney" class="easyui-numberbox" data-options="min:0,precision:0" value="0" />
-    </div>
-    <div class="form_item">
-        <label>添加时间：</label>
-        <input id="dialog_AddTime" type="text" name="AddTime" class="easyui-datetimebox" />
-    </div>
-    <div class="form_item">
-        <label>添加人Id：</label>
-        <input id="dialog_AddManagerID" type="text" name="AddManagerID" class="easyui-numberbox" data-options="min:0,precision:0" value="0" />
-    </div>
-    <div class="form_item">
-        <label>更新时间：</label>
-        <input id="dialog_UpdateTime" type="text" name="UpdateTime" class="easyui-datetimebox" />
-    </div>
-    <div class="form_item">
-        <label>更新人Id：</label>
-        <input id="dialog_UpdateManagerID" type="text" name="UpdateManagerID" class="easyui-numberbox" data-options="min:0,precision:0" value="0" />
     </div>
     <div class="form_item">
         <label>备注:</label>
