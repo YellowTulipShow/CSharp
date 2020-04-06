@@ -36,9 +36,9 @@ namespace YTS.Shop.Models
         public double RefundMoney { get; set; }
 
         /// <summary>
-        /// 用户充值设置ID列表逗号间隔
+        /// 用户充值记录ID列表逗号间隔
         /// </summary>
-        public string UserRechargeSetIDs { get; set; }
+        public string UserRechargeRecordIDs { get; set; }
 
         /// <summary>
         /// 总充值金额

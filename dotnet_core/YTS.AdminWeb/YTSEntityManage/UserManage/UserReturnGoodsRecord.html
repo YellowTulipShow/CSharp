@@ -29,8 +29,7 @@
             'dialog': '#dialog',
             'dialog_form': '#dialog_form',
             'tableName': '用户退货记录',
-            'api_remove': Api.UrlFormat('/api/UserReturnGoodsRecord/DeleteUserReturnGoodsRecords'),
-            'api_edit': Api.UrlFormat('/api/UserReturnGoodsRecord/EditUserReturnGoodsRecord'),
+            'api_edit': Api.UrlFormat('/api/UserReturnGoodsRecord/AddUserReturnGoodsRecord'),
         });
     </script>
 </head>
@@ -130,8 +129,6 @@
 
                 <div id="toolbar">
                     <button class="easyui-linkbutton operating_Add"iconcls="icon-add" onclick="page.Create()">添加</button>
-                    <button class="easyui-linkbutton operating_Edit" iconcls="icon-edit" onclick="page.Edit()">修改</button>
-                    <button class="easyui-linkbutton operating_Delete" iconcls="icon-delete" onclick="page.Remove()">删除</button>
                 </div>
                 <table id="datagrid" class="easyui-datagrid"
                     style="padding: 10px;"

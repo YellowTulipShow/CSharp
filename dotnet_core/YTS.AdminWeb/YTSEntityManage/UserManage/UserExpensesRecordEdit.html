@@ -133,9 +133,7 @@
             onChange: function(newValue, oldValue) {
                 var number = parseInt(newValue);
                 var price = $('#dialog_ProductPrice').numberbox('getValue');
-                console.log('price:', price);
                 price = parseFloat(price);
-                console.log('price Float:', price);
                 var money = price * number;
                 $('#dialog_ProductExpensesMoney').numberbox('setValue', money);
                 $('#dialog_ProductPayMoney').numberbox('setValue', money);

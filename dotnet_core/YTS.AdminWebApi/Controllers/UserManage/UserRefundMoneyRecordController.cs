@@ -27,7 +27,7 @@ namespace YTS.AdminWebApi.Controllers
             string UserName = null,
             int? RefundMoneyWhere = null,
             double? RefundMoney = null,
-            string UserRechargeSetIDs = null,
+            string UserRechargeRecordIDs = null,
             int? SumRechargeMoneyWhere = null,
             double? SumRechargeMoney = null,
             int? SumGiveAwayMoneyWhere = null,
@@ -58,9 +58,9 @@ namespace YTS.AdminWebApi.Controllers
                     case 5: list = list.Where(m => m.RefundMoney >= RefundMoney); break;
                 }
             }
-            if (!string.IsNullOrEmpty(UserRechargeSetIDs))
+            if (!string.IsNullOrEmpty(UserRechargeRecordIDs))
             {
-                list = list.Where(m => m.UserRechargeSetIDs.Contains(UserRechargeSetIDs));
+                list = list.Where(m => m.UserRechargeRecordIDs.Contains(UserRechargeRecordIDs));
             }
             if (SumRechargeMoneyWhere != null && SumRechargeMoneyWhere > 0 && SumRechargeMoney != null)
             {
@@ -149,7 +149,7 @@ namespace YTS.AdminWebApi.Controllers
                 UserName: UserName,
                 RefundMoneyWhere: RefundMoneyWhere,
                 RefundMoney: RefundMoney,
-                UserRechargeSetIDs: UserRechargeSetIDs,
+                UserRechargeRecordIDs: UserRechargeSetIDs,
                 SumRechargeMoneyWhere: SumRechargeMoneyWhere,
                 SumRechargeMoney: SumRechargeMoney,
                 SumGiveAwayMoneyWhere: SumGiveAwayMoneyWhere,
@@ -172,7 +172,7 @@ namespace YTS.AdminWebApi.Controllers
                     m.UserID,
                     m.UserName,
                     m.RefundMoney,
-                    m.UserRechargeSetIDs,
+                    m.UserRechargeRecordIDs,
                     m.SumRechargeMoney,
                     m.SumGiveAwayMoney,
                     m.ActualRefundMoney,
