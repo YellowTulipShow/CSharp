@@ -29,8 +29,8 @@
             'dialog': '#dialog',
             'dialog_form': '#dialog_form',
             'tableName': '店铺管理员',
-            'api_remove': Api.UrlFormat('/api/Managers/DeleteManagerss'),
-            'api_edit': Api.UrlFormat('/api/Managers/EditManagers'),
+            'api_remove': Api.UrlFormat('/api/Managers/DeleteManagers'),
+            'api_edit': Api.UrlFormat('/api/Managers/EditManager'),
         });
     </script>
 </head>
@@ -43,10 +43,6 @@
                         <div class="search_item">
                             <label>账号:</label>
                             <input name="Account" type="text" class="easyui-textbox" />
-                        </div>
-                        <div class="search_item">
-                            <label>密码:</label>
-                            <input name="Password" type="text" class="easyui-textbox" />
                         </div>
                         <div class="search_item">
                             <label>昵称:</label>
@@ -65,10 +61,6 @@
                             <input name="AddTimeStart" class="easyui-datetimebox" data-options="showSeconds:false" />
                             -
                             <input name="AddTimeEnd" class="easyui-datetimebox" data-options="showSeconds:false" />
-                        </div>
-                        <div class="search_item">
-                            <label>添加人Id:</label>
-                            <input name="AddManagerID" type="text" class="easyui-textbox" />
                         </div>
                         <span class="search_item">
                             <button type="submit" class="easyui-linkbutton" iconCls="icon-magnifier" style="width:80px;">搜索</button>
@@ -115,12 +107,11 @@
                             <th field="Check" checkbox="true" width="40"></th>
                             <th field="ID" width="50" sortable="true">ID</th>
                             <th field="Account" width="120">账号</th>
-                            <th field="Password" width="120">密码</th>
                             <th field="NickName" width="120">昵称</th>
                             <th field="TrueName" width="120">真实姓名</th>
                             <th field="Phone" width="120">电话</th>
                             <th field="AddTime" width="160" data-options="formatter:function(value,row,index){return value == null ? '' : new Date(value).FormatAsString();}">添加时间</th>
-                            <th field="AddManagerID" width="100">添加人Id</th>
+                            <th field="AddManagerName" width="100">添加人</th>
                         </tr>
                     </thead>
                 </table>

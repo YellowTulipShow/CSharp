@@ -22,6 +22,7 @@
     <script type="text/javascript" charset="utf-8" src="scripts/base.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/appConfig.js"></script>
     <script type="text/javascript" charset="utf-8" src="scripts/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="scripts/easyui_expand.js"></script>
 </head>
 
 <body>
@@ -122,8 +123,10 @@
                                 <a href="#" class="easyui-menubutton" data-options="menu:'#IDTabsToolsMenu'">操作</a>
                                 <div id="IDTabsToolsMenu" class="IndexPageTabsTools" style="width:150px;">
                                     <div onclick="$('.J_iframe:visible').get(0).contentWindow.location.reload()">刷新当前选项卡</div>
-                                    <!-- <div>关闭全部选项卡</div>
-                                    <div>关闭其他选项卡</div> -->
+                                    <div onclick="$('#IDTabs').tabs('closeLeft');">关闭左侧选项卡</div>
+                                    <div onclick="$('#IDTabs').tabs('closeRight');">关闭右侧选项卡</div>
+                                    <div onclick="$('#IDTabs').tabs('closeOther');">关闭其他选项卡</div>
+                                    <div onclick="$('#IDTabs').tabs('closeAll');">关闭全部选项卡</div>
                                 </div>
                             </div>
                         </div>

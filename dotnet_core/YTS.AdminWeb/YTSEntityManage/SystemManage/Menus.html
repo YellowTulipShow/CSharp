@@ -29,7 +29,7 @@
             'dialog': '#dialog',
             'dialog_form': '#dialog_form',
             'tableName': '菜单',
-            'api_remove': Api.UrlFormat('/api/Menus/DeleteMenuss'),
+            'api_remove': Api.UrlFormat('/api/Menus/DeleteMenus'),
             'api_edit': Api.UrlFormat('/api/Menus/EditMenus'),
         });
     </script>
@@ -115,7 +115,7 @@
                         singleSelect:false,
                         fitColumns:true,
                         striped:true,
-                        url:Api.UrlFormat('/api/Menus/GetMenusList'),
+                        url:Api.UrlFormat('/api/Menus/GetMenuInfosList'),
                         method:'get',
                         queryParams: page.GetSearchData(),
                         onDblClickRow:function(){

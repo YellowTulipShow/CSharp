@@ -6,8 +6,8 @@
     "children": [{
         "id": 0,
         "text": "菜单管理",
-        "code": "SystemManage.Menu",
-        "url": "/YTSEntityManage/SystemManage/Menu.html",
+        "code": "SystemManage.Menus",
+        "url": "/YTSEntityManage/SystemManage/Menus.html",
         "state": "closed"
     },{
         "id": 0,
