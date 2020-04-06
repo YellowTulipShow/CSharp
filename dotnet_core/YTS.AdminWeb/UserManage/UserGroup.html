@@ -41,10 +41,22 @@
                 <div id="search" class="easyui-panel" title="查询条件" iconcls="icon-search" style="padding: 10px; margin-bottom: 10px;">
                     <form id="search_form" onSubmit="return page.Search()">
                         <div class="search_item">
+                            <label>组名:</label>
+                            <input name="GroupName" type="text" class="easyui-textbox" />
+                        </div>
+                        <div class="search_item">
+                            <label>备注:</label>
+                            <input name="Remark" type="text" class="easyui-textbox" />
+                        </div>
+                        <div class="search_item">
                             <label>添加时间:</label>
                             <input name="AddTimeStart" class="easyui-datetimebox" data-options="showSeconds:false" />
                             -
                             <input name="AddTimeEnd" class="easyui-datetimebox" data-options="showSeconds:false" />
+                        </div>
+                        <div class="search_item">
+                            <label>添加人Id:</label>
+                            <input name="AddManagerID" type="text" class="easyui-textbox" />
                         </div>
                         <span class="search_item">
                             <button type="submit" class="easyui-linkbutton" iconCls="icon-magnifier" style="width:80px;">搜索</button>
@@ -64,7 +76,7 @@
                 <table id="datagrid" class="easyui-datagrid"
                     style="padding: 10px;"
                     data-options="
-                        title:'提成比例',
+                        title:'用户组',
                         toolbar:'#toolbar',
                         iconcls:'icon-application_view_list',
                         pagination:true,
@@ -77,9 +89,14 @@
                         striped:true,
                         url:Api.UrlFormat('/api/UserGroup/GetUserGroupList'),
                         method:'get',
-                        queryParams:$('#search_form').serializeJSON(),
-                        onDblClickRow:function(){ page.Edit();},
-                        onClickRow:function(index, row) { $(this).datagrid('clearSelections');$(this).datagrid('selectRow',index); },
+                        queryParams: page.GetSearchData(),
+                        onDblClickRow:function(){
+                            page.Edit();
+                        },
+                        onClickRow:function(index, row) {
+                            $(this).datagrid('clearSelections');
+                            $(this).datagrid('selectRow',index);
+                        },
                     ">
                     <thead>
                         <tr>
@@ -87,9 +104,8 @@
                             <th field="ID" width="50" sortable="true">ID</th>
                             <th field="GroupName" width="120">组名</th>
                             <th field="Remark" width="120">备注</th>
-                            <th field="AddTime" width="160"
-                                data-options="formatter:function(value,row,index){return value == null ? '' : new Date(value).FormatAsString(); }">添加时间</th>
-                            <th field="AddManagerName" width="120">添加者</th>
+                            <th field="AddTime" width="160" data-options="formatter:function(value,row,index){return value == null ? '' : new Date(value).FormatAsString();}">添加时间</th>
+                            <th field="AddManagerID" width="100">添加人Id</th>
                         </tr>
                     </thead>
                 </table>

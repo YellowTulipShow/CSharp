@@ -17,3 +17,8 @@
 .form_item label {
     font-size: 1em;
 }
+
+.form_item_control {
+    display: inline-block;
+    width: auto;
+}
