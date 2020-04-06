@@ -55,7 +55,7 @@
                         <div class="search_item">
                             <label>操作产品数量:</label>
                             <select name="OperateNumberWhere" class="easyui-combobox" editable="false" style="width:120px">
-                                <option>请选择</option>
+                                <option value="0">请选择</option>
                                 <option value="1">小于(<)</option>
                                 <option value="2">小于等于(<=)</option>
                                 <option value="3">等于(==)</option>
@@ -63,12 +63,12 @@
                                 <option value="5">大于等于(>=)</option>
                             </select>
                             -
-                            <input type="text" name="OperateNumber" class="easyui-numberbox" data-options="min:0,precision:2" value="0" style="width:60px" />
+                            <input type="text" name="OperateNumber" class="easyui-numberbox" data-options="min:0,precision:0" value="0" style="width:60px" />
                         </div>
                         <div class="search_item">
                             <label>是否无限数量:</label>
                             <select name="IsUnlimitedNumber" class="easyui-combobox" data-options="width:90,">
-                                <option>请选择</option>
+                                <option value="">请选择</option>
                                 <option value="true">是</option>
                                 <option value="false">否</option>
                             </select>

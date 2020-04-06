@@ -55,7 +55,7 @@
                         <div class="search_item">
                             <label>报损数量:</label>
                             <select name="NumberWhere" class="easyui-combobox" editable="false" style="width:120px">
-                                <option>请选择</option>
+                                <option value="0">请选择</option>
                                 <option value="1">小于(<)</option>
                                 <option value="2">小于等于(<=)</option>
                                 <option value="3">等于(==)</option>
@@ -63,7 +63,7 @@
                                 <option value="5">大于等于(>=)</option>
                             </select>
                             -
-                            <input type="text" name="Number" class="easyui-numberbox" data-options="min:0,precision:2" value="0" style="width:60px" />
+                            <input type="text" name="Number" class="easyui-numberbox" data-options="min:0,precision:0" value="0" style="width:60px" />
                         </div>
                         <div class="search_item">
                             <label>添加时间:</label>

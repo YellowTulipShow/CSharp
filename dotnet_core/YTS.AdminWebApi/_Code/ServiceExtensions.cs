@@ -31,8 +31,11 @@ namespace YTS.WebApi
             })
             .AddNewtonsoftJson(option =>
             {
+                // option.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+                // option.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 option.SerializerSettings.ContractResolver = new DefaultContractResolver();
+
                 option.SerializerSettings.Converters.Add(new IsoDateTimeConverter()
                 {
                     DateTimeFormat = "yyyy-MM-dd HH:mm:ss",
