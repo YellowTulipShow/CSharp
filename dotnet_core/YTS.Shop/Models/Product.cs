@@ -37,7 +37,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 是否实物产品
         /// </summary>
-        public bool IsPhysicalEntity  { get; set; }
+        public bool IsPhysicalEntity { get; set; }
 
         /// <summary>
         /// 添加时间

@@ -22,17 +22,190 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<UserReturnGoodsRecord> QueryWhereUserReturnGoodsRecord(IQueryable<UserReturnGoodsRecord> list,
+            int? UserID = null,
+            string UserName = null,
+            int? UserExpensesRecordID = null,
+            string UserExpensesRecordOrderNo = null,
+            int? ProductID = null,
+            string ProductName = null,
+            int? ProductPriceWhere = null,
+            decimal? ProductPrice = null,
+            int? ReturnNumberWhere = null,
+            int? ReturnNumber = null,
+            int? ReturnMoneyWhere = null,
+            decimal? ReturnMoney = null,
+            int? ActualReturnMoneyWhere = null,
+            decimal? ActualReturnMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
+        {
+            if (UserID != null)
+            {
+                list = list.Where(m => m.UserID == UserID);
+            }
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                list = list.Where(m => m.UserName.Contains(UserName));
+            }
+            if (UserExpensesRecordID != null)
+            {
+                list = list.Where(m => m.UserExpensesRecordID == UserExpensesRecordID);
+            }
+            if (!string.IsNullOrEmpty(UserExpensesRecordOrderNo))
+            {
+                list = list.Where(m => m.UserExpensesRecordOrderNo.Contains(UserExpensesRecordOrderNo));
+            }
+            if (ProductID != null)
+            {
+                list = list.Where(m => m.ProductID == ProductID);
+            }
+            if (!string.IsNullOrEmpty(ProductName))
+            {
+                list = list.Where(m => m.ProductName.Contains(ProductName));
+            }
+            if (ProductPriceWhere != null && ProductPriceWhere > 0 && ProductPrice != null)
+            {
+                switch (ProductPriceWhere)
+                {
+                    case 1: list = list.Where(m => m.ProductPrice < ProductPrice); break;
+                    case 2: list = list.Where(m => m.ProductPrice <= ProductPrice); break;
+                    case 3: list = list.Where(m => m.ProductPrice == ProductPrice); break;
+                    case 4: list = list.Where(m => m.ProductPrice > ProductPrice); break;
+                    case 5: list = list.Where(m => m.ProductPrice >= ProductPrice); break;
+                }
+            }
+            if (ReturnNumberWhere != null && ReturnNumberWhere > 0 && ReturnNumber != null)
+            {
+                switch (ReturnNumberWhere)
+                {
+                    case 1: list = list.Where(m => m.ReturnNumber < ReturnNumber); break;
+                    case 2: list = list.Where(m => m.ReturnNumber <= ReturnNumber); break;
+                    case 3: list = list.Where(m => m.ReturnNumber == ReturnNumber); break;
+                    case 4: list = list.Where(m => m.ReturnNumber > ReturnNumber); break;
+                    case 5: list = list.Where(m => m.ReturnNumber >= ReturnNumber); break;
+                }
+            }
+            if (ReturnMoneyWhere != null && ReturnMoneyWhere > 0 && ReturnMoney != null)
+            {
+                switch (ReturnMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.ReturnMoney < ReturnMoney); break;
+                    case 2: list = list.Where(m => m.ReturnMoney <= ReturnMoney); break;
+                    case 3: list = list.Where(m => m.ReturnMoney == ReturnMoney); break;
+                    case 4: list = list.Where(m => m.ReturnMoney > ReturnMoney); break;
+                    case 5: list = list.Where(m => m.ReturnMoney >= ReturnMoney); break;
+                }
+            }
+            if (ActualReturnMoneyWhere != null && ActualReturnMoneyWhere > 0 && ActualReturnMoney != null)
+            {
+                switch (ActualReturnMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.ActualReturnMoney < ActualReturnMoney); break;
+                    case 2: list = list.Where(m => m.ActualReturnMoney <= ActualReturnMoney); break;
+                    case 3: list = list.Where(m => m.ActualReturnMoney == ActualReturnMoney); break;
+                    case 4: list = list.Where(m => m.ActualReturnMoney > ActualReturnMoney); break;
+                    case 5: list = list.Where(m => m.ActualReturnMoney >= ActualReturnMoney); break;
+                }
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetUserReturnGoodsRecordList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            int? UserID = null,
+            string UserName = null,
+            int? UserExpensesRecordID = null,
+            string UserExpensesRecordOrderNo = null,
+            int? ProductID = null,
+            string ProductName = null,
+            int? ProductPriceWhere = null,
+            decimal? ProductPrice = null,
+            int? ReturnNumberWhere = null,
+            int? ReturnNumber = null,
+            int? ReturnMoneyWhere = null,
+            decimal? ReturnMoney = null,
+            int? ActualReturnMoneyWhere = null,
+            decimal? ActualReturnMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
         {
-            var list = db.UserReturnGoodsRecord.AsQueryable();
+            IQueryable<UserReturnGoodsRecord> list = db.UserReturnGoodsRecord.AsQueryable();
+            list = QueryWhereUserReturnGoodsRecord(list,
+                UserID: UserID,
+                UserName: UserName,
+                UserExpensesRecordID: UserExpensesRecordID,
+                UserExpensesRecordOrderNo: UserExpensesRecordOrderNo,
+                ProductID: ProductID,
+                ProductName: ProductName,
+                ProductPriceWhere: ProductPriceWhere,
+                ProductPrice: ProductPrice,
+                ReturnNumberWhere: ReturnNumberWhere,
+                ReturnNumber: ReturnNumber,
+                ReturnMoneyWhere: ReturnMoneyWhere,
+                ReturnMoney: ReturnMoney,
+                ActualReturnMoneyWhere: ActualReturnMoneyWhere,
+                ActualReturnMoney: ActualReturnMoney,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID,
+                Remark: Remark);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.UserID,
+                    m.UserName,
+                    m.UserExpensesRecordID,
+                    m.UserExpensesRecordOrderNo,
+                    m.ProductID,
+                    m.ProductName,
+                    m.ProductPrice,
+                    m.ReturnNumber,
+                    m.ReturnMoney,
+                    m.ActualReturnMoney,
+                    m.AddTime,
+                    m.AddManagerID,
+                    m.Remark
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

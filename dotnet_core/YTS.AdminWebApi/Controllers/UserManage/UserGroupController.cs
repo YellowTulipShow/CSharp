@@ -22,17 +22,78 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<UserGroup> QueryWhereUserGroup(IQueryable<UserGroup> list,
+            string GroupName = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            if (!string.IsNullOrEmpty(GroupName))
+            {
+                list = list.Where(m => m.GroupName.Contains(GroupName));
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetUserGroupList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            string GroupName = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
         {
-            var list = db.UserGroup.AsQueryable();
+            IQueryable<UserGroup> list = db.UserGroup.AsQueryable();
+            list = QueryWhereUserGroup(list,
+                GroupName: GroupName,
+                Remark: Remark,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.GroupName,
+                    m.Remark,
+                    m.AddTime,
+                    m.AddManagerID
+                })
                 .ToList();
+
             return new
             {
                 rows = result,
@@ -92,7 +153,7 @@ namespace YTS.AdminWebApi.Controllers
         }
 
         [HttpPost]
-        public Result DeleteUserGroup(int[] IDs)
+        public Result DeleteUserGroups(int[] IDs)
         {
             var result = new Result();
             if (IDs == null)

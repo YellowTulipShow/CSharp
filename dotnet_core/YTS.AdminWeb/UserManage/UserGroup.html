@@ -109,14 +109,57 @@
                 return false;
             },
             Create: function() {
+                var self = this;
                 $('#dialog').dialog('open').dialog('setTitle', '添加用户组');
             },
             Edit: function() {
-                $('#dialog').dialog('open').dialog('setTitle', '编辑用户组');
+                var self = this;
+                var row = $('#datagrid').datagrid('getSelected');
+                if (!row) {
+                    $.messager.alert("提示", "未选择数据！", "info");
+                    return;
+                }
+                $('#dialog').dialog('onOpen', function() {
+                    $('#dialog-form').form('load', row);
+                })
+                .dialog('open')
+                .dialog('setTitle', '编辑用户组');
             },
             Remove: function() {
             },
             Save: function() {
+                if (!$('#dialog-form').form('validate')) {
+                    $.messager.alert({
+                        title: '提示',
+                        msg: '数据校验不通过, 请检查',
+                        icon: 'error'
+                    });
+                    return false;
+                }
+                var model = $('#dialog-form').serializeJSON();
+                Api.CallPost({
+                    'url': Api.UrlFormat('/SystemAuthentication/RequestToken'),
+                    'data': {
+                        'model': $('#form1').serializeJSON(),
+                    },
+                    success: function (token) {
+                        localStorage.setItem('jwtToken', token);
+                        var target = callbackURL ?
+                            decodeURIComponent(callbackURL) : '/index.html';
+                        console.log(target);
+                        window.location.href = target;
+                    },
+                    error: function(xhr) {
+                        var responseJSON = Object.get(xhr, 'responseJSON', {});
+                        var responseStatus = Object.get(responseJSON, 'status', 0);
+                        var responseTitle = Object.get(responseJSON, 'title', '');
+                        var status = Object.get(xhr, 'status', 0);
+                        var statusText = Object.get(xhr, 'statusText', '');
+                        console.error('status: {0}, errorMessage: {1}'.format(
+                            responseStatus || status,
+                            responseTitle || statusText));
+                    },
+                });
             },
         };
     </script>

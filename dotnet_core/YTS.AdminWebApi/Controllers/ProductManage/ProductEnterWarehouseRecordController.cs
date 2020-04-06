@@ -22,17 +22,120 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<ProductEnterWarehouseRecord> QueryWhereProductEnterWarehouseRecord(IQueryable<ProductEnterWarehouseRecord> list,
+            int? ProductID = null,
+            string ProductName = null,
+            string BatchNo = null,
+            int? NumberWhere = null,
+            int? Number = null,
+            string Source = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
+        {
+            if (ProductID != null)
+            {
+                list = list.Where(m => m.ProductID == ProductID);
+            }
+            if (!string.IsNullOrEmpty(ProductName))
+            {
+                list = list.Where(m => m.ProductName.Contains(ProductName));
+            }
+            if (!string.IsNullOrEmpty(BatchNo))
+            {
+                list = list.Where(m => m.BatchNo.Contains(BatchNo));
+            }
+            if (NumberWhere != null && NumberWhere > 0 && Number != null)
+            {
+                switch (NumberWhere)
+                {
+                    case 1: list = list.Where(m => m.Number < Number); break;
+                    case 2: list = list.Where(m => m.Number <= Number); break;
+                    case 3: list = list.Where(m => m.Number == Number); break;
+                    case 4: list = list.Where(m => m.Number > Number); break;
+                    case 5: list = list.Where(m => m.Number >= Number); break;
+                }
+            }
+            if (!string.IsNullOrEmpty(Source))
+            {
+                list = list.Where(m => m.Source.Contains(Source));
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetProductEnterWarehouseRecordList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            int? ProductID = null,
+            string ProductName = null,
+            string BatchNo = null,
+            int? NumberWhere = null,
+            int? Number = null,
+            string Source = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
         {
-            var list = db.ProductEnterWarehouseRecord.AsQueryable();
+            IQueryable<ProductEnterWarehouseRecord> list = db.ProductEnterWarehouseRecord.AsQueryable();
+            list = QueryWhereProductEnterWarehouseRecord(list,
+                ProductID: ProductID,
+                ProductName: ProductName,
+                BatchNo: BatchNo,
+                NumberWhere: NumberWhere,
+                Number: Number,
+                Source: Source,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID,
+                Remark: Remark);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.ProductID,
+                    m.ProductName,
+                    m.BatchNo,
+                    m.Number,
+                    m.Source,
+                    m.AddTime,
+                    m.AddManagerID,
+                    m.Remark
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

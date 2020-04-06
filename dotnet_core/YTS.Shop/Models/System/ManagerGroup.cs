@@ -30,7 +30,7 @@ namespace YTS.Shop.Models
         public DateTime AddTime { get; set; }
 
         /// <summary>
-        /// 添加人Id
+        /// 添加人ID
         /// </summary>
         public int? AddManagerID { get; set; }
     }

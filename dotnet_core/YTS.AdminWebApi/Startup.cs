@@ -45,7 +45,7 @@ namespace YTS.AdminWebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 

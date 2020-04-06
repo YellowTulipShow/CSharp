@@ -45,7 +45,7 @@
         function loginSubmit() {
             var callbackURL = PageInfo.QueryString('callback');
             Api.CallPost({
-                'url': '/SystemAuthentication/RequestToken',
+                'url': Api.UrlFormat('/SystemAuthentication/RequestToken'),
                 'data': {
                     'model': $('#form1').serializeJSON(),
                 },

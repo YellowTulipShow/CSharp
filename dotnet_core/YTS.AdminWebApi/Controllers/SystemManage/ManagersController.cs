@@ -20,12 +20,84 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
-        [HttpGet]
-        public object GetManagerList(
-            int? page = null, int? rows = null,
-            string sort = null, string order = null)
+        public IQueryable<Managers> QueryWhereManagers(IQueryable<Managers> list,
+            string Account = null,
+            string Password = null,
+            string NickName = null,
+            string TrueName = null,
+            string Phone = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
         {
-            var list = db.Managers.AsQueryable();
+            if (!string.IsNullOrEmpty(Account))
+            {
+                list = list.Where(m => m.Account.Contains(Account));
+            }
+            if (!string.IsNullOrEmpty(Password))
+            {
+                list = list.Where(m => m.Password.Contains(Password));
+            }
+            if (!string.IsNullOrEmpty(NickName))
+            {
+                list = list.Where(m => m.NickName.Contains(NickName));
+            }
+            if (!string.IsNullOrEmpty(TrueName))
+            {
+                list = list.Where(m => m.TrueName.Contains(TrueName));
+            }
+            if (!string.IsNullOrEmpty(Phone))
+            {
+                list = list.Where(m => m.Phone.Contains(Phone));
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
+        [HttpGet]
+        public object GetManagersList(
+            int? page = null, int? rows = null,
+            string sort = null, string order = null,
+            string Account = null,
+            string Password = null,
+            string NickName = null,
+            string TrueName = null,
+            string Phone = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            IQueryable<Managers> list = db.Managers.AsQueryable();
+            list = QueryWhereManagers(list,
+                Account: Account,
+                Password: Password,
+                NickName: NickName,
+                TrueName: TrueName,
+                Phone: Phone,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)

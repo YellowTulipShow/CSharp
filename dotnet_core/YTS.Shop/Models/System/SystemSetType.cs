@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace YTS.Shop.Models
 {
     /// <summary>
-    /// 最高管理员
+    /// 字典表
     /// </summary>
     public class SystemSetType
     {

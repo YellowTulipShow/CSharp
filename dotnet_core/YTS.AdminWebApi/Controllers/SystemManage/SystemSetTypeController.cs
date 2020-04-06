@@ -21,17 +21,78 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<SystemSetType> QueryWhereSystemSetType(IQueryable<SystemSetType> list,
+            int? ParentID = null,
+            string Key = null,
+            string Value = null,
+            string Explain = null,
+            int? Ordinal = null,
+            string Remark = null)
+        {
+            if (ParentID != null)
+            {
+                list = list.Where(m => m.ParentID == ParentID);
+            }
+            if (!string.IsNullOrEmpty(Key))
+            {
+                list = list.Where(m => m.Key.Contains(Key));
+            }
+            if (!string.IsNullOrEmpty(Value))
+            {
+                list = list.Where(m => m.Value.Contains(Value));
+            }
+            if (!string.IsNullOrEmpty(Explain))
+            {
+                list = list.Where(m => m.Explain.Contains(Explain));
+            }
+            if (Ordinal != null)
+            {
+                list = list.Where(m => m.Ordinal == Ordinal);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetSystemSetTypeList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            int? ParentID = null,
+            string Key = null,
+            string Value = null,
+            string Explain = null,
+            int? Ordinal = null,
+            string Remark = null)
         {
-            var list = db.SystemSetType.AsQueryable();
+            IQueryable<SystemSetType> list = db.SystemSetType.AsQueryable();
+            list = QueryWhereSystemSetType(list,
+                ParentID: ParentID,
+                Key: Key,
+                Value: Value,
+                Explain: Explain,
+                Ordinal: Ordinal,
+                Remark: Remark);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.ParentID,
+                    m.Key,
+                    m.Value,
+                    m.Explain,
+                    m.Ordinal,
+                    m.Remark
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

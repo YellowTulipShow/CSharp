@@ -22,17 +22,122 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<Product> QueryWhereProduct(IQueryable<Product> list,
+            string Name = null,
+            int? PriceWhere = null,
+            decimal? Price = null,
+            int? NumberWhere = null,
+            int? Number = null,
+            bool? IsUnlimitedNumber = null,
+            bool? IsPhysicalEntity = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            if (!string.IsNullOrEmpty(Name))
+            {
+                list = list.Where(m => m.Name.Contains(Name));
+            }
+            if (PriceWhere != null && PriceWhere > 0 && Price != null)
+            {
+                switch (PriceWhere)
+                {
+                    case 1: list = list.Where(m => m.Price < Price); break;
+                    case 2: list = list.Where(m => m.Price <= Price); break;
+                    case 3: list = list.Where(m => m.Price == Price); break;
+                    case 4: list = list.Where(m => m.Price > Price); break;
+                    case 5: list = list.Where(m => m.Price >= Price); break;
+                }
+            }
+            if (NumberWhere != null && NumberWhere > 0 && Number != null)
+            {
+                switch (NumberWhere)
+                {
+                    case 1: list = list.Where(m => m.Number < Number); break;
+                    case 2: list = list.Where(m => m.Number <= Number); break;
+                    case 3: list = list.Where(m => m.Number == Number); break;
+                    case 4: list = list.Where(m => m.Number > Number); break;
+                    case 5: list = list.Where(m => m.Number >= Number); break;
+                }
+            }
+            if (IsUnlimitedNumber != null)
+            {
+                list = list.Where(m => m.IsUnlimitedNumber == true == IsUnlimitedNumber);
+            }
+            if (IsPhysicalEntity != null)
+            {
+                list = list.Where(m => m.IsPhysicalEntity == true == IsPhysicalEntity);
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetProductList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            string Name = null,
+            int? PriceWhere = null,
+            decimal? Price = null,
+            int? NumberWhere = null,
+            int? Number = null,
+            bool? IsUnlimitedNumber = null,
+            bool? IsPhysicalEntity = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
         {
-            var list = db.Product.AsQueryable();
+            IQueryable<Product> list = db.Product.AsQueryable();
+            list = QueryWhereProduct(list,
+                Name: Name,
+                PriceWhere: PriceWhere,
+                Price: Price,
+                NumberWhere: NumberWhere,
+                Number: Number,
+                IsUnlimitedNumber: IsUnlimitedNumber,
+                IsPhysicalEntity: IsPhysicalEntity,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.Name,
+                    m.Price,
+                    m.Number,
+                    m.IsUnlimitedNumber,
+                    m.IsPhysicalEntity,
+                    m.AddTime,
+                    m.AddManagerID
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

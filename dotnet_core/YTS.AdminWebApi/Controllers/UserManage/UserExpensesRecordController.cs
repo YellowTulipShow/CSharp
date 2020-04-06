@@ -22,17 +22,190 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<UserExpensesRecord> QueryWhereUserExpensesRecord(IQueryable<UserExpensesRecord> list,
+            int? UserID = null,
+            string UserName = null,
+            string BatchNo = null,
+            string ExpensesOrderNo = null,
+            int? ProductID = null,
+            string ProductName = null,
+            int? ProductPriceWhere = null,
+            decimal? ProductPrice = null,
+            int? ProductBuyNumberWhere = null,
+            int? ProductBuyNumber = null,
+            int? ProductExpensesMoneyWhere = null,
+            decimal? ProductExpensesMoney = null,
+            int? ProductPayMoneyWhere = null,
+            decimal? ProductPayMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
+        {
+            if (UserID != null)
+            {
+                list = list.Where(m => m.UserID == UserID);
+            }
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                list = list.Where(m => m.UserName.Contains(UserName));
+            }
+            if (!string.IsNullOrEmpty(BatchNo))
+            {
+                list = list.Where(m => m.BatchNo.Contains(BatchNo));
+            }
+            if (!string.IsNullOrEmpty(ExpensesOrderNo))
+            {
+                list = list.Where(m => m.ExpensesOrderNo.Contains(ExpensesOrderNo));
+            }
+            if (ProductID != null)
+            {
+                list = list.Where(m => m.ProductID == ProductID);
+            }
+            if (!string.IsNullOrEmpty(ProductName))
+            {
+                list = list.Where(m => m.ProductName.Contains(ProductName));
+            }
+            if (ProductPriceWhere != null && ProductPriceWhere > 0 && ProductPrice != null)
+            {
+                switch (ProductPriceWhere)
+                {
+                    case 1: list = list.Where(m => m.ProductPrice < ProductPrice); break;
+                    case 2: list = list.Where(m => m.ProductPrice <= ProductPrice); break;
+                    case 3: list = list.Where(m => m.ProductPrice == ProductPrice); break;
+                    case 4: list = list.Where(m => m.ProductPrice > ProductPrice); break;
+                    case 5: list = list.Where(m => m.ProductPrice >= ProductPrice); break;
+                }
+            }
+            if (ProductBuyNumberWhere != null && ProductBuyNumberWhere > 0 && ProductBuyNumber != null)
+            {
+                switch (ProductBuyNumberWhere)
+                {
+                    case 1: list = list.Where(m => m.ProductBuyNumber < ProductBuyNumber); break;
+                    case 2: list = list.Where(m => m.ProductBuyNumber <= ProductBuyNumber); break;
+                    case 3: list = list.Where(m => m.ProductBuyNumber == ProductBuyNumber); break;
+                    case 4: list = list.Where(m => m.ProductBuyNumber > ProductBuyNumber); break;
+                    case 5: list = list.Where(m => m.ProductBuyNumber >= ProductBuyNumber); break;
+                }
+            }
+            if (ProductExpensesMoneyWhere != null && ProductExpensesMoneyWhere > 0 && ProductExpensesMoney != null)
+            {
+                switch (ProductExpensesMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.ProductExpensesMoney < ProductExpensesMoney); break;
+                    case 2: list = list.Where(m => m.ProductExpensesMoney <= ProductExpensesMoney); break;
+                    case 3: list = list.Where(m => m.ProductExpensesMoney == ProductExpensesMoney); break;
+                    case 4: list = list.Where(m => m.ProductExpensesMoney > ProductExpensesMoney); break;
+                    case 5: list = list.Where(m => m.ProductExpensesMoney >= ProductExpensesMoney); break;
+                }
+            }
+            if (ProductPayMoneyWhere != null && ProductPayMoneyWhere > 0 && ProductPayMoney != null)
+            {
+                switch (ProductPayMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.ProductPayMoney < ProductPayMoney); break;
+                    case 2: list = list.Where(m => m.ProductPayMoney <= ProductPayMoney); break;
+                    case 3: list = list.Where(m => m.ProductPayMoney == ProductPayMoney); break;
+                    case 4: list = list.Where(m => m.ProductPayMoney > ProductPayMoney); break;
+                    case 5: list = list.Where(m => m.ProductPayMoney >= ProductPayMoney); break;
+                }
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetUserExpensesRecordList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            int? UserID = null,
+            string UserName = null,
+            string BatchNo = null,
+            string ExpensesOrderNo = null,
+            int? ProductID = null,
+            string ProductName = null,
+            int? ProductPriceWhere = null,
+            decimal? ProductPrice = null,
+            int? ProductBuyNumberWhere = null,
+            int? ProductBuyNumber = null,
+            int? ProductExpensesMoneyWhere = null,
+            decimal? ProductExpensesMoney = null,
+            int? ProductPayMoneyWhere = null,
+            decimal? ProductPayMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            string Remark = null)
         {
-            var list = db.UserExpensesRecord.AsQueryable();
+            IQueryable<UserExpensesRecord> list = db.UserExpensesRecord.AsQueryable();
+            list = QueryWhereUserExpensesRecord(list,
+                UserID: UserID,
+                UserName: UserName,
+                BatchNo: BatchNo,
+                ExpensesOrderNo: ExpensesOrderNo,
+                ProductID: ProductID,
+                ProductName: ProductName,
+                ProductPriceWhere: ProductPriceWhere,
+                ProductPrice: ProductPrice,
+                ProductBuyNumberWhere: ProductBuyNumberWhere,
+                ProductBuyNumber: ProductBuyNumber,
+                ProductExpensesMoneyWhere: ProductExpensesMoneyWhere,
+                ProductExpensesMoney: ProductExpensesMoney,
+                ProductPayMoneyWhere: ProductPayMoneyWhere,
+                ProductPayMoney: ProductPayMoney,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID,
+                Remark: Remark);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.UserID,
+                    m.UserName,
+                    m.BatchNo,
+                    m.ExpensesOrderNo,
+                    m.ProductID,
+                    m.ProductName,
+                    m.ProductPrice,
+                    m.ProductBuyNumber,
+                    m.ProductExpensesMoney,
+                    m.ProductPayMoney,
+                    m.AddTime,
+                    m.AddManagerID,
+                    m.Remark
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

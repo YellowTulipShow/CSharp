@@ -22,17 +22,78 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<ShopInfo> QueryWhereShopInfo(IQueryable<ShopInfo> list,
+            string Name = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            if (!string.IsNullOrEmpty(Name))
+            {
+                list = list.Where(m => m.Name.Contains(Name));
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetShopInfoList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            string Name = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
         {
-            var list = db.ShopInfo.AsQueryable();
+            IQueryable<ShopInfo> list = db.ShopInfo.AsQueryable();
+            list = QueryWhereShopInfo(list,
+                Name: Name,
+                Remark: Remark,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.Name,
+                    m.Remark,
+                    m.AddTime,
+                    m.AddManagerID
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

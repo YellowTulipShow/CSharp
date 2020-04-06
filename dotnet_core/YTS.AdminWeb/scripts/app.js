@@ -59,7 +59,7 @@
             }
             $.ajax({
                 type: 'get',
-                url: this.UrlFormat(url),
+                // url: this.UrlFormat(url),
                 data: Object.get(args, 'data', {}),
                 contentType: Object.get(args, 'contentType', 'application/json'),
                 success: Object.get(args, 'success', function(result) {}),
@@ -77,7 +77,7 @@
                 throw "url is null!";
                 return;
             }
-            url = this.UrlFormat(url);
+            // url = this.UrlFormat(url);
             var data = Object.get(args, 'data', {});
             var model = null;
             for (var key in data) {

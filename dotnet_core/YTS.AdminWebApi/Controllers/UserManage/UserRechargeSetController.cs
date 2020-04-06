@@ -22,17 +22,146 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<UserRechargeSet> QueryWhereUserRechargeSet(IQueryable<UserRechargeSet> list,
+            string ProjectName = null,
+            int? RechargeMoneyWhere = null,
+            decimal? RechargeMoney = null,
+            int? GiveAwayMoneyWhere = null,
+            decimal? GiveAwayMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            DateTime? UpdateTimeStart = null,
+            DateTime? UpdateTimeEnd = null,
+            int? UpdateManagerID = null,
+            string Remark = null)
+        {
+            if (!string.IsNullOrEmpty(ProjectName))
+            {
+                list = list.Where(m => m.ProjectName.Contains(ProjectName));
+            }
+            if (RechargeMoneyWhere != null && RechargeMoneyWhere > 0 && RechargeMoney != null)
+            {
+                switch (RechargeMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.RechargeMoney < RechargeMoney); break;
+                    case 2: list = list.Where(m => m.RechargeMoney <= RechargeMoney); break;
+                    case 3: list = list.Where(m => m.RechargeMoney == RechargeMoney); break;
+                    case 4: list = list.Where(m => m.RechargeMoney > RechargeMoney); break;
+                    case 5: list = list.Where(m => m.RechargeMoney >= RechargeMoney); break;
+                }
+            }
+            if (GiveAwayMoneyWhere != null && GiveAwayMoneyWhere > 0 && GiveAwayMoney != null)
+            {
+                switch (GiveAwayMoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.GiveAwayMoney < GiveAwayMoney); break;
+                    case 2: list = list.Where(m => m.GiveAwayMoney <= GiveAwayMoney); break;
+                    case 3: list = list.Where(m => m.GiveAwayMoney == GiveAwayMoney); break;
+                    case 4: list = list.Where(m => m.GiveAwayMoney > GiveAwayMoney); break;
+                    case 5: list = list.Where(m => m.GiveAwayMoney >= GiveAwayMoney); break;
+                }
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            if (UpdateTimeStart != null && UpdateTimeEnd != null)
+            {
+                if (UpdateTimeStart > UpdateTimeEnd)
+                {
+                    DateTime? temporary = UpdateTimeStart;
+                    UpdateTimeStart = UpdateTimeEnd;
+                    UpdateTimeEnd = temporary;
+                }
+            }
+            if (UpdateTimeStart != null)
+            {
+                list = list.Where(c => c.UpdateTime >= UpdateTimeStart);
+            }
+            if (UpdateTimeEnd != null)
+            {
+                list = list.Where(c => c.UpdateTime < UpdateTimeEnd);
+            }
+            if (UpdateManagerID != null)
+            {
+                list = list.Where(m => m.UpdateManagerID == UpdateManagerID);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetUserRechargeSetList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            string ProjectName = null,
+            int? RechargeMoneyWhere = null,
+            decimal? RechargeMoney = null,
+            int? GiveAwayMoneyWhere = null,
+            decimal? GiveAwayMoney = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null,
+            DateTime? UpdateTimeStart = null,
+            DateTime? UpdateTimeEnd = null,
+            int? UpdateManagerID = null,
+            string Remark = null)
         {
-            var list = db.UserRechargeSet.AsQueryable();
+            IQueryable<UserRechargeSet> list = db.UserRechargeSet.AsQueryable();
+            list = QueryWhereUserRechargeSet(list,
+                ProjectName: ProjectName,
+                RechargeMoneyWhere: RechargeMoneyWhere,
+                RechargeMoney: RechargeMoney,
+                GiveAwayMoneyWhere: GiveAwayMoneyWhere,
+                GiveAwayMoney: GiveAwayMoney,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID,
+                UpdateTimeStart: UpdateTimeStart,
+                UpdateTimeEnd: UpdateTimeEnd,
+                UpdateManagerID: UpdateManagerID,
+                Remark: Remark);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.ProjectName,
+                    m.RechargeMoney,
+                    m.GiveAwayMoney,
+                    m.AddTime,
+                    m.AddManagerID,
+                    m.UpdateTime,
+                    m.UpdateManagerID,
+                    m.Remark
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

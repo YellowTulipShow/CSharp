@@ -25,7 +25,7 @@
                 url: 'menu.json',
                 success: function(datas) {
                     Api.CallPost({
-                        'url': '/api/Menus/UploadMenus',
+                        'url': Api.UrlFormat('/api/Menus/UploadMenus'),
                         'data': {
                             'NameSpaces': 'YTS.AdminWeb',
                             'models': datas,

@@ -22,17 +22,144 @@ namespace YTS.AdminWebApi.Controllers
             this.db = db;
         }
 
+        public IQueryable<Users> QueryWhereUsers(IQueryable<Users> list,
+            string Account = null,
+            string Password = null,
+            string Name = null,
+            string NickName = null,
+            string Phone = null,
+            string WeChatNumber = null,
+            string QQ = null,
+            string Address = null,
+            int? MoneyWhere = null,
+            decimal? Money = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            if (!string.IsNullOrEmpty(Account))
+            {
+                list = list.Where(m => m.Account.Contains(Account));
+            }
+            if (!string.IsNullOrEmpty(Password))
+            {
+                list = list.Where(m => m.Password.Contains(Password));
+            }
+            if (!string.IsNullOrEmpty(Name))
+            {
+                list = list.Where(m => m.Name.Contains(Name));
+            }
+            if (!string.IsNullOrEmpty(NickName))
+            {
+                list = list.Where(m => m.NickName.Contains(NickName));
+            }
+            if (!string.IsNullOrEmpty(Phone))
+            {
+                list = list.Where(m => m.Phone.Contains(Phone));
+            }
+            if (!string.IsNullOrEmpty(WeChatNumber))
+            {
+                list = list.Where(m => m.WeChatNumber.Contains(WeChatNumber));
+            }
+            if (!string.IsNullOrEmpty(QQ))
+            {
+                list = list.Where(m => m.QQ.Contains(QQ));
+            }
+            if (!string.IsNullOrEmpty(Address))
+            {
+                list = list.Where(m => m.Address.Contains(Address));
+            }
+            if (MoneyWhere != null && MoneyWhere > 0 && Money != null)
+            {
+                switch (MoneyWhere)
+                {
+                    case 1: list = list.Where(m => m.Money < Money); break;
+                    case 2: list = list.Where(m => m.Money <= Money); break;
+                    case 3: list = list.Where(m => m.Money == Money); break;
+                    case 4: list = list.Where(m => m.Money > Money); break;
+                    case 5: list = list.Where(m => m.Money >= Money); break;
+                }
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
         [HttpGet]
         public object GetUsersList(
             int? page = null, int? rows = null,
-            string sort = null, string order = null)
+            string sort = null, string order = null,
+            string Account = null,
+            string Password = null,
+            string Name = null,
+            string NickName = null,
+            string Phone = null,
+            string WeChatNumber = null,
+            string QQ = null,
+            string Address = null,
+            int? MoneyWhere = null,
+            decimal? Money = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
         {
-            var list = db.Users.AsQueryable();
+            IQueryable<Users> list = db.Users.AsQueryable();
+            list = QueryWhereUsers(list,
+                Account: Account,
+                Password: Password,
+                Name: Name,
+                NickName: NickName,
+                Phone: Phone,
+                WeChatNumber: WeChatNumber,
+                QQ: QQ,
+                Address: Address,
+                MoneyWhere: MoneyWhere,
+                Money: Money,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
             int total = 0;
             var result = list
                 .ToOrderBy(sort, order)
                 .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.Account,
+                    m.Password,
+                    m.Name,
+                    m.NickName,
+                    m.Phone,
+                    m.WeChatNumber,
+                    m.QQ,
+                    m.Address,
+                    m.Money,
+                    m.AddTime,
+                    m.AddManagerID
+                })
                 .ToList();
+
             return new
             {
                 rows = result,

@@ -67,6 +67,133 @@ namespace YTS.AdminWebApi.Controllers
             return result;
         }
 
+        public IQueryable<Menus> QueryWhereMenus(IQueryable<Menus> list,
+            int? ParentID = null,
+            string NameSpaces = null,
+            string Code = null,
+            string Name = null,
+            string Url = null,
+            bool? IsHide = null,
+            int? Ordinal = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            if (ParentID != null)
+            {
+                list = list.Where(m => m.ParentID == ParentID);
+            }
+            if (!string.IsNullOrEmpty(NameSpaces))
+            {
+                list = list.Where(m => m.NameSpaces.Contains(NameSpaces));
+            }
+            if (!string.IsNullOrEmpty(Code))
+            {
+                list = list.Where(m => m.Code.Contains(Code));
+            }
+            if (!string.IsNullOrEmpty(Name))
+            {
+                list = list.Where(m => m.Name.Contains(Name));
+            }
+            if (!string.IsNullOrEmpty(Url))
+            {
+                list = list.Where(m => m.Url.Contains(Url));
+            }
+            if (IsHide != null)
+            {
+                list = list.Where(m => m.IsHide == true == IsHide);
+            }
+            if (Ordinal != null)
+            {
+                list = list.Where(m => m.Ordinal == Ordinal);
+            }
+            if (!string.IsNullOrEmpty(Remark))
+            {
+                list = list.Where(m => m.Remark.Contains(Remark));
+            }
+            if (AddTimeStart != null && AddTimeEnd != null)
+            {
+                if (AddTimeStart > AddTimeEnd)
+                {
+                    DateTime? temporary = AddTimeStart;
+                    AddTimeStart = AddTimeEnd;
+                    AddTimeEnd = temporary;
+                }
+            }
+            if (AddTimeStart != null)
+            {
+                list = list.Where(c => c.AddTime >= AddTimeStart);
+            }
+            if (AddTimeEnd != null)
+            {
+                list = list.Where(c => c.AddTime < AddTimeEnd);
+            }
+            if (AddManagerID != null)
+            {
+                list = list.Where(m => m.AddManagerID == AddManagerID);
+            }
+            return list;
+        }
+
+        [HttpGet]
+        public object GetMenuInfosList(
+            int? page = null, int? rows = null,
+            string sort = null, string order = null,
+            int? ParentID = null,
+            string NameSpaces = null,
+            string Code = null,
+            string Name = null,
+            string Url = null,
+            bool? IsHide = null,
+            int? Ordinal = null,
+            string Remark = null,
+            DateTime? AddTimeStart = null,
+            DateTime? AddTimeEnd = null,
+            int? AddManagerID = null)
+        {
+            IQueryable<Menus> list = db.Menus.AsQueryable();
+            list = QueryWhereMenus(list,
+                ParentID: ParentID,
+                NameSpaces: NameSpaces,
+                Code: Code,
+                Name: Name,
+                Url: Url,
+                IsHide: IsHide,
+                Ordinal: Ordinal,
+                Remark: Remark,
+                AddTimeStart: AddTimeStart,
+                AddTimeEnd: AddTimeEnd,
+                AddManagerID: AddManagerID);
+
+            int total = 0;
+            var result = list
+                .ToOrderBy(sort, order)
+                .ToPager(page, rows, a => total = a)
+                .ToList()
+                .Select(m => new
+                {
+                    m.ID,
+                    m.ParentID,
+                    m.NameSpaces,
+                    m.Code,
+                    m.Name,
+                    m.Url,
+                    m.IsHide,
+                    m.Ordinal,
+                    m.Remark,
+                    m.AddTime,
+                    m.AddManagerID
+                })
+                .ToList();
+
+            return new
+            {
+                rows = result,
+                total,
+            };
+        }
+
         [HttpPost]
         public Result UploadMenus(string NameSpaces, IEnumerable<_menu> models)
         {
