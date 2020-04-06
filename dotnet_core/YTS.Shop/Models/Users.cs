@@ -57,7 +57,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 账户余额
         /// </summary>
-        public decimal Money { get; set; }
+        public double Money { get; set; }
 
         /// <summary>
         /// 添加时间

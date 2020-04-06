@@ -43,7 +43,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 金额变动值
         /// </summary>
-        public decimal OperateMoney { get; set; }
+        public double OperateMoney { get; set; }
 
         /// <summary>
         /// 添加时间

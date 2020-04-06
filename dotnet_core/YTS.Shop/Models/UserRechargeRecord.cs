@@ -50,12 +50,12 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 充值金额
         /// </summary>
-        public decimal RechargeMoney { get; set; }
+        public double RechargeMoney { get; set; }
 
         /// <summary>
         /// 赠送金额
         /// </summary>
-        public decimal? GiveAwayMoney { get; set; }
+        public double? GiveAwayMoney { get; set; }
 
         /// <summary>
         /// 添加时间

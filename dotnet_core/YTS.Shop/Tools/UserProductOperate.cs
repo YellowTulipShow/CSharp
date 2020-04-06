@@ -34,7 +34,7 @@ namespace YTS.Shop.Tools
             model.ProductPrice = product.Price;
             db.UserExpensesRecord.Add(model);
 
-            decimal ProductPayMoney = model.ProductPayMoney * -1;
+            double ProductPayMoney = model.ProductPayMoney * -1;
             // 用户金额修改
             user.Money += ProductPayMoney;
             // 增加用户金额变动记录

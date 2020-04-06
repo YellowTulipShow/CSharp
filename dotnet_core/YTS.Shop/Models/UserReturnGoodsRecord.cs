@@ -53,7 +53,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 产品价格
         /// </summary>
-        public decimal? ProductPrice { get; set; }
+        public double? ProductPrice { get; set; }
 
         /// <summary>
         /// 产品退货数量
@@ -63,12 +63,12 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 退货金额
         /// </summary>
-        public decimal? ReturnMoney { get; set; }
+        public double? ReturnMoney { get; set; }
 
         /// <summary>
         /// 实际退货金额
         /// </summary>
-        public decimal ActualReturnMoney { get; set; }
+        public double ActualReturnMoney { get; set; }
 
         /// <summary>
         /// 添加时间

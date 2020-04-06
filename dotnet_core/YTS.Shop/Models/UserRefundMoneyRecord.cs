@@ -33,7 +33,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 客户要退款金额
         /// </summary>
-        public decimal RefundMoney { get; set; }
+        public double RefundMoney { get; set; }
 
         /// <summary>
         /// 用户充值设置ID列表逗号间隔
@@ -43,17 +43,17 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 总充值金额
         /// </summary>
-        public decimal? SumRechargeMoney { get; set; }
+        public double? SumRechargeMoney { get; set; }
 
         /// <summary>
         /// 总赠送金额
         /// </summary>
-        public decimal? SumGiveAwayMoney { get; set; }
+        public double? SumGiveAwayMoney { get; set; }
 
         /// <summary>
         /// 实际退款金额
         /// </summary>
-        public decimal ActualRefundMoney { get; set; }
+        public double ActualRefundMoney { get; set; }
 
         /// <summary>
         /// 添加时间

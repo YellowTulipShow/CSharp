@@ -59,7 +59,7 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 产品价格
         /// </summary>
-        public decimal ProductPrice { get; set; }
+        public double ProductPrice { get; set; }
 
         /// <summary>
         /// 产品购买数量
@@ -69,12 +69,12 @@ namespace YTS.Shop.Models
         /// <summary>
         /// 产品消费金额
         /// </summary>
-        public decimal ProductExpensesMoney { get; set; }
+        public double ProductExpensesMoney { get; set; }
 
         /// <summary>
         /// 产品实际购买支付金额
         /// </summary>
-        public decimal ProductPayMoney { get; set; }
+        public double ProductPayMoney { get; set; }
 
         /// <summary>
         /// 添加时间

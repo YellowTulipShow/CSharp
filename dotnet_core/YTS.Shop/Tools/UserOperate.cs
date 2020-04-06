@@ -31,7 +31,7 @@ namespace YTS.Shop.Tools
             model.UserRechargeSetID = userRechargeSet?.ID;
             db.UserRechargeRecord.Add(model);
 
-            decimal RechargeMoney = model.RechargeMoney + (model.GiveAwayMoney ?? 0);
+            double RechargeMoney = model.RechargeMoney + (model.GiveAwayMoney ?? 0);
 
             // 用户金额修改
             user.Money += RechargeMoney;
@@ -65,7 +65,7 @@ namespace YTS.Shop.Tools
             model.SumRechargeMoney = model.SumRechargeMoney ?? 0;
             db.UserRefundMoneyRecord.Add(model);
 
-            decimal RefundMoney = model.ActualRefundMoney * -1;
+            double RefundMoney = model.ActualRefundMoney * -1;
 
             // 用户金额修改
             user.Money += RefundMoney;

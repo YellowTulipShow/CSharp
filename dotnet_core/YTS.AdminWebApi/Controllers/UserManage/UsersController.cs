@@ -32,7 +32,7 @@ namespace YTS.AdminWebApi.Controllers
             string QQ = null,
             string Address = null,
             int? MoneyWhere = null,
-            decimal? Money = null,
+            double? Money = null,
             DateTime? AddTimeStart = null,
             DateTime? AddTimeEnd = null,
             int? AddManagerID = null)
@@ -117,7 +117,7 @@ namespace YTS.AdminWebApi.Controllers
             string QQ = null,
             string Address = null,
             int? MoneyWhere = null,
-            decimal? Money = null,
+            double? Money = null,
             DateTime? AddTimeStart = null,
             DateTime? AddTimeEnd = null,
             int? AddManagerID = null)
