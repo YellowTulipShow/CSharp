@@ -29,7 +29,17 @@
             'dialog': '#dialog',
             'dialog_form': '#dialog_form',
             'tableName': '用户消费记录',
-            'api_edit': Api.UrlFormat('/api/UserExpensesRecord/AddUserExpensesRecord'),
+            'api_edit': Api.UrlFormat('/api/UserExpensesRecord/AddUserExpensesRecords'),
+            'save_data_method': function() {
+                var models = [];
+                var froms = $('#IDDialogFormTemplate form');
+                for (var i = 0; i < froms.length; i++) {
+                    var data = $(froms[i]).serializeJSON();
+                    models.push(data);
+                }
+                console.log('models:', models);
+                return models.length > 0 ? models : null;
+            },
         });
     </script>
 </head>
@@ -175,7 +185,7 @@
                 </table>
 
                 <div id="dialog" class="easyui-dialog" href="UserExpensesRecordEdit.html" cache="false"
-                     buttons="#dialog-buttons" style="width: 450px;"
+                     buttons="#dialog-buttons" style="width: 95%; height: 95%;"
                      closed="true" modal="true" iconCls="icon-save"></div>
                 <div id="dialog-buttons">
                     <button type="button" class="easyui-linkbutton" iconCls="icon-ok"

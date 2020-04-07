@@ -78,3 +78,6 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [设置 ASP.NET Core Web API 中响应数据的格式](https://docs.microsoft.com/zh-cn/aspnet/core/web-api/advanced/formatting?view=aspnetcore-3.1)
 * [.net core3.1 web api中使用newtonsoft替换掉默认的json序列化组件](https://www.cnblogs.com/shapman/p/12232640.html)
 * [NuGet.org 无法访问的解决方法](https://blog.csdn.net/weixin_34242819/article/details/85688216)
+* [windows服务器：编写bat脚本,创建定时任务](https://blog.csdn.net/eyeofeagle/article/details/88992435)
+* [windows建立定时任务执行bat脚本](https://blog.csdn.net/slibra_L/article/details/89227736)
+* [命令创建定时任务及bat脚本](https://blog.csdn.net/qq_31176861/article/details/90901336)

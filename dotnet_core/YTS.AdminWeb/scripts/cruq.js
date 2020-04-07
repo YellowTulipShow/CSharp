@@ -6,6 +6,7 @@
         this.tableName = Object.get(args, 'tableName', '数据表');
         this.dialog = Object.get(args, 'dialog', null);
         this.dialog_form = Object.get(args, 'dialog_form', null);
+        this.save_data_method = Object.get(args, 'save_data_method', null);
     }
     window.BasicCRUQ.prototype = {
         GetSearchData: function() {
@@ -115,7 +116,12 @@
                 });
                 return false;
             }
-            var model = $(self.dialog_form).serializeJSON();
+            var model = null;
+            if (self.save_data_method) {
+                model = self.save_data_method();
+            } else {
+                model = $(self.dialog_form).serializeJSON();
+            }
             Api.CallPost({
                 'url': editApiAddress,
                 'data': {
