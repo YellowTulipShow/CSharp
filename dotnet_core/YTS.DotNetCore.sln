@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.AdminWebApi", "YTS.Admi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.Tools", "YTS.Tools\YTS.Tools.csproj", "{6E37999A-8018-4FEC-8FBB-B237CBD54377}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTS.AdminWeb", "YTS.AdminWeb\YTS.AdminWeb.csproj", "{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,5 +84,17 @@ Global
 		{6E37999A-8018-4FEC-8FBB-B237CBD54377}.Release|x64.Build.0 = Release|Any CPU
 		{6E37999A-8018-4FEC-8FBB-B237CBD54377}.Release|x86.ActiveCfg = Release|Any CPU
 		{6E37999A-8018-4FEC-8FBB-B237CBD54377}.Release|x86.Build.0 = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|x64.Build.0 = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Debug|x86.Build.0 = Debug|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|x64.Build.0 = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8EEEF37-B6C1-4475-982A-5BC92F13AD2A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -77,3 +77,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [ASP.NET Core 中的捆绑和缩小静态资产](https://docs.microsoft.com/zh-cn/aspnet/core/client-side/bundling-and-minification?view=aspnetcore-3.1&tabs=netcore-cli)
 * [设置 ASP.NET Core Web API 中响应数据的格式](https://docs.microsoft.com/zh-cn/aspnet/core/web-api/advanced/formatting?view=aspnetcore-3.1)
 * [.net core3.1 web api中使用newtonsoft替换掉默认的json序列化组件](https://www.cnblogs.com/shapman/p/12232640.html)
+* [NuGet.org 无法访问的解决方法](https://blog.csdn.net/weixin_34242819/article/details/85688216)
