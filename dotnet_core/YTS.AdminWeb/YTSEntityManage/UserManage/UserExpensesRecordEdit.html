@@ -138,81 +138,69 @@
                 "ProductBuyNumber": 0,
                 "ProductExpensesMoney": 0,
                 "ProductPayMoney": 0,
-                "AddTime": null,
-                "AddManagerID": null,
+                "AddTime": "",
+                "AddManagerID": "",
                 "Remark": ""
             });
         }
     </script>
     <style type="text/css">
-        #IDDialogFormContent {}
-        #IDDialogFormContent .panel.panel-htop {
-            float: left;
-            width: auto !important;
-        }
-        #IDDialogFormContent .panel.panel-htop .easyui-panel.panel-body {
-            margin: 0 10px !important;
-            padding: 10px 0;
-            width: 450px !important;
-        }
+        .easyui-panel { border: 0; overflow: hidden; }
+        .easyui-form { width: 400px; padding: 20px; border: 1px solid #c5c5c5; border-radius: 3px; overflow: hidden; display: block; float: left; margin: 0 20px 20px 0; }
+        .form_item label { width: 150px; }
     </style>
 </div>
-<div id="IDDialogFormContent" class="easyui-panel" data-options="border: false, fit:true," style="width: 100%; height: auto;"></div>
-    <script id="IDDialogFormTemplate" type="text/html">
-        <div class="easyui-panel"
-            data-options="border: false, fit:true,"
-            style="width: 450px; min-height: 400px; margin: 10px;">
-            <form class="easyui-form form_label_130" data-options="novalidate:true">
-                <input type="hidden" name="ID" value="[ID]" />
-                <input type="hidden" name="BatchNo" value="[BatchNo]" />
-                <input type="hidden" name="ExpensesOrderNo" value="[ExpensesOrderNo]" />
-                <input type="hidden" name="AddTime" value="[AddTime]" />
-                <input type="hidden" name="AddManagerID" value="[AddManagerID]" />
-                <input type="hidden" name="UserName" value="[UserName]" />
-                <input type="hidden" name="UserID" value="[UserID]" />
-                <input type="hidden" name="ProductID" value="[ProductID]" />
+<div id="IDDialogFormContent" class="easyui-panel" data-options="border: false, fit:true,"></div>
+<script id="IDDialogFormTemplate" type="text/html">
+    <form class="easyui-form form_label_130" data-options="novalidate:true">
+        <input type="hidden" name="ID" value="[ID]" />
+        <input type="hidden" name="BatchNo" value="[BatchNo]" />
+        <input type="hidden" name="ExpensesOrderNo" value="[ExpensesOrderNo]" />
+        <input type="hidden" name="AddTime" value="[AddTime]" />
+        <input type="hidden" name="AddManagerID" value="[AddManagerID]" />
+        <input type="hidden" name="UserName" value="[UserName]" />
+        <input type="hidden" name="UserID" value="[UserID]" />
+        <input type="hidden" name="ProductID" value="[ProductID]" />
 
-                <div class="form_item">
-                    <label>用户名称:</label>
-                    <input id="dialog_UserName_[CreateProductFormIndex]" name="UserName" type="text" class="easyui-textbox" value="[UserName]" />
-                </div>
-                <div class="form_item">
-                    <label>产品名称:</label>
-                    <input id="dialog_ProductName_[CreateProductFormIndex]" name="ProductName" type="text" class="easyui-textbox" value="[ProductName]" />
-                </div>
-                <div class="form_item">
-                    <label>产品价格：</label>
-                    <input id="dialog_ProductPrice_[CreateProductFormIndex]" type="text" name="ProductPrice" class="easyui-numberbox" data-options="min:0,precision:2" value="[ProductPrice]" />
-                </div>
-                <div class="form_item">
-                    <label>产品购买数量：</label>
-                    <input id="dialog_ProductBuyNumber_[CreateProductFormIndex]" type="text" name="ProductBuyNumber" class="easyui-numberbox"
-                        data-options="
-                        min:0,
-                        precision:0,
-                        onChange: function(newValue, oldValue) {
-                            var number = parseInt(newValue);
-                            var price = $('#dialog_ProductPrice_[CreateProductFormIndex]').numberbox('getValue');
-                            price = parseFloat(price);
-                            var money = price * number;
-                            $('#dialog_ProductExpensesMoney_[CreateProductFormIndex]').numberbox('setValue', money);
-                            $('#dialog_ProductPayMoney_[CreateProductFormIndex]').numberbox('setValue', money);
-                        },
-                        " value="0" />
-                </div>
-                <div class="form_item">
-                    <label>产品消费金额：</label>
-                    <input id="dialog_ProductExpensesMoney_[CreateProductFormIndex]" type="text" name="ProductExpensesMoney" class="easyui-numberbox" data-options="min:0,precision:2" value="0" />
-                </div>
-                <div class="form_item">
-                    <label>实际购买支付金额：</label>
-                    <input id="dialog_ProductPayMoney_[CreateProductFormIndex]" type="text" name="ProductPayMoney" class="easyui-numberbox" data-options="min:0,precision:2" value="0" />
-                </div>
-                <div class="form_item">
-                    <label>备注:</label>
-                    <input id="dialog_Remark" name="Remark" type="text" class="easyui-textbox" />
-                </div>
-            </form>
+        <div class="form_item">
+            <label>用户名称:</label>
+            <input id="dialog_UserName_[CreateProductFormIndex]" name="UserName" type="text" class="easyui-textbox" value="[UserName]" />
         </div>
-    </script>
-</div>
+        <div class="form_item">
+            <label>产品名称:</label>
+            <input id="dialog_ProductName_[CreateProductFormIndex]" name="ProductName" type="text" class="easyui-textbox" value="[ProductName]" />
+        </div>
+        <div class="form_item">
+            <label>产品价格：</label>
+            <input id="dialog_ProductPrice_[CreateProductFormIndex]" type="text" name="ProductPrice" class="easyui-numberbox" data-options="min:0,precision:2" value="[ProductPrice]" />
+        </div>
+        <div class="form_item">
+            <label>产品购买数量：</label>
+            <input id="dialog_ProductBuyNumber_[CreateProductFormIndex]" type="text" name="ProductBuyNumber" class="easyui-numberbox"
+                data-options="
+                min:0,
+                precision:0,
+                onChange: function(newValue, oldValue) {
+                    var number = parseInt(newValue);
+                    var price = $('#dialog_ProductPrice_[CreateProductFormIndex]').numberbox('getValue');
+                    price = parseFloat(price);
+                    var money = price * number;
+                    $('#dialog_ProductExpensesMoney_[CreateProductFormIndex]').numberbox('setValue', money);
+                    $('#dialog_ProductPayMoney_[CreateProductFormIndex]').numberbox('setValue', money);
+                },
+                " value="0" />
+        </div>
+        <div class="form_item">
+            <label>产品消费金额：</label>
+            <input id="dialog_ProductExpensesMoney_[CreateProductFormIndex]" type="text" name="ProductExpensesMoney" class="easyui-numberbox" data-options="min:0,precision:2" value="0" />
+        </div>
+        <div class="form_item">
+            <label>实际购买支付金额：</label>
+            <input id="dialog_ProductPayMoney_[CreateProductFormIndex]" type="text" name="ProductPayMoney" class="easyui-numberbox" data-options="min:0,precision:2" value="0" />
+        </div>
+        <div class="form_item">
+            <label>备注:</label>
+            <input id="dialog_Remark" name="Remark" type="text" class="easyui-textbox" />
+        </div>
+    </form>
+</script>

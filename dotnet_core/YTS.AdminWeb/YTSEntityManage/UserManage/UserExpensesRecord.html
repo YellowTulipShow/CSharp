@@ -32,7 +32,8 @@
             'api_edit': Api.UrlFormat('/api/UserExpensesRecord/AddUserExpensesRecords'),
             'save_data_method': function() {
                 var models = [];
-                var froms = $('#IDDialogFormTemplate form');
+                var froms = $('#IDDialogFormContent form');
+                console.log('froms:', froms);
                 for (var i = 0; i < froms.length; i++) {
                     var data = $(froms[i]).serializeJSON();
                     models.push(data);
