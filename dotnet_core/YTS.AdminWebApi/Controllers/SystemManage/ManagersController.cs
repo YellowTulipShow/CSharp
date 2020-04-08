@@ -160,7 +160,17 @@ namespace YTS.AdminWebApi.Controllers
             {
                 model.AddTime = DateTime.Now;
                 model.AddManagerID = GetManager(db).ID;
-                model.Password = ManageAuthentication.EncryptionPassword(model.Password);
+                try
+                {
+                    model.Password = ManageAuthentication.EncryptionPassword(model.Password);
+                }
+                catch (Exception ex)
+                {
+                    result.Code = ResultCode.BadRequest;
+                    result.Message = ex.Message;
+                    return result;
+                }
+
                 db.Managers.Add(model);
             }
             else

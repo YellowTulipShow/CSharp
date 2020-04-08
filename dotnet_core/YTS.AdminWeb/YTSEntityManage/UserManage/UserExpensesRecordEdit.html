@@ -1,6 +1,56 @@
 ﻿<!-- <div class="easyui-form form_label_120" data-options="novalidate:true"> -->
 <div class="easyui-panel winBody" data-options="border: false, novalidate:true">
     <div class="form_item">
+        <label for="dialog_ManagerID">管理员选择:</label>
+        <input id="dialog_ManagerID" type="text" class="easyui-combogrid"
+               toolbar="#toolbar_dialog_ManagerID"
+               data-options="
+                panelWidth:800,
+                panelHeight:500,
+                url:Api.UrlFormat('/api/Managers/GetManagersList'),
+                delay: 100,
+                editable:false,
+                mode:'remote',
+                pageSize:10,
+                pageList:[10,20,30,40,50],
+                pagination:true,
+                sortName:'ID',
+                sortOrder:'desc',
+                method:'get',
+                queryParams:{
+                    Phone: $('#toolbar_dialog_ManagerID_Phone').val(),
+                },
+                idField:'ID',
+                textField:'Phone',
+                columns:[[
+                    {field:'ID',title:'ID',hidden:true,width:50,sortable:true},
+                    {field:'Account',title:'账号',width:150},
+                    {field:'TrueName',title:'真实姓名',width:150},
+                    {field:'NickName',title:'昵称',width:100},
+                    {field:'Phone',title:'电话',width:100},
+                ]],
+                onClickRow:function(index,row){
+                    if (row) {
+                        var ManagerName = row.Name ? row.Name : row.NickName;
+                        $('#dialog_ManagerName').textbox('setValue', ManagerName);
+                    }
+                }" />
+        <div id="toolbar_dialog_ManagerID">
+            <label>管理员电话：</label>
+            <input id="toolbar_dialog_ManagerID_Phone" class="easyui-textbox" style="width: 150px;" type="text">
+            <button type="button" class="easyui-linkbutton" style="height: 28px;" iconcls="icon-zoom"
+                    onclick="$('#dialog_ManagerID').combogrid('grid').datagrid('load',{
+                        Phone: $('#toolbar_dialog_ManagerID_Phone').val(),
+                    })">
+                搜索
+            </button>
+            <button type="button" class="easyui-linkbutton" style="height: 28px; float: right;" iconcls="icon-remove"
+                    onclick="$('#dialog_ManagerID').combogrid('setValue', '');$('#dialog_ManagerID').combogrid('hidePanel')">
+                清除
+            </button>
+        </div>
+    </div>
+    <div class="form_item">
         <label for="dialog_UserID">用户选择:</label>
         <input id="dialog_UserID" type="text" class="easyui-combogrid"
                toolbar="#toolbar_dialog_UserID"
@@ -113,18 +163,19 @@
             CreateProductFormIndex = 1;
             var content = $('#IDDialogFormContent');
             content.html('');
+            var managerRow = $('#dialog_ManagerID').combogrid('grid').datagrid('getSelected');
             var userRow = $('#dialog_UserID').combogrid('grid').datagrid('getSelected');
             var productRows = $('#dialog_ProductID').combogrid('grid').datagrid('getSelections');
             for (var i = 0; i < productRows.length; i++) {
                 var productRow = productRows[i]
                 console.log('productRow:', productRow);
-                var html = CreateProductForm(userRow, productRow);
+                var html = CreateProductForm(managerRow, userRow, productRow);
                 CreateProductFormIndex += 1;
                 content.append(html);
                 $.parser.parse("#IDDialogFormContent");
             }
         }
-        function CreateProductForm(userRow, productRow) {
+        function CreateProductForm(managerRow, userRow, productRow) {
             return window.PageInfo.RenderingHTML('#IDDialogFormTemplate', {
                 "CreateProductFormIndex": CreateProductFormIndex,
                 "ID": 0,
@@ -139,7 +190,7 @@
                 "ProductExpensesMoney": 0,
                 "ProductPayMoney": 0,
                 "AddTime": "",
-                "AddManagerID": "",
+                "AddManagerID": managerRow.ID,
                 "Remark": ""
             });
         }

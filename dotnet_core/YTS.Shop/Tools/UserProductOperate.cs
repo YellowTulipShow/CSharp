@@ -25,7 +25,7 @@ namespace YTS.Shop.Tools
         {
             model.BatchNo = BatchNo;
             model.ExpensesOrderNo = OrderForm.CreateOrderNumber();
-            model.AddManagerID = manager.ID;
+            model.AddManagerID = model.AddManagerID ?? manager.ID;
             model.AddTime = DateTime.Now;
             model.UserID = user.ID;
             model.UserName = user.Name ?? user.NickName;
