@@ -81,3 +81,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [windows服务器：编写bat脚本,创建定时任务](https://blog.csdn.net/eyeofeagle/article/details/88992435)
 * [windows建立定时任务执行bat脚本](https://blog.csdn.net/slibra_L/article/details/89227736)
 * [命令创建定时任务及bat脚本](https://blog.csdn.net/qq_31176861/article/details/90901336)
+* [windows 10添加定时任务](https://www.cnblogs.com/wensiyang0916/p/5773828.html)
