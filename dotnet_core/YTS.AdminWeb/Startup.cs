@@ -27,6 +27,7 @@ namespace YTS.AdminWeb
             }
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
