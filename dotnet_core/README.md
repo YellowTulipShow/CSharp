@@ -95,3 +95,7 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [深入理解net core中的依赖注入、Singleton、Scoped、Transient（三）](https://www.cnblogs.com/gdsblog/p/8465113.html)
 * [深入理解net core中的依赖注入、Singleton、Scoped、Transient（四）](https://www.cnblogs.com/gdsblog/p/8465401.html)
 * [.NET Core ASP.NET Core Basic 1-2 控制反转与依赖注入](https://www.cnblogs.com/WarrenRyan/p/11444398.html)
+* [.NET Core容器化@Docker](https://www.jianshu.com/p/23465dc86d3e)
+* [asp.net core webapi 使用ef 对mysql进行增删改查，并生成Docker镜像构建容器运行](https://blog.csdn.net/weixin_30908649/article/details/97854371)
+* [Docker使用docker-compose.yml构建Asp.Net Core和Mysql镜像并与Mysql数据库通信](https://my.oschina.net/u/4357854/blog/3566361)
+* [ASP.NET Core 实战：使用 Docker 容器化部署 ASP.NET Core + MySQL + Nginx](https://www.cnblogs.com/danvic712/p/10566750.html)
