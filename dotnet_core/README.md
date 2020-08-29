@@ -99,3 +99,4 @@ dotnet ef migrations remove --startup-project ../YTS.AdminWebApi
 * [asp.net core webapi 使用ef 对mysql进行增删改查，并生成Docker镜像构建容器运行](https://blog.csdn.net/weixin_30908649/article/details/97854371)
 * [Docker使用docker-compose.yml构建Asp.Net Core和Mysql镜像并与Mysql数据库通信](https://my.oschina.net/u/4357854/blog/3566361)
 * [ASP.NET Core 实战：使用 Docker 容器化部署 ASP.NET Core + MySQL + Nginx](https://www.cnblogs.com/danvic712/p/10566750.html)
+* [配置 DbContext](https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/configuring-dbcontext)

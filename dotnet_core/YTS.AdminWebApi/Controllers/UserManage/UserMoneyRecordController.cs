@@ -132,11 +132,13 @@ namespace YTS.AdminWebApi.Controllers
                     m.OperateMoney,
                     m.AddTime,
                     m.AddManagerID,
+                    m.Remark,
+
+                    OperateTypeName = db.SystemSetType.QueryEnumValue<KeysType.UserMoneyRecordOperateType>(m.OperateType),
                     AddManagerName = db.Managers
                         .Where(a => a.ID == m.AddManagerID)
                         .Select(a => a.TrueName ?? a.NickName)
                         .FirstOrDefault(),
-                    m.Remark
                 })
                 .ToList();
 

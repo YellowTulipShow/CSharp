@@ -30,25 +30,21 @@ namespace YTS.Shop.Tools
         /// <summary>
         /// 枚举类型转为字典设置
         /// </summary>
-        /// <typeparam name="T">枚举类型</typeparam>
+        /// <typeparam name="E">枚举类型</typeparam>
         /// <returns>字典设置</returns>
-        public void UpdateEnumSetType<T>() where T : Enum
+        public void UpdateEnumSetType<E>() where E : Enum
         {
-            Type enumType = typeof(T);
-            EnumInfo[] enumInfos = EnumInfo.AnalysisList<T>();
-            var explain = ExplainAttribute.Extract(enumType);
-            string key = enumType.FullName.Replace('+', '.');
-
+            var key = SystemSetTypeStaticFunction.GetKey<E>();
             var model = new _menu()
             {
-                Explain = explain?.Text,
+                Explain = SystemSetTypeStaticFunction.GetExplain<E>()?.Text,
                 Key = key,
                 Value = null,
-                children = enumInfos
-                    .Select(m =>new _menu()
+                children = SystemSetTypeStaticFunction.GetEnumInfos<E>()
+                    .Select(m => new _menu()
                     {
                         Explain = m.Explain,
-                        Key = string.Join('.', new string[] { key, m.Name }),
+                        Key = SystemSetTypeStaticFunction.GetBelowKey(key, m.Name),
                         Value = m.IntValue.ToString(),
                     })
                     .ToList()

@@ -49,6 +49,7 @@ namespace YTS.WebApi
         {
             services.AddDbContext<YTSEntityContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString(ApiConfig.DataBase_YTSEntity)));
+
         }
     }
 }

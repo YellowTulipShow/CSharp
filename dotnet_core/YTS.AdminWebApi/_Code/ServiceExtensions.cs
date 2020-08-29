@@ -95,10 +95,6 @@ namespace YTS.WebApi
         {
             // 使用跨域策略
             app.UseCors(ApiConfig.CorsName);
-            app.UseCors(builder => builder
-                .WithOrigins("*")
-                .AllowAnyHeader()
-                .AllowAnyMethod());
         }
 
         /// <summary>
